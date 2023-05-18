@@ -1,0 +1,332 @@
+@import "./variables";
+@import "./colors";
+
+// html,
+// body,
+// div,
+// span,
+// applet,
+// object,
+// iframe,
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// p,
+// blockquote,
+// pre,
+// a,
+// abbr,
+// acronym,
+// address,
+// big,
+// cite,
+// code,
+// del,
+// dfn,
+// em,
+// img,
+// ins,
+// kbd,
+// q,
+// s,
+// samp,
+// small,
+// strike,
+// strong,
+// sub,
+// sup,
+// tt,
+// var,
+// b,
+// u,
+// i,
+// center,
+// dl,
+// dt,
+// dd,
+// ol,
+// ul,
+// li,
+// fieldset,
+// form,
+// label,
+// legend,
+// table,
+// caption,
+// tbody,
+// tfoot,
+// thead,
+// tr,
+// th,
+// td,
+// article,
+// aside,
+// canvas,
+// details,
+// embed,
+// figure,
+// figcaption,
+// footer,
+// header,
+// hgroup,
+// menu,
+// nav,
+// output,
+// ruby,
+// section,
+// summary,
+// time,
+// mark,
+// audio,
+// video {
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   font-size: 100%;
+//   font: inherit;
+//   vertical-align: baseline;
+// }
+// /* HTML5 display-role reset for older browsers */
+// article,
+// aside,
+// details,
+// figcaption,
+// figure,
+// footer,
+// header,
+// hgroup,
+// menu,
+// nav,
+// section {
+//   display: block;
+// }
+// body {
+//   line-height: 1;
+// }
+// ol,
+// ul {
+//   list-style: none;
+// }
+// blockquote,
+// q {
+//   quotes: none;
+// }
+// blockquote:before,
+// blockquote:after,
+// q:before,
+// q:after {
+//   content: "";
+//   content: none;
+// }
+// table {
+//   border-collapse: collapse;
+//   border-spacing: 0;
+// }
+
+h1 {
+  display: block;
+  font-size: $fn-sz-h1;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: $fn-weight-bold;
+}
+
+h2 {
+  display: block;
+  font-size: $fn-sz-h2;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: $fn-weight-bold;
+}
+
+h3 {
+  display: block;
+  font-size: $fn-sz-h3;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: $fn-weight-bold;
+}
+
+h4 {
+  display: block;
+  font-size: $fn-sz-h4;
+  margin-top: 1.33em;
+  margin-bottom: 1.33em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: $fn-weight-bold;
+}
+
+h5 {
+  display: block;
+  font-size: $fn-sz-h4;
+  margin-top: 1.33em;
+  margin-bottom: 1.33em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight:normal !important;
+  // font-weight: $fn-weight-bold;
+}
+
+// input {
+//   box-sizing: border-box;
+//   margin: 0;
+//   font-variant: tabular-nums;
+//   list-style: none;
+//   font-feature-settings: "tnum";
+//   position: relative;
+//   display: inline-block;
+//   // width: 20%;
+//   min-width: 0;
+//   padding: $two 3 * $two;
+//   color: rgba(0, 0, 0, 0.85);
+//   font-size: $fn-sz-base;
+//   line-height: 1.5715;
+//   background-color: $clrWhite;
+//   background-image: none;
+//   border: 1px solid $clrGray-900;
+//   border-radius: 2px;
+//   transition: all 0.3s;
+
+//   &:focus {
+//     border: 1px solid $clrD-light;
+//     outline: 0;
+//     transition: all 0.3s;
+//   }
+// }
+
+.btn-s {
+  background-color: $clrA;
+  border: none;
+  color: $clrWhite;
+  padding: $two 3 * $two;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: $fn-sz-base;
+  cursor: pointer;
+  float: left;
+  transition: all 0.3s;
+  &:hover {
+    background-color: $clrA-light;
+    transition: all 0.3s;
+  }
+}
+
+.btn-d {
+  background-color: red;
+  border: none;
+  color: $clrWhite;
+  padding: $two 3 * $two;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: $fn-sz-base;
+  cursor: pointer;
+  float: left;
+  transition: all 0.3s;
+  &:hover {
+    background-color: rgb(252, 63, 63);
+    transition: all 0.3s;
+  }
+}
+
+.btn-c {
+  background-color: $clrGray-300;
+  border: none;
+  color: $clrGray-800;
+  padding: $two 3 * $two;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: $fn-sz-base;
+  cursor: pointer;
+  float: left;
+  transition: all 0.3s;
+  &:hover {
+    background-color: $clrGray-200;
+    transition: all 0.3s;
+  }
+}
+
+// button:disabled {
+//   pointer-events: none;
+// }
+
+.App {
+  text-align: center;
+  height: 100vh;
+  display: inline;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.text-left {
+  text-align: left;
+}
+
+
+.card-header {
+  text-align: left;
+  background-color: $clrC !important;
+  color: #ffffff !important;
+  width: 100% !important;
+}
+
+.Card-outer {
+  box-shadow: none;
+}
+
+.custom-button {
+  background-color: #F7901D !important;
+  border-color: #F7901D !important;
+  color: #ffffff !important;
+}
+
+/* Apply a border radius of 1rem to all Card components */
+.card {
+  border-radius: 1rem !important;
+}
+
+/* Apply a shadow effect to all Card components */
+.card {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.10);
+}
+
+/* Increase the intensity of the shadow effect on hover */
+.card:hover {
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.icon:hover {
+  color: $clrD
+}
+

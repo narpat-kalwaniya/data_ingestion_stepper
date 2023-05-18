@@ -1,0 +1,25 @@
+.inline-element {
+  display: inline;
+}
+
+.TargetLoadDetails .textbox1 {
+  width: 530px;
+}
+
+.TargetLoadDetails .textbox2 {
+  width: 200px;
+}
+/* .TargetLoadDetails .textbox {
+  margin-left: 400px;
+  width: 100px;
+  display: inline;
+} */
+
+.TargetLoadDetails .textbox-outer {
+  margin-left: 175px;
+}
+
+.TargetLoadDetails .toggle-button {
+  height: auto;
+  margin-left: 55px;
+}
