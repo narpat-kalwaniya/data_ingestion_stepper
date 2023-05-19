@@ -8,23 +8,33 @@ import {
   Col,
   Badge,
   ListGroup,
+  FormGroup,
 } from "react-bootstrap";
 import "../App.css";
 
 const DefineSourceExtractCriteria = () => {
-  const [selectedOption, setSelectedOption] = useState("option1");
+  const [selectedOption, setSelectedOption] = useState("incremental");
   const [selectedValues, setSelectedValues] = useState([]);
 
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
   };
 
-  const handleDropdownChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions).map(
-      (option) => option.value
-    );
-    setSelectedValues(selectedOptions);
+  const handleSelect = (e) => {
+    const selectedOption = e.target.value;
+    if (!selectedValues.includes(selectedOption)) {
+      setSelectedValues((prevSelectedValues) => [...prevSelectedValues, selectedOption]);
+    }
   };
+
+  const handleBadgeClose = (value) => {
+    setSelectedValues((prevSelectedValues) => prevSelectedValues.filter((v) => v !== value));
+  };
+
+  const isIncrementalSelected = selectedOption === "incremental";
+
+  console.log("selected values",selectedValues)
+
   return (
     <div className="App">
       <Container className="h-100">
@@ -69,7 +79,7 @@ const DefineSourceExtractCriteria = () => {
                   />
                 </Col>
               </Form.Group>
-              <Form.Group as={Row}>
+              {/* <Form.Group as={Row}>
                 <Form.Label column sm={2}>
                   Selected Option
                 </Form.Label>
@@ -81,33 +91,42 @@ const DefineSourceExtractCriteria = () => {
                     className="mb-3"
                   />
                 </Col>
-              </Form.Group>
+              </Form.Group> */}
 
-              <Form.Group as={Row} controlId="dropdown">
-                <Form.Label column sm={2}>
-                  Incremental column
-                </Form.Label>
-                <Col sm={10}>
-                  <Form.Select
-                    multiple
-                    value={selectedValues}
-                    onChange={handleDropdownChange}
-                    className="mb-3"
-                  >
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                    <option value="option4">Option 4</option>
-                  </Form.Select>
-                  <ListGroup>
-                    {selectedValues.map((value) => (
-                      <ListGroup.Item key={value} className="mb-3">
-                        <Badge bg="secondary">{value}</Badge>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                </Col>
-              </Form.Group>
+              <FormGroup>
+              <Form.Label>Incremental by</Form.Label>
+                      <Form.Select aria-label="" disabled={!isIncrementalSelected}>
+                        <option>{""}</option>
+                        <option>Date</option>
+                        <option>Sequence</option>
+                      </Form.Select>
+              </FormGroup>
+
+              <Form.Group>
+        <Form.Label> Select Incremental Columns</Form.Label>
+        <Form.Control as="select" multiple onChange={handleSelect} disabled={!isIncrementalSelected}>
+          <option value="FIRST_NAME">FIRST_NAME</option>
+          <option value="LAST_NAME">LAST_NAME</option>
+          <option value="PHONE1">PHONE1</option>
+          <option value="WEBSITE">WEBSITE</option>
+          <option value="EMAIL">EMAIL</option>
+        </Form.Control>
+      </Form.Group>
+      <div className="mt-2">
+        {selectedValues.map((value) => (
+          <Badge key={value} variant="primary" className="mr-1 mb-3" style={{ marginRight: '5px' }}>
+            {value}
+            <span
+              className="badge badge-secondary ml-1"
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleBadgeClose(value)}
+            >
+              X
+            </span>
+          </Badge>
+        ))}
+      </div>
+
               <Form.Group as={Row}>
                 {/* <Form.Label column sm={2}>
               Input Fields
@@ -122,8 +141,9 @@ const DefineSourceExtractCriteria = () => {
                         <Col sm={4}>
                           <Form.Control
                             type="text"
-                            placeholder="Input 1"
+                            placeholder=""
                             className="mb-3"
+                            disabled={!isIncrementalSelected}
                           />
                         </Col>
                       </Form.Group>
@@ -136,8 +156,9 @@ const DefineSourceExtractCriteria = () => {
                         <Col sm={4}>
                           <Form.Control
                             type="text"
-                            placeholder="Input 2"
+                            placeholder=""
                             className="mb-3"
+                            disabled={!isIncrementalSelected}
                           />
                         </Col>
                       </Form.Group>
@@ -152,8 +173,9 @@ const DefineSourceExtractCriteria = () => {
                         <Col sm={4}>
                           <Form.Control
                             type="text"
-                            placeholder="Input 3"
+                            placeholder=""
                             className="mb-3"
+                            disabled={!isIncrementalSelected}
                           />
                         </Col>
                       </Form.Group>
@@ -166,8 +188,9 @@ const DefineSourceExtractCriteria = () => {
                         <Col sm={4}>
                           <Form.Control
                             type="text"
-                            placeholder="Input 4"
+                            placeholder=""
                             className="mb-3"
+                            disabled={!isIncrementalSelected}
                           />
                         </Col>
                       </Form.Group>
@@ -182,8 +205,9 @@ const DefineSourceExtractCriteria = () => {
                 <Col sm={10}>
                   <Form.Control
                     type="text"
-                    placeholder="Input 1"
+                    placeholder=""
                     className="mb-3"
+                    disabled={!isIncrementalSelected}
                   />
                 </Col>
               </Form.Group>
@@ -194,8 +218,9 @@ const DefineSourceExtractCriteria = () => {
                 <Col sm={10}>
                   <Form.Control
                     type="text"
-                    placeholder="Input 1"
+                    placeholder=""
                     className="mb-3"
+                    disabled={isIncrementalSelected}
                   />
                 </Col>
               </Form.Group>
@@ -206,8 +231,9 @@ const DefineSourceExtractCriteria = () => {
                 <Col sm={10}>
                   <Form.Control
                     type="text"
-                    placeholder="Input 1"
+                    placeholder=""
                     className="mb-3"
+                    disabled={isIncrementalSelected}
                   />
                 </Col>
               </Form.Group>
