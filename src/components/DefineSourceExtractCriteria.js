@@ -136,7 +136,7 @@ const DefineSourceExtractCriteria = () => {
                     <Col sm={6}>
                       <Form.Group as={Row} controlId="input1">
                         <Form.Label column sm={6}>
-                          Incremental start_datetime
+                          Incremental Start Datetime
                         </Form.Label>
                         <Col sm={4}>
                           <Form.Control
@@ -151,7 +151,7 @@ const DefineSourceExtractCriteria = () => {
                     <Col sm={6}>
                       <Form.Group as={Row} controlId="input2">
                         <Form.Label column sm={6}>
-                          Incremental End_datetime
+                          Incremental End Datetime
                         </Form.Label>
                         <Col sm={4}>
                           <Form.Control
@@ -168,7 +168,7 @@ const DefineSourceExtractCriteria = () => {
                     <Col sm={6}>
                       <Form.Group as={Row} controlId="input3">
                         <Form.Label column sm={6}>
-                          Incremental start_seq
+                          Incremental Start Seq
                         </Form.Label>
                         <Col sm={4}>
                           <Form.Control
@@ -183,7 +183,7 @@ const DefineSourceExtractCriteria = () => {
                     <Col sm={6}>
                       <Form.Group as={Row} controlId="input4">
                         <Form.Label column sm={6}>
-                          Incremental end_seq
+                          Incremental End Seq
                         </Form.Label>
                         <Col sm={4}>
                           <Form.Control
