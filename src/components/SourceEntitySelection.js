@@ -62,11 +62,19 @@ import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 // import "./SourceEntitySelection.css";
 
 const SourceEntitySelection = () => {
-  const [sourceType, setSourceType] = useState("");
+  // const [sourceType, setSourceType] = useState("");
+
+  // const selectChangeHandler = (event) => {
+  //   const { value } = event.target;
+  //   setSourceType(value);
+  // };
+
+  const [dataSourceType, setDataSourceType] = useState("");
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
-    setSourceType(value);
+    setDataSourceType(value);
+    // console.log(value);
   };
 
   return (
@@ -77,7 +85,7 @@ const SourceEntitySelection = () => {
             <Form>
               <Row className="mb-3">
                 <Col sm={6}>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <Form.Label>Source Type</Form.Label>
                     <Form.Select
                       aria-label=""
@@ -89,6 +97,20 @@ const SourceEntitySelection = () => {
                       <option value={"Query"}>Query</option>
                       <option value={"Table"}>Table</option>
                     </Form.Select>
+                  </div> */}
+                  <div className="form-group">
+                    <Form.Label>Data Source Type</Form.Label>
+                    <Form.Select
+                      aria-label=""
+                      value={dataSourceType}
+                      onChange={selectChangeHandler}
+                      disabled={false}
+                    >
+                      <option>{""}</option>
+                      <option value={"RDBMS- Query"}>RDBMS- Query</option>
+                      <option value={"RDBMS- Table"}>RDBMS- Table</option>
+                      <option value={"Flat File"}>Flat File</option>
+                    </Form.Select>
                   </div>
                 </Col>
               </Row>
@@ -99,7 +121,7 @@ const SourceEntitySelection = () => {
                     as="textarea"
                     rows={3}
                     className="textbox1"
-                    disabled={sourceType !== "Query"}
+                    disabled={dataSourceType !== "RDBMS- Query"}
                   />
                 </div>
               </Row>
@@ -110,7 +132,7 @@ const SourceEntitySelection = () => {
                     <Form.Control
                       type="text"
                       className="textbox1"
-                      disabled={sourceType !== "Table"}
+                      disabled={dataSourceType !== "RDBMS- Table"}
                     />
                   </div>
                 </Col>
@@ -120,7 +142,7 @@ const SourceEntitySelection = () => {
                     <Form.Control
                       type="text"
                       className="textbox1"
-                      disabled={sourceType !== "Table"}
+                      disabled={dataSourceType !== "RDBMS- Table"}
                     />
                   </div>
                 </Col>
@@ -130,7 +152,7 @@ const SourceEntitySelection = () => {
                     <Form.Control
                       type="text"
                       className="textbox1"
-                      disabled={sourceType !== "Table"}
+                      disabled={dataSourceType !== "RDBMS- Table"}
                     />
                   </div>
                 </Col>
@@ -142,7 +164,7 @@ const SourceEntitySelection = () => {
                     <Form.Control
                       type="text"
                       className="textbox1"
-                      disabled={false}
+                      disabled={dataSourceType !== "Flat File"}
                     />
                   </div>
                 </Col>
@@ -152,7 +174,7 @@ const SourceEntitySelection = () => {
                     <Form.Control
                       type="text"
                       className="textbox1"
-                      disabled={false}
+                      disabled={dataSourceType !== "Flat File"}
                     />
                   </div>
                 </Col>

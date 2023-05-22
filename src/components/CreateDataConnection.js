@@ -19,7 +19,7 @@ const DefineDataConnection = () => {
           <div className="text-left">
             <Form>
               <Row>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <Form.Label>Data Source Type</Form.Label>
                   <Form.Select
                     aria-label=""
@@ -31,13 +31,13 @@ const DefineDataConnection = () => {
                     <option value={"RDBMS"}>RDBMS</option>
                     <option value={"FILE"}>FILE</option>
                   </Form.Select>
-                </div>
+                </div> */}
                 <div>
                   <Row>
                     <Form.Label>Data Source Connection</Form.Label>
 
                     <Col>
-                      <Form.Select disabled={dataSourceType !== "RDBMS"}>
+                      <Form.Select>
                         <option>{""}</option>
                         <option>dsc1</option>
                         <option>dsc2</option>
@@ -52,7 +52,7 @@ const DefineDataConnection = () => {
                   <Row>
                     <Form.Label>Data Target Connection</Form.Label>
                     <Col>
-                      <Form.Select disabled={dataSourceType !== "RDBMS"}>
+                      <Form.Select>
                         <option>{""}</option>
                         <option>dtc1</option>
                         <option>dtc2</option>
@@ -67,7 +67,7 @@ const DefineDataConnection = () => {
                   <Row>
                     <Form.Label>Application</Form.Label>
                     <Col>
-                      <Form.Select disabled={dataSourceType !== "RDBMS"}>
+                      <Form.Select>
                         <option>{""}</option>
                         <option>dtc1</option>
                         <option>dtc2</option>
