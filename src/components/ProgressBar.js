@@ -1,6 +1,6 @@
 import React from "react";
-// import "react-step-progress-bar/styles.css";
-// import { ProgressBar, Step } from "react-step-progress-bar";
+import "react-step-progress-bar/styles.css";
+import { ProgressBar, Step } from "react-step-progress-bar";
 import "./ProgressBar.css";
 import { Steps } from "rsuite";
 
@@ -10,50 +10,73 @@ const styles = {
   verticalAlign: "top",
 };
 
-export const ProgressBar = (props) => {
+export const Progressbar = (props) => {
   return (
-    //     <ProgressBar
-    //         percent={((props.step - 1) * 100) / 2}
-    //         filledBackground="#F7901D"
-    //       >
-    //         <Step transition="scale">
-    //           {({ accomplished, index }) => (
-    //             <div
-    //               className={`step ${accomplished ? "completed" : null}`}
-    //             >
-    //               Section 1
-    //             </div>
-    //           )}
-    //         </Step>
-    //         <Step transition="scale">
-    //           {({ accomplished, index }) => (
-    //             <div
-    //               className={`step ${accomplished ? "completed" : null}`}
-    //             >
-    //               Section 2
-    //             </div>
-    //           )}
-    //         </Step>
-    //         <Step transition="scale">
-    //           {({ accomplished, index }) => (
-    //             <div
-    //               className={`step ${accomplished ? "completed" : null}`}
-    //             >
-    //               Section 3
-    //             </div>
-    //           )}
-    //         </Step>
-    //       </ProgressBar>
+    <ProgressBar
+      percent={((props.step - 1) * 100) / 8}
+      filledBackground="#F7901D"
+    >
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>
+            1</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>2</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>3</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>4</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>5</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>6</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>7</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>8</div>
+        )}
+      </Step>
+      <Step transition="scale">
+        {({ accomplished, index }) => (
+          <div className={`step ${accomplished ? "completed" : null}`}>9</div>
+        )}
+      </Step>
+    </ProgressBar>
+  );
 
-    <>
-      {/* <Steps current={1} vertical style={styles}>
+  // <>
+  {
+    /* <Steps current={1} vertical style={styles}>
       <Steps.Item title="Finished" />
       <Steps.Item title="In progress" />
       <Steps.Item title="Waiting" />
       <Steps.Item title="Waiting" />
-    </Steps> */}
+    </Steps> */
+  }
 
-      <Steps current={props.step - 1} vertical style={styles}>
+  {
+    /* <Steps current={props.step - 1} vertical style={styles}>
         <Steps.Item title="Create Data Connection" />
         <Steps.Item title="Source Entity Selection" />
         <Steps.Item title="Target Schema" />
@@ -63,7 +86,7 @@ export const ProgressBar = (props) => {
         <Steps.Item title="Apply Masking " />
         <Steps.Item title="Gather Additional Metadata" />
         <Steps.Item title="Scheduling" />
-      </Steps>
-    </>
-  );
+      </Steps> */
+  }
+  // </>
 };

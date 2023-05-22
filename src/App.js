@@ -6,7 +6,7 @@ import { DataValidation } from "./components/DefineDataValidation";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
 import Header from "./components/Header";
-import { ProgressBar } from "./components/ProgressBar";
+import { Progressbar } from "./components/ProgressBar";
 
 function App() {
   const [step, setStep] = useState(1);
@@ -27,10 +27,14 @@ function App() {
     <div className="App">
       <Container className="h-100">
         <Card className="Card-outer">
-          <Row className="m-5">
-            <Col className="align-self-center col-3">
-              <ProgressBar step={step} />
+          <Row className="m-2">
+            <Col >
+              <Card className="Card-progressbar">
+                <Progressbar step={step} />
+              </Card>
             </Col>
+          </Row>
+          <Row className="m-2">
             <Col>
               <Card>
                 <Card.Header className="header">

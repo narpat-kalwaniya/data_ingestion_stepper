@@ -70,6 +70,24 @@ h5 {
   transition: all 0.3s;
 }
 
+.btn-s-1 {
+  background-color: #18749C;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  cursor: pointer;
+  float: left;
+  transition: all 0.3s;
+}
+.btn-s-1:hover {
+  background-color: rgb(53, 143, 182);
+  transition: all 0.3s;
+}
+
 .btn-d {
   background-color: red;
   border: none;
@@ -141,7 +159,18 @@ h5 {
 }
 
 .Card-outer {
-  box-shadow: none;
+  background-color: #eef5f9 !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.Card-progressbar {
+  padding: 3%;
+  box-shadow: none !important;
+}
+.Card-progressbar:hover {
+  box-shadow: none !important;
 }
 
 .custom-button {
@@ -153,16 +182,7 @@ h5 {
 /* Apply a border radius of 1rem to all Card components */
 .card {
   border-radius: 1rem !important;
-}
-
-/* Apply a shadow effect to all Card components */
-.card {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-}
-
-/* Increase the intensity of the shadow effect on hover */
-.card:hover {
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  margin-top: 0% !important;
 }
 
 .icon:hover {
