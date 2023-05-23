@@ -65,7 +65,7 @@ const GatherMetaData = () => {
                 </Row>
               </Row>
               <div style = {{float : 'right'}}>
-                <button className="btn-s-1" onClick={addHandler}>
+                <button className="btn-s-1" onClick={addHandler} type = "button">
                   Add
                 </button>
               </div>

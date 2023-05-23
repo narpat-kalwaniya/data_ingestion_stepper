@@ -12,7 +12,7 @@ const Stepper = (props) => {
   return (
     <div>
       {props.step === 1 ? (
-        <CreateDataConnection />
+        <CreateDataConnection step = {props.step}/>
       ) : props.step === 2 ? (
         <SourceEntitySelection />
       ) : props.step === 3 ? (
