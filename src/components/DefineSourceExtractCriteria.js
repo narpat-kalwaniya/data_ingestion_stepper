@@ -84,19 +84,6 @@ const DefineSourceExtractCriteria = () => {
                 />
               </Col>
             </Form.Group>
-            {/* <Form.Group as={Row}>
-                <Form.Label column sm={2}>
-                  Selected Option
-                </Form.Label>
-                <Col sm={10}>
-                  <Form.Control
-                    type="text"
-                    value={selectedOption}
-                    readOnly
-                    className="mb-3"
-                  />
-                </Col>
-              </Form.Group> */}
 
             <FormGroup>
               <Form.Label>Incremental by</Form.Label>
@@ -143,9 +130,7 @@ const DefineSourceExtractCriteria = () => {
             </div>
 
             <Form.Group as={Row}>
-              {/* <Form.Label column sm={2}>
-              Input Fields
-            </Form.Label> */}
+
               <Col sm={10}>
                 <Row>
                   <Col sm={6}>

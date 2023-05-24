@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import '../styles/main.css'
+import "../styles/main.css";
 
-const addHandler = () => {
-
-}
+const addHandler = () => {};
 
 const GatherMetaData = () => {
   return (
@@ -64,6 +62,7 @@ const GatherMetaData = () => {
                   </Col>
                 </Row>
               </Row>
+
               <div style = {{float : 'right'}}>
                 <button className="btn-s-1" onClick={addHandler} type = "button">
                   Add
