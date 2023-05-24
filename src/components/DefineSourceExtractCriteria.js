@@ -130,6 +130,7 @@ const DefineSourceExtractCriteria = () => {
             </div>
 
             <Form.Group as={Row}>
+
               <Col sm={10}>
                 <Row>
                   <Col sm={6}>

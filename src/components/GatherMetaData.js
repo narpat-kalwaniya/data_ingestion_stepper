@@ -62,8 +62,9 @@ const GatherMetaData = () => {
                   </Col>
                 </Row>
               </Row>
-              <div style={{ float: "right" }}>
-                <button className="btn-s-1" onClick={addHandler}>
+
+              <div style = {{float : 'right'}}>
+                <button className="btn-s-1" onClick={addHandler} type = "button">
                   Add
                 </button>
               </div>
