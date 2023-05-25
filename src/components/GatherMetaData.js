@@ -74,7 +74,8 @@ const GatherMetaData = () => {
                 {additionalFields.map((field) => (
                   <Row key={field.id}>
                     <Col sm={4}>
-                      <Form.Control plaintext
+                      <Form.Control
+                        plaintext
                         className="mb-3"
                         placeholder="Enter Title"
                       />
@@ -98,7 +99,7 @@ const GatherMetaData = () => {
                 ))}
               </Row>
               <div style={{ float: "right" }}>
-                <button type="button" className="btn-s-1" onClick={addHandler}>
+                <button className="btn-s-1" onClick={addHandler} type="button">
                   Add
                 </button>
               </div>

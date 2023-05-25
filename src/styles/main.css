@@ -53,7 +53,7 @@ h5 {
 }
 
 .btn-s {
-  background-color: #F7901D;
+  background-color: #f7901d;
   border: none;
   color: #fff;
   padding: 0.5rem 1.5rem;
@@ -71,7 +71,7 @@ h5 {
 }
 
 .btn-s-1 {
-  background-color: #18749C;
+  background-color: #18749c;
   border: none;
   color: #fff;
   padding: 0.5rem 1.5rem;
@@ -153,7 +153,7 @@ h5 {
 
 .card-header {
   text-align: left;
-  background-color: #49494A !important;
+  background-color: #49494a !important;
   color: #ffffff !important;
   width: 100% !important;
 }
@@ -174,8 +174,8 @@ h5 {
 }
 
 .custom-button {
-  background-color: #F7901D !important;
-  border-color: #F7901D !important;
+  background-color: #f7901d !important;
+  border-color: #f7901d !important;
   color: #ffffff !important;
 }
 
@@ -186,5 +186,9 @@ h5 {
 }
 
 .icon:hover {
-  color: #18749C;
-}/*# sourceMappingURL=main.css.map */
+  color: #18749c;
+} /*# sourceMappingURL=main.css.map */
+
+.line-separator {
+  border-top: 1px solid black;
+}
