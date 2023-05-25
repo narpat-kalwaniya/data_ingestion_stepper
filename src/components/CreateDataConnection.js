@@ -5,14 +5,28 @@ import * as Icon from "react-bootstrap-icons";
 // import "./Page1.css";
 
 const DefineDataConnection = (props) => {
-  const pageAnswers = useState({
-    page: props.step,
-    formdata: {
-      "Data Source Connection": "",
-      "Data Target Connection": "",
-      "Application": "",
-    },
+  
+
+  const [pageAnswers, setPageAnswers] = useState({
+    DataSourceConnection: "",
+    DataTargetConnection: "",
+    Application: "",
   });
+
+  const [pageData, setPageData] = useState({
+    page: props.step,
+    pageAnswers: "",
+  });
+
+  const changeHandler = (e) => {
+    setPageAnswers({ ...pageAnswers, [e.target.name]: e.target.value });
+    setPageData({ ...pageData, pageAnswers: pageAnswers });
+    
+  };
+
+  console.log(pageAnswers.DataSourceConnection);
+
+ 
 
   return (
     <div className="page1">
@@ -34,7 +48,10 @@ const DefineDataConnection = (props) => {
                     <Form.Label>Data Source Connection</Form.Label>
 
                     <Col>
-                      <Form.Select>
+                      <Form.Select
+                        name="DataSourceConnection"
+                        onChange={changeHandler}
+                      >
                         <option>{""}</option>
                         <option>dsc1</option>
                         <option>dsc2</option>
@@ -49,7 +66,11 @@ const DefineDataConnection = (props) => {
                   <Row>
                     <Form.Label>Data Target Connection</Form.Label>
                     <Col>
-                      <Form.Select>
+                      <Form.Select
+                        name="DataTargetConnection"
+                        onChange={changeHandler}
+                        value = {pageAnswers.DataTargetConnection}
+                      >
                         <option>{""}</option>
                         <option>dtc1</option>
                         <option>dtc2</option>
@@ -64,7 +85,7 @@ const DefineDataConnection = (props) => {
                   <Row>
                     <Form.Label>Application</Form.Label>
                     <Col>
-                      <Form.Select>
+                      <Form.Select name="Application" onChange={changeHandler}>
                         <option>{""}</option>
                         <option>dtc1</option>
                         <option>dtc2</option>

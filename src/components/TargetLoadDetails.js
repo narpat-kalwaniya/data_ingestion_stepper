@@ -12,7 +12,23 @@ import {
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = () => {
+const TargetLoadDetails = (props) => {
+    const [pageAnswers, setPageAnswers] = useState({
+      
+    });
+
+    const [pageData, setPageData] = useState({
+      page: props.step,
+      pageAnswers: "",
+    });
+
+    const changeHandler = (e) => {
+      setPageAnswers({ ...pageAnswers, [e.target.name]: e.target.value });
+      setPageData({ ...pageData, pageAnswers: pageAnswers });
+    };
+
+    console.log(pageAnswers)
+
   return (
     <div className="TargetLoadDetails">
       <Row>
@@ -27,9 +43,11 @@ const TargetLoadDetails = () => {
                     </Col>
                     <Col>
                       <Form.Control
+                        name="TargetEntityName"
                         type="text"
                         className="textbox1"
                         disabled={false}
+                        onChange={changeHandler}
                       />
                     </Col>
                   </Row>
@@ -44,7 +62,8 @@ const TargetLoadDetails = () => {
                       <Form.Check
                         type="radio"
                         label="TRUNCATE"
-                        name="TargetLoadDetails"
+                        name="TargetLoadType"
+                        onChange={changeHandler}
                       ></Form.Check>
                     </Col>
                     <Col xs="auto">
@@ -52,6 +71,7 @@ const TargetLoadDetails = () => {
                         type="radio"
                         label="INSERT"
                         name="TargetLoadDetails"
+                        onChange={changeHandler}
                       ></Form.Check>
                     </Col>
                     <Col xs="auto">
@@ -59,6 +79,7 @@ const TargetLoadDetails = () => {
                         type="radio"
                         label="INCREMENTAL"
                         name="TargetLoadDetails"
+                        onChange={changeHandler}
                       ></Form.Check>
                     </Col>
                     <Col xs="auto">
@@ -66,6 +87,7 @@ const TargetLoadDetails = () => {
                         type="radio"
                         label="SCD TYPE II"
                         name="TargetLoadDetails"
+                        onChange={changeHandler}
                       ></Form.Check>
                     </Col>
                   </Row>
@@ -81,6 +103,8 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Alert"
+                        onChange={changeHandler}
                       ></Form.Control>
                     </Col>
                     <Col xs="auto">
@@ -88,6 +112,8 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Abort"
+                        onChange={changeHandler}
                       ></Form.Control>
                     </Col>
                   </Row>
@@ -102,6 +128,8 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Alert"
+                        onChange={changeHandler}
                       ></Form.Control>
                     </Col>
                     <Col xs="auto">
@@ -109,6 +137,8 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Abort"
+                        onChange={changeHandler}
                       ></Form.Control>
                     </Col>
                   </Row>
@@ -135,6 +165,8 @@ const TargetLoadDetails = () => {
                   <Form.Check
                     type="checkbox"
                     label="Maintain a copy in DataLake"
+                    name="Maintain a copy in DataLake"
+                    onChange={changeHandler}
                   ></Form.Check>
                 </div>
                 <br></br>
@@ -143,7 +175,12 @@ const TargetLoadDetails = () => {
                   <Row className="mb-3">
                     <Col>
                       <Form.Label>Data Lake Connection</Form.Label>
-                      <Form.Select aria-label="" disabled={false}>
+                      <Form.Select
+                        aria-label=""
+                        disabled={false}
+                        name="Data Lake Connection"
+                        onChange={changeHandler}
+                      >
                         <option>{""}</option>
                         <option>Connection1</option>
                         <option>Connection2</option>
@@ -151,7 +188,12 @@ const TargetLoadDetails = () => {
                     </Col>
                     <Col>
                       <Form.Label>Data Lake File Format</Form.Label>
-                      <Form.Select aria-label="" disabled={false}>
+                      <Form.Select
+                        aria-label=""
+                        disabled={false}
+                        name="Data Lake File Format"
+                        onChange={changeHandler}
+                      >
                         <option>{""}</option>
                         <option>CSV</option>
                         <option>PARQUET</option>
@@ -172,6 +214,8 @@ const TargetLoadDetails = () => {
                         type="text"
                         className="textbox3"
                         disabled={false}
+                        name="Data Lake Target Template"
+                        onChange={changeHandler}
                       />
                     </Col>
                   </Row>

@@ -69,13 +69,24 @@ const SourceEntitySelection = () => {
   //   setSourceType(value);
   // };
 
+  const [pageAnswers, setPageAnswers] = useState({
+  });
+
   const [dataSourceType, setDataSourceType] = useState("");
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
     setDataSourceType(value);
-    // console.log(value);
+
+    setPageAnswers({[event.target.name]: event.target.value });
+    console.log(event)
   };
+
+  const changeHandler = (e) => {
+    setPageAnswers({ ...pageAnswers, [e.target.name]: e.target.value });
+  }
+
+      console.log(pageAnswers);
 
   return (
     <div className="page1">
@@ -102,9 +113,10 @@ const SourceEntitySelection = () => {
                     <Form.Label>Data Source Type</Form.Label>
                     <Form.Select
                       aria-label=""
-                      value={dataSourceType}
+                      // value={dataSourceType}
                       onChange={selectChangeHandler}
                       disabled={false}
+                      name="DataSourceType"
                     >
                       <option>{""}</option>
                       <option value={"RDBMS- Query"}>RDBMS- Query</option>
@@ -122,6 +134,8 @@ const SourceEntitySelection = () => {
                     rows={3}
                     className="textbox1"
                     disabled={dataSourceType !== "RDBMS- Query"}
+                    name="Query"
+                    onChange={changeHandler}
                   />
                 </div>
               </Row>
@@ -133,6 +147,8 @@ const SourceEntitySelection = () => {
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "RDBMS- Table"}
+                      name="DatabseName"
+                      onChange={changeHandler}
                     />
                   </div>
                 </Col>
@@ -143,6 +159,8 @@ const SourceEntitySelection = () => {
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "RDBMS- Table"}
+                      name="SchemaName"
+                      onChange={changeHandler}
                     />
                   </div>
                 </Col>
@@ -153,6 +171,8 @@ const SourceEntitySelection = () => {
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "RDBMS- Table"}
+                      name="TableName"
+                      onChange={changeHandler}
                     />
                   </div>
                 </Col>
@@ -165,6 +185,8 @@ const SourceEntitySelection = () => {
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "Flat File"}
+                      name="BucketName"
+                      onChange={changeHandler}
                     />
                   </div>
                 </Col>
@@ -175,6 +197,8 @@ const SourceEntitySelection = () => {
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "Flat File"}
+                      name="FullFileName"
+                      onChange={changeHandler}
                     />
                   </div>
                 </Col>
