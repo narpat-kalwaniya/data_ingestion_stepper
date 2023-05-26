@@ -12,9 +12,17 @@ const Stepper = (props) => {
   return (
     <div>
       {props.step === 1 ? (
-        <CreateDataConnection step = {props.step}/>
+        <CreateDataConnection
+          step={props.step}
+          pageAnswers={props.pageAnswers}
+          setPageAnswers={props.setPageAnswers}
+        />
       ) : props.step === 2 ? (
-        <SourceEntitySelection />
+        <SourceEntitySelection
+          step={props.step}
+          pageAnswers={props.pageAnswers}
+          setPageAnswers={props.setPageAnswers}
+        />
       ) : props.step === 3 ? (
         <TargetSchema />
       ) : props.step === 4 ? (

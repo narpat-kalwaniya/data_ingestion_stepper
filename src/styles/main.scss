@@ -361,3 +361,8 @@ h5 {
   color: $clrD
 }
 
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+

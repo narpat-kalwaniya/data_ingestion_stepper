@@ -9,8 +9,13 @@ import Header from "./components/Header";
 import { Progressbar } from "./components/ProgressBar";
 import ReviewForm from "./components/ReviewForm";
 
+// useEffect(() => {
+//   window.localStorage.setItem();
+// }, [step]);
+
 function App() {
   const [step, setStep] = useState(1);
+  const [pageAnswers, setPageAnswers] = useState({});
   const [isReview, setIsReview] = useState(false);
 
   const totalPagesCount = 9;
@@ -48,14 +53,18 @@ function App() {
             <Col>
               <Card>
                 {isReview ? (
-                  <ReviewForm step = {step} cancel = {cancelHandler}></ReviewForm>
+                  <ReviewForm step={step} cancel={cancelHandler}></ReviewForm>
                 ) : (
                   <div>
                     <Card.Header className="header">
                       <Header step={step}></Header>
                     </Card.Header>
                     <Card.Body>
-                      <Stepper step={step}></Stepper>
+                      <Stepper
+                        step={step}
+                        pageAnswers={pageAnswers}
+                        setPageAnswers={setPageAnswers}
+                      ></Stepper>
                     </Card.Body>
 
                     <Card.Footer className="d-flex justify-content-between float-right">
