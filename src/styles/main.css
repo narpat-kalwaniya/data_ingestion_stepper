@@ -64,6 +64,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-s:hover {
   background-color: #f7a84f;
@@ -82,6 +83,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-s-1:hover {
   background-color: rgb(53, 143, 182);
@@ -100,6 +102,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-d:hover {
   background-color: rgb(252, 63, 63);
@@ -118,6 +121,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-c:hover {
   background-color: #eef5f9;

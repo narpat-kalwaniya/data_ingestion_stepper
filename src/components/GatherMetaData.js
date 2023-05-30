@@ -92,7 +92,7 @@ const GatherMetaData = () => {
                         className="close-button"
                         onClick={() => removeHandler(field.id)}
                       >
-                        <XCircle size={18} />
+                        <XCircle size={18} color={"#FF6347"} />
                       </Button>
                     </Col>
                   </Row>

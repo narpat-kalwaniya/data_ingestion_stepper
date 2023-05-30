@@ -1,18 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import Success from "./Success";
 import { PencilSquare } from "react-bootstrap-icons";
+import CreateDataConnection from "./CreateDataConnection";
 
 const ReviewFrom = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [data, setData] = useState({});
 
   const editHandler = () => {
-    props.step = 1
-  }
+    props.setStep((step) => 1);
+    props.setIsReview(false);
+  };
 
   const submitHandler = () => {
     setIsSubmitted(true);
   };
+  const d = props.pageAnswers;
+
+  useEffect(() => {
+    const data = JSON.parse(window.localStorage.getItem(2));
+    setData(data);
+    // console.log(data);
+    // alert(data);
+    // console.log("object is not available");
+  }, [props.step]);
+  // const items = Object.entries(data).map((key, value) => {
+  //   return (
+  //     <div>
+  //       {key}
+  //       {value}
+  //     </div>
+  //   );
+  // });
+
   return (
     <div>
       <Row>
@@ -31,7 +52,13 @@ const ReviewFrom = (props) => {
                     <PencilSquare></PencilSquare>
                   </button>
                 </Card.Header>
-                <Card.Body>Review Items</Card.Body>
+                <Card.Body>
+                  {Object.entries(props.pageAnswers).map(([key, value]) => (
+                    <div key={key}>
+                      <strong>{key}: </strong> {value}
+                    </div>
+                  ))}
+                </Card.Body>
                 <Card.Header className="d-flex justify-content-between float-right">
                   <h5>Section 2</h5>
                   <button style={{ backgroundColor: "#49494A" }}>

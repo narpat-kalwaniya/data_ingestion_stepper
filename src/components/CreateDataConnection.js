@@ -15,7 +15,7 @@ const DefineDataConnection = (props) => {
       ...props.pageAnswers,
       [e.target.name]: e.target.value,
     });
-    // setPageData({ ...pageData, pageAnswers: pageAnswers });
+    setAnswer1({ ...answer1, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -26,9 +26,10 @@ const DefineDataConnection = (props) => {
     // console.log("object is not available");
   }, [props.step]);
 
-  console.log(props.pageAnswers.Application);
+  // console.log(props.pageAnswers.Application);
 
   useEffect(() => {
+    delete props.pageAnswers["data"];
     window.localStorage.setItem(props.step, JSON.stringify(props.pageAnswers));
   }, [props.step]);
 

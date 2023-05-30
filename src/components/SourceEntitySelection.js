@@ -69,22 +69,51 @@ const SourceEntitySelection = (props) => {
   //   setSourceType(value);
   // };
 
-  const [pageAnswers, setPageAnswers] = useState({});
+  const [answer2, setAnswer2] = useState({
+    DataSourceType: "",
+    Query: "",
+    DatabaseName: "",
+    SchemaName: "",
+    TableName: "",
+    BucketName: "",
+    FullFileName: "",
+  });
 
   const [dataSourceType, setDataSourceType] = useState("");
 
-  const selectChangeHandler = (event) => {
-    const { value } = event.target;
+  const selectChangeHandler = (e) => {
+    const { value } = e.target;
     setDataSourceType(value);
     props.setPageAnswers({
       ...props.pageAnswers,
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value,
     });
+    setAnswer2({ ...answer2, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    window.localStorage.setItem(props.step, JSON.stringify(props.pageAnswers));
-  }, [props.step]);
+  console.log(props.pageAnswers);
+
+  const changeHandler = (e) => {
+    props.setPageAnswers({
+      ...props.pageAnswers,
+      [e.target.name]: e.target.value,
+    });
+    setAnswer2({ ...answer2, [e.target.name]: e.target.value });
+    setDataSourceType(answer2.DataSourceType);
+  };
+
+  // useEffect(() => {
+  //   const data = JSON.parse(window.localStorage.getItem(props.step));
+  //   // props.setPageAnswers({ ...props.pageAnswers, data });
+  //   setAnswer2(data);
+  //   // setDataSourceType(answer2.DataSourceType);
+  //   console.log(answer2.DataSourceType);
+  //   // console.log("object is not available");
+  // }, [props.step]);
+  // useEffect(() => {
+  //   delete props.pageAnswers.data;
+  //   window.localStorage.setItem(props.step, JSON.stringify(props.pageAnswers));
+  // }, [props.step]);
 
   return (
     <div className="page1">
@@ -115,6 +144,7 @@ const SourceEntitySelection = (props) => {
                       onChange={selectChangeHandler}
                       disabled={false}
                       name="DataSourceType"
+                      value={props.pageAnswers.DataSourceType}
                     >
                       <option>{""}</option>
                       <option value={"RDBMS- Query"}>RDBMS- Query</option>
@@ -133,7 +163,8 @@ const SourceEntitySelection = (props) => {
                     className="textbox1"
                     disabled={dataSourceType !== "RDBMS- Query"}
                     name="Query"
-                    onChange={selectChangeHandler}
+                    onChange={changeHandler}
+                    value={props.pageAnswers.Query}
                   />
                 </div>
               </Row>
@@ -146,7 +177,8 @@ const SourceEntitySelection = (props) => {
                       className="textbox1"
                       disabled={dataSourceType !== "RDBMS- Table"}
                       name="DatabseName"
-                      onChange={selectChangeHandler}
+                      onChange={changeHandler}
+                      value={answer2.DatabseName}
                     />
                   </div>
                 </Col>
@@ -158,7 +190,8 @@ const SourceEntitySelection = (props) => {
                       className="textbox1"
                       disabled={dataSourceType !== "RDBMS- Table"}
                       name="SchemaName"
-                      onChange={selectChangeHandler}
+                      onChange={changeHandler}
+                      value={answer2.SchemaName}
                     />
                   </div>
                 </Col>
@@ -170,7 +203,8 @@ const SourceEntitySelection = (props) => {
                       className="textbox1"
                       disabled={dataSourceType !== "RDBMS- Table"}
                       name="TableName"
-                      onChange={selectChangeHandler}
+                      onChange={changeHandler}
+                      value={answer2.TableName}
                     />
                   </div>
                 </Col>
@@ -184,7 +218,8 @@ const SourceEntitySelection = (props) => {
                       className="textbox1"
                       disabled={dataSourceType !== "Flat File"}
                       name="BucketName"
-                      onChange={selectChangeHandler}
+                      onChange={changeHandler}
+                      value={answer2.BucketName}
                     />
                   </div>
                 </Col>
@@ -196,7 +231,8 @@ const SourceEntitySelection = (props) => {
                       className="textbox1"
                       disabled={dataSourceType !== "Flat File"}
                       name="FullFileName"
-                      onChange={selectChangeHandler}
+                      onChange={changeHandler}
+                      value={answer2.FullFileName}
                     />
                   </div>
                 </Col>
