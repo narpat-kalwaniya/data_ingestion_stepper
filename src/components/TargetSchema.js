@@ -1,63 +1,119 @@
-import { Table, Form, Input, Col, Row } from "react-bootstrap";
-import TableData from "./TableData";
-
+import React, { useEffect, useState } from "react";
+import { Table, Form } from "react-bootstrap";
 
 const headers = [
   "",
-  ...Object.keys(TableData),
-  "TargetDatatype",
-  "PrimaryKey",
-  "BusinessKey",
-  "TransformationLogic",
+  "Column Name",
+  "Source Data Type",
+  "Target Data Type",
+  "Primary Key",
+  "Business Key",
+  "Transformation Logic",
 ];
 
-const ThData = () => {
-  return headers.map((name) =>  <th key={name}>{name}</th>
+const TbData = ({ formData }) => {
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    const requestData = {
+      data_source_type: formData.sourceEntity.data_source_type,
+      query: formData.sourceEntity.query,
+      db_name: formData.sourceEntity.db_name,
+      schema_name: formData.sourceEntity.schema_name,
+      table_name: formData.sourceEntity.table_name,
+      bucket_name: formData.sourceEntity.bucket_name,
+      full_file_name: formData.sourceEntity.full_file_name,
+      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
+      connection_id: formData.sourceEntity.connection_id,
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          }
+        );
+
+        if (response.ok) {
+          const responseData = await response.json();
+          if (Array.isArray(responseData)) {
+            console.log("response data", requestData);
+            setTableData(responseData);
+          }
+        } else {
+          console.error("Error:", response.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleCheck = () => {
+    // Handle checkbox click event if needed
+  };
+
+  const handleTargetDataTypeChange = (event, columnIndex) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[columnIndex].target_datatype = event.target.value;
+    setTableData(updatedTableData);
+  };
+
+  return (
+    <tbody>
+      {tableData.map((column, index) => (
+        <tr key={index}>
+          <td>
+            <Form.Check onClick={handleCheck} />
+          </td>
+          <td>{column.column_name}</td>
+          <td>{column.data_type}</td>
+          <td>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(event) => handleTargetDataTypeChange(event, index)}
+              value={column.target_datatype || ""}
+            >
+              <option value="">Select Target Data Type</option>
+              <option value={column.target_datatype}>
+                {column.target_datatype}
+              </option>
+            </Form.Select>
+          </td>
+          <td>
+            <Form.Check />
+          </td>
+          <td>
+            <Form.Check />
+          </td>
+          <td>
+            <Form.Control />
+          </td>
+        </tr>
+      ))}
+    </tbody>
   );
 };
 
-const TbData = () => {
-  return TableData.ColumnName.map((d,index) => (
-<tr>
-              <td>
-                <Form.Check onClick={checkHandler}></Form.Check>
-              </td>
-              <td>{d}</td>
-              <td>{TableData.SourceDatatype[index]}</td>
-              {/* <td>
-                {TableData.SampleValues[index].map((val) => (
-                  <p>{val}</p>
-                ))}
-              </td> */}
-              <td>
-                <Form.Select aria-label="Default select example">
-                  <option value="1">Datatype1</option>
-                  <option value="2">Datatype2</option>
-                  <option value="3">Datatype3</option>
-                </Form.Select>
-              </td>
-              <td>
-                <Form.Check></Form.Check>
-              </td>
-              <td>
-                <Form.Check></Form.Check>
-              </td>
-              <td>
-                <Form.Control></Form.Control>
-              </td>
-            </tr>
-  ))
-  
-}
-const checkHandler = () => {};
-
-export const TargetSchema = () => {
+export const TargetSchema = ({ formData }) => {
   return (
-      <Table responsive>
-        <thead>
-          <tr>{ThData()}</tr>
-        </thead>
-        <tbody>{TbData()}</tbody>
-      </Table>
+    <Table responsive>
+      <thead>
+        <tr>
+          {headers.map((name, index) => (
+            <th key={index}>{name}</th>
+          ))}
+        </tr>
+      </thead>
+      <TbData formData={formData} />
+    </Table>
   );
 };

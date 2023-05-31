@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { TargetSchema } from "./components/TargetSchema";
-import "./styles/main.css";
 import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import { DataValidation } from "./components/DefineDataValidation";
 import "bootstrap/dist/css/bootstrap.css";
@@ -8,10 +6,27 @@ import Stepper from "./components/Stepper";
 import Header from "./components/Header";
 import { Progressbar } from "./components/ProgressBar";
 import ReviewForm from "./components/ReviewForm";
+import CreateDataConnection from "./components/CreateDataConnection";
 
 function App() {
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
+  const [formData, setFormData] = useState({
+    dataSource: "",
+    dataTarget: "",
+    application: "",
+    sourceEntity: {
+      data_source_type: "",
+      query: null,
+      db_name: "",
+      schema_name: "",
+      table_name: "",
+      bucket_name: null,
+      full_file_name: null,
+      source_entity_name: "",
+      connection_id: null,
+    },
+  });
 
   const totalPagesCount = 9;
 
@@ -33,6 +48,13 @@ function App() {
     setIsReview(true);
   };
 
+  const updateFormData = (data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      ...data,
+    }));
+  };
+
   return (
     <div className="App">
       <Container className="h-100">
@@ -48,22 +70,25 @@ function App() {
             <Col>
               <Card>
                 {isReview ? (
-                  <ReviewForm step = {step} cancel = {cancelHandler}></ReviewForm>
+                  <ReviewForm step={step} cancel={cancelHandler}></ReviewForm>
                 ) : (
                   <div>
                     <Card.Header className="header">
                       <Header step={step}></Header>
                     </Card.Header>
                     <Card.Body>
-                      <Stepper step={step}></Stepper>
+                      <Stepper
+                        step={step}
+                        formData={formData}
+                        updateFormData={updateFormData}
+                      />
                     </Card.Body>
-
                     <Card.Footer className="d-flex justify-content-between float-right">
                       <Col>
                         <button
                           className="btn-c"
                           onClick={cancelHandler}
-                          disabled={step == 1}
+                          disabled={step === 1}
                         >
                           Cancel
                         </button>
@@ -71,12 +96,11 @@ function App() {
                       <button
                         className="btn-c "
                         onClick={previousHandler}
-                        disabled={step == 1}
+                        disabled={step === 1}
                       >
                         Back
                       </button>
-
-                      {step == totalPagesCount ? (
+                      {step === totalPagesCount ? (
                         <button className="btn-s-1 " onClick={reviewHandler}>
                           Review & Submit
                         </button>

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
-// import "./Page1.css";
-
-const DefineDataConnection = (props) => {
+const CreateDataConnection = ({ formData, updateFormData }) => {
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
 
@@ -39,27 +37,38 @@ const DefineDataConnection = (props) => {
 
   const handleSelection = (event) => {
     const selectedConnectionName = event.target.value;
-    // Handle the selected connection name here
-    console.log(selectedConnectionName);
+    const updatedFormData = {
+      ...formData,
+      dataSource: selectedConnectionName,
+      sourceEntity: {
+        ...formData.sourceEntity,
+        connection_id: connections[0].app_id,
+      },
+    };
+    updateFormData(updatedFormData);
+  };
+
+  const handleTargetSelection = (event) => {
+    const selectedConnectionName = event.target.value;
+    const updatedFormData = { ...formData, dataTarget: selectedConnectionName };
+    updateFormData(updatedFormData);
+  };
+
+  const handleApplicationSelection = (event) => {
+    const selectedApplicationName = event.target.value;
+    const updatedFormData = {
+      ...formData,
+      application: selectedApplicationName,
+    };
+    updateFormData(updatedFormData);
   };
 
   const filteredSourceConnections = connections.filter(
     (connection) => connection.connection_type === "POSTGRES"
   );
-
   const filteredTargetConnections = connections.filter(
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
-  console.log("data is", connections.connection_name);
-
-  // const pageAnswers = useState({
-  //   page: props.step,
-  //   formdata: {
-  //     "Data Source Connection": "",
-  //     "Data Target Connection": "",
-  //     Application: "",
-  //   },
-  // });
 
   return (
     <div className="page1">
@@ -68,20 +77,12 @@ const DefineDataConnection = (props) => {
           <div className="text-left">
             <Form>
               <Row>
-                {/* <div className="form-group">
-                  <Form.Label>Data Source Type</Form.Label>
-                  <Form.Select aria-label="" disabled={false}>
-                    <option>{""}</option>
-                    <option value={"RDBMS"}>RDBMS</option>
-                    <option value={"FILE"}>FILE</option>
-                  </Form.Select>
-                </div> */}
                 <div>
                   <Row>
                     <Form.Label>Data Source Connection</Form.Label>
-
                     <Col>
                       <Form.Select onChange={handleSelection}>
+                        <option value="">Select Source Connection</option>
                         {filteredSourceConnections.map((connection) => (
                           <option
                             key={connection.connection_id}
@@ -101,7 +102,8 @@ const DefineDataConnection = (props) => {
                   <Row>
                     <Form.Label>Data Target Connection</Form.Label>
                     <Col>
-                      <Form.Select>
+                      <Form.Select onChange={handleTargetSelection}>
+                        <option value="">Select Target Connection</option>
                         {filteredTargetConnections.map((connection) => (
                           <option
                             key={connection.connection_id}
@@ -121,7 +123,8 @@ const DefineDataConnection = (props) => {
                   <Row>
                     <Form.Label>Application</Form.Label>
                     <Col>
-                      <Form.Select>
+                      <Form.Select onChange={handleApplicationSelection}>
+                        <option value="">Select Application</option>
                         {applications.map((application) => (
                           <option
                             key={application.app_id}
@@ -137,7 +140,6 @@ const DefineDataConnection = (props) => {
                     </Col>
                   </Row>
                 </div>
-                <Col></Col>
               </Row>
             </Form>
           </div>
@@ -147,4 +149,4 @@ const DefineDataConnection = (props) => {
   );
 };
 
-export default DefineDataConnection;
+export default CreateDataConnection;

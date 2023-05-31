@@ -1,81 +1,130 @@
-// import React, { useState } from "react";
-// import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
-
-// const SourceEntitySelection = () => {
-//   return (
-//     <div className="page1">
-//       <Row>
-//         <Card.Body>
-//           <div className="text-left">
-//             <Form>
-//               <Row>
-//                 <Col sm={6}>
-//                   <div className="form-group">
-//                     <Form.Label>Source Type</Form.Label>
-//                     <Form.Select aria-label="" disabled={false}>
-//                       <option>{""}</option>
-//                       <option>Query</option>
-//                       <option>Table</option>
-//                     </Form.Select>
-//                   </div>
-//                   <div>
-//                     <Form.Label>Query</Form.Label>
-//                     <Form.Control></Form.Control>
-//                   </div>
-//                 </Col>
-//                 <Col>
-//                   <div>
-//                     <Form.Label>Database Name</Form.Label>
-//                     <Form.Control></Form.Control>
-//                   </div>
-//                   <div>
-//                     <Form.Label>Schema Name</Form.Label>
-//                     <Form.Control></Form.Control>
-//                   </div>
-//                   <div>
-//                     <Form.Label>Table Name</Form.Label>
-//                     <Form.Control></Form.Control>
-//                   </div>
-//                   <div>
-//                     <Form.Label>Bucket Name</Form.Label>
-//                     <Form.Control></Form.Control>
-//                   </div>
-//                   <div>
-//                     <Form.Label>Full File Name</Form.Label>
-//                     <Form.Control></Form.Control>
-//                   </div>
-//                 </Col>
-//               </Row>
-//             </Form>
-//           </div>
-//         </Card.Body>
-//       </Row>
-//     </div>
-//   );
-// };
-
-// export default SourceEntitySelection;
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 
-// import "./SourceEntitySelection.css";
-
-const SourceEntitySelection = () => {
-  // const [sourceType, setSourceType] = useState("");
-
-  // const selectChangeHandler = (event) => {
-  //   const { value } = event.target;
-  //   setSourceType(value);
-  // };
-
+const SourceEntitySelection = ({ formData, updateFormData }) => {
   const [dataSourceType, setDataSourceType] = useState("");
+  const [databases, setDatabases] = useState([]);
+  const [schemas, setSchemas] = useState([]);
+  const [tables, setTables] = useState([]);
+  const [selectedDatabase, setSelectedDatabase] = useState("");
+  const [selectedSchema, setSelectedSchema] = useState("");
+  const [selectedTable, setSelectedTable] = useState("");
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
     setDataSourceType(value);
-    // console.log(value);
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      data_source_type: value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData);
   };
+
+  const handleDatabaseChange = (event) => {
+    const { value } = event.target;
+    setSelectedDatabase(value);
+    setSelectedSchema(""); // Reset selected schema when database changes
+    setSelectedTable(""); // Reset selected table when database changes
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      db_name: value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData);
+  };
+
+  const handleSchemaChange = (event) => {
+    const { value } = event.target;
+    setSelectedSchema(value);
+    setSelectedTable(""); // Reset selected table when schema changes
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      schema_name: value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData);
+  };
+
+  const handleTableChange = (event) => {
+    const { value } = event.target;
+    setSelectedTable(value);
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      table_name: value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData);
+  };
+
+  // Fetch databases, schemas, and tables from API or data source
+  // and populate the corresponding dropdowns
+  const fetchDatabaseSchemaTableData = async () => {
+    try {
+      // Perform API call or fetch data from the data source
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getschematable/1"
+      );
+      const data = await response.json();
+
+      // Extract databases, schemas, and tables from the data
+      const uniqueDatabases = [...new Set(data.map((item) => item.database))];
+      setDatabases(uniqueDatabases);
+
+      // Filter schemas based on selected database
+      const filteredSchemas = [
+        ...new Set(
+          data
+            .filter((item) => item.database === selectedDatabase)
+            .map((item) => item.schema)
+        ),
+      ];
+      setSchemas(filteredSchemas);
+
+      // Filter tables based on selected database and schema
+      const filteredTables = [
+        ...new Set(
+          data
+            .filter(
+              (item) =>
+                item.database === selectedDatabase &&
+                item.schema === selectedSchema
+            )
+            .map((item) => item.table_name)
+        ),
+      ];
+      setTables(filteredTables);
+    } catch (error) {
+      console.error("Error fetching database, schema, and table data:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch the initial database, schema, and table data on component mount
+    fetchDatabaseSchemaTableData();
+  }, []);
+
+  useEffect(() => {
+    // Fetch filtered schemas whenever the selected database changes
+    fetchDatabaseSchemaTableData();
+  }, [selectedDatabase]);
+
+  useEffect(() => {
+    // Fetch filtered tables whenever the selected database or schema changes
+    fetchDatabaseSchemaTableData();
+  }, [selectedDatabase, selectedSchema]);
 
   return (
     <div className="page1">
@@ -85,19 +134,6 @@ const SourceEntitySelection = () => {
             <Form>
               <Row className="mb-3">
                 <Col sm={6}>
-                  {/* <div className="form-group">
-                    <Form.Label>Source Type</Form.Label>
-                    <Form.Select
-                      aria-label=""
-                      onChange={selectChangeHandler}
-                      value={sourceType}
-                      disabled={false}
-                    >
-                      <option>{"Select"}</option>
-                      <option value={"Query"}>Query</option>
-                      <option value={"Table"}>Table</option>
-                    </Form.Select>
-                  </div> */}
                   <div className="form-group">
                     <Form.Label>Data Source Type</Form.Label>
                     <Form.Select
@@ -107,8 +143,8 @@ const SourceEntitySelection = () => {
                       disabled={false}
                     >
                       <option>{""}</option>
-                      <option value={"RDBMS- Query"}>RDBMS- Query</option>
-                      <option value={"RDBMS- Table"}>RDBMS- Table</option>
+                      <option value={"RDBMS-TABLE"}>RDBMS-TABLE</option>
+                      <option value={"RDBMS-QUERY"}>RDBMS-QUERY</option>
                       <option value={"Flat File"}>Flat File</option>
                     </Form.Select>
                   </div>
@@ -121,7 +157,7 @@ const SourceEntitySelection = () => {
                     as="textarea"
                     rows={3}
                     className="textbox1"
-                    disabled={dataSourceType !== "RDBMS- Query"}
+                    disabled={dataSourceType !== "RDBMS-QUERY"}
                   />
                 </div>
               </Row>
@@ -129,31 +165,58 @@ const SourceEntitySelection = () => {
                 <Col>
                   <div className="form-group">
                     <Form.Label>Database Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      className="textbox1"
-                      disabled={dataSourceType !== "RDBMS- Table"}
-                    />
+                    <Form.Select
+                      value={selectedDatabase}
+                      onChange={handleDatabaseChange}
+                      disabled={dataSourceType !== "RDBMS-TABLE"}
+                    >
+                      <option value="">Select Database</option>
+                      {databases.map((database) => (
+                        <option key={database} value={database}>
+                          {database}
+                        </option>
+                      ))}
+                    </Form.Select>
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
                     <Form.Label>Schema Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      className="textbox1"
-                      disabled={dataSourceType !== "RDBMS- Table"}
-                    />
+                    <Form.Select
+                      value={selectedSchema}
+                      onChange={handleSchemaChange}
+                      disabled={
+                        dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
+                      }
+                    >
+                      <option value="">Select Schema</option>
+                      {schemas.map((schema) => (
+                        <option key={schema} value={schema}>
+                          {schema}
+                        </option>
+                      ))}
+                    </Form.Select>
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
                     <Form.Label>Table Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      className="textbox1"
-                      disabled={dataSourceType !== "RDBMS- Table"}
-                    />
+                    <Form.Select
+                      value={selectedTable}
+                      onChange={handleTableChange}
+                      disabled={
+                        dataSourceType !== "RDBMS-TABLE" ||
+                        !selectedDatabase ||
+                        !selectedSchema
+                      }
+                    >
+                      <option value="">Select Table</option>
+                      {tables.map((table) => (
+                        <option key={table} value={table}>
+                          {table}
+                        </option>
+                      ))}
+                    </Form.Select>
                   </div>
                 </Col>
               </Row>
