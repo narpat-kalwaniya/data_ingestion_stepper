@@ -1,0 +1,13 @@
+.btn-save {
+  background-color: #f5ac5a;
+  border: none;
+}
+
+.btn-save:hover {
+  background-color: #f7901d;
+}
+
+.btn-cl {
+  /* background-color: #887d70; */
+  border: none;
+}
