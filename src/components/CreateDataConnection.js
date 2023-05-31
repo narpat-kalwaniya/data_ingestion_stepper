@@ -111,8 +111,9 @@ const DefineDataConnection = (props) => {
                         onChange={changeHandler}
                         value={answer1.DataSourceConnection}
                         isInvalid={answer1.DataSourceConnection === ""}
+                        required
                       >
-                        <option value={""}>Select..</option>
+                        <option value={""}>-- Select --</option>
                         <option value="dsc1">dsc1</option>
                         <option value="dsc2">dsc2</option>
                       </Form.Select>
@@ -169,11 +170,15 @@ const DefineDataConnection = (props) => {
                         name="DataTargetConnection"
                         onChange={changeHandler}
                         value={answer1.DataTargetConnection}
+                        isInvalid={answer1.DataTargetConnection === ""}
                       >
-                        <option>{""}</option>
-                        <option>dtc1</option>
-                        <option>dtc2</option>
+                        <option value="">-- Select --</option>
+                        <option value="dtc1">dtc1</option>
+                        <option value="dtc2">dtc2</option>
                       </Form.Select>
+                      <Form.Control.Feedback type="invalid">
+                        Please select an option.
+                      </Form.Control.Feedback>
                     </Col>
                     <Col>
                       <Icon.PatchPlusFill
@@ -223,11 +228,15 @@ const DefineDataConnection = (props) => {
                         name="Application"
                         onChange={changeHandler}
                         value={answer1.Application}
+                        isInvalid={answer1.Application === ""}
                       >
-                        <option>{""}</option>
-                        <option>App1</option>
-                        <option>App2</option>
+                        <option value="">-- Select --</option>
+                        <option value="App1">App1</option>
+                        <option value="App2">App2</option>
                       </Form.Select>
+                      <Form.Control.Feedback type="invalid">
+                        Please select an option.
+                      </Form.Control.Feedback>
                     </Col>
                     <Col>
                       <Icon.WindowPlus

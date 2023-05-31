@@ -58,6 +58,7 @@ function App() {
   const reviewHandler = () => {
     setIsReview(true);
   };
+  console.log(pageAnswers.DataSourceConnection);
 
   return (
     <div className="App">
@@ -144,7 +145,15 @@ function App() {
                           Review & Submit
                         </button>
                       ) : (
-                        <button className="btn-s " onClick={nextHandler}>
+                        <button
+                          className="btn-s "
+                          onClick={nextHandler}
+                          disabled={
+                            pageAnswers.DataSourceConnection === "" ||
+                            pageAnswers.DataTargetConnection === "" ||
+                            pageAnswers.Application === ""
+                          }
+                        >
                           Next
                         </button>
                       )}
