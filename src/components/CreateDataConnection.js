@@ -69,6 +69,7 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
   const filteredTargetConnections = connections.filter(
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
+  console.log("form data", formData);
 
   return (
     <div className="page1">

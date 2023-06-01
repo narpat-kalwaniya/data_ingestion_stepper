@@ -69,6 +69,19 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
     updateFormData(updatedFormData);
   };
 
+  const queryChangeHandler = (event) => {
+    const { value } = event.target;
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      query: value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData);
+  };
+
   // Fetch databases, schemas, and tables from API or data source
   // and populate the corresponding dropdowns
   const fetchDatabaseSchemaTableData = async () => {
@@ -158,6 +171,8 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                     rows={3}
                     className="textbox1"
                     disabled={dataSourceType !== "RDBMS-QUERY"}
+                    value={formData.sourceEntity.query || ""}
+                    onChange={queryChangeHandler}
                   />
                 </div>
               </Row>

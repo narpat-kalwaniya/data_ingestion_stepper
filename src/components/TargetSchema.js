@@ -11,7 +11,7 @@ const headers = [
   "Transformation Logic",
 ];
 
-const TbData = ({ formData }) => {
+const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -52,10 +52,16 @@ const TbData = ({ formData }) => {
       } catch (error) {
         console.error("Error:", error);
       }
+
+      const updatedFormData = {
+        ...formData,
+        tableData: tableData,
+      };
+      updateFormData(updatedFormData);
     };
 
     fetchData();
-  }, []);
+  }, [updateFormData]);
 
   const handleCheck = () => {
     // Handle checkbox click event if needed
@@ -66,6 +72,32 @@ const TbData = ({ formData }) => {
     updatedTableData[columnIndex].target_datatype = event.target.value;
     setTableData(updatedTableData);
   };
+  console.log("form data", formData);
+
+  const targetDataTypes = [
+    "ARRAY",
+    "BIGINT",
+    "BINARY",
+    "BOOLEAN",
+    "CHAR",
+    "DECIMAL",
+    "DOUBLE",
+    "DOUBLE PRECISION",
+    "INT",
+    "INTEGER",
+    "NCHAR",
+    "NUMERIC",
+    "NVARCHAR",
+    "NUMBER",
+    "STRING",
+    "TEXT",
+    "TIME",
+    "TIMASTAMP_TZ",
+    "TIMESTAMP_LTZ",
+    "TIMESTAMP_NTZ",
+    "VARBINARY",
+    "VARCHAR",
+  ];
 
   return (
     <tbody>
@@ -80,12 +112,14 @@ const TbData = ({ formData }) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(event) => handleTargetDataTypeChange(event, index)}
-              value={column.target_datatype || ""}
+              // value={column.target_datatype || ""}
             >
               <option value="">Select Target Data Type</option>
-              <option value={column.target_datatype}>
-                {column.target_datatype}
-              </option>
+              {targetDataTypes.map((dataType, index) => (
+                <option key={index} value={dataType}>
+                  {dataType}
+                </option>
+              ))}
             </Form.Select>
           </td>
           <td>
@@ -103,7 +137,7 @@ const TbData = ({ formData }) => {
   );
 };
 
-export const TargetSchema = ({ formData }) => {
+export const TargetSchema = ({ formData, updateFormData }) => {
   return (
     <Table responsive>
       <thead>
@@ -113,7 +147,7 @@ export const TargetSchema = ({ formData }) => {
           ))}
         </tr>
       </thead>
-      <TbData formData={formData} />
+      <TbData formData={formData} updateFormData={updateFormData} />
     </Table>
   );
 };

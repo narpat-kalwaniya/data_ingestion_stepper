@@ -26,6 +26,7 @@ function App() {
       source_entity_name: "",
       connection_id: null,
     },
+    tableData: [],
   });
 
   const totalPagesCount = 9;
