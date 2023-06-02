@@ -54,8 +54,6 @@ const DefineDataConnection = (props) => {
 
   // localStorage.clear();
 
-  const [dataSourceConnection, setDataSourceConnection] = useState(null);
-
   const [showModalDSC, setShowModalDSC] = useState(false);
   const handleShowModalDSC = () => {
     setShowModalDSC(true);
@@ -84,7 +82,7 @@ const DefineDataConnection = (props) => {
   //   onData(dataSourceConnection);
   // }, [dataSourceConnection]);
 
-  console.log("Erros in CDC", props.errors);
+  // console.log("Erros in CDC", props.errors);
 
   return (
     <div className="page1">
@@ -111,7 +109,10 @@ const DefineDataConnection = (props) => {
                     {/* <Form.Control
                       value={props.pageAnswers.Application}
                     ></Form.Control> */}
-                    <Form.Label>Data Source Connection</Form.Label>
+                    <Form.Label>
+                      Data Source Connection{" "}
+                      <span className="text-danger">*</span>
+                    </Form.Label>
                     <Col>
                       <Form.Select
                         name="DataSourceConnection"
@@ -172,7 +173,10 @@ const DefineDataConnection = (props) => {
                 </div>
                 <div>
                   <Row className="mb-3">
-                    <Form.Label>Data Target Connection</Form.Label>
+                    <Form.Label>
+                      Data Target Connection{" "}
+                      <span className="text-danger">*</span>
+                    </Form.Label>
                     <Col>
                       <Form.Select
                         name="DataTargetConnection"
@@ -233,7 +237,9 @@ const DefineDataConnection = (props) => {
                 </div>
                 <div>
                   <Row className="mb-3">
-                    <Form.Label>Application</Form.Label>
+                    <Form.Label>
+                      Application <span className="text-danger">*</span>
+                    </Form.Label>
                     <Col>
                       <Form.Select
                         name="Application"
@@ -290,6 +296,9 @@ const DefineDataConnection = (props) => {
                 </div>
                 <Col></Col>
               </Row>
+              <p className="mandatory-note">
+                <b>*</b> Indicates required fields
+              </p>
             </Form>
           </div>
         </Card.Body>

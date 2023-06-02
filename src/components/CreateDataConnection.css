@@ -16,3 +16,9 @@
   color: rgb(207, 6, 6);
   font-size: small;
 }
+
+.mandatory-note {
+  color: rgb(207, 6, 6);
+  font-style: italic;
+  font-size: small;
+}
