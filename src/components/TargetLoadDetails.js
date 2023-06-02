@@ -13,21 +13,24 @@ import {
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = (props) => {
-    const [pageAnswers, setPageAnswers] = useState({
-      
-    });
+  const [pageAnswers, setPageAnswers] = useState({});
 
-    const [pageData, setPageData] = useState({
-      page: props.step,
-      pageAnswers: "",
-    });
+  const [pageData, setPageData] = useState({
+    page: props.step,
+    pageAnswers: "",
+  });
 
-    const changeHandler = (e) => {
-      setPageAnswers({ ...pageAnswers, [e.target.name]: e.target.value });
-      setPageData({ ...pageData, pageAnswers: pageAnswers });
-    };
+  const changeHandler = (e) => {
+    setPageAnswers({ ...pageAnswers, [e.target.name]: e.target.value });
+    setPageData({ ...pageData, pageAnswers: pageAnswers });
+  };
 
-    console.log(pageAnswers)
+  const [checked, setChecked] = useState(false);
+  const chechBoxHandler = (e) => {
+    setChecked(!checked);
+  };
+
+  console.log(pageAnswers);
 
   return (
     <div className="TargetLoadDetails">
@@ -167,59 +170,63 @@ const TargetLoadDetails = (props) => {
                     label="Maintain a copy in DataLake"
                     name="Maintain a copy in DataLake"
                     onChange={changeHandler}
+                    onChange={chechBoxHandler}
                   ></Form.Check>
                 </div>
                 <br></br>
                 <br></br>
-                <div className="form-group">
-                  <Row className="mb-3">
-                    <Col>
-                      <Form.Label>Data Lake Connection</Form.Label>
-                      <Form.Select
-                        aria-label=""
-                        disabled={false}
-                        name="Data Lake Connection"
-                        onChange={changeHandler}
-                      >
-                        <option>{""}</option>
-                        <option>Connection1</option>
-                        <option>Connection2</option>
-                      </Form.Select>
-                    </Col>
-                    <Col>
-                      <Form.Label>Data Lake File Format</Form.Label>
-                      <Form.Select
-                        aria-label=""
-                        disabled={false}
-                        name="Data Lake File Format"
-                        onChange={changeHandler}
-                      >
-                        <option>{""}</option>
-                        <option>CSV</option>
-                        <option>PARQUET</option>
-                        <option>AVRO</option>
-                        <option>Source Format</option>
-                      </Form.Select>
-                    </Col>
-                  </Row>
-                </div>
-
-                <div className="form-group">
-                  <Row className="align-items-center mb-3">
-                    <Col xs="auto">
-                      <Form.Label>Data Lake Target Template</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="textbox3"
-                        disabled={false}
-                        name="Data Lake Target Template"
-                        onChange={changeHandler}
-                      />
-                    </Col>
-                  </Row>
-                </div>
+                {checked && (
+                  <div>
+                    <div className="form-group">
+                      <Row className="mb-3">
+                        <Col>
+                          <Form.Label>Data Lake Connection</Form.Label>
+                          <Form.Select
+                            aria-label=""
+                            disabled={false}
+                            name="Data Lake Connection"
+                            onChange={changeHandler}
+                          >
+                            <option>{""}</option>
+                            <option>Connection1</option>
+                            <option>Connection2</option>
+                          </Form.Select>
+                        </Col>
+                        <Col>
+                          <Form.Label>Data Lake File Format</Form.Label>
+                          <Form.Select
+                            aria-label=""
+                            disabled={false}
+                            name="Data Lake File Format"
+                            onChange={changeHandler}
+                          >
+                            <option>{""}</option>
+                            <option>CSV</option>
+                            <option>PARQUET</option>
+                            <option>AVRO</option>
+                            <option>Source Format</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </div>
+                    <div className="form-group">
+                      <Row className="align-items-center mb-3">
+                        <Col xs="auto">
+                          <Form.Label>Data Lake Target Template</Form.Label>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            className="textbox3"
+                            disabled={false}
+                            name="Data Lake Target Template"
+                            onChange={changeHandler}
+                          />
+                        </Col>
+                      </Row>
+                    </div>
+                  </div>
+                )}
               </Row>
             </Form>
           </div>

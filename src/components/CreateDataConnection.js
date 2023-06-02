@@ -296,9 +296,9 @@ const DefineDataConnection = (props) => {
                 </div>
                 <Col></Col>
               </Row>
-              <p className="mandatory-note">
+              {/* <p className="mandatory-note">
                 <b>*</b> Indicates required fields
-              </p>
+              </p> */}
             </Form>
           </div>
         </Card.Body>

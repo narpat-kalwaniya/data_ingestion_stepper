@@ -15,6 +15,7 @@ import "../App.css";
 const DefineSourceExtractCriteria = () => {
   const [selectedOption, setSelectedOption] = useState("incremental");
   const [selectedValues, setSelectedValues] = useState([]);
+  const [incrementalValue, setIncrementalValue] = useState("");
 
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
@@ -28,6 +29,10 @@ const DefineSourceExtractCriteria = () => {
         selectedOption,
       ]);
     }
+  };
+
+  const incrementalByHandler = (event) => {
+    setIncrementalValue(event.target.value);
   };
 
   const handleBadgeClose = (value) => {
@@ -87,10 +92,15 @@ const DefineSourceExtractCriteria = () => {
 
             <FormGroup>
               <Form.Label>Incremental by</Form.Label>
-              <Form.Select aria-label="" disabled={!isIncrementalSelected}>
-                <option>{""}</option>
-                <option>Date</option>
-                <option>Sequence</option>
+              <Form.Select
+                aria-label=""
+                disabled={!isIncrementalSelected}
+                onChange={incrementalByHandler}
+                value={incrementalValue}
+              >
+                <option value="">-- Select --</option>
+                <option value="Date">Date</option>
+                <option value="Sequence">Sequence</option>
               </Form.Select>
             </FormGroup>
 
@@ -130,7 +140,6 @@ const DefineSourceExtractCriteria = () => {
             </div>
 
             <Form.Group as={Row}>
-
               <Col sm={10}>
                 <Row>
                   <Col sm={6}>
@@ -143,7 +152,10 @@ const DefineSourceExtractCriteria = () => {
                           type="text"
                           placeholder=""
                           className="mb-3"
-                          disabled={!isIncrementalSelected}
+                          disabled={
+                            !isIncrementalSelected ||
+                            incrementalValue !== "Date"
+                          }
                         />
                       </Col>
                     </Form.Group>
@@ -158,7 +170,10 @@ const DefineSourceExtractCriteria = () => {
                           type="text"
                           placeholder=""
                           className="mb-3"
-                          disabled={!isIncrementalSelected}
+                          disabled={
+                            !isIncrementalSelected ||
+                            incrementalValue !== "Date"
+                          }
                         />
                       </Col>
                     </Form.Group>
@@ -175,7 +190,10 @@ const DefineSourceExtractCriteria = () => {
                           type="text"
                           placeholder=""
                           className="mb-3"
-                          disabled={!isIncrementalSelected}
+                          disabled={
+                            !isIncrementalSelected ||
+                            incrementalValue !== "Sequence"
+                          }
                         />
                       </Col>
                     </Form.Group>
@@ -190,7 +208,10 @@ const DefineSourceExtractCriteria = () => {
                           type="text"
                           placeholder=""
                           className="mb-3"
-                          disabled={!isIncrementalSelected}
+                          disabled={
+                            !isIncrementalSelected ||
+                            incrementalValue !== "Sequence"
+                          }
                         />
                       </Col>
                     </Form.Group>

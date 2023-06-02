@@ -3,7 +3,7 @@
 }
 
 .TargetLoadDetails .textbox1 {
-  width: 530px;
+  max-width: 530px;
 }
 
 .TargetLoadDetails .textbox2 {
