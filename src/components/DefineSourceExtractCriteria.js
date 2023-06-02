@@ -12,9 +12,10 @@ import {
 } from "react-bootstrap";
 import "../App.css";
 
-const DefineSourceExtractCriteria = () => {
+const DefineSourceExtractCriteria = ({ formData }) => {
   const [selectedOption, setSelectedOption] = useState("incremental");
   const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
 
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
@@ -37,6 +38,8 @@ const DefineSourceExtractCriteria = () => {
   };
 
   const isIncrementalSelected = selectedOption === "incremental";
+  const isDateSelected =
+    selectedOption === "incremental" && selectedIncrementalBy === "Date";
 
   console.log("selected values", selectedValues);
 
@@ -87,7 +90,12 @@ const DefineSourceExtractCriteria = () => {
 
             <FormGroup>
               <Form.Label>Incremental by</Form.Label>
-              <Form.Select aria-label="" disabled={!isIncrementalSelected}>
+              <Form.Select
+                aria-label=""
+                disabled={!isIncrementalSelected}
+                onChange={(e) => setSelectedIncrementalBy(e.target.value)}
+                value={selectedIncrementalBy}
+              >
                 <option>{""}</option>
                 <option>Date</option>
                 <option>Sequence</option>
@@ -102,11 +110,11 @@ const DefineSourceExtractCriteria = () => {
                 onChange={handleSelect}
                 disabled={!isIncrementalSelected}
               >
-                <option value="FIRST_NAME">FIRST_NAME</option>
-                <option value="LAST_NAME">LAST_NAME</option>
-                <option value="PHONE1">PHONE1</option>
-                <option value="WEBSITE">WEBSITE</option>
-                <option value="EMAIL">EMAIL</option>
+                {formData.tableData.map((column, index) => (
+                  <option key={index} value={column.column_name}>
+                    {column.column_name}
+                  </option>
+                ))}
               </Form.Control>
             </Form.Group>
             <div className="mt-2">
@@ -130,7 +138,6 @@ const DefineSourceExtractCriteria = () => {
             </div>
 
             <Form.Group as={Row}>
-
               <Col sm={10}>
                 <Row>
                   <Col sm={6}>
@@ -175,7 +182,7 @@ const DefineSourceExtractCriteria = () => {
                           type="text"
                           placeholder=""
                           className="mb-3"
-                          disabled={!isIncrementalSelected}
+                          disabled={!isIncrementalSelected && isDateSelected}
                         />
                       </Col>
                     </Form.Group>
@@ -200,7 +207,20 @@ const DefineSourceExtractCriteria = () => {
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={2}>
-                Default StartValue
+                Default Start Date
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  className="mb-3"
+                  disabled={!isIncrementalSelected}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row}>
+              <Form.Label column sm={2}>
+                Default Start Seq
               </Form.Label>
               <Col sm={10}>
                 <Form.Control

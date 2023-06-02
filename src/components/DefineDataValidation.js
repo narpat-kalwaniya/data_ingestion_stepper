@@ -1,43 +1,4 @@
-// import { Table, Form, Input, Col, Row } from "react-bootstrap";
-// import TableData from "./TableData";
-
-// const headers = [...Object.keys(TableData), "TargetDatatype", "ValidationRule"];
-// const ThData = () => {
-//   return headers.map((name) => <th key={name}>{name}</th>);
-// };
-
-// const TbData = ({ formData }) => {
-//   return formData.ColumnName.map((d, index) => (
-//     <tr>
-//       <td>{d}</td>
-//       <td>{TableData.SourceDatatype[index]}</td>
-//       <td>
-//         <Form.Select aria-label="Default select example">
-//           <option value="1">Datatype1</option>
-//           <option value="2">Datatype2</option>
-//           <option value="3">Datatype3</option>
-//         </Form.Select>
-//       </td>
-//       <td>
-//         <Form.Control></Form.Control>
-//       </td>
-//     </tr>
-//   ));
-// };
-// export const DefineDataValidation = ({ formData }) => {
-//   return (
-//     <Table responsive>
-//       <thead>
-//         <tr>{ThData()}</tr>
-//       </thead>
-//       <tbody>
-//         <TbData formData={formData} />
-//       </tbody>
-//     </Table>
-//   );
-// };
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Form, Input, Col, Row } from "react-bootstrap";
 
 const headers = [
@@ -45,10 +6,30 @@ const headers = [
   "Source Data Type",
   "Target Data Type",
   "Validation Rule",
+  "Validation Input",
 ];
 
 export const DefineDataValidation = ({ formData }) => {
-  console.log("formdata", formData);
+  const [testcases, setTestcases] = useState([]);
+  const [selectedTestcases, setSelectedTestcases] = useState([]);
+
+  useEffect(() => {
+    fetchTestcases();
+  }, []);
+
+  const fetchTestcases = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/testcasemaster/"
+      ); // Replace with your API endpoint
+      const data = await response.json();
+      setTestcases(data);
+      setSelectedTestcases(Array(formData.tableData.length).fill(""));
+    } catch (error) {
+      console.log("Error fetching test cases:", error);
+    }
+  };
+
   const targetDataTypes = [
     "ARRAY",
     "BIGINT",
@@ -73,6 +54,45 @@ export const DefineDataValidation = ({ formData }) => {
     "VARBINARY",
     "VARCHAR",
   ];
+
+  const handleTestcaseChange = (e, index) => {
+    const updatedTestcases = [...selectedTestcases];
+    updatedTestcases[index] = e.target.value;
+    setSelectedTestcases(updatedTestcases);
+  };
+
+  const renderValidationInput = (index) => {
+    const selectedTestCase = selectedTestcases[index];
+    const matchingTestCase = testcases.find(
+      (testCase) => testCase.testcase_name === selectedTestCase
+    );
+
+    if (matchingTestCase) {
+      const { template, testcase_name_alias } = matchingTestCase;
+
+      if (template) {
+        try {
+          const { input_values } = JSON.parse(template);
+
+          if (input_values === 0) {
+            return null;
+          }
+
+          return (
+            <Form.Control
+              type="text"
+              placeholder={`Enter ${testcase_name_alias} input`}
+              maxLength={input_values}
+            />
+          );
+        } catch (error) {
+          console.log("Error parsing JSON:", error);
+        }
+      }
+    }
+
+    return <Form.Control type="text" placeholder="Enter validation input" />;
+  };
 
   return (
     <Table responsive>
@@ -99,8 +119,24 @@ export const DefineDataValidation = ({ formData }) => {
               </Form.Select>
             </td>
             <td>
-              <Form.Control></Form.Control>
+              <Form.Control
+                as="select"
+                value={selectedTestcases[index]}
+                onChange={(e) => handleTestcaseChange(e, index)}
+                placeholder="Enter expectation"
+              >
+                <option value="">Select Test Case</option>
+                {testcases.map((testcase) => (
+                  <option
+                    key={testcase.testcase_master_id}
+                    value={testcase.testcase_name}
+                  >
+                    {testcase.testcase_name_alias}
+                  </option>
+                ))}
+              </Form.Control>
             </td>
+            <td>{renderValidationInput(index)}</td>
           </tr>
         ))}
       </tbody>
