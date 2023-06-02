@@ -16,6 +16,7 @@ const Stepper = (props) => {
           step={props.step}
           pageAnswers={props.pageAnswers}
           setPageAnswers={props.setPageAnswers}
+          errors={props.errors}
         />
       ) : props.step === 2 ? (
         <SourceEntitySelection

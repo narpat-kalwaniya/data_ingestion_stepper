@@ -11,3 +11,8 @@
   /* background-color: #887d70; */
   border: none;
 }
+
+.error {
+  color: rgb(207, 6, 6);
+  font-size: small;
+}

@@ -23,7 +23,15 @@ const DefineDataConnection = (props) => {
     DataTargetConnection: "",
     Application: "",
   });
+
   const changeHandler = (e) => {
+    // const { name, value } = e.target;
+    // props.setPageAnswers({
+    //   ...props.pageAnswers,
+    //   [name]: value,
+    // });
+    // setAnswer1((prevInputs) => ({ ...prevInputs, [name]: value }));
+
     props.setPageAnswers({
       ...props.pageAnswers,
       [e.target.name]: e.target.value,
@@ -38,8 +46,6 @@ const DefineDataConnection = (props) => {
     console.log(props.pageAnswers);
     // console.log("object is not available");
   }, [props.step]);
-
-  // console.log(props.pageAnswers.Application);
 
   useEffect(() => {
     delete props.pageAnswers["data"];
@@ -78,6 +84,8 @@ const DefineDataConnection = (props) => {
   //   onData(dataSourceConnection);
   // }, [dataSourceConnection]);
 
+  console.log("Erros in CDC", props.errors);
+
   return (
     <div className="page1">
       <Row>
@@ -104,22 +112,23 @@ const DefineDataConnection = (props) => {
                       value={props.pageAnswers.Application}
                     ></Form.Control> */}
                     <Form.Label>Data Source Connection</Form.Label>
-
                     <Col>
                       <Form.Select
                         name="DataSourceConnection"
                         onChange={changeHandler}
                         value={answer1.DataSourceConnection}
-                        isInvalid={answer1.DataSourceConnection === ""}
+                        isInvalid={props.errors.DataSourceConnection}
                         required
                       >
                         <option value={""}>-- Select --</option>
                         <option value="dsc1">dsc1</option>
                         <option value="dsc2">dsc2</option>
                       </Form.Select>
-                      <Form.Control.Feedback type="invalid">
-                        Please select an option.
-                      </Form.Control.Feedback>
+                      {props.errors.DataSourceConnection && (
+                        <div className="error">
+                          {props.errors.DataSourceConnection}
+                        </div>
+                      )}
                     </Col>
                     <Col>
                       <Icon.CloudPlusFill
@@ -139,7 +148,6 @@ const DefineDataConnection = (props) => {
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          {/* Add content for the large popup here */}
                           <p>Some Content</p>
                         </Modal.Body>
                         <Modal.Footer>
@@ -170,15 +178,18 @@ const DefineDataConnection = (props) => {
                         name="DataTargetConnection"
                         onChange={changeHandler}
                         value={answer1.DataTargetConnection}
-                        isInvalid={answer1.DataTargetConnection === ""}
+                        isInvalid={props.errors.DataTargetConnection}
+                        required
                       >
                         <option value="">-- Select --</option>
                         <option value="dtc1">dtc1</option>
                         <option value="dtc2">dtc2</option>
                       </Form.Select>
-                      <Form.Control.Feedback type="invalid">
-                        Please select an option.
-                      </Form.Control.Feedback>
+                      {props.errors.DataTargetConnection && (
+                        <div className="error">
+                          {props.errors.DataTargetConnection}
+                        </div>
+                      )}
                     </Col>
                     <Col>
                       <Icon.PatchPlusFill
@@ -228,15 +239,16 @@ const DefineDataConnection = (props) => {
                         name="Application"
                         onChange={changeHandler}
                         value={answer1.Application}
-                        isInvalid={answer1.Application === ""}
+                        isInvalid={props.errors.Application}
+                        required
                       >
                         <option value="">-- Select --</option>
                         <option value="App1">App1</option>
                         <option value="App2">App2</option>
                       </Form.Select>
-                      <Form.Control.Feedback type="invalid">
-                        Please select an option.
-                      </Form.Control.Feedback>
+                      {props.errors.Application && (
+                        <div className="error">{props.errors.Application}</div>
+                      )}
                     </Col>
                     <Col>
                       <Icon.WindowPlus

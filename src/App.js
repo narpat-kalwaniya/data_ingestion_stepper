@@ -27,6 +27,37 @@ function App() {
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  const [errors, setErrors] = useState({
+    DataSourceConnection: "",
+    DataTargetConnection: "",
+    Application: "",
+  });
+
+  const validateInputs = () => {
+    const newErrors = {};
+
+    if (
+      !pageAnswers.DataSourceConnection ||
+      pageAnswers.DataSourceConnection === ""
+    ) {
+      newErrors.DataSourceConnection = "This field is required";
+    }
+    if (
+      !pageAnswers.DataTargetConnection ||
+      pageAnswers.DataTargetConnection === ""
+    ) {
+      newErrors.DataTargetConnection = "This field is required";
+    }
+    if (!pageAnswers.Application || pageAnswers.Application === "") {
+      newErrors.Application = "This field is required";
+    }
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // console.log("Error in App", errors);
+
   const closeHandler = () => {
     setShowModal(true);
     setIsReview(false);
@@ -50,7 +81,12 @@ function App() {
   };
 
   const nextHandler = () => {
-    setStep((step) => step + 1);
+    const isValid = validateInputs();
+    if (isValid) {
+      setStep((step) => step + 1);
+    } else {
+      setStep((step) => step);
+    }
   };
 
   const cancelHandler = () => {};
@@ -58,7 +94,7 @@ function App() {
   const reviewHandler = () => {
     setIsReview(true);
   };
-  console.log(pageAnswers.DataSourceConnection);
+  // console.log(pageAnswers);
 
   return (
     <div className="App">
@@ -93,6 +129,7 @@ function App() {
                         step={step}
                         pageAnswers={pageAnswers}
                         setPageAnswers={setPageAnswers}
+                        errors={errors}
                       ></Stepper>
                     </Card.Body>
 
@@ -145,15 +182,7 @@ function App() {
                           Review & Submit
                         </button>
                       ) : (
-                        <button
-                          className="btn-s "
-                          onClick={nextHandler}
-                          disabled={
-                            pageAnswers.DataSourceConnection === "" ||
-                            pageAnswers.DataTargetConnection === "" ||
-                            pageAnswers.Application === ""
-                          }
-                        >
+                        <button className="btn-s " onClick={nextHandler}>
                           Next
                         </button>
                       )}
