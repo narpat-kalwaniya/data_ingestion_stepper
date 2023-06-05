@@ -30,7 +30,7 @@ function App() {
       source_entity_name: "",
       connection_id: null,
     },
-    TargetSchema: [],
+    tableData: [],
   });
 
   const totalPagesCount = 9;
