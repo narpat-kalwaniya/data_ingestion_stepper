@@ -16,6 +16,7 @@ import { Progressbar } from "./components/ProgressBar";
 import ReviewForm from "./components/ReviewForm";
 import CreateDataConnection from "./components/CreateDataConnection";
 import "./styles/main.css";
+import SectionMenu from "./components/SectionMenu";
 
 function App() {
   const [step, setStep] = useState(1);
@@ -67,6 +68,7 @@ function App() {
 
   const reviewHandler = () => {
     setIsReview(true);
+    setStep((step) => step + 1);
   };
 
   const updateFormData = (data) => {
@@ -87,19 +89,6 @@ function App() {
   //   }
   // }, []);
 
-  const sections = [
-    "Create Data Connection",
-    "Source Entity Selection",
-    "Target Schema",
-    "Define Data Validation",
-    "Define Source Extract Criteria",
-    "Target Load Details",
-    "Apply Masking",
-    "Gather Meta Data",
-    "Scheduling",
-    // "Review",
-  ];
-
   return (
     <div>
       <Container className="h-100">
@@ -112,31 +101,7 @@ function App() {
             </Col>
           </Row>
           <Row className="m-2">
-            <Col sm={2}>
-              <ListGroup style={{ maxWidth: "200px" }}>
-                {sections.map((item, index) => (
-                  <ListGroup.Item
-                    key={index}
-                    style={{
-                      backgroundColor: "#e9ecef",
-                      color: index === 2 ? "#F7901D" : "darkgray",
-                      border: "none",
-                    }}
-                  >
-                    {index + 1}. {item}
-                  </ListGroup.Item>
-                ))}
-                <ListGroup.Item
-                  style={{
-                    backgroundColor: "#e9ecef",
-                    color: "darkgray",
-                    border: "none",
-                  }}
-                >
-                  Review
-                </ListGroup.Item>
-              </ListGroup>
-            </Col>
+            <SectionMenu step={step} />
             <Col>
               <Card>
                 {isReview ? (

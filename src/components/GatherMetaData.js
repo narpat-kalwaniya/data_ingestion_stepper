@@ -74,10 +74,17 @@ const GatherMetaData = () => {
                 {additionalFields.map((field) => (
                   <Row key={field.id}>
                     <Col sm={4}>
-                      <Form.Control className="mb-3" />
+                      <Form.Control
+                        plaintext
+                        className="mb-3"
+                        placeholder="Enter Title"
+                      />
                     </Col>
                     <Col sm={6}>
-                      <Form.Control className="mb-3" />
+                      <Form.Control
+                        className="mb-3"
+                        placeholder="Enter Details"
+                      />
                     </Col>
                     <Col sm={2}>
                       <Button
@@ -85,7 +92,7 @@ const GatherMetaData = () => {
                         className="close-button"
                         onClick={() => removeHandler(field.id)}
                       >
-                        <XCircle size={18} />
+                        <XCircle size={18} color="red" />
                       </Button>
                     </Col>
                   </Row>

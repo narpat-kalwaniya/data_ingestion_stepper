@@ -72,14 +72,13 @@ const TbData = ({ formData, updateFormData }) => {
     updatedTableData[columnIndex].target_datatype = event.target.value;
     setTableData(updatedTableData);
 
-    // setPageAnswers((prevFormData) => {
-    //   const updatedFormData = [...prevFormData];
-    //   updatedFormData[props.step] = {
-    //     ...updatedFormData[props.step],
-    //     [e.target.name]: e.target.value,
-    //   };
-    //   return updatedFormData;
-    // });
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+    console.log(tableData);
+    console.log(formData);
   };
   console.log("form data", formData);
 
