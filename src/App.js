@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Container, Card, Row, Col, Form, Modal } from "react-bootstrap";
+import {
+  Container,
+  Card,
+  Row,
+  Col,
+  Form,
+  Modal,
+  ListGroup,
+} from "react-bootstrap";
 import { DataValidation } from "./components/DefineDataValidation";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
@@ -79,6 +87,19 @@ function App() {
   //   }
   // }, []);
 
+  const sections = [
+    "Create Data Connection",
+    "Source Entity Selection",
+    "Target Schema",
+    "Define Data Validation",
+    "Define Source Extract Criteria",
+    "Target Load Details",
+    "Apply Masking",
+    "Gather Meta Data",
+    "Scheduling",
+    // "Review",
+  ];
+
   return (
     <div>
       <Container className="h-100">
@@ -91,6 +112,31 @@ function App() {
             </Col>
           </Row>
           <Row className="m-2">
+            <Col sm={2}>
+              <ListGroup style={{ maxWidth: "200px" }}>
+                {sections.map((item, index) => (
+                  <ListGroup.Item
+                    key={index}
+                    style={{
+                      backgroundColor: "#e9ecef",
+                      color: index === 2 ? "#F7901D" : "darkgray",
+                      border: "none",
+                    }}
+                  >
+                    {index + 1}. {item}
+                  </ListGroup.Item>
+                ))}
+                <ListGroup.Item
+                  style={{
+                    backgroundColor: "#e9ecef",
+                    color: "darkgray",
+                    border: "none",
+                  }}
+                >
+                  Review
+                </ListGroup.Item>
+              </ListGroup>
+            </Col>
             <Col>
               <Card>
                 {isReview ? (
@@ -113,7 +159,7 @@ function App() {
                         style={{
                           minHeight: "65vh",
                           maxHeight: "65vh",
-                          overflow: "scroll",
+                          overflowY: "scroll",
                         }}
                       >
                         <Card.Body>
