@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Table, Form, Input, Col, Row } from "react-bootstrap";
+import {
+  Table,
+  Form,
+  Input,
+  InputGroup,
+  Col,
+  Row,
+  Badge,
+  FormControl,
+} from "react-bootstrap";
+
+import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
 
 const headers = [
   "Column Name",
@@ -12,6 +23,7 @@ const headers = [
 export const DefineDataValidation = ({ formData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     fetchTestcases();
@@ -61,37 +73,14 @@ export const DefineDataValidation = ({ formData }) => {
     setSelectedTestcases(updatedTestcases);
   };
 
-  const renderValidationInput = (index) => {
-    const selectedTestCase = selectedTestcases[index];
-    const matchingTestCase = testcases.find(
-      (testCase) => testCase.testcase_name === selectedTestCase
-    );
-
-    if (matchingTestCase) {
-      const { template, testcase_name_alias } = matchingTestCase;
-
-      if (template) {
-        try {
-          const { input_values } = JSON.parse(template);
-
-          if (input_values === 0) {
-            return null;
-          }
-
-          return (
-            <Form.Control
-              type="text"
-              placeholder={`Enter ${testcase_name_alias} input`}
-              maxLength={input_values}
-            />
-          );
-        } catch (error) {
-          console.log("Error parsing JSON:", error);
-        }
-      }
+  const validateTagCount = (_, value) => {
+    const desiredCount = 3; // Specify the desired tag count here
+    const tagCount = value ? value.length : 0;
+    if (tagCount > desiredCount) {
+      return Promise.reject(`Please select fewer than ${desiredCount} values`);
+    } else {
+      return Promise.resolve();
     }
-
-    return <Form.Control type="text" placeholder="Enter validation input" />;
   };
 
   return (
@@ -136,7 +125,16 @@ export const DefineDataValidation = ({ formData }) => {
                 ))}
               </Form.Control>
             </td>
-            <td>{renderValidationInput(index)}</td>
+            <AntdForm.Item
+              name={`expectationInput-${index}`}
+              rules={[
+                {
+                  validator: validateTagCount,
+                },
+              ]}
+            >
+              <Select mode="tags" placeholder="Expectation Input" />
+            </AntdForm.Item>
           </tr>
         ))}
       </tbody>
