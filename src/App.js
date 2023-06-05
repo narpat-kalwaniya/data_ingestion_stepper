@@ -39,6 +39,7 @@ function App() {
       connection_id: null,
     },
     TargetSchema: [],
+    Scheduling: [],
   });
 
   const totalPagesCount = 9;
