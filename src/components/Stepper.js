@@ -20,41 +20,59 @@ const Stepper = ({
     <div>
       {step === 1 ? (
         <CreateDataConnection
+          step={step}
           formData={formData}
           updateFormData={updateFormData}
         />
       ) : step === 2 ? (
         <SourceEntitySelection
+          step={step}
           formData={formData}
           updateFormData={updateFormData}
         />
       ) : step === 3 ? (
         <TargetSchema
+          step={step}
           formData={formData}
           updateFormData={updateFormData}
           updateTableData={updateTableData}
         />
       ) : step === 4 ? (
         <DefineDataValidation
+          step={step}
           formData={formData}
           updateFormData={updateFormData}
         />
       ) : step === 5 ? (
         <DefineSourceExtractCriteria
+          step={step}
           formData={formData}
           updateFormData={updateFormData}
         />
       ) : step === 6 ? (
         <TargetLoadDetails
+          step={step}
           formData={formData}
           updateFormData={updateFormData}
         />
       ) : step === 7 ? (
-        <ApplyMasking formData={formData} updateFormData={updateFormData} />
+        <ApplyMasking
+          step={step}
+          formData={formData}
+          updateFormData={updateFormData}
+        />
       ) : step === 8 ? (
-        <GatherMetaData formData={formData} updateFormData={updateFormData} />
+        <GatherMetaData
+          step={step}
+          formData={formData}
+          updateFormData={updateFormData}
+        />
       ) : step === 9 ? (
-        <Scheduling formData={formData} updateFormData={updateFormData} />
+        <Scheduling
+          step={step}
+          formData={formData}
+          updateFormData={updateFormData}
+        />
       ) : null}
     </div>
   );

@@ -53,7 +53,7 @@ h5 {
 }
 
 .btn-s {
-  background-color: #f7901d;
+  background-color: #F7901D;
   border: none;
   color: #fff;
   padding: 0.5rem 1.5rem;
@@ -64,6 +64,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-s:hover {
   background-color: #f7a84f;
@@ -71,7 +72,7 @@ h5 {
 }
 
 .btn-s-1 {
-  background-color: #18749c;
+  background-color: #18749C;
   border: none;
   color: #fff;
   padding: 0.5rem 1.5rem;
@@ -82,6 +83,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-s-1:hover {
   background-color: rgb(53, 143, 182);
@@ -100,6 +102,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-d:hover {
   background-color: rgb(252, 63, 63);
@@ -118,6 +121,7 @@ h5 {
   cursor: pointer;
   float: left;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 .btn-c:hover {
   background-color: #eef5f9;
@@ -153,7 +157,7 @@ h5 {
 
 .card-header {
   text-align: left;
-  background-color: #49494a !important;
+  background-color: #49494A !important;
   color: #ffffff !important;
   width: 100% !important;
 }
@@ -174,8 +178,8 @@ h5 {
 }
 
 .custom-button {
-  background-color: #f7901d !important;
-  border-color: #f7901d !important;
+  background-color: #F7901D !important;
+  border-color: #F7901D !important;
   color: #ffffff !important;
 }
 
@@ -186,9 +190,15 @@ h5 {
 }
 
 .icon:hover {
-  color: #18749c;
-} /*# sourceMappingURL=main.css.map */
-
-.line-separator {
-  border-top: 1px solid black;
+  color: #18749C;
 }
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: red;
+}
+
+.App {
+  height: "500px";
+  overflow: "auto";
+}/*# sourceMappingURL=main.css.map */

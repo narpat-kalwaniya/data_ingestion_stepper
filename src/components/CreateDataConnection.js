@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
-const CreateDataConnection = ({ formData, updateFormData }) => {
+const CreateDataConnection = ({ formData, updateFormData, step }) => {
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
 
@@ -39,7 +39,10 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
     const selectedConnectionName = event.target.value;
     const updatedFormData = {
       ...formData,
-      dataSource: selectedConnectionName,
+      CreateDataConnection: {
+        ...formData.CreateDataConnection,
+        dataSource: selectedConnectionName,
+      },
       sourceEntity: {
         ...formData.sourceEntity,
         connection_id: connections[0].app_id,
@@ -50,7 +53,13 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
 
   const handleTargetSelection = (event) => {
     const selectedConnectionName = event.target.value;
-    const updatedFormData = { ...formData, dataTarget: selectedConnectionName };
+    const updatedFormData = {
+      ...formData,
+      CreateDataConnection: {
+        ...formData.CreateDataConnection,
+        dataTarget: selectedConnectionName,
+      },
+    };
     updateFormData(updatedFormData);
   };
 
@@ -58,7 +67,10 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
     const selectedApplicationName = event.target.value;
     const updatedFormData = {
       ...formData,
-      application: selectedApplicationName,
+      CreateDataConnection: {
+        ...formData.CreateDataConnection,
+        application: selectedApplicationName,
+      },
     };
     updateFormData(updatedFormData);
   };
@@ -69,6 +81,8 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
   const filteredTargetConnections = connections.filter(
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
+
+  console.log(formData);
 
   return (
     <div className="page1">
@@ -81,7 +95,10 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
                   <Row>
                     <Form.Label>Data Source Connection</Form.Label>
                     <Col>
-                      <Form.Select onChange={handleSelection}>
+                      <Form.Select
+                        onChange={handleSelection}
+                        value={formData.CreateDataConnection.dataSource}
+                      >
                         <option value="">Select Source Connection</option>
                         {filteredSourceConnections.map((connection) => (
                           <option
@@ -102,7 +119,10 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
                   <Row>
                     <Form.Label>Data Target Connection</Form.Label>
                     <Col>
-                      <Form.Select onChange={handleTargetSelection}>
+                      <Form.Select
+                        onChange={handleTargetSelection}
+                        value={formData.CreateDataConnection.dataTarget}
+                      >
                         <option value="">Select Target Connection</option>
                         {filteredTargetConnections.map((connection) => (
                           <option
@@ -123,7 +143,10 @@ const CreateDataConnection = ({ formData, updateFormData }) => {
                   <Row>
                     <Form.Label>Application</Form.Label>
                     <Col>
-                      <Form.Select onChange={handleApplicationSelection}>
+                      <Form.Select
+                        onChange={handleApplicationSelection}
+                        value={formData.CreateDataConnection.application}
+                      >
                         <option value="">Select Application</option>
                         {applications.map((application) => (
                           <option

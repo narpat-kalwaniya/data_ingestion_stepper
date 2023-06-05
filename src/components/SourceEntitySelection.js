@@ -139,6 +139,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
     fetchDatabaseSchemaTableData();
   }, [selectedDatabase, selectedSchema]);
 
+  console.log(formData);
   return (
     <div className="page1">
       <Row>
@@ -151,7 +152,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                     <Form.Label>Data Source Type</Form.Label>
                     <Form.Select
                       aria-label=""
-                      value={dataSourceType}
+                      value={formData.sourceEntity.data_source_type}
                       onChange={selectChangeHandler}
                       disabled={false}
                     >
@@ -181,7 +182,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                   <div className="form-group">
                     <Form.Label>Database Name</Form.Label>
                     <Form.Select
-                      value={selectedDatabase}
+                      value={formData.sourceEntity.db_name}
                       onChange={handleDatabaseChange}
                       disabled={dataSourceType !== "RDBMS-TABLE"}
                     >
@@ -198,7 +199,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                   <div className="form-group">
                     <Form.Label>Schema Name</Form.Label>
                     <Form.Select
-                      value={selectedSchema}
+                      value={formData.sourceEntity.schema_name}
                       onChange={handleSchemaChange}
                       disabled={
                         dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
@@ -217,7 +218,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                   <div className="form-group">
                     <Form.Label>Table Name</Form.Label>
                     <Form.Select
-                      value={selectedTable}
+                      value={formData.sourceEntity.table_name}
                       onChange={handleTableChange}
                       disabled={
                         dataSourceType !== "RDBMS-TABLE" ||

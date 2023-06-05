@@ -94,6 +94,8 @@ export const DefineDataValidation = ({ formData }) => {
     return <Form.Control type="text" placeholder="Enter validation input" />;
   };
 
+  console.log(formData);
+
   return (
     <Table responsive>
       <thead>

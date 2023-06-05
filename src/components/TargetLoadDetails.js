@@ -13,6 +13,11 @@ import {
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = () => {
+  const [checked, setChecked] = useState(false);
+  const chechBoxHandler = (e) => {
+    setChecked(!checked);
+  };
+
   return (
     <div className="TargetLoadDetails">
       <Row>
@@ -135,47 +140,52 @@ const TargetLoadDetails = () => {
                   <Form.Check
                     type="checkbox"
                     label="Maintain a copy in DataLake"
+                    onChange={chechBoxHandler}
                   ></Form.Check>
                 </div>
                 <br></br>
                 <br></br>
-                <div className="form-group">
-                  <Row className="mb-3">
-                    <Col>
-                      <Form.Label>Data Lake Connection</Form.Label>
-                      <Form.Select aria-label="" disabled={false}>
-                        <option>{""}</option>
-                        <option>Connection1</option>
-                        <option>Connection2</option>
-                      </Form.Select>
-                    </Col>
-                    <Col>
-                      <Form.Label>Data Lake File Format</Form.Label>
-                      <Form.Select aria-label="" disabled={false}>
-                        <option>{""}</option>
-                        <option>CSV</option>
-                        <option>PARQUET</option>
-                        <option>AVRO</option>
-                        <option>Source Format</option>
-                      </Form.Select>
-                    </Col>
-                  </Row>
-                </div>
+                {checked && (
+                  <div>
+                    <div className="form-group">
+                      <Row className="mb-3">
+                        <Col>
+                          <Form.Label>Data Lake Connection</Form.Label>
+                          <Form.Select aria-label="" disabled={false}>
+                            <option>{""}</option>
+                            <option>Connection1</option>
+                            <option>Connection2</option>
+                          </Form.Select>
+                        </Col>
+                        <Col>
+                          <Form.Label>Data Lake File Format</Form.Label>
+                          <Form.Select aria-label="" disabled={false}>
+                            <option>{""}</option>
+                            <option>CSV</option>
+                            <option>PARQUET</option>
+                            <option>AVRO</option>
+                            <option>Source Format</option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </div>
 
-                <div className="form-group">
-                  <Row className="align-items-center mb-3">
-                    <Col xs="auto">
-                      <Form.Label>Data Lake Target Template</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="textbox3"
-                        disabled={false}
-                      />
-                    </Col>
-                  </Row>
-                </div>
+                    <div className="form-group">
+                      <Row className="align-items-center mb-3">
+                        <Col xs="auto">
+                          <Form.Label>Data Lake Target Template</Form.Label>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            className="textbox3"
+                            disabled={false}
+                          />
+                        </Col>
+                      </Row>
+                    </div>
+                  </div>
+                )}
               </Row>
             </Form>
           </div>

@@ -55,7 +55,7 @@ const TbData = ({ formData, updateFormData }) => {
 
       const updatedFormData = {
         ...formData,
-        tableData: tableData,
+        TargetSchema: tableData,
       };
       updateFormData(updatedFormData);
     };
