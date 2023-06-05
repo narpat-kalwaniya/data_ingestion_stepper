@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
+import { DataContext } from "./DataContext";
 
 const SourceEntitySelection = ({ formData, updateFormData }) => {
   const [dataSourceType, setDataSourceType] = useState("");
@@ -9,6 +10,8 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
   const [selectedDatabase, setSelectedDatabase] = useState("");
   const [selectedSchema, setSelectedSchema] = useState("");
   const [selectedTable, setSelectedTable] = useState("");
+
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
@@ -22,6 +25,11 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
       sourceEntity: updatedSourceEntity,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      data_source_type: value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleDatabaseChange = (event) => {
@@ -38,6 +46,11 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
       sourceEntity: updatedSourceEntity,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      db_name: value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleSchemaChange = (event) => {
@@ -53,6 +66,10 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
       sourceEntity: updatedSourceEntity,
     };
     updateFormData(updatedFormData);
+    const updatedData = {
+      schema_name: value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleTableChange = (event) => {
@@ -67,6 +84,11 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
       sourceEntity: updatedSourceEntity,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      table_name: value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const queryChangeHandler = (event) => {
@@ -80,15 +102,22 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
       sourceEntity: updatedSourceEntity,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      query: value,
+    };
+    updateIngestionData(updatedData);
   };
 
   // Fetch databases, schemas, and tables from API or data source
   // and populate the corresponding dropdowns
+
+  const connectionId = formData.sourceEntity.connection_id;
   const fetchDatabaseSchemaTableData = async () => {
     try {
       // Perform API call or fetch data from the data source
       const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getschematable/1"
+        `http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getschematable/${connectionId}`
       );
       const data = await response.json();
 

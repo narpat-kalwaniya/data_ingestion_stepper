@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
 import Success from "./Success";
 import { PencilSquare } from "react-bootstrap-icons";
+import { DataContext } from "./DataContext";
 
 const ReviewFrom = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -15,8 +16,42 @@ const ReviewFrom = (props) => {
     props.setIsReview(false);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async (event) => {
     setIsSubmitted(true);
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    try {
+      // Call the sendData function to send the POST request
+      await sendData();
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  // post request send the final ingestion data
+  const { ingestionData } = useContext(DataContext);
+
+  // Function to handle the POST request
+  const sendData = async () => {
+    try {
+      const response = await fetch("your-post-url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ingestionData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error sending data");
+      }
+
+      // Handle the response if needed
+      const responseData = await response.json();
+      console.log("Response:", responseData);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
   console.log(props.formData);

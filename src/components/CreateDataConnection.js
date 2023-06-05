@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
+import { DataContext } from "./DataContext";
 
 const CreateDataConnection = ({ formData, updateFormData, step }) => {
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   useEffect(() => {
     const fetchConnections = async () => {
@@ -49,6 +51,12 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
       },
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      source_connection_id: selectedConnectionName,
+      app_id: connections[0].app_id,
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleTargetSelection = (event) => {
@@ -61,6 +69,11 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
       },
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      target_connection_id: selectedConnectionName,
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleApplicationSelection = (event) => {
@@ -82,7 +95,9 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
 
-  console.log(formData);
+  console.log("form data", formData);
+
+  console.log("ingestion data", ingestionData);
 
   return (
     <div className="page1">
