@@ -55,7 +55,7 @@ const TbData = ({ formData, updateFormData }) => {
 
       const updatedFormData = {
         ...formData,
-        TargetSchema: tableData,
+        tableData: tableData,
       };
       updateFormData(updatedFormData);
     };
@@ -71,6 +71,15 @@ const TbData = ({ formData, updateFormData }) => {
     const updatedTableData = [...tableData];
     updatedTableData[columnIndex].target_datatype = event.target.value;
     setTableData(updatedTableData);
+
+    // setPageAnswers((prevFormData) => {
+    //   const updatedFormData = [...prevFormData];
+    //   updatedFormData[props.step] = {
+    //     ...updatedFormData[props.step],
+    //     [e.target.name]: e.target.value,
+    //   };
+    //   return updatedFormData;
+    // });
   };
   console.log("form data", formData);
 
