@@ -15,6 +15,7 @@ import Header from "./components/Header";
 import { Progressbar } from "./components/ProgressBar";
 import ReviewForm from "./components/ReviewForm";
 import CreateDataConnection from "./components/CreateDataConnection";
+import { DataProvider } from "./components/DataContext";
 import "./styles/main.css";
 import SectionMenu from "./components/SectionMenu";
 
@@ -105,14 +106,16 @@ function App() {
             <Col>
               <Card>
                 {isReview ? (
-                  <ReviewForm
-                    step={step}
-                    setStep={setStep}
-                    isReview={isReview}
-                    setIsReview={setIsReview}
-                    cancel={closeHandler}
-                    formData={formData}
-                  ></ReviewForm>
+                  <DataProvider>
+                    <ReviewForm
+                      step={step}
+                      setStep={setStep}
+                      isReview={isReview}
+                      setIsReview={setIsReview}
+                      cancel={closeHandler}
+                      formData={formData}
+                    ></ReviewForm>
+                  </DataProvider>
                 ) : (
                   <div>
                     <Card.Header className="header">

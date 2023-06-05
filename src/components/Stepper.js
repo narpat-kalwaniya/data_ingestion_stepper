@@ -8,6 +8,7 @@ import SourceEntitySelection from "./SourceEntitySelection";
 import ApplyMasking from "./ApplyMasking";
 import GatherMetaData from "./GatherMetaData";
 import Scheduling from "./Scheduling";
+import { DataProvider } from "./DataContext";
 
 const Stepper = ({
   step,
@@ -17,7 +18,7 @@ const Stepper = ({
   updateTableData,
 }) => {
   return (
-    <div>
+    <DataProvider>
       {step === 1 ? (
         <CreateDataConnection
           step={step}
@@ -74,7 +75,7 @@ const Stepper = ({
           updateFormData={updateFormData}
         />
       ) : null}
-    </div>
+    </DataProvider>
   );
 };
 
