@@ -113,7 +113,7 @@ function App() {
                         style={{
                           minHeight: "65vh",
                           maxHeight: "65vh",
-                          overflow: "scroll",
+                          overflowY: "scroll",
                         }}
                       >
                         <Card.Body>
