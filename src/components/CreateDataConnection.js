@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
+import "../styles/main.css";
+import "./CreateDataConnection.css";
 
-const CreateDataConnection = ({ formData, updateFormData, step }) => {
+const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
 
@@ -82,7 +84,7 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
 
-  console.log(formData);
+  // console.log(formData);
 
   return (
     <div className="page1">
@@ -92,14 +94,18 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
             <Form>
               <Row>
                 <div>
-                  <Row>
-                    <Form.Label>Data Source Connection</Form.Label>
+                  <Row className="mb-3">
+                    <Form.Label>
+                      Data Source Connection{" "}
+                      <span className="text-danger">*</span>
+                    </Form.Label>
                     <Col>
                       <Form.Select
                         onChange={handleSelection}
                         value={formData.CreateDataConnection.dataSource}
+                        isInvalid={errors.dataSource}
                       >
-                        <option value="">Select Source Connection</option>
+                        <option value="">-- Select --</option>
                         {filteredSourceConnections.map((connection) => (
                           <option
                             key={connection.connection_id}
@@ -109,6 +115,9 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
                           </option>
                         ))}
                       </Form.Select>
+                      {errors.dataSource && (
+                        <div className="error">{errors.dataSource}</div>
+                      )}
                     </Col>
                     <Col>
                       <Icon.CloudPlusFill size={40} className="icon" />
@@ -116,14 +125,19 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
                   </Row>
                 </div>
                 <div>
-                  <Row>
-                    <Form.Label>Data Target Connection</Form.Label>
+                  <Row className="mb-3">
+                    <Form.Label>
+                      Data Target Connection{" "}
+                      <span className="text-danger">*</span>
+                    </Form.Label>
                     <Col>
                       <Form.Select
                         onChange={handleTargetSelection}
                         value={formData.CreateDataConnection.dataTarget}
+                        isInvalid={errors.dataTarget}
+                        required
                       >
-                        <option value="">Select Target Connection</option>
+                        <option value="">-- Select --</option>
                         {filteredTargetConnections.map((connection) => (
                           <option
                             key={connection.connection_id}
@@ -133,6 +147,9 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
                           </option>
                         ))}
                       </Form.Select>
+                      {errors.dataTarget && (
+                        <div className="error">{errors.dataTarget}</div>
+                      )}
                     </Col>
                     <Col>
                       <Icon.PatchPlusFill size={40} className="icon" />
@@ -140,14 +157,18 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
                   </Row>
                 </div>
                 <div>
-                  <Row>
-                    <Form.Label>Application</Form.Label>
+                  <Row className="mb-3">
+                    <Form.Label>
+                      Application <span className="text-danger">*</span>
+                    </Form.Label>
                     <Col>
                       <Form.Select
                         onChange={handleApplicationSelection}
                         value={formData.CreateDataConnection.application}
+                        isInvalid={errors.application}
+                        required
                       >
-                        <option value="">Select Application</option>
+                        <option value="">-- Select --</option>
                         {applications.map((application) => (
                           <option
                             key={application.app_id}
@@ -157,6 +178,9 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
                           </option>
                         ))}
                       </Form.Select>
+                      {errors.application && (
+                        <div className="error">{errors.application}</div>
+                      )}
                     </Col>
                     <Col>
                       <Icon.WindowPlus className="icon" size={40} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 
-const SourceEntitySelection = ({ formData, updateFormData }) => {
+const SourceEntitySelection = ({ formData, updateFormData, errors2 }) => {
   const [dataSourceType, setDataSourceType] = useState("");
   const [databases, setDatabases] = useState([]);
   const [schemas, setSchemas] = useState([]);
@@ -139,7 +139,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
     fetchDatabaseSchemaTableData();
   }, [selectedDatabase, selectedSchema]);
 
-  console.log(formData);
+  // console.log(formData);
   return (
     <div className="page1">
       <Row>
@@ -149,24 +149,33 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
               <Row className="mb-3">
                 <Col sm={6}>
                   <div className="form-group">
-                    <Form.Label>Data Source Type</Form.Label>
+                    <Form.Label>
+                      Data Source Type <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       aria-label=""
                       value={formData.sourceEntity.data_source_type}
                       onChange={selectChangeHandler}
                       disabled={false}
+                      isInvalid={errors2.data_source_type}
+                      required
                     >
-                      <option>{""}</option>
+                      <option value="">-- Select --</option>
                       <option value={"RDBMS-TABLE"}>RDBMS-TABLE</option>
                       <option value={"RDBMS-QUERY"}>RDBMS-QUERY</option>
                       <option value={"Flat File"}>Flat File</option>
                     </Form.Select>
+                    {errors2.data_source_type && (
+                      <div className="error">{errors2.data_source_type}</div>
+                    )}
                   </div>
                 </Col>
               </Row>
               <Row className="mb-3">
                 <div>
-                  <Form.Label>Query</Form.Label>
+                  <Form.Label>
+                    Query <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={3}
@@ -174,17 +183,24 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                     disabled={dataSourceType !== "RDBMS-QUERY"}
                     value={formData.sourceEntity.query || ""}
                     onChange={queryChangeHandler}
+                    isInvalid={errors2.query}
                   />
+                  {errors2.query && (
+                    <div className="error">{errors2.query}</div>
+                  )}
                 </div>
               </Row>
               <Row className="mb-3">
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Database Name</Form.Label>
+                    <Form.Label>
+                      Database Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       value={formData.sourceEntity.db_name}
                       onChange={handleDatabaseChange}
                       disabled={dataSourceType !== "RDBMS-TABLE"}
+                      isInvalid={errors2.db_name}
                     >
                       <option value="">Select Database</option>
                       {databases.map((database) => (
@@ -193,17 +209,23 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         </option>
                       ))}
                     </Form.Select>
+                    {errors2.db_name && (
+                      <div className="error">{errors2.db_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Schema Name</Form.Label>
+                    <Form.Label>
+                      Schema Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       value={formData.sourceEntity.schema_name}
                       onChange={handleSchemaChange}
                       disabled={
                         dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
                       }
+                      isInvalid={errors2.schema_name}
                     >
                       <option value="">Select Schema</option>
                       {schemas.map((schema) => (
@@ -212,11 +234,16 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         </option>
                       ))}
                     </Form.Select>
+                    {errors2.schema_name && (
+                      <div className="error">{errors2.schema_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Table Name</Form.Label>
+                    <Form.Label>
+                      Table Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       value={formData.sourceEntity.table_name}
                       onChange={handleTableChange}
@@ -225,6 +252,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         !selectedDatabase ||
                         !selectedSchema
                       }
+                      isInvalid={errors2.table_name}
                     >
                       <option value="">Select Table</option>
                       {tables.map((table) => (
@@ -233,28 +261,43 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         </option>
                       ))}
                     </Form.Select>
+                    {errors2.table_name && (
+                      <div className="error">{errors2.table_name}</div>
+                    )}
                   </div>
                 </Col>
               </Row>
               <Row>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Bucket Name</Form.Label>
+                    <Form.Label>
+                      Bucket Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "Flat File"}
+                      isInvalid={errors2.bucket_name}
                     />
+                    {errors2.bucket_name && (
+                      <div className="error">{errors2.bucket_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Full File Name</Form.Label>
+                    <Form.Label>
+                      Full File Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       className="textbox1"
                       disabled={dataSourceType !== "Flat File"}
+                      isInvalid={errors2.full_file_name}
                     />
+                    {errors2.full_file_name && (
+                      <div className="error">{errors2.full_file_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col></Col>
