@@ -14,6 +14,8 @@ const headers = [
 const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([]);
 
+  console.log(tableData);
+
   useEffect(() => {
     const requestData = {
       data_source_type: formData.sourceEntity.data_source_type,
@@ -43,7 +45,7 @@ const TbData = ({ formData, updateFormData }) => {
         if (response.ok) {
           const responseData = await response.json();
           if (Array.isArray(responseData)) {
-            console.log("response data", requestData);
+            // console.log("response data", requestData);
             setTableData(responseData);
           }
         } else {
@@ -80,6 +82,24 @@ const TbData = ({ formData, updateFormData }) => {
     console.log(tableData);
     console.log(formData);
   };
+
+  // const primaryKeyHandler = (checked, index) => {
+  //   tableData[index].PrimaryKey = checked;
+  //   setData(data);
+  //   // console.log(data);
+  // };
+
+  // const businessKeyHandler = (checked, index) => {
+  //   data[index].BusinessKey = checked;
+  //   setData(data);
+  //   // console.log(data);
+  // };
+
+  // const transformLogicHandler = (value, index) => {
+  //   data[index].TransformationLogic = value;
+  //   setData(data);
+  // };
+
   console.log("form data", formData);
 
   const targetDataTypes = [
@@ -131,13 +151,22 @@ const TbData = ({ formData, updateFormData }) => {
             </Form.Select>
           </td>
           <td>
-            <Form.Check />
+            <Form.Check
+              type="checkbox"
+              // onChange={(e) => primaryKeyHandler(e.target.checked, index)}
+            />
           </td>
           <td>
-            <Form.Check />
+            <Form.Check
+              type="checkbox"
+              // onChange={(e) => businessKeyHandler(e.target.checked, index)}
+            />
           </td>
           <td>
-            <Form.Control />
+            <Form.Control
+              type="text"
+              // onChange={(e) => transformLogicHandler(e.target.value, index)}
+            />
           </td>
         </tr>
       ))}
