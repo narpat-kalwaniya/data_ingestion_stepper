@@ -16,6 +16,8 @@ const Stepper = ({
   updateFormData,
   updateSourceEntityData,
   updateTableData,
+  errors,
+  errors2,
 }) => {
   return (
     <DataProvider>
@@ -24,12 +26,14 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          errors={errors}
         />
       ) : step === 2 ? (
         <SourceEntitySelection
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          errors2={errors2}
         />
       ) : step === 3 ? (
         <TargetSchema

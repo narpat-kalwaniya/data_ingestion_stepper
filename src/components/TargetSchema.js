@@ -63,7 +63,7 @@ const TbData = ({ formData, updateFormData }) => {
     };
 
     fetchData();
-  }, []);
+  }, [updateFormData]);
 
   const handleCheck = () => {
     // Handle checkbox click event if needed

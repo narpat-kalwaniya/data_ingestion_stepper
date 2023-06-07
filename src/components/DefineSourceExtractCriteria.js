@@ -92,16 +92,22 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   onChange={handleRadioChange}
                 />
               </Col>
-              <Col sm={6}>
-                <Form.Check
-                  type="checkbox"
-                  label="Select Distinct"
-                  id="checkbox"
-                  className="mb-0"
-                  name="selectDistinct"
-                  checked={pageData.selectDistinct}
-                  onchange={changeHandler}
-                />
+              <Col sm={4}>
+                <Row>
+                  <Col sm={1}>
+                    <Form.Check
+                      type="checkbox"
+                      id="checkbox"
+                      className="mb-0"
+                      name="selectDistinct"
+                      // checked={pageData.selectDistinct}
+                      onchange={changeHandler}
+                    />
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Label>Select Distinct</Form.Label>
+                  </Col>
+                </Row>
               </Col>
             </Form.Group>
 
