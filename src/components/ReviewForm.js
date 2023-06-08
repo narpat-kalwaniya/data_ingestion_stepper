@@ -16,6 +16,24 @@ const ReviewFrom = (props) => {
     props.setIsReview(false);
   };
 
+  const editHandler3 = () => {
+    props.setStep((step) => 3);
+    props.setIsReview(false);
+  };
+  const editHandler4 = () => {
+    props.setStep((step) => 4);
+    props.setIsReview(false);
+  };
+  const editHandler5 = () => {
+    props.setStep((step) => 5);
+    props.setIsReview(false);
+  };
+
+  const editHandler6 = () => {
+    props.setStep((step) => 6);
+    props.setIsReview(false);
+  };
+
   const submitHandler = async (event) => {
     setIsSubmitted(true);
     event.preventDefault(); // Prevent the default form submission behavior
@@ -129,7 +147,7 @@ const ReviewFrom = (props) => {
                   <h5>Target Schema</h5>
                   <button
                     style={{ backgroundColor: "#49494A" }}
-                    onClick={editHandler2}
+                    onClick={editHandler3}
                   >
                     <PencilSquare></PencilSquare>
                   </button>
@@ -160,6 +178,50 @@ const ReviewFrom = (props) => {
                     </tbody>
                   </Table>
                 </Card.Body>
+                <Card.Header className="d-flex justify-content-between float-right">
+                  <h5>Define Data Validation</h5>
+                  <button
+                    style={{ backgroundColor: "#49494A" }}
+                    onClick={editHandler2}
+                  >
+                    <PencilSquare></PencilSquare>
+                  </button>
+                </Card.Header>
+                <Card.Body>
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th>Column Name</th>
+                        <th>Source Datatype</th>
+                        <th>Target Datatype</th>
+                        <th>Validation Rule</th>
+                        <th>Validation Input</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {props.formData.tableData.map((obj, index) => (
+                        <tr key={index}>
+                          <td>{obj.column_name}</td>{" "}
+                          {/* Replace 'key' with the actual key from the object */}
+                          <td>{obj.data_type}</td>{" "}
+                          {/* Replace 'value' with the actual value from the object */}
+                          <td>{obj.target_datatype}</td> <td></td> <td></td>{" "}
+                          <td></td> <td></td>
+                          <td></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </Card.Body>
+                <Card.Header className="d-flex justify-content-between float-right">
+                  <h5>Create Data Connection</h5>
+                  <button
+                    style={{ backgroundColor: "#49494A" }}
+                    onClick={editHandler1}
+                  >
+                    <PencilSquare></PencilSquare>
+                  </button>
+                </Card.Header>
 
                 <Card.Footer className="d-flex justify-content-between">
                   <button

@@ -11,6 +11,18 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
   const [selectedSchema, setSelectedSchema] = useState("");
   const [selectedTable, setSelectedTable] = useState("");
 
+  const [bucketName, setBucketName] = useState("");
+  const [fullFileName, setFullFileName] = useState("");
+
+  const [disableElement, setDisableElement] = useState({
+    query: true,
+    db_name: true,
+    schema_name: true,
+    table_name: true,
+    bucket_name: true,
+    full_file_name: true,
+  });
+
   const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   const selectChangeHandler = (event) => {
@@ -107,6 +119,42 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
       query: value,
     };
     updateIngestionData(updatedData);
+  };
+
+  // Event listener for Bucket Name and Full File Name Change Handler
+  const bucket_fileNameChangeHandler = (event) => {
+    const { name, value } = event.target;
+    if (name === "BucketName") {
+      setBucketName(value);
+      const updatedSourceEntity = {
+        ...formData.sourceEntity,
+        bucket_name: value,
+      };
+      const updatedFormData = {
+        ...formData,
+        sourceEntity: updatedSourceEntity,
+      };
+      updateFormData(updatedFormData);
+      const updatedData = {
+        bucket_name: value,
+      };
+      updateIngestionData(updatedData);
+    } else if (name === "FullFileName") {
+      setFullFileName(value);
+      const updatedSourceEntity = {
+        ...formData.sourceEntity,
+        full_file_name: value,
+      };
+      const updatedFormData = {
+        ...formData,
+        sourceEntity: updatedSourceEntity,
+      };
+      updateFormData(updatedFormData);
+      const updatedData = {
+        full_file_name: value,
+      };
+      updateIngestionData(updatedData);
+    }
   };
 
   // Fetch databases, schemas, and tables from API or data source
@@ -272,8 +320,13 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                     <Form.Label>Bucket Name</Form.Label>
                     <Form.Control
                       type="text"
+                      name="BucketName"
                       className="textbox1"
-                      disabled={dataSourceType !== "Flat File"}
+                      onChange={bucket_fileNameChangeHandler}
+                      value={bucketName}
+                      // disabled={dataSourceType !== "Flat File"}
+                      disabled={disableElement.bucket_name}
+                      isInvalid={errors2.bucket_name}
                     />
                   </div>
                 </Col>
@@ -282,8 +335,13 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                     <Form.Label>Full File Name</Form.Label>
                     <Form.Control
                       type="text"
+                      name="FullFileName"
                       className="textbox1"
-                      disabled={dataSourceType !== "Flat File"}
+                      onChange={bucket_fileNameChangeHandler}
+                      value={fullFileName}
+                      // disabled={dataSourceType !== "Flat File"}
+                      disabled={disableElement.full_file_name}
+                      isInvalid={errors2.full_file_name}
                     />
                   </div>
                 </Col>

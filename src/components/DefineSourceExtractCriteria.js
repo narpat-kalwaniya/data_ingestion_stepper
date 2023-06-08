@@ -17,6 +17,33 @@ const DefineSourceExtractCriteria = ({ formData }) => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
 
+  const [pageData, setPageData] = useState({
+    selectDistinct: false,
+    incrementalStartDatetime: "",
+    incrementalEndDatetime: "",
+    incrementalStartSeq: "",
+    incrementalEndSeq: "",
+    defaultStartDate: "",
+    defaultStartSeq: "",
+    filter: "",
+    orderBy: "",
+  });
+
+  const changeHandler = (event) => {
+    const { name, value, type, checked, options } = event.target;
+
+    if (type === "checkbox") {
+      setPageData({ ...pageData, [name]: !checked });
+    } else if (type === "select-multiple") {
+      const selectedValues = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => option.value);
+      setPageData({ ...pageData, [name]: selectedValues });
+    } else if (type === "text") {
+      setPageData({ ...pageData, [name]: value });
+    }
+  };
+
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
   };
@@ -42,6 +69,9 @@ const DefineSourceExtractCriteria = ({ formData }) => {
     selectedOption === "incremental" && selectedIncrementalBy === "Date";
 
   console.log("selected values", selectedValues);
+  console.log("selected options", selectedOption);
+  console.log("selected incremental", selectedIncrementalBy);
+  console.log("selected pageData", pageData);
 
   return (
     <div className="App">
@@ -62,13 +92,22 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   onChange={handleRadioChange}
                 />
               </Col>
-              <Col sm={6}>
-                <Form.Check
-                  type="checkbox"
-                  label="Select Distinct"
-                  id="checkbox"
-                  className="mb-0"
-                />
+              <Col sm={4}>
+                <Row>
+                  <Col sm={1}>
+                    <Form.Check
+                      type="checkbox"
+                      id="checkbox"
+                      className="mb-0"
+                      name="selectDistinct"
+                      // checked={pageData.selectDistinct}
+                      onchange={changeHandler}
+                    />
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Label>Select Distinct</Form.Label>
+                  </Col>
+                </Row>
               </Col>
             </Form.Group>
 
@@ -150,10 +189,12 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           type="text"
                           placeholder=""
                           className="mb-3"
+                          name="incrementalStartDatetime"
                           disabled={
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Date"
                           }
+                          onChange={changeHandler}
                         />
                       </Col>
                     </Form.Group>
@@ -168,10 +209,12 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           type="text"
                           placeholder=""
                           className="mb-3"
+                          name="incrementalEndDatetime"
                           disabled={
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Date"
                           }
+                          onChange={changeHandler}
                         />
                       </Col>
                     </Form.Group>
@@ -188,10 +231,12 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           type="text"
                           placeholder=""
                           className="mb-3"
+                          name="incrementalStartSeq"
                           disabled={
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Sequence"
                           }
+                          onChange={changeHandler}
                         />
                       </Col>
                     </Form.Group>
@@ -210,6 +255,8 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Sequence"
                           }
+                          name="incrementalEndSeq"
+                          onchange={changeHandler}
                         />
                       </Col>
                     </Form.Group>
@@ -227,6 +274,8 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={!isIncrementalSelected}
+                  name="defaultStartDate"
+                  onchange={changeHandler}
                 />
               </Col>
             </Form.Group>
@@ -240,6 +289,8 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={!isIncrementalSelected}
+                  name="defaultStartSeq"
+                  onchange={changeHandler}
                 />
               </Col>
             </Form.Group>
@@ -253,6 +304,8 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={isIncrementalSelected}
+                  name="filter"
+                  onchange={changeHandler}
                 />
               </Col>
             </Form.Group>
@@ -266,6 +319,8 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={isIncrementalSelected}
+                  name="orderBy"
+                  onchange={changeHandler}
                 />
               </Col>
             </Form.Group>

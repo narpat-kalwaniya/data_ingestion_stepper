@@ -14,9 +14,59 @@ import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = () => {
   const [checked, setChecked] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const [pageData, setPageData] = useState({
+    TargetEntityName: "",
+    TargetLoadType: "",
+    DataQualityMoniter: {
+      Alert: "",
+      Abort: "",
+    },
+    RecordCountChangesMoniter: {
+      Alert: "",
+      Abort: "",
+    },
+    DataLakeConnection: "",
+    DataLakeFileFormat: "",
+    DataLakeTargetTemplate: "",
+  });
+  const changeHandler = (event) => {
+    setPageData({ ...pageData, [event.target.name]: event.target.value });
+  };
+
+  const optionChangeHandler = (event) => {
+    setSelectedOption(event.target.value);
+    setPageData({ ...pageData, ["TargetLoadType"]: event.target.value });
+  };
+
+  const alertHandler1 = (event) => {
+    console.log(event.target.name);
+    setPageData({
+      ...pageData,
+      ["DataQualityMoniter"]: {
+        ...pageData.DataQualityMoniter,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
+
+  const alertHandler2 = (event) => {
+    console.log(event.target.name);
+    setPageData({
+      ...pageData,
+      ["RecordCountChangesMoniter"]: {
+        ...pageData.RecordCountChangesMoniter,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
+
   const chechBoxHandler = (e) => {
     setChecked(!checked);
   };
+
+  console.log(pageData);
 
   return (
     <div className="TargetLoadDetails">
@@ -35,6 +85,8 @@ const TargetLoadDetails = () => {
                         type="text"
                         className="textbox1"
                         disabled={false}
+                        name="TargetEntityName"
+                        onChange={changeHandler}
                       />
                     </Col>
                   </Row>
@@ -48,29 +100,45 @@ const TargetLoadDetails = () => {
                     <Col xs="auto">
                       <Form.Check
                         type="radio"
+                        id="TRUNCATE"
+                        value="TRUNCATE"
+                        checked={selectedOption === "TRUNCATE"}
+                        onChange={optionChangeHandler}
                         label="TRUNCATE"
-                        name="TargetLoadDetails"
+                        name="TRUNCATE"
                       ></Form.Check>
                     </Col>
                     <Col xs="auto">
                       <Form.Check
                         type="radio"
+                        id="INSERT"
+                        value="INSERT"
+                        checked={selectedOption === "INSERT"}
+                        onChange={optionChangeHandler}
                         label="INSERT"
-                        name="TargetLoadDetails"
+                        name="INSERT"
                       ></Form.Check>
                     </Col>
                     <Col xs="auto">
                       <Form.Check
                         type="radio"
+                        id="INCREMENTAL"
+                        value="INCREMENTAL"
+                        checked={selectedOption === "INCREMENTAL"}
+                        onChange={optionChangeHandler}
                         label="INCREMENTAL"
-                        name="TargetLoadDetails"
+                        name="INCREMENTAL"
                       ></Form.Check>
                     </Col>
                     <Col xs="auto">
                       <Form.Check
                         type="radio"
+                        id="SCD TYPE II"
+                        value="SCD TYPE II"
+                        checked={selectedOption === "SCD TYPE II"}
+                        onChange={optionChangeHandler}
                         label="SCD TYPE II"
-                        name="TargetLoadDetails"
+                        name="SCD TYPE II"
                       ></Form.Check>
                     </Col>
                   </Row>
@@ -86,6 +154,9 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Alert"
+                        tag="DataQualityMoniter"
+                        onChange={alertHandler1}
                       ></Form.Control>
                     </Col>
                     <Col xs="auto">
@@ -93,6 +164,9 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Abort"
+                        tag="DataQualityMoniter"
+                        onChange={alertHandler1}
                       ></Form.Control>
                     </Col>
                   </Row>
@@ -107,6 +181,8 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Alert"
+                        onChange={alertHandler2}
                       ></Form.Control>
                     </Col>
                     <Col xs="auto">
@@ -114,6 +190,8 @@ const TargetLoadDetails = () => {
                       <Form.Control
                         type="text"
                         className="textbox2"
+                        name="Abort"
+                        onChange={alertHandler2}
                       ></Form.Control>
                     </Col>
                   </Row>
@@ -151,7 +229,12 @@ const TargetLoadDetails = () => {
                       <Row className="mb-3">
                         <Col>
                           <Form.Label>Data Lake Connection</Form.Label>
-                          <Form.Select aria-label="" disabled={false}>
+                          <Form.Select
+                            aria-label=""
+                            disabled={false}
+                            name="DataLakeConnection"
+                            onChange={changeHandler}
+                          >
                             <option>{""}</option>
                             <option>Connection1</option>
                             <option>Connection2</option>
@@ -159,7 +242,12 @@ const TargetLoadDetails = () => {
                         </Col>
                         <Col>
                           <Form.Label>Data Lake File Format</Form.Label>
-                          <Form.Select aria-label="" disabled={false}>
+                          <Form.Select
+                            aria-label=""
+                            disabled={false}
+                            name="DataLakeFileFormat"
+                            onChange={changeHandler}
+                          >
                             <option>{""}</option>
                             <option>CSV</option>
                             <option>PARQUET</option>
@@ -180,6 +268,8 @@ const TargetLoadDetails = () => {
                             type="text"
                             className="textbox3"
                             disabled={false}
+                            name="DataLakeTargetTemplate"
+                            onChange={changeHandler}
                           />
                         </Col>
                       </Row>

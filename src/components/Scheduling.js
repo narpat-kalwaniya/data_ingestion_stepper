@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
-import { DataContext } from "./DataContext";
+import React from "react";
+import { Form } from "react-bootstrap";
 
 const Scheduling = () => {
-  const { ingestionData } = useContext(DataContext);
-  console.log("scheduling ingestion", ingestionData);
-  return <div>Scheduling</div>;
+  return (
+    <div>
+      <Form.Label>Frequency </Form.Label>
+      <Form.Control
+      // as="select"
+      // multiple
+      // onChange={handleSelect}
+      // disabled={!isIncrementalSelected}
+      ></Form.Control>
+    </div>
+  );
 };
 
 export default Scheduling;
