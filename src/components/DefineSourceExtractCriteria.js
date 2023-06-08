@@ -13,7 +13,7 @@ import {
 import "../App.css";
 
 const DefineSourceExtractCriteria = ({ formData }) => {
-  const [selectedOption, setSelectedOption] = useState("incremental");
+  const [selectedOption, setSelectedOption] = useState("fullextract");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
 
@@ -29,20 +29,12 @@ const DefineSourceExtractCriteria = ({ formData }) => {
     orderBy: "",
   });
 
-  const changeHandler = (event) => {
-    const { name, value, type, checked, options } = event.target;
-
-    if (type === "checkbox") {
-      setPageData({ ...pageData, [name]: !checked });
-    } else if (type === "select-multiple") {
-      const selectedValues = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-      setPageData({ ...pageData, [name]: selectedValues });
-    } else if (type === "text") {
-      setPageData({ ...pageData, [name]: value });
-    }
+  const selectDistinctHandler = (e) => {
+    console.log(e.target.value);
+    // setPageData({ ...pageData, [selectDistinct] });
   };
+
+  const changeHandler = () => {};
 
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
@@ -100,8 +92,8 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                       id="checkbox"
                       className="mb-0"
                       name="selectDistinct"
-                      // checked={pageData.selectDistinct}
-                      onchange={changeHandler}
+                      onchange={selectDistinctHandler}
+                      // checked={pageData.selectDistinct === true}
                     />
                   </Col>
                   <Col sm={6}>
@@ -273,7 +265,9 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={!isIncrementalSelected}
+                  disabled={
+                    !isIncrementalSelected || selectedIncrementalBy !== "Date"
+                  }
                   name="defaultStartDate"
                   onchange={changeHandler}
                 />
@@ -288,7 +282,10 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={!isIncrementalSelected}
+                  disabled={
+                    !isIncrementalSelected ||
+                    selectedIncrementalBy !== "Sequence"
+                  }
                   name="defaultStartSeq"
                   onchange={changeHandler}
                 />

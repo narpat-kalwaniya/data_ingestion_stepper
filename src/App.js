@@ -228,7 +228,11 @@ function App() {
             </Col>
           </Row>
           <Row className="m-2">
-            <SectionMenu step={step} />
+            <SectionMenu
+              step={step}
+              isReview={isReview}
+              setIsReview={setIsReview}
+            />
             <Col>
               <Card>
                 {isReview ? (
