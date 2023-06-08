@@ -3,6 +3,7 @@ import { Card, Col, Row, Table } from "react-bootstrap";
 import Success from "./Success";
 import { PencilSquare } from "react-bootstrap-icons";
 import { DataContext } from "./DataContext";
+import safeStringify from "json-stringify-safe";
 
 const ReviewFrom = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -59,7 +60,7 @@ const ReviewFrom = (props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(ingestionData),
+          body: safeStringify(ingestionData[0]),
         }
       );
 
@@ -75,7 +76,8 @@ const ReviewFrom = (props) => {
     }
   };
 
-  console.log("final ingestion data", ingestionData);
+  console.log("final ingestion data", safeStringify(ingestionData[0]));
+  console.log("final ingestion data without stringy", ingestionData);
   return (
     <div>
       <Row>

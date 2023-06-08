@@ -92,13 +92,14 @@ export const DataProvider = ({ children }) => {
     },
   ]);
 
-  // Update the JSON data
   const updateIngestionData = (updatedData) => {
     setIngestionData((prevData) => {
-      return {
-        ...prevData,
-        ...updatedData,
+      const newData = [...prevData]; // Create a copy of the array
+      newData[0] = {
+        ...newData[0], // Copy the existing object properties
+        ...updatedData, // Update the specific field
       };
+      return newData;
     });
   };
 

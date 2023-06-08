@@ -54,10 +54,13 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
     };
     updateFormData(updatedFormData);
 
-    const updatedData = {
-      source_connection_id: selectedConnectionName,
-      app_id: connections[0].app_id,
-    };
+    // const updatedData = {
+    //   source_connection_id: selectedConnectionName,
+    //   app_id: connections[0].app_id,
+    // };
+    // updateIngestionData(updatedData);
+
+    const updatedData = { source_connection_id: selectedConnectionName };
     updateIngestionData(updatedData);
   };
 
