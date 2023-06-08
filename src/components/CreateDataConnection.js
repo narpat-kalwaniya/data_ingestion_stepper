@@ -47,7 +47,7 @@ const CreateDataConnection = ({ formData, updateFormData, step }) => {
       },
       sourceEntity: {
         ...formData.sourceEntity,
-        connection_id: connections[0].app_id,
+        connection_id: connections[0].connection_id,
       },
     };
     updateFormData(updatedFormData);

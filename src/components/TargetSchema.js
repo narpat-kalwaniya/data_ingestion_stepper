@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Table, Form } from "react-bootstrap";
+import { DataContext } from "./DataContext";
 
 const headers = [
   "",
@@ -107,6 +108,8 @@ const TbData = ({ formData, updateFormData }) => {
     "VARCHAR",
   ];
 
+  const { ingestionData } = useContext(DataContext);
+  console.log("target ingestion", ingestionData);
   return (
     <tbody>
       {tableData.map((column, index) => (
