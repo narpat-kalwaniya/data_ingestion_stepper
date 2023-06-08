@@ -2,13 +2,19 @@ import React, { useState, useEffect, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 
-const SourceEntitySelection = ({ formData, updateFormData }) => {
-  const [dataSourceType, setDataSourceType] = useState("");
+const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
+  const [dataSourceType, setDataSourceType] = useState(
+    formData.sourceEntity.data_source_type
+  );
   const [databases, setDatabases] = useState([]);
   const [schemas, setSchemas] = useState([]);
   const [tables, setTables] = useState([]);
-  const [selectedDatabase, setSelectedDatabase] = useState("");
-  const [selectedSchema, setSelectedSchema] = useState("");
+  const [selectedDatabase, setSelectedDatabase] = useState(
+    formData.sourceEntity.db_name
+  );
+  const [selectedSchema, setSelectedSchema] = useState(
+    formData.sourceEntity.schema_name
+  );
   const [selectedTable, setSelectedTable] = useState("");
 
   const [bucketName, setBucketName] = useState("");
@@ -216,8 +222,43 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
     fetchDatabaseSchemaTableData();
   }, [selectedDatabase, selectedSchema]);
 
-  console.log("s ingestion", ingestionData);
-  console.log(formData);
+  const disable_enable = () => {
+    if (dataSourceType === "RDBMS-TABLE") {
+      const newDisable = { ...disableElement };
+      newDisable.query = true;
+      newDisable.db_name = false;
+      newDisable.schema_name = false;
+      newDisable.table_name = false;
+      newDisable.full_file_name = true;
+      newDisable.bucket_name = true;
+      setDisableElement(newDisable);
+    } else if (dataSourceType === "RDBMS-QUERY") {
+      const newDisable2 = { ...disableElement };
+      newDisable2.query = false;
+      newDisable2.db_name = true;
+      newDisable2.schema_name = true;
+      newDisable2.table_name = true;
+      newDisable2.bucket_name = true;
+      newDisable2.full_file_name = true;
+      setDisableElement(newDisable2);
+    } else if (dataSourceType === "Flat File") {
+      const newDisable3 = { ...disableElement };
+      newDisable3.query = true;
+      newDisable3.db_name = true;
+      newDisable3.schema_name = true;
+      newDisable3.table_name = true;
+      newDisable3.bucket_name = false;
+      newDisable3.full_file_name = false;
+      setDisableElement(newDisable3);
+    }
+  };
+
+  useEffect(() => {
+    if (step === 2) {
+      disable_enable();
+    }
+  }, [dataSourceType]);
+
   return (
     <div className="page1">
       <Row>
@@ -227,42 +268,60 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
               <Row className="mb-3">
                 <Col sm={6}>
                   <div className="form-group">
-                    <Form.Label>Data Source Type</Form.Label>
+                    <Form.Label>
+                      Data Source Type <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       aria-label=""
                       value={formData.sourceEntity.data_source_type}
                       onChange={selectChangeHandler}
                       disabled={false}
+                      isInvalid={errors2.data_source_type}
+                      required
                     >
-                      <option>{""}</option>
+                      <option value="">-- Select --</option>
                       <option value={"RDBMS-TABLE"}>RDBMS-TABLE</option>
                       <option value={"RDBMS-QUERY"}>RDBMS-QUERY</option>
                       <option value={"Flat File"}>Flat File</option>
                     </Form.Select>
+                    {errors2.data_source_type && (
+                      <div className="error">{errors2.data_source_type}</div>
+                    )}
                   </div>
                 </Col>
               </Row>
               <Row className="mb-3">
                 <div>
-                  <Form.Label>Query</Form.Label>
+                  <Form.Label>
+                    Query <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={3}
                     className="textbox1"
-                    disabled={dataSourceType !== "RDBMS-QUERY"}
+                    // disabled={dataSourceType !== "RDBMS-QUERY"}
+                    disabled={disableElement.query}
                     value={formData.sourceEntity.query || ""}
                     onChange={queryChangeHandler}
+                    isInvalid={errors2.query}
                   />
+                  {errors2.query && (
+                    <div className="error">{errors2.query}</div>
+                  )}
                 </div>
               </Row>
               <Row className="mb-3">
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Database Name</Form.Label>
+                    <Form.Label>
+                      Database Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       value={formData.sourceEntity.db_name}
                       onChange={handleDatabaseChange}
-                      disabled={dataSourceType !== "RDBMS-TABLE"}
+                      // disabled={dataSourceType !== "RDBMS-TABLE"}
+                      disabled={disableElement.db_name}
+                      isInvalid={errors2.db_name}
                     >
                       <option value="">Select Database</option>
                       {databases.map((database) => (
@@ -271,17 +330,24 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         </option>
                       ))}
                     </Form.Select>
+                    {errors2.db_name && (
+                      <div className="error">{errors2.db_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Schema Name</Form.Label>
+                    <Form.Label>
+                      Schema Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       value={formData.sourceEntity.schema_name}
                       onChange={handleSchemaChange}
-                      disabled={
-                        dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
-                      }
+                      // disabled={
+                      //   dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
+                      // }
+                      disabled={disableElement.schema_name || !selectedDatabase}
+                      isInvalid={errors2.schema_name}
                     >
                       <option value="">Select Schema</option>
                       {schemas.map((schema) => (
@@ -290,19 +356,26 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         </option>
                       ))}
                     </Form.Select>
+                    {errors2.schema_name && (
+                      <div className="error">{errors2.schema_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Table Name</Form.Label>
+                    <Form.Label>
+                      Table Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Select
                       value={formData.sourceEntity.table_name}
                       onChange={handleTableChange}
-                      disabled={
-                        dataSourceType !== "RDBMS-TABLE" ||
-                        !selectedDatabase ||
-                        !selectedSchema
-                      }
+                      // disabled={
+                      //   dataSourceType !== "RDBMS-TABLE" ||
+                      //   !selectedDatabase ||
+                      //   !selectedSchema
+                      // }
+                      disabled={disableElement.table_name || !selectedSchema}
+                      isInvalid={errors2.table_name}
                     >
                       <option value="">Select Table</option>
                       {tables.map((table) => (
@@ -311,13 +384,18 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                         </option>
                       ))}
                     </Form.Select>
+                    {errors2.table_name && (
+                      <div className="error">{errors2.table_name}</div>
+                    )}
                   </div>
                 </Col>
               </Row>
               <Row>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Bucket Name</Form.Label>
+                    <Form.Label>
+                      Bucket Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       name="BucketName"
@@ -328,11 +406,16 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                       disabled={disableElement.bucket_name}
                       isInvalid={errors2.bucket_name}
                     />
+                    {errors2.bucket_name && (
+                      <div className="error">{errors2.bucket_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col>
                   <div className="form-group">
-                    <Form.Label>Full File Name</Form.Label>
+                    <Form.Label>
+                      Full File Name <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       name="FullFileName"
@@ -343,6 +426,9 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
                       disabled={disableElement.full_file_name}
                       isInvalid={errors2.full_file_name}
                     />
+                    {errors2.full_file_name && (
+                      <div className="error">{errors2.full_file_name}</div>
+                    )}
                   </div>
                 </Col>
                 <Col></Col>
