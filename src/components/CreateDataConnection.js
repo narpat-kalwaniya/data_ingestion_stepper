@@ -41,6 +41,14 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
 
   const handleSelection = (event) => {
     const selectedConnectionName = event.target.value;
+
+    const selectedConnection = connections.find(
+      (connection) => connection.connection_name === selectedConnectionName
+    );
+    const selectedConnectionId = selectedConnection
+      ? selectedConnection.connection_id
+      : null;
+
     const updatedFormData = {
       ...formData,
       CreateDataConnection: {
@@ -49,23 +57,25 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
       },
       sourceEntity: {
         ...formData.sourceEntity,
-        connection_id: connections[0].connection_id,
+        connection_id: selectedConnectionId,
       },
     };
     updateFormData(updatedFormData);
 
-    // const updatedData = {
-    //   source_connection_id: selectedConnectionName,
-    //   app_id: connections[0].app_id,
-    // };
-    // updateIngestionData(updatedData);
-
-    const updatedData = { source_connection_id: selectedConnectionName };
+    const updatedData = { source_connection_id: selectedConnectionId };
     updateIngestionData(updatedData);
   };
 
   const handleTargetSelection = (event) => {
     const selectedConnectionName = event.target.value;
+
+    const selectedConnection = connections.find(
+      (connection) => connection.connection_name === selectedConnectionName
+    );
+    const selectedConnectionId = selectedConnection
+      ? selectedConnection.connection_id
+      : null;
+
     const updatedFormData = {
       ...formData,
       CreateDataConnection: {
@@ -76,13 +86,21 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
     updateFormData(updatedFormData);
 
     const updatedData = {
-      target_connection_id: selectedConnectionName,
+      target_connection_id: selectedConnectionId,
     };
     updateIngestionData(updatedData);
   };
 
   const handleApplicationSelection = (event) => {
     const selectedApplicationName = event.target.value;
+
+    const selectedConnection = applications.find(
+      (applications) => applications.app_name === selectedApplicationName
+    );
+    const selectedConnectionId = selectedConnection
+      ? selectedConnection.app_id
+      : null;
+
     const updatedFormData = {
       ...formData,
       CreateDataConnection: {
@@ -91,6 +109,11 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
       },
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      app_id: selectedConnectionId,
+    };
+    updateIngestionData(updatedData);
   };
 
   const filteredSourceConnections = connections.filter(
