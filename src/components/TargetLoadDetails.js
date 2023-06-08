@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Form,
@@ -66,11 +66,13 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
     setChecked(!checked);
   };
 
-  const updatedFormData = {
-    ...formData, // Copy the existing formData object
-    targetLoadDetails: [...formData.targetLoadDetails, pageData], // Add the new object to the array
-  };
-  updateFormData(updatedFormData);
+  useEffect(() => {
+    const updatedFormData = {
+      ...formData, // Copy the existing formData object
+      targetLoadDetails: [...formData.targetLoadDetails, pageData], // Add the new object to the array
+    };
+    updateFormData(updatedFormData);
+  }, [pageData]);
 
   console.log("pagedata", pageData);
   console.log("target formdata", formData);
