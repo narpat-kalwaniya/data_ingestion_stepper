@@ -52,13 +52,16 @@ const ReviewFrom = (props) => {
   // Function to handle the POST request
   const sendData = async () => {
     try {
-      const response = await fetch("your-post-url", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(ingestionData),
-      });
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingeststore/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(ingestionData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error sending data");
@@ -72,7 +75,7 @@ const ReviewFrom = (props) => {
     }
   };
 
-  console.log(props.formData);
+  console.log("final ingestion data", ingestionData);
   return (
     <div>
       <Row>
