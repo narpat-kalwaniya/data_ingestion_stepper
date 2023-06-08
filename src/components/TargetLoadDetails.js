@@ -12,7 +12,7 @@ import {
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = () => {
+const TargetLoadDetails = ({ formData, updateFormData }) => {
   const [checked, setChecked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -66,7 +66,14 @@ const TargetLoadDetails = () => {
     setChecked(!checked);
   };
 
-  console.log(pageData);
+  const updatedFormData = {
+    ...formData, // Copy the existing formData object
+    targetLoadDetails: [...formData.targetLoadDetails, pageData], // Add the new object to the array
+  };
+  updateFormData(updatedFormData);
+
+  console.log("pagedata", pageData);
+  console.log("target formdata", formData);
 
   return (
     <div className="TargetLoadDetails">

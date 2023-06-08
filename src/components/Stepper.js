@@ -20,7 +20,7 @@ const Stepper = ({
   errors2,
 }) => {
   return (
-    <DataProvider>
+    <div>
       {step === 1 ? (
         <CreateDataConnection
           step={step}
@@ -79,7 +79,7 @@ const Stepper = ({
           updateFormData={updateFormData}
         />
       ) : null}
-    </DataProvider>
+    </div>
   );
 };
 

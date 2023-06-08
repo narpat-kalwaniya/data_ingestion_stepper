@@ -41,6 +41,7 @@ function App() {
       connection_id: null,
     },
     tableData: [],
+    targetLoadDetails: [],
   });
 
   // Error state- Page 1 - by Rajesh
@@ -217,7 +218,7 @@ function App() {
   // }, []);
 
   return (
-    <div>
+    <DataProvider>
       <Container className="h-100">
         <Card className="Card-outer">
           <Row className="m-2">
@@ -236,16 +237,14 @@ function App() {
             <Col>
               <Card>
                 {isReview ? (
-                  <DataProvider>
-                    <ReviewForm
-                      step={step}
-                      setStep={setStep}
-                      isReview={isReview}
-                      setIsReview={setIsReview}
-                      cancel={closeHandler}
-                      formData={formData}
-                    ></ReviewForm>
-                  </DataProvider>
+                  <ReviewForm
+                    step={step}
+                    setStep={setStep}
+                    isReview={isReview}
+                    setIsReview={setIsReview}
+                    cancel={closeHandler}
+                    formData={formData}
+                  ></ReviewForm>
                 ) : (
                   <div>
                     <Card.Header className="header">
@@ -348,7 +347,7 @@ function App() {
           </Row>
         </Card>
       </Container>
-    </div>
+    </DataProvider>
   );
 }
 
