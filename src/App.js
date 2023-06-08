@@ -43,6 +43,114 @@ function App() {
     tableData: [],
   });
 
+  // Error state- Page 1 - by Rajesh
+  const [errors, setErrors] = useState({
+    dataSource: "",
+    dataTarget: "",
+    application: "",
+  });
+
+  const [errors2, setErrors2] = useState({
+    data_source_type: "",
+    query: null,
+    db_name: "",
+    schema_name: "",
+    table_name: "",
+    bucket_name: null,
+    full_file_name: null,
+    source_entity_name: "",
+  });
+
+  // Input validation-1
+  const validateInputs = () => {
+    const newErrors = {};
+
+    if (
+      !formData.CreateDataConnection.dataSource ||
+      formData.CreateDataConnection.dataSource === ""
+    ) {
+      newErrors.dataSource = "This field is required";
+    }
+    if (
+      !formData.CreateDataConnection.dataTarget ||
+      formData.CreateDataConnection.dataTarget === ""
+    ) {
+      newErrors.dataTarget = "This field is required";
+    }
+    if (
+      !formData.CreateDataConnection.application ||
+      formData.CreateDataConnection.application === ""
+    ) {
+      newErrors.application = "This field is required";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Input validation-2
+  const validateInputs2 = () => {
+    const newErrors2 = {};
+
+    if (
+      formData.sourceEntity.data_source_type ||
+      formData.sourceEntity.data_source_type !== ""
+    ) {
+      if (formData.sourceEntity.data_source_type === "RDBMS-TABLE") {
+        if (
+          !formData.sourceEntity.db_name ||
+          formData.sourceEntity.db_name === ""
+        ) {
+          newErrors2.db_name = "This field is required";
+        }
+        if (
+          !formData.sourceEntity.schema_name ||
+          formData.sourceEntity.schema_name === ""
+        ) {
+          newErrors2.schema_name = "This field is required";
+        }
+        if (
+          !formData.sourceEntity.table_name ||
+          formData.sourceEntity.table_name === ""
+        ) {
+          newErrors2.table_name = "This field is required";
+        }
+      }
+      if (formData.sourceEntity.data_source_type === "RDBMS-QUERY") {
+        if (
+          !formData.sourceEntity.query ||
+          formData.sourceEntity.query === null
+        ) {
+          newErrors2.query = "This field is required";
+        }
+      }
+      if (formData.sourceEntity.data_source_type === "Flat File") {
+        if (
+          !formData.sourceEntity.bucket_name ||
+          formData.sourceEntity.bucket_name === null
+        ) {
+          newErrors2.bucket_name = "This field is required";
+        }
+        if (
+          !formData.sourceEntity.full_file_name ||
+          formData.sourceEntity.full_file_name === null
+        ) {
+          newErrors2.full_file_name = "This field is required";
+        }
+      }
+    } else {
+      {
+        console.log("hello");
+        newErrors2.data_source_type = "This field is required";
+      }
+    }
+
+    setErrors2(newErrors2);
+
+    return Object.keys(newErrors2).length === 0;
+  };
+
   const totalPagesCount = 9;
 
   const previousHandler = () => {
@@ -50,8 +158,26 @@ function App() {
     setStep((step) => step - 1);
   };
 
+  // const nextHandler = () => {
+  //   setStep((step) => step + 1);
+  // };
+
   const nextHandler = () => {
-    setStep((step) => step + 1);
+    if (step === 1) {
+      if (validateInputs()) {
+        setStep((step) => step + 1);
+      } else {
+        setStep((step) => step);
+      }
+    } else if (step === 2) {
+      if (validateInputs2()) {
+        setStep((step) => step + 1);
+      } else {
+        setStep((step) => step);
+      }
+    } else {
+      setStep((step) => step + 1);
+    }
   };
 
   const closeHandler = () => {
@@ -135,6 +261,8 @@ function App() {
                             step={step}
                             formData={formData}
                             updateFormData={updateFormData}
+                            errors={errors}
+                            errors2={errors2}
                           />
                         </Card.Body>
                       </Container>

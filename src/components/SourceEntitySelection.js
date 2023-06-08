@@ -168,8 +168,7 @@ const SourceEntitySelection = ({ formData, updateFormData }) => {
     fetchDatabaseSchemaTableData();
   }, [selectedDatabase, selectedSchema]);
 
-  console.log("source ingestion", ingestionData);
-
+  console.log("s ingestion", ingestionData);
   console.log(formData);
   return (
     <div className="page1">
