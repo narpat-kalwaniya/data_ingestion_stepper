@@ -19,8 +19,6 @@ import { DataProvider } from "./components/DataContext";
 import "./styles/main.css";
 import SectionMenu from "./components/SectionMenu";
 
-import SignInPage from "./Home/SignInPage";
-import SignInPage2 from "./Home/SignInPage2";
 import SignInPage3 from "./Home/SignInPage3";
 
 function App() {
@@ -228,8 +226,6 @@ function App() {
     <div>
       {!buttonClicked && (
         <div>
-          {/* <SignInPage></SignInPage> */}
-          {/* <SignInPage2></SignInPage2> */}
           <SignInPage3></SignInPage3>
           <div className="container">
             <button onClick={buttonHandler} className="centre-button">
