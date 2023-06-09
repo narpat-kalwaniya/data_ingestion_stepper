@@ -26,10 +26,14 @@ const SignInPage3 = () => {
                 </label>
               </div>
               <button>Log in</button>
+
               <div className="register">
                 <p>
                   Don't have a account<a href="#">Register</a>
                 </p>
+              </div>
+              <div>
+                <button>Sign up with Google</button>
               </div>
             </form>
           </div>

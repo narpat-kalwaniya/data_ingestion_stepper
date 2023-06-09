@@ -11,7 +11,7 @@ section {
   min-height: 100vh;
   width: 100%;
   /* background-color: #00ff00; */
-  background: url("./background6.jpg") no-repeat;
+  background: url("./background7.jpg") no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -108,6 +108,7 @@ button {
   cursor: pointer;
   font-size: 1em;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .register {
