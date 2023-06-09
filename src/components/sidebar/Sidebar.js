@@ -1,6 +1,5 @@
 import "./sidebar.scss";
 import Navigation from "../Navigation/Navigation";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 

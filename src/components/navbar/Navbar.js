@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+// import { NotificationsNoneOutlinedIcon } from "@mui/icons-material";
 import "./navbar.scss";
 // import Navigation from "../Navigation/Navigation";
 
@@ -78,46 +78,49 @@ const Navbar = () => {
   }, 1000);
 
   return (
-    
     <header className="header" style={{ background: "#24292f" }}>
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}
-       <div style={{background:"white",position:"absolute",margin:"5px 5px"}}>
-       <img
+      <div
+        style={{ background: "white", position: "absolute", margin: "5px 5px" }}
+      >
+        <img
           src="https://www.tigeranalytics.com/wp-content/uploads/logo.png"
           width={100}
           height={50}
           alt=""
-          
         />
-       </div>
+      </div>
       {/* </Link> */}
-      <div className="wrapper" style={{display:"flex",alignItems:"center"}}>
+      <div
+        className="wrapper"
+        style={{ display: "flex", alignItems: "center" }}
+      >
         {/* <Link to="/" style={{ textDecoration: "none" }}> */}
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div className="backI"></div>
-            <span>
-              <strong
-                style={{
-                  top: "16px",
-                  left: "220px",
-                  margin: "0 auto 0 90px",
-                  height: "19px",
-                  textAlign: "left",
-                  paddingRight: "60px",
-                  letterSpacing: "0.13px",
-                  color: "white",
-                  textTransform: "uppercase",
-                  opacity: "1",
-                  fontSize: "19px",
-                  fontWeight:"500",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <span style={{ color: "orange" }}>D</span>ata{" "}
-                <span style={{ color: "orange" }}>V</span>alidator
-              </strong>
-            </span>
-          </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="backI"></div>
+          <span>
+            <strong
+              style={{
+                top: "16px",
+                left: "220px",
+                margin: "0 auto 0 90px",
+                height: "19px",
+                textAlign: "left",
+                paddingRight: "60px",
+                letterSpacing: "0.13px",
+                color: "white",
+                textTransform: "uppercase",
+                opacity: "1",
+                fontSize: "19px",
+                fontWeight: "500",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{ color: "orange" }}>D</span>ata{" "}
+              <span style={{ color: "orange" }}>V</span>alidator
+            </strong>
+          </span>
+        </div>
         {/* </Link> */}
 
         {/* <div className="items">
@@ -188,25 +191,24 @@ const Navbar = () => {
             <span> {time}</span>
           </div>
 
-         <div className="bottom" style={{display:"flex"}}>
-        
-          <div className="item profile">
-            <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="avatar"
-            />
-          </div>
-          
-         <div className="item noti">
-            <NotificationsNoneOutlinedIcon className="icon" />
-            <div className="counter">1</div>
-          </div>
+          <div className="bottom" style={{ display: "flex" }}>
+            <div className="item profile">
+              <img
+                src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                alt=""
+                className="avatar"
+              />
+            </div>
 
-          <div className="item help" style={{ fontSize: "20px" }}>
-          <i class="fa-solid fa-power-off"></i>
+            <div className="item noti">
+              {/* <NotificationsNoneOutlinedIcon className="icon" /> */}
+              <div className="counter">1</div>
+            </div>
+
+            <div className="item help" style={{ fontSize: "20px" }}>
+              <i class="fa-solid fa-power-off"></i>
+            </div>
           </div>
-         </div>
           {/* <div
           style={{
             float: "right",
