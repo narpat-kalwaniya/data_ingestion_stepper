@@ -73,7 +73,7 @@ const TargetLoadDetails = ({
   useEffect(() => {
     const updatedFormData = {
       ...formData, // Copy the existing formData object
-      targetLoadDetails: [...formData.targetLoadDetails, pageData], // Add the new object to the array
+      targetLoadDetails: [{ ...formData.targetLoadDetails, ...pageData }], // Add the new object to the array
     };
     updateFormData(updatedFormData);
   }, [pageData]);
