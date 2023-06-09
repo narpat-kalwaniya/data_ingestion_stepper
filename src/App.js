@@ -23,6 +23,7 @@ function App() {
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: "",
@@ -266,6 +267,7 @@ function App() {
                             updateFormData={updateFormData}
                             errors={errors}
                             errors2={errors2}
+                            shouldUpdateTargetLoad={updateTargetLoad}
                           />
                         </Card.Body>
                       </Container>

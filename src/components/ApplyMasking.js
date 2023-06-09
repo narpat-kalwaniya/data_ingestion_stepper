@@ -12,11 +12,11 @@ const headers = [
 ];
 
 const ThData = () => {
-  return headers.map((name) => <th key = {name}> {name}</th>)
-}
+  return headers.map((name) => <th key={name}> {name}</th>);
+};
 
-
-const ApplyMasking = () => {
+const ApplyMasking = ({ formData }) => {
+  console.log("masking form", formData);
   return (
     <Table responsive>
       <thead>

@@ -12,7 +12,11 @@ import {
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = ({ formData, updateFormData }) => {
+const TargetLoadDetails = ({
+  formData,
+  updateFormData,
+  shouldUpdateTargetLoad,
+}) => {
   const [checked, setChecked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -73,6 +77,14 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
   }, [pageData]);
+
+  // if (shouldUpdateTargetLoad) {
+  //   const updatedFormData = {
+  //     ...formData,
+  //     targetLoadDetails: [...formData.targetLoadDetails, pageData],
+  //   };
+  //   updateFormData(updatedFormData);
+  // }
 
   console.log("pagedata", pageData);
   console.log("target formdata", formData);

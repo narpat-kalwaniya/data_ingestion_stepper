@@ -18,6 +18,7 @@ const Stepper = ({
   updateTableData,
   errors,
   errors2,
+  shouldUpdateTargetLoad,
 }) => {
   return (
     <div>
