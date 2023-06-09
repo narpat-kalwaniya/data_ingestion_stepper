@@ -13,12 +13,14 @@ import {
 import "../App.css";
 
 const DefineSourceExtractCriteria = ({ formData }) => {
-  const [selectedOption, setSelectedOption] = useState("incremental");
+  const [selectedOption, setSelectedOption] = useState("fullextract");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
 
   const [pageData, setPageData] = useState({
+    incrementalOrFullExtract: "",
     selectDistinct: false,
+    incrementalBy: "",
     incrementalStartDatetime: "",
     incrementalEndDatetime: "",
     incrementalStartSeq: "",
@@ -29,25 +31,28 @@ const DefineSourceExtractCriteria = ({ formData }) => {
     orderBy: "",
   });
 
-  const changeHandler = (event) => {
-    const { name, value, type, checked, options } = event.target;
+  console.log(!pageData.selectDistinct);
 
-    if (type === "checkbox") {
-      setPageData({ ...pageData, [name]: !checked });
-    } else if (type === "select-multiple") {
-      const selectedValues = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-      setPageData({ ...pageData, [name]: selectedValues });
-    } else if (type === "text") {
-      setPageData({ ...pageData, [name]: value });
-    }
+  const selectDistinctHandler = (e) => {
+    console.log(e.target.value);
+    setPageData({ ...pageData, [e.target.name]: !pageData.selectDistinct });
+  };
+
+  const changeHandler = (e) => {
+    setPageData({ ...pageData, [e.target.name]: e.target.value });
+    console.log("selected pageData", pageData);
   };
 
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
+    setPageData({ ...pageData, [e.target.name]: e.target.value });
   };
+  console.log(pageData);
 
+  const incrementalByHandler = (e) => {
+    setSelectedIncrementalBy(e.target.value);
+    setPageData({ ...pageData, [e.target.name]: e.target.value });
+  };
   const handleSelect = (e) => {
     const selectedOption = e.target.value;
     if (!selectedValues.includes(selectedOption)) {
@@ -68,9 +73,9 @@ const DefineSourceExtractCriteria = ({ formData }) => {
   const isDateSelected =
     selectedOption === "incremental" && selectedIncrementalBy === "Date";
 
-  console.log("selected values", selectedValues);
-  console.log("selected options", selectedOption);
-  console.log("selected incremental", selectedIncrementalBy);
+  // console.log("selected values", selectedValues);
+  // console.log("selected options", selectedOption);
+  // console.log("selected incremental", selectedIncrementalBy);
   console.log("selected pageData", pageData);
 
   return (
@@ -86,27 +91,30 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                 <Form.Check
                   type="radio"
                   label=""
-                  name="radioGroup"
+                  name="incrementalOrFullExtract"
                   value="incremental"
                   checked={selectedOption === "incremental"}
                   onChange={handleRadioChange}
                 />
               </Col>
-              <Col sm={4}>
+              <Col sm={6}>
                 <Row>
-                  <Col sm={1}>
+                  <Col sm={6}>
                     <Form.Check
                       type="checkbox"
                       id="checkbox"
                       className="mb-0"
                       name="selectDistinct"
-                      // checked={pageData.selectDistinct}
-                      onchange={changeHandler}
+                      label="Select Distinct"
+                      value={pageData.selectDistinct}
+                      onchange={selectDistinctHandler}
+
+                      // checked={pageData.selectDistinct === true}
                     />
                   </Col>
-                  <Col sm={6}>
+                  {/* <Col sm={6}>
                     <Form.Label>Select Distinct</Form.Label>
-                  </Col>
+                  </Col> */}
                 </Row>
               </Col>
             </Form.Group>
@@ -119,7 +127,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                 <Form.Check
                   type="radio"
                   label=""
-                  name="radioGroup"
+                  name="incrementalOrFullExtract"
                   value="fullextract"
                   checked={selectedOption === "fullextract"}
                   onChange={handleRadioChange}
@@ -132,8 +140,9 @@ const DefineSourceExtractCriteria = ({ formData }) => {
               <Form.Select
                 aria-label=""
                 disabled={!isIncrementalSelected}
-                onChange={(e) => setSelectedIncrementalBy(e.target.value)}
+                onChange={incrementalByHandler}
                 value={selectedIncrementalBy}
+                name="incrementalBy"
               >
                 <option value="">-- Select --</option>
                 <option value="Date">Date</option>
@@ -273,7 +282,9 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={!isIncrementalSelected}
+                  disabled={
+                    !isIncrementalSelected || selectedIncrementalBy !== "Date"
+                  }
                   name="defaultStartDate"
                   onchange={changeHandler}
                 />
@@ -288,7 +299,10 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={!isIncrementalSelected}
+                  disabled={
+                    !isIncrementalSelected ||
+                    selectedIncrementalBy !== "Sequence"
+                  }
                   name="defaultStartSeq"
                   onchange={changeHandler}
                 />

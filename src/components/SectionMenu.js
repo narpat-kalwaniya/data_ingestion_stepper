@@ -23,6 +23,9 @@ const sections = [
 ];
 
 const SectionMenu = (props) => {
+  const reviewHandler = () => {
+    props.setIsReview(!props.isReview);
+  };
   return (
     <Col sm={2}>
       <ListGroup style={{ maxWidth: "200px" }}>
@@ -41,13 +44,23 @@ const SectionMenu = (props) => {
         ))}
         <ListGroup.Item
           style={{
-            backgroundColor: props.step === 10 ? "#F7901D" : "#e9ecef",
-            color: props.step === 10 ? "white" : "darkgray",
+            backgroundColor: "#18749C",
+            color: "white",
             border: "none",
             borderRadius: "2px",
           }}
         >
-          Review
+          <button
+            style={{
+              backgroundColor: "transparent",
+              color: "white",
+              fontWeight: "400",
+              fontSize: "16px",
+            }}
+            onClick={reviewHandler}
+          >
+            Review
+          </button>
         </ListGroup.Item>
       </ListGroup>
     </Col>

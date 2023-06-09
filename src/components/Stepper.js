@@ -18,9 +18,10 @@ const Stepper = ({
   updateTableData,
   errors,
   errors2,
+  shouldUpdateTargetLoad,
 }) => {
   return (
-    <DataProvider>
+    <div>
       {step === 1 ? (
         <CreateDataConnection
           step={step}
@@ -79,7 +80,7 @@ const Stepper = ({
           updateFormData={updateFormData}
         />
       ) : null}
-    </DataProvider>
+    </div>
   );
 };
 

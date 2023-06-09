@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Form,
@@ -12,7 +12,11 @@ import {
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = () => {
+const TargetLoadDetails = ({
+  formData,
+  updateFormData,
+  shouldUpdateTargetLoad,
+}) => {
   const [checked, setChecked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -66,7 +70,24 @@ const TargetLoadDetails = () => {
     setChecked(!checked);
   };
 
-  console.log(pageData);
+  useEffect(() => {
+    const updatedFormData = {
+      ...formData, // Copy the existing formData object
+      targetLoadDetails: [...formData.targetLoadDetails, pageData], // Add the new object to the array
+    };
+    updateFormData(updatedFormData);
+  }, [pageData]);
+
+  // if (shouldUpdateTargetLoad) {
+  //   const updatedFormData = {
+  //     ...formData,
+  //     targetLoadDetails: [...formData.targetLoadDetails, pageData],
+  //   };
+  //   updateFormData(updatedFormData);
+  // }
+
+  console.log("pagedata", pageData);
+  console.log("target formdata", formData);
 
   return (
     <div className="TargetLoadDetails">

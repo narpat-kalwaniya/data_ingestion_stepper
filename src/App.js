@@ -27,6 +27,7 @@ function App() {
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: "",
@@ -45,6 +46,7 @@ function App() {
       connection_id: null,
     },
     tableData: [],
+    targetLoadDetails: [],
   });
 
   // Error state- Page 1 - by Rajesh
