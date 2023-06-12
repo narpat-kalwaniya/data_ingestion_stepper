@@ -31,11 +31,11 @@ const LoginPage = (props) => {
           <form action="#" className={classes["sign-in-form"]}>
             <h2 className={classes.title}>Sign in</h2>
             <div className={classes["input-field"]}>
-              <i className={`${classes.fas} ${classes["fa-user"]}`}></i>
+              <i className="fas fa-user"></i>
               <input type="email" placeholder="Email ID" />
             </div>
             <div className={classes["input-field"]}>
-              <i className={`${classes.fas} ${classes["fa-lock"]}`}></i>
+              <i className="fas fa-lock"></i>
               <input type="password" placeholder="Password" />
             </div>
             <div className={classes.forget}>
@@ -68,7 +68,6 @@ const LoginPage = (props) => {
       <div className={classes["panels-container"]}>
         <div className={`${classes.panel} ${classes["left-panel"]}`}>
           <div className={classes.content}>
-            <div></div>
             <div className={classes.logo}>
               <img
                 src={tigerImage}
@@ -82,7 +81,7 @@ const LoginPage = (props) => {
                 alt="Logo"
               />
             </div>
-            <h2 className={classes["heading2"]}>Snowflake Data Fabric</h2>
+            <h2 className={classes.heading2}>Snowflake Data Fabric</h2>
           </div>
           <img src={log4} className={classes.image} alt="" />
         </div>
