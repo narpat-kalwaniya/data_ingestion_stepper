@@ -42,7 +42,7 @@ const LoginPage = (props) => {
                 <input type="checkbox"></input>
                 Remember Me
               </label>
-              <a href="#"> Forget Password</a>
+              <a href="#"> Forgot Password</a>
             </div>
             <input
               type="submit"
