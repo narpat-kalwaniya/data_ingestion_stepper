@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import "./login.css";
+// import "./login.css";
+import classes from "./Login.module.css";
 
 import log4 from "./undraw_data_processing_yrrv.svg";
 import tigerImage from "./download (2).png";
@@ -24,20 +25,20 @@ const LoginPage = (props) => {
     };
   }, []);
   return (
-    <div className="container">
-      <div className="forms-container">
-        <div className="signin-signup">
-          <form action="#" class="sign-in-form">
-            <h2 className="title">Sign in</h2>
-            <div className="input-field">
-              <i className="fas fa-user"></i>
+    <div className={classes.container}>
+      <div className={classes["forms-container"]}>
+        <div className={classes["signin-signup"]}>
+          <form action="#" className={classes["sign-in-form"]}>
+            <h2 className={classes.title}>Sign in</h2>
+            <div className={classes["input-field"]}>
+              <i className={`${classes.fas} ${classes["fa-user"]}`}></i>
               <input type="email" placeholder="Email ID" />
             </div>
-            <div className="input-field">
-              <i className="fas fa-lock"></i>
+            <div className={classes["input-field"]}>
+              <i className={`${classes.fas} ${classes["fa-lock"]}`}></i>
               <input type="password" placeholder="Password" />
             </div>
-            <div className="forget">
+            <div className={classes.forget}>
               <label for="">
                 <input type="checkbox"></input>
                 Remember Me
@@ -47,15 +48,16 @@ const LoginPage = (props) => {
             <input
               type="submit"
               value="Login"
-              className="btn solid"
+              // className="btn solid"
+              className={`${classes.btn} ${classes.solid}`}
               onClick={loginHandler}
             />
-            <p className="social-text">Or </p>
+            <p className={classes["social-text"]}>Or </p>
             <div>
               <input
                 type="submit"
                 value="Sign in with Google"
-                className="google-signin"
+                className={classes["google-signin"]}
                 onClick={signInWithGoogle}
               />
             </div>
@@ -63,22 +65,26 @@ const LoginPage = (props) => {
         </div>
       </div>
 
-      <div className="panels-container">
-        <div className="panel left-panel">
-          <div className="content">
+      <div className={classes["panels-container"]}>
+        <div className={`${classes.panel} ${classes["left-panel"]}`}>
+          <div className={classes.content}>
             <div></div>
-            <div className="logo">
-              <img src={tigerImage} className="tiger-image" alt="Logo" />
-              <div className="vertical-line" />
+            <div className={classes.logo}>
+              <img
+                src={tigerImage}
+                className={classes["tiger-image"]}
+                alt="Logo"
+              />
+              <div className={classes["vertical-line"]} />
               <img
                 src={snowflakeImage}
-                className="snowflake-image"
+                className={classes["snowflake-image"]}
                 alt="Logo"
               />
             </div>
-            <h2 className="heading2">Snowflake Data Fabric</h2>
+            <h2 className={classes["heading2"]}>Snowflake Data Fabric</h2>
           </div>
-          <img src={log4} className="image" alt="" />
+          <img src={log4} className={classes.image} alt="" />
         </div>
       </div>
       <Helmet>
