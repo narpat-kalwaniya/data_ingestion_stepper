@@ -241,7 +241,7 @@ function App() {
           <div className="d-flex">
             <Sidebar />
             <div className="w-100">
-              <Navbar />
+              <Navbar user={user} />
               <DataProvider>
                 <Container className="h-100">
                   <Card className="Card-outer">

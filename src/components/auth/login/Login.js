@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./login.css";
+// import "./login.css";
 
 import log4 from "./undraw_data_processing_yrrv.svg";
 import tigerImage from "./download (2).png";

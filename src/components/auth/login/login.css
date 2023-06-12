@@ -161,7 +161,7 @@ form.sign-in-form {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.container:before {
+/* .container:before {
   content: "";
   position: absolute;
   height: 2000px;
@@ -169,13 +169,13 @@ form.sign-in-form {
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  /* background-image: linear-gradient(-45deg, #f7901d 0%, #ffc583 100%); */
+  
   background-image: linear-gradient(-45deg, #ffffff 0%, #ffffff 100%);
 
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;
-}
+} */
 
 .image {
   width: 50%;
@@ -406,15 +406,15 @@ form.sign-in-form {
     padding: 1.5rem;
   }
 
-  .container:before {
+  /* .container:before {
     bottom: 72%;
     left: 50%;
-  }
+  } */
 
-  .container.sign-up-mode:before {
+  /* .container.sign-up-mode:before {
     bottom: 28%;
     left: 50%;
-  }
+  } */
 }
 
 .google-signin {
