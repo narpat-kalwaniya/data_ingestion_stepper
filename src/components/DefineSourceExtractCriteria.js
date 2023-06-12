@@ -31,7 +31,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
     orderBy: "",
   });
 
-  console.log(!pageData.selectDistinct);
+  console.log(formData);
 
   const selectDistinctHandler = (e) => {
     console.log(e.target.value);

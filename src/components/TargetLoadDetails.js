@@ -12,11 +12,7 @@ import {
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = ({
-  formData,
-  updateFormData,
-  shouldUpdateTargetLoad,
-}) => {
+const TargetLoadDetails = ({ formData, updateFormData }) => {
   const [checked, setChecked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -45,7 +41,7 @@ const TargetLoadDetails = ({
   };
 
   const alertHandler1 = (event) => {
-    console.log(event.target.name);
+    // console.log(event.target.name);
     setPageData({
       ...pageData,
       ["DataQualityMoniter"]: {
@@ -77,14 +73,6 @@ const TargetLoadDetails = ({
     };
     updateFormData(updatedFormData);
   }, [pageData]);
-
-  // if (shouldUpdateTargetLoad) {
-  //   const updatedFormData = {
-  //     ...formData,
-  //     targetLoadDetails: [...formData.targetLoadDetails, pageData],
-  //   };
-  //   updateFormData(updatedFormData);
-  // }
 
   console.log("pagedata", pageData);
   console.log("target formdata", formData);

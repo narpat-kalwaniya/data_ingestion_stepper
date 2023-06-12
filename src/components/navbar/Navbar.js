@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { NotificationsNoneOutlinedIcon } from "@mui/icons-material";
 import "./navbar.scss";
 // import Navigation from "../Navigation/Navigation";
+import { auth } from "../../services/firebase";
 
 const Navbar = () => {
   // const navigate = useNavigate();
@@ -117,7 +118,7 @@ const Navbar = () => {
               }}
             >
               <span style={{ color: "orange" }}>D</span>ata{" "}
-              <span style={{ color: "orange" }}>V</span>alidator
+              <span style={{ color: "orange" }}>F</span>abric
             </strong>
           </span>
         </div>
@@ -206,7 +207,13 @@ const Navbar = () => {
             </div>
 
             <div className="item help" style={{ fontSize: "20px" }}>
-              <i class="fa-solid fa-power-off"></i>
+              <i
+                class="fa-solid fa-power-off"
+                onClick={() => {
+                  auth.signOut();
+                  window.location.reload();
+                }}
+              ></i>
             </div>
           </div>
           {/* <div

@@ -20,8 +20,13 @@ import "./styles/main.css";
 import SectionMenu from "./components/SectionMenu";
 import Sidebar from "./components/sidebar/Sidebar";
 import Navbar from "./components/navbar/Navbar";
+import LoginPage from "./components/auth/login/Login";
+import firebase from "./services/firebase";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setloading] = useState(true);
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -220,147 +225,162 @@ function App() {
   //   }
   // }, []);
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setUser(user);
+      setloading(false);
+    });
+  }, []);
+
   return (
     <div>
-      <div className="d-flex">
-        <Sidebar />
-        <div className="w-100">
-          <Navbar />
-          <DataProvider>
-            <Container className="h-100">
-              <Card className="Card-outer">
-                <Row className="m-2">
-                  <Col>
-                    <Card className="Card-progressbar">
-                      <Progressbar step={step} />
-                    </Card>
-                  </Col>
-                </Row>
-                <Row className="m-2">
-                  <SectionMenu
-                    step={step}
-                    isReview={isReview}
-                    setIsReview={setIsReview}
-                  />
-                  <Col>
-                    <Card>
-                      {isReview ? (
-                        <DataProvider>
-                          <ReviewForm
-                            step={step}
-                            setStep={setStep}
-                            isReview={isReview}
-                            setIsReview={setIsReview}
-                            cancel={closeHandler}
-                            formData={formData}
-                          ></ReviewForm>
-                        </DataProvider>
-                      ) : (
-                        <div>
-                          <Card.Header className="header">
-                            <Header step={step}></Header>
-                          </Card.Header>
-                          <div>
-                            <Container
-                              // ref={containerRef}
-                              style={{
-                                minHeight: "65vh",
-                                maxHeight: "65vh",
-                                overflowY: "scroll",
-                              }}
-                            >
-                              <Card.Body>
-                                <Stepper
-                                  step={step}
-                                  formData={formData}
-                                  updateFormData={updateFormData}
-                                  errors={errors}
-                                  errors2={errors2}
-                                  shouldUpdateTargetLoad={updateTargetLoad}
-                                />
-                              </Card.Body>
-                            </Container>
-                          </div>
-                          <Card.Footer className="d-flex justify-content-between float-right">
-                            <Col>
-                              <button
-                                className="btn-c"
-                                onClick={handleShow}
-                                disabled={step === 1}
-                              >
-                                Close
-                              </button>
-                              <Modal show={showModal} onHide={closeHandler}>
-                                <Modal.Header closeButton>
-                                  {/* <Modal.Title>Modal heading</Modal.Title> */}
-                                </Modal.Header>
-                                <Modal.Body>
-                                  Are you sure you want to close? Any unsaved
-                                  data will be lost.
-                                </Modal.Body>
-                                <Modal.Footer>
+      {loading ? (
+        <p> loading </p>
+      ) : user ? (
+        <div user={user}>
+          <div className="d-flex">
+            <Sidebar />
+            <div className="w-100">
+              <Navbar />
+              <DataProvider>
+                <Container className="h-100">
+                  <Card className="Card-outer">
+                    <Row className="m-2">
+                      <Col>
+                        <Card className="Card-progressbar">
+                          <Progressbar step={step} />
+                        </Card>
+                      </Col>
+                    </Row>
+                    <Row className="m-2">
+                      <SectionMenu
+                        step={step}
+                        isReview={isReview}
+                        setIsReview={setIsReview}
+                      />
+                      <Col>
+                        <Card>
+                          {isReview ? (
+                            <DataProvider>
+                              <ReviewForm
+                                step={step}
+                                setStep={setStep}
+                                isReview={isReview}
+                                setIsReview={setIsReview}
+                                cancel={closeHandler}
+                                formData={formData}
+                              ></ReviewForm>
+                            </DataProvider>
+                          ) : (
+                            <div>
+                              <Card.Header className="header">
+                                <Header step={step}></Header>
+                              </Card.Header>
+                              <div>
+                                <Container
+                                  // ref={containerRef}
+                                  style={{
+                                    minHeight: "57vh",
+                                    maxHeight: "57vh",
+                                    overflowY: "scroll",
+                                  }}
+                                >
+                                  <Card.Body>
+                                    <Stepper
+                                      step={step}
+                                      formData={formData}
+                                      updateFormData={updateFormData}
+                                      errors={errors}
+                                      errors2={errors2}
+                                      shouldUpdateTargetLoad={updateTargetLoad}
+                                    />
+                                  </Card.Body>
+                                </Container>
+                              </div>
+                              <Card.Footer className="d-flex justify-content-between float-right">
+                                <Col>
                                   <button
                                     className="btn-c"
-                                    variant="secondary"
-                                    onClick={closeHandler}
+                                    onClick={handleShow}
+                                    disabled={step === 1}
                                   >
-                                    Yes, Close
+                                    Close
                                   </button>
+                                  <Modal show={showModal} onHide={closeHandler}>
+                                    <Modal.Header closeButton>
+                                      {/* <Modal.Title>Modal heading</Modal.Title> */}
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                      Are you sure you want to close? Any
+                                      unsaved data will be lost.
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                      <button
+                                        className="btn-c"
+                                        variant="secondary"
+                                        onClick={closeHandler}
+                                      >
+                                        Yes, Close
+                                      </button>
+                                      <button
+                                        className="btn-s-1"
+                                        variant="primary"
+                                        onClick={handleContinue}
+                                      >
+                                        No, Continue
+                                      </button>
+                                    </Modal.Footer>
+                                  </Modal>
+                                </Col>
+                                <button
+                                  className="btn-c "
+                                  onClick={previousHandler}
+                                  disabled={step === 1}
+                                  style={{
+                                    borderTopRightRadius: "0px",
+                                    borderBottomRightRadius: "0px",
+                                  }}
+                                >
+                                  Back
+                                </button>
+                                {step === totalPagesCount ? (
                                   <button
-                                    className="btn-s-1"
-                                    variant="primary"
-                                    onClick={handleContinue}
+                                    className="btn-s-1 "
+                                    onClick={reviewHandler}
+                                    style={{
+                                      borderTopLeftRadius: "0px",
+                                      borderBottomLeftRadius: "0px",
+                                    }}
                                   >
-                                    No, Continue
+                                    Review & Submit
                                   </button>
-                                </Modal.Footer>
-                              </Modal>
-                            </Col>
-                            <button
-                              className="btn-c "
-                              onClick={previousHandler}
-                              disabled={step === 1}
-                              style={{
-                                borderTopRightRadius: "0px",
-                                borderBottomRightRadius: "0px",
-                              }}
-                            >
-                              Back
-                            </button>
-                            {step === totalPagesCount ? (
-                              <button
-                                className="btn-s-1 "
-                                onClick={reviewHandler}
-                                style={{
-                                  borderTopLeftRadius: "0px",
-                                  borderBottomLeftRadius: "0px",
-                                }}
-                              >
-                                Review & Submit
-                              </button>
-                            ) : (
-                              <button
-                                className="btn-s "
-                                onClick={nextHandler}
-                                style={{
-                                  borderTopLeftRadius: "0px",
-                                  borderBottomLeftRadius: "0px",
-                                }}
-                              >
-                                Next
-                              </button>
-                            )}
-                          </Card.Footer>
-                        </div>
-                      )}
-                    </Card>
-                  </Col>
-                </Row>
-              </Card>
-            </Container>
-          </DataProvider>
+                                ) : (
+                                  <button
+                                    className="btn-s "
+                                    onClick={nextHandler}
+                                    style={{
+                                      borderTopLeftRadius: "0px",
+                                      borderBottomLeftRadius: "0px",
+                                    }}
+                                  >
+                                    Next
+                                  </button>
+                                )}
+                              </Card.Footer>
+                            </div>
+                          )}
+                        </Card>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Container>
+              </DataProvider>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <LoginPage />
+      )}
     </div>
   );
 }

@@ -35,6 +35,20 @@ const ReviewFrom = (props) => {
     props.setIsReview(false);
   };
 
+  const editHandler7 = () => {
+    props.setStep((step) => 7);
+    props.setIsReview(false);
+  };
+  const editHandler8 = () => {
+    props.setStep((step) => 8);
+    props.setIsReview(false);
+  };
+
+  const editHandler9 = () => {
+    props.setStep((step) => 9);
+    props.setIsReview(false);
+  };
+
   const submitHandler = async (event) => {
     setIsSubmitted(true);
     event.preventDefault(); // Prevent the default form submission behavior
@@ -78,6 +92,28 @@ const ReviewFrom = (props) => {
 
   console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
+  console.log(props.formData);
+
+  const renderTable = (data) => {
+    return (
+      <Table>
+        {/* <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead> */}
+        <tbody>
+          {Object.entries(data).map(([key, value]) => (
+            <tr key={key}>
+              <td>{key}</td>
+              <td>{typeof value === "object" ? renderTable(value) : value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  };
   return (
     <div>
       <Row>
@@ -184,7 +220,7 @@ const ReviewFrom = (props) => {
                   <h5>Define Data Validation</h5>
                   <button
                     style={{ backgroundColor: "#49494A" }}
-                    onClick={editHandler2}
+                    onClick={editHandler4}
                   >
                     <PencilSquare></PencilSquare>
                   </button>
@@ -216,15 +252,63 @@ const ReviewFrom = (props) => {
                   </Table>
                 </Card.Body>
                 <Card.Header className="d-flex justify-content-between float-right">
-                  <h5>Create Data Connection</h5>
+                  <h5>Source Extract Criteria</h5>
                   <button
                     style={{ backgroundColor: "#49494A" }}
-                    onClick={editHandler1}
+                    onClick={editHandler5}
                   >
                     <PencilSquare></PencilSquare>
                   </button>
                 </Card.Header>
-
+                <Card.Body></Card.Body>
+                <Card.Header className="d-flex justify-content-between float-right">
+                  <h5>Target Load Details</h5>
+                  <button
+                    style={{ backgroundColor: "#49494A" }}
+                    onClick={editHandler6}
+                  >
+                    <PencilSquare></PencilSquare>
+                  </button>
+                </Card.Header>
+                <Card.Body>
+                  <div>
+                    {renderTable(
+                      props.formData.targetLoadDetails[
+                        props.formData.targetLoadDetails.length - 1
+                      ]
+                    )}
+                  </div>
+                </Card.Body>
+                <Card.Header className="d-flex justify-content-between float-right">
+                  <h5>Masking</h5>
+                  <button
+                    style={{ backgroundColor: "#49494A" }}
+                    onClick={editHandler7}
+                  >
+                    <PencilSquare></PencilSquare>
+                  </button>
+                </Card.Header>
+                <Card.Body></Card.Body>
+                <Card.Header className="d-flex justify-content-between float-right">
+                  <h5>Meta Data</h5>
+                  <button
+                    style={{ backgroundColor: "#49494A" }}
+                    onClick={editHandler8}
+                  >
+                    <PencilSquare></PencilSquare>
+                  </button>
+                </Card.Header>
+                <Card.Body></Card.Body>
+                <Card.Header className="d-flex justify-content-between float-right">
+                  <h5>Scheduling</h5>
+                  <button
+                    style={{ backgroundColor: "#49494A" }}
+                    onClick={editHandler9}
+                  >
+                    <PencilSquare></PencilSquare>
+                  </button>
+                </Card.Header>
+                <Card.Body></Card.Body>
                 <Card.Footer className="d-flex justify-content-between">
                   <button
                     className="btn-c"
