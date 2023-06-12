@@ -15,8 +15,9 @@ const ThData = () => {
   return headers.map((name) => <th key={name}> {name}</th>);
 };
 
-const ApplyMasking = ({ formData }) => {
-  console.log("masking form", formData);
+const ApplyMasking = ({ formData, updateTargetLoad }) => {
+  console.log("masking target load", updateTargetLoad);
+  console.log("masking form data", formData);
   return (
     <Table responsive>
       <thead>

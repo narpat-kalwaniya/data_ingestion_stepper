@@ -30,7 +30,6 @@ function App() {
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: "",
@@ -49,7 +48,32 @@ function App() {
       connection_id: null,
     },
     tableData: [],
-    targetLoadDetails: [],
+    DefineSourceExtractCriteria: {
+      selectDistinct: false,
+      incrementalStartDatetime: "",
+      incrementalEndDatetime: "",
+      incrementalStartSeq: "",
+      incrementalEndSeq: "",
+      defaultStartDate: "",
+      defaultStartSeq: "",
+      filter: "",
+      orderBy: "",
+    },
+    targetLoadDetails: {
+      TargetEntityName: "",
+      TargetLoadType: "",
+      DataQualityMoniter: {
+        Alert: "",
+        Abort: "",
+      },
+      RecordCountChangesMoniter: {
+        Alert: "",
+        Abort: "",
+      },
+      DataLakeConnection: "",
+      DataLakeFileFormat: "",
+      DataLakeTargetTemplate: "",
+    },
   });
 
   // Error state- Page 1 - by Rajesh
@@ -187,6 +211,7 @@ function App() {
     } else {
       setStep((step) => step + 1);
     }
+    console.log("Current Step:", step);
   };
 
   const closeHandler = () => {
@@ -268,6 +293,11 @@ function App() {
                         <Row className="m-2">
                           <SectionMenu
                             step={step}
+
+                            formData={formData}
+                            updateFormData={updateFormData}
+                            errors={errors}
+                            errors2={errors2}
                             isReview={isReview}
                             setIsReview={setIsReview}
                           />

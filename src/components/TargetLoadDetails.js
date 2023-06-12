@@ -16,65 +16,61 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
   const [checked, setChecked] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
-  const [pageData, setPageData] = useState({
-    TargetEntityName: "",
-    TargetLoadType: "",
-    DataQualityMoniter: {
-      Alert: "",
-      Abort: "",
-    },
-    RecordCountChangesMoniter: {
-      Alert: "",
-      Abort: "",
-    },
-    DataLakeConnection: "",
-    DataLakeFileFormat: "",
-    DataLakeTargetTemplate: "",
-  });
   const changeHandler = (event) => {
-    setPageData({ ...pageData, [event.target.name]: event.target.value });
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        [event.target.name]: event.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
   };
 
   const optionChangeHandler = (event) => {
     setSelectedOption(event.target.value);
-    setPageData({ ...pageData, ["TargetLoadType"]: event.target.value });
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        ["TargetLoadType"]: event.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
   };
 
   const alertHandler1 = (event) => {
-    // console.log(event.target.name);
-    setPageData({
-      ...pageData,
-      ["DataQualityMoniter"]: {
-        ...pageData.DataQualityMoniter,
-        [event.target.name]: event.target.value,
-      },
-    });
+    console.log(event.target.name);
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        ["DataQualityMoniter"]: {
+          ...formData.targetLoadDetails.DataQualityMoniter,
+          [event.target.name]: event.target.value,
+        },
+    updateFormData(updatedFormData);
   };
 
   const alertHandler2 = (event) => {
     console.log(event.target.name);
-    setPageData({
-      ...pageData,
-      ["RecordCountChangesMoniter"]: {
-        ...pageData.RecordCountChangesMoniter,
-        [event.target.name]: event.target.value,
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        ["RecordCountChangesMoniter"]: {
+          ...formData.targetLoadDetails.RecordCountChangesMoniter,
+          [event.target.name]: event.target.value,
+        },
       },
-    });
+    };
+    updateFormData(updatedFormData);
   };
 
   const chechBoxHandler = (e) => {
     setChecked(!checked);
   };
 
-  useEffect(() => {
-    const updatedFormData = {
-      ...formData, // Copy the existing formData object
-      targetLoadDetails: [...formData.targetLoadDetails, pageData], // Add the new object to the array
-    };
-    updateFormData(updatedFormData);
-  }, [pageData]);
-
-  console.log("pagedata", pageData);
   console.log("target formdata", formData);
 
   return (
@@ -93,6 +89,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                       <Form.Control
                         type="text"
                         className="textbox1"
+                        value={formData.targetLoadDetails.TargetEntityName}
                         disabled={false}
                         name="TargetEntityName"
                         onChange={changeHandler}
@@ -111,7 +108,11 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         type="radio"
                         id="TRUNCATE"
                         value="TRUNCATE"
-                        checked={selectedOption === "TRUNCATE"}
+                        checked={
+                          selectedOption === "TRUNCATE" ||
+                          formData.targetLoadDetails.TargetLoadType ===
+                            "TRUNCATE"
+                        }
                         onChange={optionChangeHandler}
                         label="TRUNCATE"
                         name="TRUNCATE"
@@ -122,7 +123,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         type="radio"
                         id="INSERT"
                         value="INSERT"
-                        checked={selectedOption === "INSERT"}
+                        checked={
+                          selectedOption === "INSERT" ||
+                          formData.targetLoadDetails.TargetLoadType === "INSERT"
+                        }
                         onChange={optionChangeHandler}
                         label="INSERT"
                         name="INSERT"
@@ -133,7 +137,11 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         type="radio"
                         id="INCREMENTAL"
                         value="INCREMENTAL"
-                        checked={selectedOption === "INCREMENTAL"}
+                        checked={
+                          selectedOption === "INCREMENTAL" ||
+                          formData.targetLoadDetails.TargetLoadType ===
+                            "INCREMENTAL"
+                        }
                         onChange={optionChangeHandler}
                         label="INCREMENTAL"
                         name="INCREMENTAL"
@@ -144,7 +152,11 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         type="radio"
                         id="SCD TYPE II"
                         value="SCD TYPE II"
-                        checked={selectedOption === "SCD TYPE II"}
+                        checked={
+                          selectedOption === "SCD TYPE II" ||
+                          formData.targetLoadDetails.TargetLoadType ===
+                            "SCD TYPE II"
+                        }
                         onChange={optionChangeHandler}
                         label="SCD TYPE II"
                         name="SCD TYPE II"
@@ -165,6 +177,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         className="textbox2"
                         name="Alert"
                         tag="DataQualityMoniter"
+                        value={
+                          formData.targetLoadDetails.DataQualityMoniter.Alert
+                        }
                         onChange={alertHandler1}
                       ></Form.Control>
                     </Col>
@@ -175,6 +190,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         className="textbox2"
                         name="Abort"
                         tag="DataQualityMoniter"
+                        value={
+                          formData.targetLoadDetails.DataQualityMoniter.Abort
+                        }
                         onChange={alertHandler1}
                       ></Form.Control>
                     </Col>
@@ -191,6 +209,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         type="text"
                         className="textbox2"
                         name="Alert"
+                        value={
+                          formData.targetLoadDetails.RecordCountChangesMoniter
+                            .Alert
+                        }
                         onChange={alertHandler2}
                       ></Form.Control>
                     </Col>
@@ -200,6 +222,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         type="text"
                         className="textbox2"
                         name="Abort"
+                        value={
+                          formData.targetLoadDetails.RecordCountChangesMoniter
+                            .Abort
+                        }
                         onChange={alertHandler2}
                       ></Form.Control>
                     </Col>
@@ -243,6 +269,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                             disabled={false}
                             name="DataLakeConnection"
                             onChange={changeHandler}
+                            value={
+                              formData.targetLoadDetails.DataLakeConnection
+                            }
                           >
                             <option>{""}</option>
                             <option>Connection1</option>
@@ -256,6 +285,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                             disabled={false}
                             name="DataLakeFileFormat"
                             onChange={changeHandler}
+                            value={
+                              formData.targetLoadDetails.DataLakeFileFormat
+                            }
                           >
                             <option>{""}</option>
                             <option>CSV</option>
@@ -278,6 +310,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                             className="textbox3"
                             disabled={false}
                             name="DataLakeTargetTemplate"
+                            value={
+                              formData.targetLoadDetails.DataLakeTargetTemplate
+                            }
                             onChange={changeHandler}
                           />
                         </Col>
