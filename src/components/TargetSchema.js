@@ -14,8 +14,10 @@ const headers = [
 
 const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([]);
+  const [pageData, setPageData] = useState([...tableData]);
 
   console.log(tableData);
+  console.log(pageData);
 
   useEffect(() => {
     const requestData = {
@@ -80,8 +82,12 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
-    console.log(tableData);
-    console.log(formData);
+    // console.log(tableData);
+    // console.log(formData);
+    // setPageData([
+    //   ...pageData,
+    //   { ...pageData[columnIndex], ["target_datatype"]: event.target.value },
+    // ]);
   };
 
   // const primaryKeyHandler = (checked, index) => {
@@ -143,7 +149,7 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(event) => handleTargetDataTypeChange(event, index)}
-              // value={column.target_datatype || ""}
+              // value={formData.tableData[index].target_datatype || ""}
             >
               <option value="">Select Target Data Type</option>
               {targetDataTypes.map((dataType, index) => (

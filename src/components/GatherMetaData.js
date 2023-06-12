@@ -5,6 +5,18 @@ import "../styles/main.css";
 
 const GatherMetaData = () => {
   const [additionalFields, setAdditionalFields] = useState([]);
+  const [pageData, setPageData] = useState({
+    BusinessTags: "",
+    Description: "",
+    Owner: "",
+    OwnerEmail: "",
+    SuccessEmailDistributionList: "",
+    FailureEmailDistributionList: "",
+  });
+
+  const changeHandler = (e) => {
+    setPageData({ ...pageData, [e.target.name]: e.target.value });
+  };
 
   const addHandler = () => {
     setAdditionalFields([...additionalFields, { id: Date.now() }]);
@@ -14,6 +26,8 @@ const GatherMetaData = () => {
     const updatedFields = additionalFields.filter((field) => field.id !== id);
     setAdditionalFields(updatedFields);
   };
+
+  console.log("MetaData:", pageData);
 
   return (
     <div>
@@ -27,7 +41,11 @@ const GatherMetaData = () => {
                     <Form.Label>Business Tags</Form.Label>
                   </Col>
                   <Col sm={6}>
-                    <Form.Control className="mb-3" />
+                    <Form.Control
+                      className="mb-3"
+                      name="BusinessTags"
+                      onChange={changeHandler}
+                    />
                   </Col>
                 </Row>
                 <Row>
@@ -35,7 +53,11 @@ const GatherMetaData = () => {
                     <Form.Label>Description</Form.Label>
                   </Col>
                   <Col sm={6}>
-                    <Form.Control className="mb-3" />
+                    <Form.Control
+                      className="mb-3"
+                      name="Description"
+                      onChange={changeHandler}
+                    />
                   </Col>
                 </Row>
                 <Row>
@@ -43,7 +65,11 @@ const GatherMetaData = () => {
                     <Form.Label>Owner</Form.Label>
                   </Col>
                   <Col sm={6}>
-                    <Form.Control className="mb-3"></Form.Control>
+                    <Form.Control
+                      className="mb-3"
+                      name="Owner"
+                      onChange={changeHandler}
+                    ></Form.Control>
                   </Col>
                 </Row>
                 <Row>
@@ -51,7 +77,11 @@ const GatherMetaData = () => {
                     <Form.Label>Owner Email</Form.Label>
                   </Col>
                   <Col sm={6}>
-                    <Form.Control className="mb-3"></Form.Control>
+                    <Form.Control
+                      className="mb-3"
+                      name="OwnerEmail"
+                      onChange={changeHandler}
+                    ></Form.Control>
                   </Col>
                 </Row>
                 <Row>
@@ -59,7 +89,11 @@ const GatherMetaData = () => {
                     <Form.Label>Success Email Distribution List</Form.Label>
                   </Col>
                   <Col sm={6}>
-                    <Form.Control className="mb-3"></Form.Control>
+                    <Form.Control
+                      className="mb-3"
+                      name="SuccessEmailDistributionList"
+                      onChange={changeHandler}
+                    ></Form.Control>
                   </Col>
                 </Row>
                 <Row>
@@ -67,7 +101,11 @@ const GatherMetaData = () => {
                     <Form.Label>Failure Email Distribution List</Form.Label>
                   </Col>
                   <Col sm={6}>
-                    <Form.Control className="mb-3"></Form.Control>
+                    <Form.Control
+                      className="mb-3"
+                      name="FailureEmailDistributionList"
+                      onChange={changeHandler}
+                    ></Form.Control>
                   </Col>
                 </Row>
                 <hr className="line-separator" /> {/* Line for separation */}
