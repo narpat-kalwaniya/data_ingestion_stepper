@@ -83,7 +83,7 @@ const Navbar = (props) => {
       className="header"
       style={{
         background: "white",
-        boxShadow: "0 2px 2px -2px rgba(0,0,0,.5)",
+        boxShadow: "0 2px 5px -2px #3b3b3b",
       }}
     >
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}
@@ -123,7 +123,8 @@ const Navbar = (props) => {
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ color: "#1C1C1C" }}>Snowflake Data Fabric </span>
+              <span style={{ color: "rgb(53, 143, 182)" }}>Snowflake </span>
+              <span style={{ color: "#4F4F4F" }}>Data Fabric </span>
               {/* <span style={{ color: "orange" }}>D</span>ata{" "}
               <span style={{ color: "orange" }}>F</span>abric */}
             </strong>
@@ -200,7 +201,7 @@ const Navbar = (props) => {
           </div> */}
           <div
             style={{
-              color: "#1C1C1",
+              color: "#1C1C1C",
               letterSpacing: "0.13px",
               opacity: "0.7",
               fontWeight: "1000",

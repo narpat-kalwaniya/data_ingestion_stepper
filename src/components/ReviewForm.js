@@ -119,7 +119,7 @@ const ReviewFrom = (props) => {
   return (
     <div>
       <Container>
-        <div style={{ marginTop: "5px" }}></div>
+        <div style={{ marginTop: "7px" }}></div>
         <Card>
           <div
             style={{
