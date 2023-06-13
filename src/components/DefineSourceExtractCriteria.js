@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import "../App.css";
 
-const DefineSourceExtractCriteria = ({ formData }) => {
+const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
   const [selectedOption, setSelectedOption] = useState("fullextract");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
@@ -37,23 +37,57 @@ const DefineSourceExtractCriteria = ({ formData }) => {
   const selectDistinctHandler = (e) => {
     console.log(e.target.value);
     setPageData({ ...pageData, [e.target.name]: !pageData.selectDistinct });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        [e.target.name]: e.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
   };
 
   const changeHandler = (e) => {
     setPageData({ ...pageData, [e.target.name]: e.target.value });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        [e.target.name]: e.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
     console.log("selected pageData", pageData);
   };
 
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
     setPageData({ ...pageData, [e.target.name]: e.target.value });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        [e.target.name]: e.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
   };
-  console.log(pageData);
+  console.log("pagedata", pageData);
 
   const incrementalByHandler = (e) => {
     setSelectedIncrementalBy(e.target.value);
     setPageData({ ...pageData, [e.target.name]: e.target.value });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        [e.target.name]: e.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
   };
+
+  console.log("sourceExtractform data", formData);
   const handleSelect = (e) => {
     const selectedOption = e.target.value;
     if (!selectedValues.includes(selectedOption)) {
@@ -94,7 +128,11 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   label=""
                   name="incrementalOrFullExtract"
                   value="incremental"
-                  checked={selectedOption === "incremental"}
+                  checked={
+                    selectedOption === "incremental" ||
+                    formData.DefineSourceExtractCriteria
+                      .incrementalOrFullExtract === "incremental"
+                  }
                   onChange={handleRadioChange}
                 />
               </Col>
@@ -129,7 +167,11 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   label=""
                   name="incrementalOrFullExtract"
                   value="fullextract"
-                  checked={selectedOption === "fullextract"}
+                  checked={
+                    selectedOption === "fullextract" ||
+                    formData.DefineSourceExtractCriteria
+                      .incrementalOrFullExtract === "fullextract"
+                  }
                   onChange={handleRadioChange}
                 />
               </Col>
@@ -141,7 +183,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                 aria-label=""
                 disabled={!isIncrementalSelected}
                 onChange={incrementalByHandler}
-                value={selectedIncrementalBy}
+                value={formData.DefineSourceExtractCriteria.incrementalBy}
                 name="incrementalBy"
               >
                 <option value="">-- Select --</option>
@@ -199,6 +241,10 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           placeholder=""
                           className="mb-3"
                           name="incrementalStartDatetime"
+                          value={
+                            formData.DefineSourceExtractCriteria
+                              .incrementalStartDatetime
+                          }
                           disabled={
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Date"
@@ -219,6 +265,10 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           placeholder=""
                           className="mb-3"
                           name="incrementalEndDatetime"
+                          value={
+                            formData.DefineSourceExtractCriteria
+                              .incrementalEndDatetime
+                          }
                           disabled={
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Date"
@@ -241,6 +291,10 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           placeholder=""
                           className="mb-3"
                           name="incrementalStartSeq"
+                          value={
+                            formData.DefineSourceExtractCriteria
+                              .incrementalStartSeq
+                          }
                           disabled={
                             !isIncrementalSelected ||
                             selectedIncrementalBy !== "Sequence"
@@ -266,6 +320,10 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                           }
                           name="incrementalEndSeq"
                           onChange={changeHandler}
+                          value={
+                            formData.DefineSourceExtractCriteria
+                              .incrementalEndSeq
+                          }
                         />
                       </Col>
                     </Form.Group>
@@ -287,6 +345,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   }
                   name="defaultStartDate"
                   onChange={changeHandler}
+                  value={formData.DefineSourceExtractCriteria.defaultStartDate}
                 />
               </Col>
             </Form.Group>
@@ -305,6 +364,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   }
                   name="defaultStartSeq"
                   onChange={changeHandler}
+                  value={formData.DefineSourceExtractCriteria.defaultStartSeq}
                 />
               </Col>
             </Form.Group>
@@ -320,6 +380,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   disabled={isIncrementalSelected}
                   name="filter"
                   onChange={changeHandler}
+                  value={formData.DefineSourceExtractCriteria.filter}
                 />
               </Col>
             </Form.Group>
@@ -335,6 +396,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   disabled={isIncrementalSelected}
                   name="orderBy"
                   onChange={changeHandler}
+                  value={formData.DefineSourceExtractCriteria.orderBy}
                 />
               </Col>
             </Form.Group>

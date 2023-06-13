@@ -308,11 +308,7 @@ const ReviewFrom = (props) => {
                         </Card.Header>
                         <Card.Body>
                           <div>
-                            {renderTable(
-                              props.formData.targetLoadDetails[
-                                props.formData.targetLoadDetails.length - 1
-                              ]
-                            )}
+                            {renderTable(props.formData.targetLoadDetails)}
                           </div>
                         </Card.Body>
                         <Card.Header className="d-flex justify-content-between float-right">
@@ -334,8 +330,27 @@ const ReviewFrom = (props) => {
                             <PencilSquare></PencilSquare>
                           </button>
                         </Card.Header>
-                        <Card.Body></Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
+                        <Card.Body>
+                          <Table striped bordered>
+                            {/* <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead> */}
+                            <tbody>
+                              {Object.entries(
+                                props.formData.GatherMetaData
+                              ).map(([key, value]) => (
+                                <tr key={key}>
+                                  <td>{key}</td>
+                                  <td>{value}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        {/* <Card.Header className="d-flex justify-content-between float-right">
                           <h5>Scheduling</h5>
                           <button
                             style={{ backgroundColor: "#49494A" }}
@@ -344,7 +359,7 @@ const ReviewFrom = (props) => {
                             <PencilSquare></PencilSquare>
                           </button>
                         </Card.Header>
-                        <Card.Body></Card.Body>
+                        <Card.Body></Card.Body> */}
                       </div>
                     </Card>
                   )}
