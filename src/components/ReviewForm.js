@@ -119,254 +119,271 @@ const ReviewFrom = (props) => {
   return (
     <div>
       <Container>
-        <div
-          style={{
-            marginTop: "5px",
-            backgroundColor: "#F7901D",
-            borderTopLeftRadius: "10px",
-            borderTopRightRadius: "10px",
-          }}
-        >
-          <Card
-            className="d-flex justify-content-between Card-progressbar"
+        <div style={{ marginTop: "5px" }}></div>
+        <Card>
+          <div
             style={{
               backgroundColor: "#F7901D",
-              alignItems: "Center",
-              border: "none",
-              color: "white",
-              justifyContent: "center",
-              padding: "1%",
-              borderEndEndRadius: "0px",
-              borderBottomRightRadius: "0px",
+              borderTopLeftRadius: "10px",
+              borderTopRightRadius: "10px",
             }}
           >
-            <h5>Review Details</h5>
-          </Card>
-        </div>
-        <Container
-          style={{
-            minHeight: "70vh",
-            maxHeight: "70vh",
-            overflowY: "scroll",
-          }}
-        >
-          <Card.Body>
-            <Row>
-              <Col>
-                {isSubmitted ? (
-                  <p>Thank you. This page can be closed now!</p>
-                ) : (
-                  <Card>
-                    <div>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Create Data Connection</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler1}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body>
-                        <Table bordered>
-                          {/* <thead>
+            <Card
+              className="d-flex justify-content-between Card-progressbar"
+              style={{
+                backgroundColor: "#F7901D",
+                alignItems: "Center",
+                border: "none",
+                color: "white",
+                justifyContent: "center",
+                padding: "1%",
+                borderEndEndRadius: "0px",
+                borderBottomRightRadius: "0px",
+              }}
+            >
+              <h5>Review Details</h5>
+            </Card>
+          </div>
+          <Container
+            style={{
+              minHeight: "70vh",
+              maxHeight: "70vh",
+              overflowY: "scroll",
+            }}
+          >
+            <Card.Body>
+              <Row>
+                <Col>
+                  {isSubmitted ? (
+                    <p>Thank you. This page can be closed now!</p>
+                  ) : (
+                    <Card>
+                      <div>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Create Data Connection</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler1}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <Table bordered>
+                            {/* <thead>
                       <tr>
                         <th>Key</th>
                         <th>Value</th>
                       </tr>
                     </thead> */}
-                          <tbody>
-                            {Object.entries(
-                              props.formData.CreateDataConnection
-                            ).map(([key, value]) => (
-                              <tr key={key}>
-                                <td>{key}</td>
-                                <td>{value}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Source Entity Selection</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler2}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body>
-                        <Table striped bordered>
-                          {/* <thead>
-                      <tr>
-                        <th>Key</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead> */}
-                          <tbody>
-                            {Object.entries(props.formData.sourceEntity).map(
-                              ([key, value]) => (
+                            <tbody>
+                              {Object.entries(
+                                props.formData.CreateDataConnection
+                              ).map(([key, value]) => (
                                 <tr key={key}>
                                   <td>{key}</td>
                                   <td>{value}</td>
                                 </tr>
-                              )
-                            )}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Target Schema</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler3}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body>
-                        <Table>
-                          <thead>
-                            <tr>
-                              <th>Column Name</th>
-                              <th>Source Datatype</th>
-                              <th>Target Datatype</th>
-                              <th>Primary Key</th>
-                              <th>Business Key</th>
-                              <th>Transformation Logic</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {props.formData.tableData.map((obj, index) => (
-                              <tr key={index}>
-                                <td>{obj.column_name}</td>{" "}
-                                {/* Replace 'key' with the actual key from the object */}
-                                <td>{obj.data_type}</td>{" "}
-                                {/* Replace 'value' with the actual value from the object */}
-                                <td>{obj.target_datatype}</td> <td></td>{" "}
-                                <td></td> <td></td>{" "}
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Source Entity Selection</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler2}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <Table striped bordered>
+                            {/* <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead> */}
+                            <tbody>
+                              {Object.entries(props.formData.sourceEntity).map(
+                                ([key, value]) => (
+                                  <tr key={key}>
+                                    <td>{key}</td>
+                                    <td>{value}</td>
+                                  </tr>
+                                )
+                              )}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Target Schema</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler3}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <Table>
+                            <thead>
+                              <tr>
+                                <th>Column Name</th>
+                                <th>Source Datatype</th>
+                                <th>Target Datatype</th>
+                                <th>Primary Key</th>
+                                <th>Business Key</th>
+                                <th>Transformation Logic</th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Define Data Validation</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler4}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body>
-                        <Table>
-                          <thead>
-                            <tr>
-                              <th>Column Name</th>
-                              <th>Source Datatype</th>
-                              <th>Target Datatype</th>
-                              <th>Validation Rule</th>
-                              <th>Validation Input</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {props.formData.tableData.map((obj, index) => (
-                              <tr key={index}>
-                                <td>{obj.column_name}</td>{" "}
-                                {/* Replace 'key' with the actual key from the object */}
-                                <td>{obj.data_type}</td>{" "}
-                                {/* Replace 'value' with the actual value from the object */}
-                                <td>{obj.target_datatype}</td> <td></td>{" "}
-                                <td></td> <td></td> <td></td>
-                                <td></td>
+                            </thead>
+                            <tbody>
+                              {props.formData.tableData.map((obj, index) => (
+                                <tr key={index}>
+                                  <td>{obj.column_name}</td>{" "}
+                                  {/* Replace 'key' with the actual key from the object */}
+                                  <td>{obj.data_type}</td>{" "}
+                                  {/* Replace 'value' with the actual value from the object */}
+                                  <td>{obj.target_datatype}</td> <td></td>{" "}
+                                  <td></td> <td></td>{" "}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Define Data Validation</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler4}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <Table>
+                            <thead>
+                              <tr>
+                                <th>Column Name</th>
+                                <th>Source Datatype</th>
+                                <th>Target Datatype</th>
+                                <th>Validation Rule</th>
+                                <th>Validation Input</th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Source Extract Criteria</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler5}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body></Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Target Load Details</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler6}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body>
-                        <div>
-                          {renderTable(
-                            props.formData.targetLoadDetails[
-                              props.formData.targetLoadDetails.length - 1
-                            ]
-                          )}
-                        </div>
-                      </Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Masking</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler7}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body></Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Meta Data</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler8}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body></Card.Body>
-                      <Card.Header className="d-flex justify-content-between float-right">
-                        <h5>Scheduling</h5>
-                        <button
-                          style={{ backgroundColor: "#49494A" }}
-                          onClick={editHandler9}
-                        >
-                          <PencilSquare></PencilSquare>
-                        </button>
-                      </Card.Header>
-                      <Card.Body></Card.Body>
-                    </div>
-                  </Card>
-                )}
-              </Col>
-            </Row>
-          </Card.Body>
-        </Container>
-        <Card.Footer className="d-flex justify-content-between float-right">
-          <button
-            className="btn-c"
-            onClick={() => props.cancel()}
-            // disabled={step == 1}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn-s-1"
-            onClick={submitHandler}
-            // disabled={step == 1}
-          >
-            Submit
-          </button>
-        </Card.Footer>
+                            </thead>
+                            <tbody>
+                              {props.formData.tableData.map((obj, index) => (
+                                <tr key={index}>
+                                  <td>{obj.column_name}</td>{" "}
+                                  {/* Replace 'key' with the actual key from the object */}
+                                  <td>{obj.data_type}</td>{" "}
+                                  {/* Replace 'value' with the actual value from the object */}
+                                  <td>{obj.target_datatype}</td> <td></td>{" "}
+                                  <td></td> <td></td> <td></td>
+                                  <td></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Source Extract Criteria</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler5}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body></Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Target Load Details</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler6}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <div>
+                            {renderTable(props.formData.targetLoadDetails)}
+                          </div>
+                        </Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Masking</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler7}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body></Card.Body>
+                        <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Meta Data</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler8}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body>
+                          <Table striped bordered>
+                            {/* <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead> */}
+                            <tbody>
+                              {Object.entries(
+                                props.formData.GatherMetaData
+                              ).map(([key, value]) => (
+                                <tr key={key}>
+                                  <td>{key}</td>
+                                  <td>{value}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        {/* <Card.Header className="d-flex justify-content-between float-right">
+                          <h5>Scheduling</h5>
+                          <button
+                            style={{ backgroundColor: "#49494A" }}
+                            onClick={editHandler9}
+                          >
+                            <PencilSquare></PencilSquare>
+                          </button>
+                        </Card.Header>
+                        <Card.Body></Card.Body> */}
+                      </div>
+                    </Card>
+                  )}
+                </Col>
+              </Row>
+            </Card.Body>
+          </Container>
+          <Card.Footer className="d-flex justify-content-between float-right">
+            <button
+              className="btn-c"
+              onClick={() => props.cancel()}
+              // disabled={step == 1}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn-s-1"
+              onClick={submitHandler}
+              // disabled={step == 1}
+            >
+              Submit
+            </button>
+          </Card.Footer>
+        </Card>
       </Container>
     </div>
   );

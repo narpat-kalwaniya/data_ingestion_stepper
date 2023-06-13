@@ -79,7 +79,13 @@ const Navbar = (props) => {
   }, 1000);
 
   return (
-    <header className="header" style={{ background: "#24292f" }}>
+    <header
+      className="header"
+      style={{
+        background: "white",
+        boxShadow: "0 2px 2px -2px rgba(0,0,0,.5)",
+      }}
+    >
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}
       <div
         style={{ background: "white", position: "absolute", margin: "5px 5px" }}
@@ -110,15 +116,16 @@ const Navbar = (props) => {
                 paddingRight: "60px",
                 letterSpacing: "0.13px",
                 color: "white",
-                textTransform: "uppercase",
+                // textTransform: "uppercase",
                 opacity: "1",
                 fontSize: "19px",
-                fontWeight: "500",
+                fontWeight: "1000",
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ color: "orange" }}>D</span>ata{" "}
-              <span style={{ color: "orange" }}>F</span>abric
+              <span style={{ color: "#1C1C1C" }}>Snowflake Data Fabric </span>
+              {/* <span style={{ color: "orange" }}>D</span>ata{" "}
+              <span style={{ color: "orange" }}>F</span>abric */}
             </strong>
           </span>
         </div>
@@ -191,7 +198,16 @@ const Navbar = (props) => {
           <div className="time">
             <span> {time}</span>
           </div> */}
-          <div style={{ color: "white" }}>{props.user?.displayName}</div>
+          <div
+            style={{
+              color: "#1C1C1",
+              letterSpacing: "0.13px",
+              opacity: "0.7",
+              fontWeight: "1000",
+            }}
+          >
+            {props.user.displayName}
+          </div>
 
           <div className="bottom" style={{ display: "flex" }}>
             <div className="item profile">
@@ -207,7 +223,15 @@ const Navbar = (props) => {
               <div className="counter">1</div>
             </div> */}
 
-            <div className="item help" style={{ fontSize: "20px" }}>
+            <div
+              className="item help"
+              style={{
+                fontSize: "20px",
+                color: "#1C1C1C",
+                // backgroundColor: "#1C1C1C",
+                borderRadius: "50%",
+              }}
+            >
               <i
                 class="fa-solid fa-power-off"
                 onClick={() => {
