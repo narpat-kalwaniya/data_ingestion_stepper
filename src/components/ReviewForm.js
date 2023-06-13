@@ -98,7 +98,7 @@ const ReviewFrom = (props) => {
 
   const renderTable = (data) => {
     return (
-      <Table>
+      <Table striped hover responsive>
         {/* <thead>
           <tr>
             <th>Key</th>
@@ -192,7 +192,7 @@ const ReviewFrom = (props) => {
                           </button>
                         </Card.Header>
                         <Card.Body>
-                          <Table bordered>
+                          <Table striped hover responsive>
                             {/* <thead>
                       <tr>
                         <th>Key</th>
@@ -221,7 +221,7 @@ const ReviewFrom = (props) => {
                           </button>
                         </Card.Header>
                         <Card.Body>
-                          <Table striped bordered>
+                          <Table striped hover responsive>
                             {/* <thead>
                       <tr>
                         <th>Key</th>
@@ -250,7 +250,7 @@ const ReviewFrom = (props) => {
                           </button>
                         </Card.Header>
                         <Card.Body>
-                          <Table>
+                          <Table striped hover responsive>
                             <thead>
                               <tr>
                                 <th>Column Name</th>
@@ -285,7 +285,7 @@ const ReviewFrom = (props) => {
                           </button>
                         </Card.Header>
                         <Card.Body>
-                          <Table>
+                          <Table striped hover responsive>
                             <thead>
                               <tr>
                                 <th>Column Name</th>
@@ -354,7 +354,7 @@ const ReviewFrom = (props) => {
                           </button>
                         </Card.Header>
                         <Card.Body>
-                          <Table striped bordered>
+                          <Table striped hover responsive>
                             {/* <thead>
                       <tr>
                         <th>Key</th>
