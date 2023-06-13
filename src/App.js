@@ -88,6 +88,7 @@ function App() {
         Alert: "",
         Abort: "",
       },
+      MaintainCopyInDataLake: false,
       DataLakeConnection: "",
       DataLakeFileFormat: "",
       DataLakeTargetTemplate: "",
