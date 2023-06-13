@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Card, Col, Container, Row, Table } from "react-bootstrap";
+import { Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import Success from "./Success";
 import { PencilSquare } from "react-bootstrap-icons";
 import { DataContext } from "./DataContext";
@@ -126,23 +126,46 @@ const ReviewFrom = (props) => {
               backgroundColor: "#F7901D",
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
+              display: "flex",
+              alignItems: "Center",
+              color: "white",
+              justifyContent: "space-between",
+              height: "50px",
             }}
           >
-            <Card
-              className="d-flex justify-content-between Card-progressbar"
+            {/* <Card
+              style={
+                {
+                  // backgroundColor: "#F7901D",
+                  // alignItems: "Center",
+                  // border: "none",
+                  // color: "white",
+                  // // justifyContent: "center",
+                  // padding: "1%",
+                  // borderEndEndRadius: "0px",
+                  // borderBottomRightRadius: "0px",
+                }
+              }
+            > */}
+            <h5
+              style={{
+                marginLeft: "1%",
+              }}
+            >
+              Review Details
+            </h5>
+            {/* </Card> */}
+            <Form.Check
+              label="Execute Now"
               style={{
                 backgroundColor: "#F7901D",
                 alignItems: "Center",
                 border: "none",
                 color: "white",
-                justifyContent: "center",
-                padding: "1%",
-                borderEndEndRadius: "0px",
-                borderBottomRightRadius: "0px",
+                // justifyContent: "center",
+                marginRight: "1%",
               }}
-            >
-              <h5>Review Details</h5>
-            </Card>
+            />
           </div>
           <Container
             style={{
@@ -367,6 +390,7 @@ const ReviewFrom = (props) => {
               </Row>
             </Card.Body>
           </Container>
+
           <Card.Footer className="d-flex justify-content-between float-right">
             <button
               className="btn-c"
