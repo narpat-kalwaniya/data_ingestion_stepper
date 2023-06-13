@@ -17,6 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 // import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 import CustomizedTables from "./ListOfPipeline";
+import ButtonPages from "../buttons/ButtonPages";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,10 +59,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ setshowMainPage }) {
+export default function ListingPage({ setshowMainPage }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchedData, setsearchedData] = React.useState("");
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -79,8 +81,17 @@ export default function PrimarySearchAppBar({ setshowMainPage }) {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  // const handleMobileMenuOpen = (event) => {
+  //   setMobileMoreAnchorEl(event.currentTarget);
+  // };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+    setshowMainPage(true);
   };
 
   const menuId = "primary-search-account-menu";
@@ -158,61 +169,65 @@ export default function PrimarySearchAppBar({ setshowMainPage }) {
   );
 
   return (
-    <div className="row justify-content-center mt-5">
-      <div className="col-lg-10 col-md-10">
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" color="transparent">
-            <Toolbar>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ display: { xs: "none", sm: "block", color: "#F7901D" } }}
-              >
-                All Pipelines
-              </Typography>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  value={searchedData}
-                  onChange={(e) => {
-                    setsearchedData(e.target.value);
-                  }}
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-              <Box sx={{ flexGrow: 1 }} />
-              <Box
-                sx={{
-                  display: {
-                    md: "flex",
-                    backgroundColor: "#000000",
-                  },
-                }}
-              >
-                <Button
-                  style={{
-                    color: "white",
-                    backgroundColor: "#F7901D",
-                  }}
-                  className="btn-style"
-                  onClick={() => {
-                    setshowMainPage(true);
+    <>
+      <div className="row justify-content-center mt-5">
+        <div className="col-lg-10 col-md-10">
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static" color="transparent">
+              <Toolbar>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  sx={{
+                    display: { xs: "none", sm: "block", color: "#F7901D" },
                   }}
                 >
-                  Add
-                </Button>
-              </Box>
-            </Toolbar>
-          </AppBar>
-          {renderMobileMenu}
-          {renderMenu}
-        </Box>
-        <CustomizedTables searchedData={searchedData} />
+                  All Pipelines
+                </Typography>
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    value={searchedData}
+                    onChange={(e) => {
+                      setsearchedData(e.target.value);
+                    }}
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+                <Box sx={{ flexGrow: 1 }} />
+                <Box
+                  sx={{
+                    display: {
+                      md: "flex",
+                    },
+                  }}
+                >
+                  <Button
+                    style={{
+                      color: "white",
+                      backgroundColor: "#F7901D",
+                    }}
+                    className="btn-style"
+                    onClick={() => {
+                      handleClickOpen(true);
+                    }}
+                  >
+                    Add
+                  </Button>
+                </Box>
+              </Toolbar>
+            </AppBar>
+            {renderMobileMenu}
+            {renderMenu}
+          </Box>
+          <CustomizedTables searchedData={searchedData} />
+        </div>
       </div>
-    </div>
+      <ButtonPages open={open} onClose={handleClose} />
+    </>
   );
 }

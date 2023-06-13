@@ -21,6 +21,7 @@ import SectionMenu from "./components/SectionMenu";
 import Sidebar from "./components/sidebar/Sidebar";
 import Navbar from "./components/navbar/Navbar";
 import ListingPage from "./components/listing/SearchNavbar";
+import SimpleDialogDemo from "./components/buttons/ButtonPages";
 
 function App() {
   const [step, setStep] = useState(1);
@@ -367,6 +368,7 @@ function App() {
           )}
         </div>
       </div>
+      <SimpleDialogDemo />
     </div>
   );
 }
