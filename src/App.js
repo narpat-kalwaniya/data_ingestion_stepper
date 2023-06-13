@@ -64,6 +64,19 @@ function App() {
       filter: "",
       orderBy: "",
     },
+    DefineSourceExtractCriteria: {
+      incrementalOrFullExtract: "",
+      selectDistinct: false,
+      incrementalBy: "",
+      incrementalStartDatetime: "",
+      incrementalEndDatetime: "",
+      incrementalStartSeq: "",
+      incrementalEndSeq: "",
+      defaultStartDate: "",
+      defaultStartSeq: "",
+      filter: "",
+      orderBy: "",
+    },
     targetLoadDetails: {
       TargetEntityName: "",
       TargetLoadType: "",
@@ -78,6 +91,14 @@ function App() {
       DataLakeConnection: "",
       DataLakeFileFormat: "",
       DataLakeTargetTemplate: "",
+    },
+    GatherMetaData: {
+      BusinessTags: "",
+      Description: "",
+      Owner: "",
+      OwnerEmail: "",
+      SuccessEmailDistributionList: "",
+      FailureEmailDistributionList: "",
     },
   });
 
@@ -323,9 +344,8 @@ function App() {
                                         updateFormData={updateFormData}
                                         errors={errors}
                                         errors2={errors2}
-                                        shouldUpdateTargetLoad={
-                                          updateTargetLoad
-                                        }
+                                        isReview={isReview}
+                                        setIsReview={setIsReview}
                                       />
                                     </Card.Body>
                                   </Container>
