@@ -13,7 +13,7 @@ import {
 import "../App.css";
 
 const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
-  const [selectedOption, setSelectedOption] = useState("fullextract");
+  const [selectedOption, setSelectedOption] = useState("");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
 
@@ -181,7 +181,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
               <Form.Label>Incremental by</Form.Label>
               <Form.Select
                 aria-label=""
-                disabled={!isIncrementalSelected}
+                disabled={!formData.DefineSourceExtractCriteria.incrementalBy}
                 onChange={incrementalByHandler}
                 value={formData.DefineSourceExtractCriteria.incrementalBy}
                 name="incrementalBy"
@@ -198,7 +198,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                 as="select"
                 multiple
                 onChange={handleSelect}
-                disabled={!isIncrementalSelected}
+                disabled={!formData.DefineSourceExtractCriteria.incrementalBy}
               >
                 {formData.tableData.map((column, index) => (
                   <option key={index} value={column.column_name}>
@@ -246,8 +246,10 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                               .incrementalStartDatetime
                           }
                           disabled={
-                            !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Date"
+                            !formData.DefineSourceExtractCriteria
+                              .incrementalBy ||
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Date"
                           }
                           onChange={changeHandler}
                         />
@@ -270,8 +272,10 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                               .incrementalEndDatetime
                           }
                           disabled={
-                            !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Date"
+                            !formData.DefineSourceExtractCriteria
+                              .incrementalBy ||
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Date"
                           }
                           onChange={changeHandler}
                         />
@@ -296,8 +300,10 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                               .incrementalStartSeq
                           }
                           disabled={
-                            !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Sequence"
+                            !formData.DefineSourceExtractCriteria
+                              .incrementalBy ||
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Sequence"
                           }
                           onChange={changeHandler}
                         />
@@ -315,8 +321,10 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                           placeholder=""
                           className="mb-3"
                           disabled={
-                            !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Sequence"
+                            !formData.DefineSourceExtractCriteria
+                              .incrementalBy ||
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Sequence"
                           }
                           name="incrementalEndSeq"
                           onChange={changeHandler}
@@ -341,7 +349,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={
-                    !isIncrementalSelected || selectedIncrementalBy !== "Date"
+                    !formData.DefineSourceExtractCriteria.incrementalBy ||
+                    formData.DefineSourceExtractCriteria.incrementalBy !==
+                      "Date"
                   }
                   name="defaultStartDate"
                   onChange={changeHandler}
@@ -359,8 +369,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={
-                    !isIncrementalSelected ||
-                    selectedIncrementalBy !== "Sequence"
+                    !formData.DefineSourceExtractCriteria.incrementalBy ||
+                    formData.DefineSourceExtractCriteria.incrementalBy !==
+                      "Sequence"
                   }
                   name="defaultStartSeq"
                   onChange={changeHandler}
@@ -377,7 +388,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={isIncrementalSelected}
+                  disabled={formData.DefineSourceExtractCriteria.incrementalBy}
                   name="filter"
                   onChange={changeHandler}
                   value={formData.DefineSourceExtractCriteria.filter}
@@ -393,7 +404,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={isIncrementalSelected}
+                  disabled={formData.DefineSourceExtractCriteria.incrementalBy}
                   name="orderBy"
                   onChange={changeHandler}
                   value={formData.DefineSourceExtractCriteria.orderBy}
