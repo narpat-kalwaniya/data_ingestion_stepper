@@ -21,6 +21,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
     incrementalOrFullExtract: "",
     selectDistinct: false,
     incrementalBy: "",
+    incrementalColumns: [],
     incrementalStartDatetime: "",
     incrementalEndDatetime: "",
     incrementalStartSeq: "",
@@ -106,10 +107,9 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                       className="mb-0"
                       name="selectDistinct"
                       label="Select Distinct"
-                      value={pageData.selectDistinct}
-                      onchange={selectDistinctHandler}
-
-                      // checked={pageData.selectDistinct === true}
+                      // value={pageData.selectDistinct}
+                      onChange={selectDistinctHandler}
+                      checked={pageData.selectDistinct === true}
                     />
                   </Col>
                   {/* <Col sm={6}>
@@ -265,7 +265,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                             selectedIncrementalBy !== "Sequence"
                           }
                           name="incrementalEndSeq"
-                          onchange={changeHandler}
+                          onChange={changeHandler}
                         />
                       </Col>
                     </Form.Group>
@@ -273,7 +273,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                 </Row>
               </Col>
             </Form.Group>
-            <Form.Group as={Row}>
+            <Form.Group as={Row} controlId="input5">
               <Form.Label column sm={2}>
                 Default Start Date
               </Form.Label>
@@ -286,7 +286,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                     !isIncrementalSelected || selectedIncrementalBy !== "Date"
                   }
                   name="defaultStartDate"
-                  onchange={changeHandler}
+                  onChange={changeHandler}
                 />
               </Col>
             </Form.Group>
@@ -304,7 +304,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                     selectedIncrementalBy !== "Sequence"
                   }
                   name="defaultStartSeq"
-                  onchange={changeHandler}
+                  onChange={changeHandler}
                 />
               </Col>
             </Form.Group>
@@ -319,7 +319,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   className="mb-3"
                   disabled={isIncrementalSelected}
                   name="filter"
-                  onchange={changeHandler}
+                  onChange={changeHandler}
                 />
               </Col>
             </Form.Group>
@@ -334,7 +334,7 @@ const DefineSourceExtractCriteria = ({ formData }) => {
                   className="mb-3"
                   disabled={isIncrementalSelected}
                   name="orderBy"
-                  onchange={changeHandler}
+                  onChange={changeHandler}
                 />
               </Col>
             </Form.Group>

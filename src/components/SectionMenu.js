@@ -10,15 +10,15 @@ import {
 } from "react-bootstrap";
 
 const sections = [
-  "Create Data Connection",
+  "Data Connection",
   "Source Entity Selection",
   "Target Schema",
-  "Define Data Validation",
-  "Define Source Extract Criteria",
+  "Data Validation",
+  "Source Extract Criteria",
   "Target Load Details",
-  "Apply Masking",
-  "Gather Meta Data",
-  "Scheduling",
+  "Masking",
+  "Meta Data",
+  // "Scheduling",
   // "Review",
 ];
 
@@ -37,6 +37,7 @@ const SectionMenu = (props) => {
               color: index === props.step - 1 ? "white" : "darkgray",
               border: "none",
               borderRadius: "2px",
+              transition: "ease-in-out 0.03s",
             }}
           >
             {index + 1}. {item}

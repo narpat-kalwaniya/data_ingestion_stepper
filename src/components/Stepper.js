@@ -73,13 +73,14 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
         />
-      ) : step === 9 ? (
-        <Scheduling
-          step={step}
-          formData={formData}
-          updateFormData={updateFormData}
-        />
-      ) : null}
+      ) : //               : step === 9 ? (
+      // <Scheduling
+      //   step={step}
+      //   formData={formData}
+      //   updateFormData={updateFormData}
+      // />
+      // )
+      null}
     </div>
   );
 };

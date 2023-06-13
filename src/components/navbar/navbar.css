@@ -123,7 +123,8 @@
   transition: all ease 0.2s !important;
 }
 .header .wrapper .item:hover {
-  transform: scaleX(1.2);
+  transform: scale(1.1);
+  transition: all ease 0.2s !important;
 }
 .header .wrapper .item .counter {
   width: 15px;

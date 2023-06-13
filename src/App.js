@@ -160,7 +160,7 @@ function App() {
     return Object.keys(newErrors2).length === 0;
   };
 
-  const totalPagesCount = 9;
+  const totalPagesCount = 8;
 
   const previousHandler = () => {
     setIsReview(false);
@@ -274,9 +274,9 @@ function App() {
                           <Col>
                             <Card>
                               <div>
-                                <Card.Header className="header">
+                                {/* <Card.Header className="header">
                                   <Header step={step}></Header>
-                                </Card.Header>
+                                </Card.Header> */}
                                 <div>
                                   <Container
                                     // ref={containerRef}
