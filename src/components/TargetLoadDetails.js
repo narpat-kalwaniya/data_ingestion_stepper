@@ -13,7 +13,9 @@ import {
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({ formData, updateFormData }) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(
+    formData.targetLoadDetails.MaintainCopyInDataLake
+  );
   const [selectedOption, setSelectedOption] = useState("");
 
   const changeHandler = (event) => {
@@ -71,6 +73,14 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
 
   const chechBoxHandler = (e) => {
     setChecked(!checked);
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        [e.target.name]: e.target.checked,
+      },
+    };
+    updateFormData(updatedFormData);
   };
 
   console.log("target formdata", formData);
@@ -170,7 +180,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                 <div className="form-group">
                   <Row className="mb-3">
                     <Col xs="auto">
-                      <Form.Label>Data Quality Moniter</Form.Label>
+                      <Form.Label>Data Quality Monitor</Form.Label>
                     </Col>
                     <Col className="dqt" xs="auto">
                       <Form.Label>Alert</Form.Label>
@@ -201,7 +211,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   </Row>
                 </div>
                 <div className="form-group">
-                  <Row className="mb-3">
+                  {/* <Row className="mb-3">
                     <Col xs="auto">
                       <Form.Label>Record Count Changes Moniter</Form.Label>
                     </Col>
@@ -230,8 +240,8 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         }
                         onChange={alertHandler2}
                       ></Form.Control>
-                    </Col>
-                  </Row>
+                    </Col> */}
+                  {/* </Row> */}
                 </div>
                 {/* <div className="form-group">
                       <Form.Label>PHI/PII Identifier Status</Form.Label>
@@ -255,7 +265,13 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   <Form.Check
                     type="checkbox"
                     label="Maintain a copy in DataLake"
-                    onChange={chechBoxHandler}
+                    name="MaintainCopyInDataLake"
+                    checked={formData.targetLoadDetails.MaintainCopyInDataLake}
+                    // onChange={chechBoxHandler}
+                    onChange={(e) => {
+                      setChecked(e.target.checked);
+                      chechBoxHandler(e);
+                    }}
                   ></Form.Check>
                 </div>
                 <br></br>

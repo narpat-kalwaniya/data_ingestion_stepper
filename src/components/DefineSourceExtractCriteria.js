@@ -103,9 +103,13 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
     );
   };
 
-  const isIncrementalSelected = selectedOption === "incremental";
+  const isIncrementalSelected =
+    formData.DefineSourceExtractCriteria.incrementalOrFullExtract ===
+    "incremental";
   const isDateSelected =
-    selectedOption === "incremental" && selectedIncrementalBy === "Date";
+    formData.DefineSourceExtractCriteria.incrementalOrFullExtract ===
+      "incremental" &&
+    formData.DefineSourceExtractCriteria.incrementalBy === "Date";
 
   // console.log("selected values", selectedValues);
   // console.log("selected options", selectedOption);
@@ -183,7 +187,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
               <Form.Label>Incremental by</Form.Label>
               <Form.Select
                 aria-label=""
-                disabled={!formData.DefineSourceExtractCriteria.incrementalBy}
+                disabled={!isIncrementalSelected}
                 onChange={incrementalByHandler}
                 value={formData.DefineSourceExtractCriteria.incrementalBy}
                 name="incrementalBy"
@@ -200,7 +204,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                 as="select"
                 multiple
                 onChange={handleSelect}
-                disabled={!formData.DefineSourceExtractCriteria.incrementalBy}
+                disabled={!isIncrementalSelected}
               >
                 {formData.tableData.map((column, index) => (
                   <option key={index} value={column.column_name}>
@@ -248,8 +252,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                               .incrementalStartDatetime
                           }
                           disabled={
-                            !formData.DefineSourceExtractCriteria
-                              .incrementalBy ||
+                            !isIncrementalSelected ||
                             formData.DefineSourceExtractCriteria
                               .incrementalBy !== "Date"
                           }
@@ -274,8 +277,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                               .incrementalEndDatetime
                           }
                           disabled={
-                            !formData.DefineSourceExtractCriteria
-                              .incrementalBy ||
+                            !isIncrementalSelected ||
                             formData.DefineSourceExtractCriteria
                               .incrementalBy !== "Date"
                           }
@@ -302,8 +304,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                               .incrementalStartSeq
                           }
                           disabled={
-                            !formData.DefineSourceExtractCriteria
-                              .incrementalBy ||
+                            !isIncrementalSelected ||
                             formData.DefineSourceExtractCriteria
                               .incrementalBy !== "Sequence"
                           }
@@ -323,8 +324,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                           placeholder=""
                           className="mb-3"
                           disabled={
-                            !formData.DefineSourceExtractCriteria
-                              .incrementalBy ||
+                            !isIncrementalSelected ||
                             formData.DefineSourceExtractCriteria
                               .incrementalBy !== "Sequence"
                           }
@@ -351,7 +351,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={
-                    !formData.DefineSourceExtractCriteria.incrementalBy ||
+                    !isIncrementalSelected ||
                     formData.DefineSourceExtractCriteria.incrementalBy !==
                       "Date"
                   }
@@ -371,7 +371,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={
-                    !formData.DefineSourceExtractCriteria.incrementalBy ||
+                    !isIncrementalSelected ||
                     formData.DefineSourceExtractCriteria.incrementalBy !==
                       "Sequence"
                   }
@@ -390,7 +390,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={formData.DefineSourceExtractCriteria.incrementalBy}
+                  disabled={isIncrementalSelected}
                   name="filter"
                   value={formData.DefineSourceExtractCriteria.filter}
                   onchange={changeHandler}
@@ -406,7 +406,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   type="text"
                   placeholder=""
                   className="mb-3"
-                  disabled={formData.DefineSourceExtractCriteria.incrementalBy}
+                  disabled={isIncrementalSelected}
                   name="orderBy"
                   value={formData.DefineSourceExtractCriteria.orderBy}
                   onchange={changeHandler}
