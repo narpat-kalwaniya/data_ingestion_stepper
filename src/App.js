@@ -211,7 +211,7 @@ function App() {
     return Object.keys(newErrors2).length === 0;
   };
 
-  const totalPagesCount = 9;
+  const totalPagesCount = 8;
 
   const previousHandler = () => {
     setIsReview(false);
@@ -295,40 +295,40 @@ function App() {
             <div className="w-100">
               <Navbar user={user} />
               {showMainPage ? (
-                <DataProvider>
-                  <Container className="h-100">
-                    <Card className="Card-outer">
-                      <Row className="m-2">
-                        <Col>
-                          <Card className="Card-progressbar">
-                            <Progressbar step={step} />
-                          </Card>
-                        </Col>
-                      </Row>
-                      <Row className="m-2">
-                        <SectionMenu
-                          step={step}
-                          isReview={isReview}
-                          setIsReview={setIsReview}
-                        />
-                        <Col>
-                          <Card>
-                            {isReview ? (
-                              <DataProvider>
-                                <ReviewForm
-                                  step={step}
-                                  setStep={setStep}
-                                  isReview={isReview}
-                                  setIsReview={setIsReview}
-                                  cancel={closeHandler}
-                                  formData={formData}
-                                ></ReviewForm>
-                              </DataProvider>
-                            ) : (
+                isReview ? (
+                  <DataProvider>
+                    <ReviewForm
+                      step={step}
+                      setStep={setStep}
+                      isReview={isReview}
+                      setIsReview={setIsReview}
+                      cancel={closeHandler}
+                      formData={formData}
+                    ></ReviewForm>
+                  </DataProvider>
+                ) : (
+                  <DataProvider>
+                    <Container className="h-100" style={{ marginTop: "7px" }}>
+                      <Card className="Card-outer">
+                        <Row className="m-2">
+                          <Col>
+                            <Card className="Card-progressbar">
+                              <Progressbar step={step} />
+                            </Card>
+                          </Col>
+                        </Row>
+                        <Row className="m-2">
+                          <SectionMenu
+                            step={step}
+                            isReview={isReview}
+                            setIsReview={setIsReview}
+                          />
+                          <Col>
+                            <Card>
                               <div>
-                                <Card.Header className="header">
+                                {/* <Card.Header className="header">
                                   <Header step={step}></Header>
-                                </Card.Header>
+                                </Card.Header> */}
                                 <div>
                                   <Container
                                     // ref={containerRef}
@@ -425,13 +425,13 @@ function App() {
                                   )}
                                 </Card.Footer>
                               </div>
-                            )}
-                          </Card>
-                        </Col>
-                      </Row>
-                    </Card>
-                  </Container>
-                </DataProvider>
+                            </Card>
+                          </Col>
+                        </Row>
+                      </Card>
+                    </Container>
+                  </DataProvider>
+                )
               ) : (
                 <ListingPage setshowMainPage={setshowMainPage} />
               )}

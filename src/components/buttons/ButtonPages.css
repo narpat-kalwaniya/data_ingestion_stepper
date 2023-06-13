@@ -1,3 +1,11 @@
 .dialogTitle{
     text-align: center;
 }
+
+.buttonElements {
+    font-size: 10px !important;
+    padding: 10px !important;
+    margin: 10px !important;
+    width: 100vh;
+    
+}

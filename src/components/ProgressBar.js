@@ -13,13 +13,12 @@ const styles = {
 export const Progressbar = (props) => {
   return (
     <ProgressBar
-      percent={((props.step - 1) * 100) / 8}
+      percent={((props.step - 1) * 100) / 7}
       filledBackground="#F7901D"
     >
       <Step transition="scale">
         {({ accomplished, index }) => (
-          <div className={`step ${accomplished ? "completed" : null}`}>
-            1</div>
+          <div className={`step ${accomplished ? "completed" : null}`}>1</div>
         )}
       </Step>
       <Step transition="scale">
@@ -57,11 +56,11 @@ export const Progressbar = (props) => {
           <div className={`step ${accomplished ? "completed" : null}`}>8</div>
         )}
       </Step>
-      <Step transition="scale">
+      {/* <Step transition="scale">
         {({ accomplished, index }) => (
           <div className={`step ${accomplished ? "completed" : null}`}>9</div>
         )}
-      </Step>
+      </Step> */}
     </ProgressBar>
   );
 

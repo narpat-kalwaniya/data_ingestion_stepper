@@ -12,7 +12,8 @@ import "./ButtonPages.css";
 export default function ButtonPages(props) {
   const { onClose, selectedValue, open } = props;
 
-  const handleClose = () => {
+  const handleClose = (e, reason) => {
+    if (reason && reason == "backdropClick") return;
     onClose(selectedValue);
   };
 
@@ -27,63 +28,66 @@ export default function ButtonPages(props) {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
-
+  let buttonNames = [
+    {
+      name: "batch ingestion of relational sources for single entity",
+    },
+    {
+      name: "batch ingestion of relational sources for multiple entities",
+    },
+    {
+      name: "Upload data from UI",
+    },
+    {
+      name: "Realtime ingestion",
+    },
+    {
+      name: "ELT - Transformations",
+    },
+    {
+      name: "Data Quality pipelines",
+    },
+    {
+      name: "Data Masking pipelines",
+    },
+    {
+      name: "Snowpark development Notebook",
+    },
+    {
+      name: "Streamlit app development Notebook",
+    },
+    {
+      name: "Snowflake Data Consumption pipelines",
+    },
+  ];
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle className="dialogTitle">
         Please select data pipelines
       </DialogTitle>
 
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          {Array.from(Array(10)).map((_, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
+      <Box sx={{ flexGrow: 1, marginY: "20px" }}>
+        <Grid container justifyContent={"center"} spacing={2}>
+          {buttonNames.map((_, index) => (
+            <Grid
+              item
+              key={index}
+              xs={6}
+              sm={6}
+              justifyContent={"center"}
+              display={"flex"}
+            >
               <Button
+                className="buttonElements"
                 variant="contained"
                 onClick={() => handleListItemClick("")}
               >
-                Contained
+                {_.name}
               </Button>
             </Grid>
           ))}
         </Grid>
       </Box>
-
-      {/* <List sx={{ pt: 0 }}>
-        {emails.map((email) => (
-          <ListItem disableGutters>
-            <ListItemButton
-              onClick={() => handleListItemClick(email)}
-              key={email}
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={email} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-
-        <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick("addAccount")}
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Add account" />
-          </ListItemButton>
-        </ListItem>
-      </List> */}
     </Dialog>
   );
 }

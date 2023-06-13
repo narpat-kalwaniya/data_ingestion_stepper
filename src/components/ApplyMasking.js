@@ -1,14 +1,14 @@
 import React from "react";
-import { Table, Form, Input, Col, Row } from "react-bootstrap";
+import { Table, Form, Input, Col, Row, FormCheck } from "react-bootstrap";
 import TableData from "./TableData";
 
 const headers = [
-  "Policy Name",
+  // "Policy Name",
   "Column Name",
-  "PHI/PII Indicator",
+  // "PHI/PII Indicator",
   "Mask/Tokenize",
   "Masking Logic",
-  "Role",
+  // "Role",
 ];
 
 const ThData = () => {
@@ -23,6 +23,18 @@ const ApplyMasking = ({ formData, updateTargetLoad }) => {
       <thead>
         <tr>{ThData()}</tr>
       </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td>
+            <FormCheck></FormCheck>
+          </td>
+
+          <td>
+            <Form.Control></Form.Control>
+          </td>
+        </tr>
+      </tbody>
     </Table>
   );
 };

@@ -56,23 +56,29 @@ const LoginPage = (props) => {
             />
             <p className={classes["social-text"]}>Or </p>
             <div
-              class="btn-s-1"
-              style={{ display: "flex", alignItems: "center" }}
+              className="btn-s-1"
+              style={{
+                width: "250px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                color: "white",
+              }}
               onClick={signInWithGoogle}
             >
-              <div style={{ margin: "0px", alignItems: "left" }}>
-                <img
-                  style={{
-                    width: "40px",
-                    padding: "10px",
-                    backgroundColor: "white",
-                    borderRadius: "50%",
-                  }}
-                  alt="Google sign-in"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-                />
-              </div>
-              Login with Google
+              <img
+                style={{
+                  flexShrink: "0",
+                  width: "30px",
+                  height: "30px",
+                  // padding: "10px",
+                  // backgroundColor: "white",
+                  // borderRadius: "50%",
+                }}
+                alt="Google sign-in"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+              />
+              <p>Continue with Google</p>
               {/* <input
                 type="submit"
                 value="Sign in with Google"

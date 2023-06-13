@@ -149,7 +149,7 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(event) => handleTargetDataTypeChange(event, index)}
-              // value={formData.tableData[index].target_datatype || ""}
+              value={tableData[index].target_datatype || ""}
             >
               <option value="">Select Target Data Type</option>
               {targetDataTypes.map((dataType, index) => (

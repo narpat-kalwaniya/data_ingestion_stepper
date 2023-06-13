@@ -14,7 +14,7 @@ import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
 
 const headers = [
   "Column Name",
-  "Source Data Type",
+  // "Source Data Type",
   "Target Data Type",
   "Validation Rule",
   "Validation Input",
@@ -98,17 +98,8 @@ export const DefineDataValidation = ({ formData }) => {
         {formData.tableData.map((column, index) => (
           <tr key={index}>
             <td>{column.column_name}</td>
-            <td>{column.data_type}</td>
-            <td>
-              <Form.Select aria-label="Default select example">
-                <option value="">Select Target Data Type</option>
-                {targetDataTypes.map((dataType, index) => (
-                  <option key={index} value={dataType}>
-                    {dataType}
-                  </option>
-                ))}
-              </Form.Select>
-            </td>
+            {/* <td>{column.data_type}</td> */}
+            <td>{column.target_datatype}</td>
             <td>
               <Form.Control
                 as="select"

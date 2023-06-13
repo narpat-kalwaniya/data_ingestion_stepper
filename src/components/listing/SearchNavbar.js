@@ -18,6 +18,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Button from "@mui/material/Button";
 import CustomizedTables from "./ListOfPipeline";
 import ButtonPages from "../buttons/ButtonPages";
+import "./SearchNavbarButton.css";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -203,15 +204,13 @@ export default function ListingPage({ setshowMainPage }) {
                   sx={{
                     display: {
                       md: "flex",
+                      gap: "10px",
                     },
                   }}
                 >
+                  <Button className="searchNavbarBtnStyle"> Bulk Upload</Button>
                   <Button
-                    style={{
-                      color: "white",
-                      backgroundColor: "#F7901D",
-                    }}
-                    className="btn-style"
+                    className="searchNavbarBtnStyle"
                     onClick={() => {
                       handleClickOpen(true);
                     }}
