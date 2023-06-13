@@ -20,6 +20,8 @@ import "./styles/main.css";
 import SectionMenu from "./components/SectionMenu";
 import Sidebar from "./components/sidebar/Sidebar";
 import Navbar from "./components/navbar/Navbar";
+import ListingPage from "./components/listing/SearchNavbar";
+import SimpleDialogDemo from "./components/buttons/ButtonPages";
 import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
 
@@ -30,6 +32,9 @@ function App() {
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
+  const [showMainPage, setshowMainPage] = useState(false);
+
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: "",
@@ -288,41 +293,37 @@ function App() {
             <Sidebar />
             <div className="w-100">
               <Navbar user={user} />
-              {isReview ? (
+              {showMainPage ? (
                 <DataProvider>
-                  <ReviewForm
-                    step={step}
-                    setStep={setStep}
-                    isReview={isReview}
-                    setIsReview={setIsReview}
-                    cancel={closeHandler}
-                    formData={formData}
-                  ></ReviewForm>
-                </DataProvider>
-              ) : (
-                <DataProvider>
-                  <div style={{ marginTop: "5px" }}>
-                    <Container className="h-100">
-                      <Card className="Card-outer">
-                        <Row className="m-2">
-                          <Col>
-                            <Card className="Card-progressbar">
-                              <Progressbar step={step} />
-                            </Card>
-                          </Col>
-                        </Row>
-                        <Row className="m-2">
-                          <SectionMenu
-                            step={step}
-                            formData={formData}
-                            updateFormData={updateFormData}
-                            errors={errors}
-                            errors2={errors2}
-                            isReview={isReview}
-                            setIsReview={setIsReview}
-                          />
-                          <Col>
-                            <Card>
+                  <Container className="h-100">
+                    <Card className="Card-outer">
+                      <Row className="m-2">
+                        <Col>
+                          <Card className="Card-progressbar">
+                            <Progressbar step={step} />
+                          </Card>
+                        </Col>
+                      </Row>
+                      <Row className="m-2">
+                        <SectionMenu
+                          step={step}
+                          isReview={isReview}
+                          setIsReview={setIsReview}
+                        />
+                        <Col>
+                          <Card>
+                            {isReview ? (
+                              <DataProvider>
+                                <ReviewForm
+                                  step={step}
+                                  setStep={setStep}
+                                  isReview={isReview}
+                                  setIsReview={setIsReview}
+                                  cancel={closeHandler}
+                                  formData={formData}
+                                ></ReviewForm>
+                              </DataProvider>
+                            ) : (
                               <div>
                                 {/* <Card.Header className="header">
                                   <Header step={step}></Header>
@@ -331,8 +332,8 @@ function App() {
                                   <Container
                                     // ref={containerRef}
                                     style={{
-                                      minHeight: "57vh",
-                                      maxHeight: "57vh",
+                                      minHeight: "65vh",
+                                      maxHeight: "65vh",
                                       overflowY: "scroll",
                                     }}
                                   >
@@ -343,6 +344,8 @@ function App() {
                                         updateFormData={updateFormData}
                                         errors={errors}
                                         errors2={errors2}
+                                        isReview={isReview}
+                                        setIsReview={setIsReview}
                                       />
                                     </Card.Body>
                                   </Container>
@@ -421,16 +424,19 @@ function App() {
                                   )}
                                 </Card.Footer>
                               </div>
-                            </Card>
-                          </Col>
-                        </Row>
-                      </Card>
-                    </Container>
-                  </div>
+                            )}
+                          </Card>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Container>
                 </DataProvider>
+              ) : (
+                <ListingPage setshowMainPage={setshowMainPage} />
               )}
             </div>
           </div>
+          <SimpleDialogDemo />
         </div>
       ) : (
         <LoginPage />
