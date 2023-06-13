@@ -13,7 +13,9 @@ import {
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({ formData, updateFormData }) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(
+    formData.targetLoadDetails.MaintainCopyInDataLake
+  );
   const [selectedOption, setSelectedOption] = useState("");
 
   const changeHandler = (event) => {
@@ -71,6 +73,14 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
 
   const chechBoxHandler = (e) => {
     setChecked(!checked);
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        [e.target.name]: e.target.checked,
+      },
+    };
+    updateFormData(updatedFormData);
   };
 
   console.log("target formdata", formData);
@@ -255,7 +265,13 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   <Form.Check
                     type="checkbox"
                     label="Maintain a copy in DataLake"
-                    onChange={chechBoxHandler}
+                    name="MaintainCopyInDataLake"
+                    checked={formData.targetLoadDetails.MaintainCopyInDataLake}
+                    // onChange={chechBoxHandler}
+                    onChange={(e) => {
+                      setChecked(e.target.checked);
+                      chechBoxHandler(e);
+                    }}
                   ></Form.Check>
                 </div>
                 <br></br>
