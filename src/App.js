@@ -293,7 +293,6 @@ function App() {
                         <Row className="m-2">
                           <SectionMenu
                             step={step}
-
                             formData={formData}
                             updateFormData={updateFormData}
                             errors={errors}
@@ -323,9 +322,6 @@ function App() {
                                         updateFormData={updateFormData}
                                         errors={errors}
                                         errors2={errors2}
-                                        shouldUpdateTargetLoad={
-                                          updateTargetLoad
-                                        }
                                       />
                                     </Card.Body>
                                   </Container>

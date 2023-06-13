@@ -49,6 +49,8 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
           ...formData.targetLoadDetails.DataQualityMoniter,
           [event.target.name]: event.target.value,
         },
+      },
+    };
     updateFormData(updatedFormData);
   };
 
