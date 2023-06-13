@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 // import { NotificationsNoneOutlinedIcon } from "@mui/icons-material";
 import "./navbar.scss";
 // import Navigation from "../Navigation/Navigation";
+import { auth } from "../../services/firebase";
 
-const Navbar = () => {
+const Navbar = (props) => {
   // const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -117,7 +118,7 @@ const Navbar = () => {
               }}
             >
               <span style={{ color: "orange" }}>D</span>ata{" "}
-              <span style={{ color: "orange" }}>V</span>alidator
+              <span style={{ color: "orange" }}>F</span>abric
             </strong>
           </span>
         </div>
@@ -184,12 +185,13 @@ const Navbar = () => {
             alignItems: "center",
           }}
         >
-          <div className="time">
+          {/* <div className="time">
             <span> {date}</span>
           </div>
           <div className="time">
             <span> {time}</span>
-          </div>
+          </div> */}
+          <div style={{ color: "white" }}>{props.user?.displayName}</div>
 
           <div className="bottom" style={{ display: "flex" }}>
             <div className="item profile">
@@ -200,13 +202,19 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="item noti">
-              {/* <NotificationsNoneOutlinedIcon className="icon" /> */}
+            {/* <div className="item noti">
+              <NotificationsNoneOutlinedIcon className="icon" />
               <div className="counter">1</div>
-            </div>
+            </div> */}
 
             <div className="item help" style={{ fontSize: "20px" }}>
-              <i class="fa-solid fa-power-off"></i>
+              <i
+                class="fa-solid fa-power-off"
+                onClick={() => {
+                  auth.signOut();
+                  window.location.reload();
+                }}
+              ></i>
             </div>
           </div>
           {/* <div
