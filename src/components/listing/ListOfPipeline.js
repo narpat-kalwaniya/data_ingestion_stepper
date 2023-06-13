@@ -54,7 +54,7 @@ export default function CustomizedTables({ searchedData }) {
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingestreview/"
       );
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       setPipelineData(data);
       // setSelectedTestcases(Array(formData.tableData.length).fill(""));
     } catch (error) {
@@ -81,6 +81,18 @@ export default function CustomizedTables({ searchedData }) {
                 !searchedData ||
                 (searchedData &&
                   item?.app_name
+                    ?.toLowerCase()
+                    ?.includes(searchedData?.toLowerCase())) ||
+                (searchedData &&
+                  item?.source_entity_name
+                    ?.toLowerCase()
+                    ?.includes(searchedData?.toLowerCase())) ||
+                (searchedData &&
+                  item?.target_connection_name
+                    ?.toLowerCase()
+                    ?.includes(searchedData?.toLowerCase())) ||
+                (searchedData &&
+                  item?.source_connection_name
                     ?.toLowerCase()
                     ?.includes(searchedData?.toLowerCase()))
             )
