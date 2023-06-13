@@ -3,19 +3,18 @@ import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 import "../styles/main.css";
 
-const GatherMetaData = () => {
+const GatherMetaData = ({ formData, updateFormData }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
-  const [pageData, setPageData] = useState({
-    BusinessTags: "",
-    Description: "",
-    Owner: "",
-    OwnerEmail: "",
-    SuccessEmailDistributionList: "",
-    FailureEmailDistributionList: "",
-  });
 
   const changeHandler = (e) => {
-    setPageData({ ...pageData, [e.target.name]: e.target.value });
+    const updatedFormData = {
+      ...formData,
+      GatherMetaData: {
+        ...formData.GatherMetaData,
+        [e.target.name]: e.target.value,
+      },
+    };
+    updateFormData(updatedFormData);
   };
 
   const addHandler = () => {
@@ -27,7 +26,7 @@ const GatherMetaData = () => {
     setAdditionalFields(updatedFields);
   };
 
-  console.log("MetaData:", pageData);
+  console.log("MetaformData:", formData);
 
   return (
     <div>
@@ -44,6 +43,7 @@ const GatherMetaData = () => {
                     <Form.Control
                       className="mb-3"
                       name="BusinessTags"
+                      value={formData.GatherMetaData.BusinessTags}
                       onChange={changeHandler}
                     />
                   </Col>
@@ -56,6 +56,7 @@ const GatherMetaData = () => {
                     <Form.Control
                       className="mb-3"
                       name="Description"
+                      value={formData.GatherMetaData.Description}
                       onChange={changeHandler}
                     />
                   </Col>
@@ -68,6 +69,7 @@ const GatherMetaData = () => {
                     <Form.Control
                       className="mb-3"
                       name="Owner"
+                      value={formData.GatherMetaData.Owner}
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
@@ -80,6 +82,7 @@ const GatherMetaData = () => {
                     <Form.Control
                       className="mb-3"
                       name="OwnerEmail"
+                      value={formData.GatherMetaData.OwnerEmail}
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
@@ -92,6 +95,9 @@ const GatherMetaData = () => {
                     <Form.Control
                       className="mb-3"
                       name="SuccessEmailDistributionList"
+                      value={
+                        formData.GatherMetaData.SuccessEmailDistributionList
+                      }
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
@@ -104,6 +110,9 @@ const GatherMetaData = () => {
                     <Form.Control
                       className="mb-3"
                       name="FailureEmailDistributionList"
+                      value={
+                        formData.GatherMetaData.FailureEmailDistributionList
+                      }
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
