@@ -117,7 +117,7 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
   };
 
   const filteredSourceConnections = connections.filter(
-    (connection) => connection.connection_type === "POSTGRES"
+    (connection) => connection.connection_type !== "SNOWFLAKE"
   );
   const filteredTargetConnections = connections.filter(
     (connection) => connection.connection_type === "SNOWFLAKE"
