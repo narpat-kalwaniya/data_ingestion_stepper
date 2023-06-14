@@ -10,7 +10,14 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
+import Select from "react-select";
+
+import {
+  Select as AntdSelect,
+  Form as AntdForm,
+  Input as AntdInput,
+  Tag,
+} from "antd";
 
 const headers = [
   "Column Name",
@@ -68,10 +75,18 @@ export const DefineDataValidation = ({ formData }) => {
     "VARCHAR",
   ];
 
-  const handleTestcaseChange = (e, index) => {
-    const updatedTestcases = [...selectedTestcases];
-    updatedTestcases[index] = e.target.value;
-    setSelectedTestcases(updatedTestcases);
+  // const handleTestcaseChange = (e, index) => {
+  //   const updatedTestcases = [...selectedTestcases];
+  //   updatedTestcases[index] = e.target.value;
+  //   setSelectedTestcases(updatedTestcases);
+  // };
+
+  const handleTestcaseChange = (option, index) => {
+    setSelectedTestcases((prevSelectedTestcases) => {
+      const updatedSelectedTestcases = [...prevSelectedTestcases];
+      updatedSelectedTestcases[index] = option;
+      return updatedSelectedTestcases;
+    });
   };
 
   const validateTagCount = (_, value) => {
@@ -102,7 +117,7 @@ export const DefineDataValidation = ({ formData }) => {
             {/* <td>{column.data_type}</td> */}
             <td>{column.target_datatype}</td>
             <td>
-              <Form.Control
+              {/* <Form.Control
                 as="select"
                 value={selectedTestcases[index]}
                 onChange={(e) => handleTestcaseChange(e, index)}
@@ -117,7 +132,17 @@ export const DefineDataValidation = ({ formData }) => {
                     {testcase.testcase_name_alias}
                   </option>
                 ))}
-              </Form.Control>
+              </Form.Control> */}
+              <Select
+                value={selectedTestcases[index]}
+                onChange={(option) => handleTestcaseChange(option, index)}
+                options={testcases.map((testcase) => ({
+                  value: testcase.testcase_name,
+                  label: testcase.testcase_name_alias,
+                }))}
+                placeholder="Select Test Case"
+                isSearchable
+              />
             </td>
             <AntdForm.Item
               name={`expectationInput-${index}`}
@@ -127,7 +152,7 @@ export const DefineDataValidation = ({ formData }) => {
                 },
               ]}
             >
-              <Select mode="tags" placeholder="Expectation Input" />
+              <AntdSelect mode="tags" placeholder="Expectation Input" />
             </AntdForm.Item>
             <td>
               <Form.Control
