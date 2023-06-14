@@ -304,6 +304,7 @@ function App() {
                       setIsReview={setIsReview}
                       cancel={closeHandler}
                       formData={formData}
+                      setshowMainPage={setshowMainPage}
                     ></ReviewForm>
                   </DataProvider>
                 ) : (
