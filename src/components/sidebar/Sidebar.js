@@ -105,14 +105,14 @@ const Sidebar = (props) => {
 
         <div className="">
           <ul>
-            <li
+            {/* <li
               onClick={() => {
                 navigate && navigate("/login");
               }}
             >
               <i class="fa-solid fa-right-to-bracket"></i>
               <span className="side">Login</span>
-            </li>
+            </li> */}
 
             <li
               onClick={() => {
@@ -128,7 +128,7 @@ const Sidebar = (props) => {
               }}
             >
               <i class="fas fa-project-diagram "></i>
-              <span className="side">Projects</span>
+              <span className="side">Pipelines</span>
             </li>
 
             {/* <li
@@ -147,7 +147,7 @@ const Sidebar = (props) => {
             >
               {/* <i class="fa-solid fa-book-open"></i> */}
               <i className="fa-solid fa-database"></i>
-              <span className="side">DataSets</span>
+              <span className="side">Governance</span>
             </li>
             {/*
 
@@ -228,7 +228,7 @@ const Sidebar = (props) => {
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "10px", marginRight: "4px" }}
                 ></i>{" "}
-                Profiling
+                Cost Management
               </p>
 
               <p onClick={(e) => navigate && navigate("/pbiValidation")}>
@@ -237,7 +237,7 @@ const Sidebar = (props) => {
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "10px", marginRight: "4px" }}
                 ></i>{" "}
-                Validation
+                Data Quality
               </p>
             </div>
 
@@ -254,7 +254,7 @@ const Sidebar = (props) => {
                     .classList.remove("itemC_dis");
                 }}
               >
-                MetaData <i class="fa-solid fa-chevron-down"></i>
+                Scheduling <i class="fa-solid fa-chevron-down"></i>
               </span>
             </div>
             <div className="itemD" id="meta">
@@ -262,18 +262,21 @@ const Sidebar = (props) => {
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "10px", marginRight: "4px" }}
+                  style={{ fontSize: "8px", marginRight: "4px" }}
                 ></i>
-                Testcases
+                Monitoring
               </p>
 
-              <p onClick={(e) => navigate && navigate("/config")}>
+              <p
+                onClick={(e) => navigate && navigate("/config")}
+                style={{ display: "flex", fontSize: "13px" }}
+              >
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "10px", marginRight: "4px" }}
+                  style={{ fontSize: "8px", marginRight: "4px" }}
                 ></i>
-                Config
+                Configuration
               </p>
             </div>
 
@@ -303,14 +306,14 @@ const Sidebar = (props) => {
                 Users
               </p>
 
-              <p onClick={(e) => navigate && navigate("/role")}>
+              {/* <p onClick={(e) => navigate && navigate("/role")}>
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "10px", marginRight: "4px" }}
                 ></i>
                 Role
-              </p>
+              </p> */}
             </div>
           </ul>
         </div>
