@@ -91,8 +91,10 @@ export default function ListingPage({ setshowMainPage }) {
   };
 
   const handleClose = (value) => {
+    if (value) {
+      setshowMainPage(true);
+    }
     setOpen(false);
-    setshowMainPage(true);
   };
 
   const menuId = "primary-search-account-menu";

@@ -8,13 +8,14 @@ import Grid from "@mui/material/Grid";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import "./ButtonPages.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, open } = props;
 
   const handleClose = (e, reason) => {
     if (reason && reason == "backdropClick") return;
-    onClose(selectedValue);
+    onClose("");
   };
 
   const handleListItemClick = (value) => {
@@ -30,41 +31,53 @@ export default function ButtonPages(props) {
   }));
   let buttonNames = [
     {
+      id: 1,
       name: "batch ingestion of relational sources for single entity",
     },
     {
+      id: 2,
       name: "batch ingestion of relational sources for multiple entities",
     },
     {
+      id: 3,
       name: "Upload data from UI",
     },
     {
+      id: 4,
       name: "Realtime ingestion",
     },
     {
+      id: 5,
       name: "ELT - Transformations",
     },
     {
+      id: 6,
       name: "Data Quality pipelines",
+      href: "http://ec2-54-197-121-247.compute-1.amazonaws.com:3000/",
     },
     {
+      id: 7,
       name: "Data Masking pipelines",
     },
     {
+      id: 8,
       name: "Snowpark development Notebook",
     },
     {
+      id: 9,
       name: "Streamlit app development Notebook",
     },
     {
+      id: 10,
       name: "Snowflake Data Consumption pipelines",
     },
   ];
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog className="closeIconBox" onClose={handleClose} open={open}>
       <DialogTitle className="dialogTitle">
         Please select data pipelines
       </DialogTitle>
+      <CloseIcon className="closeIcon" onClick={handleClose} />
 
       <Box sx={{ flexGrow: 1, marginY: "20px" }}>
         <Grid container justifyContent={"center"} spacing={2}>
@@ -77,13 +90,24 @@ export default function ButtonPages(props) {
               justifyContent={"center"}
               display={"flex"}
             >
-              <Button
-                className="buttonElements"
-                variant="contained"
-                onClick={() => handleListItemClick("")}
-              >
-                {_.name}
-              </Button>
+              {_.href ? (
+                <Button
+                  className="buttonElements"
+                  variant="contained"
+                  target="_blank"
+                  href={_.href}
+                >
+                  {_.name}
+                </Button>
+              ) : (
+                <Button
+                  className="buttonElements"
+                  variant="contained"
+                  onClick={() => handleListItemClick(_.name)}
+                >
+                  {_.name}
+                </Button>
+              )}
             </Grid>
           ))}
         </Grid>
