@@ -18,6 +18,7 @@ const headers = [
   "Target Data Type",
   "Validation Rule",
   "Validation Input",
+  "Quality Score",
 ];
 
 export const DefineDataValidation = ({ formData }) => {
@@ -128,6 +129,12 @@ export const DefineDataValidation = ({ formData }) => {
             >
               <Select mode="tags" placeholder="Expectation Input" />
             </AntdForm.Item>
+            <td>
+              <Form.Control
+                type="text"
+                // onChange={(e) => transformLogicHandler(e.target.value, index)}
+              />
+            </td>
           </tr>
         ))}
       </tbody>
