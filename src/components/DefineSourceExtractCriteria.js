@@ -13,7 +13,7 @@ import {
 import "../App.css";
 
 const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
-  const [selectedOption, setSelectedOption] = useState("fullextract");
+  const [selectedOption, setSelectedOption] = useState("");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
 
@@ -104,9 +104,13 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
     );
   };
 
-  const isIncrementalSelected = selectedOption === "incremental";
+  const isIncrementalSelected =
+    formData.DefineSourceExtractCriteria.incrementalOrFullExtract ===
+    "incremental";
   const isDateSelected =
-    selectedOption === "incremental" && selectedIncrementalBy === "Date";
+    formData.DefineSourceExtractCriteria.incrementalOrFullExtract ===
+      "incremental" &&
+    formData.DefineSourceExtractCriteria.incrementalBy === "Date";
 
   // console.log("selected values", selectedValues);
   // console.log("selected options", selectedOption);
@@ -247,7 +251,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                           }
                           disabled={
                             !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Date"
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Date"
                           }
                           onChange={changeHandler}
                         />
@@ -271,7 +276,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                           }
                           disabled={
                             !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Date"
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Date"
                           }
                           onChange={changeHandler}
                         />
@@ -297,7 +303,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                           }
                           disabled={
                             !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Sequence"
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Sequence"
                           }
                           onChange={changeHandler}
                         />
@@ -316,7 +323,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                           className="mb-3"
                           disabled={
                             !isIncrementalSelected ||
-                            selectedIncrementalBy !== "Sequence"
+                            formData.DefineSourceExtractCriteria
+                              .incrementalBy !== "Sequence"
                           }
                           name="incrementalEndSeq"
                           onChange={changeHandler}
@@ -341,7 +349,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   placeholder=""
                   className="mb-3"
                   disabled={
-                    !isIncrementalSelected || selectedIncrementalBy !== "Date"
+                    !isIncrementalSelected ||
+                    formData.DefineSourceExtractCriteria.incrementalBy !==
+                      "Date"
                   }
                   name="defaultStartDate"
                   onChange={changeHandler}
@@ -360,7 +370,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   className="mb-3"
                   disabled={
                     !isIncrementalSelected ||
-                    selectedIncrementalBy !== "Sequence"
+                    formData.DefineSourceExtractCriteria.incrementalBy !==
+                      "Sequence"
                   }
                   name="defaultStartSeq"
                   onChange={changeHandler}

@@ -1,5 +1,14 @@
 import React, { useState, useContext } from "react";
-import { Card, Col, Container, Form, Row, Table } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  Container,
+  Form,
+  FormCheck,
+  Modal,
+  Row,
+  Table,
+} from "react-bootstrap";
 import Success from "./Success";
 import { PencilSquare } from "react-bootstrap-icons";
 import { DataContext } from "./DataContext";
@@ -9,6 +18,7 @@ import "../styles/main.css";
 
 const ReviewFrom = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const editHandler1 = () => {
     props.setStep((step) => 1);
@@ -51,8 +61,22 @@ const ReviewFrom = (props) => {
     props.setIsReview(false);
   };
 
+  const closeHandler = () => {
+    // setShowModal(true);
+    // setIsReview(true);
+    // setStep((step) => 1);
+    setShowModal(false);
+    // setFormData({});
+    // window.localStorage.removeItem(1);
+  };
+  const handleShow = () => setShowModal(true);
+  const handleContinue = () => {
+    setShowModal(false);
+  };
+
   const submitHandler = async (event) => {
     setIsSubmitted(true);
+
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
@@ -61,6 +85,7 @@ const ReviewFrom = (props) => {
     } catch (error) {
       console.error("Error:", error.message);
     }
+    setShowModal(false);
   };
 
   // post request send the final ingestion data
@@ -120,20 +145,23 @@ const ReviewFrom = (props) => {
     <div>
       <Container>
         <div style={{ marginTop: "7px" }}></div>
-        <Card>
-          <div
-            style={{
-              backgroundColor: "#F7901D",
-              borderTopLeftRadius: "10px",
-              borderTopRightRadius: "10px",
-              display: "flex",
-              alignItems: "Center",
-              color: "white",
-              justifyContent: "space-between",
-              height: "50px",
-            }}
-          >
-            {/* <Card
+        {isSubmitted ? (
+          <Success setshowMainPage={props.setshowMainPage} />
+        ) : (
+          <Card>
+            <div
+              style={{
+                backgroundColor: "#F7901D",
+                borderTopLeftRadius: "10px",
+                borderTopRightRadius: "10px",
+                display: "flex",
+                alignItems: "Center",
+                color: "white",
+                justifyContent: "space-between",
+                height: "50px",
+              }}
+            >
+              {/* <Card
               style={
                 {
                   // backgroundColor: "#F7901D",
@@ -147,39 +175,36 @@ const ReviewFrom = (props) => {
                 }
               }
             > */}
-            <h5
+              <h5
+                style={{
+                  marginLeft: "1%",
+                }}
+              >
+                Review Details
+              </h5>
+              {/* </Card> */}
+              {/* <Form.Check
+                label="Execute Now"
+                style={{
+                  backgroundColor: "#F7901D",
+                  alignItems: "Center",
+                  border: "none",
+                  color: "white",
+                  // justifyContent: "center",
+                  marginRight: "1%",
+                }}
+              /> */}
+            </div>
+            <Container
               style={{
-                marginLeft: "1%",
+                minHeight: "70vh",
+                maxHeight: "70vh",
+                overflowY: "scroll",
               }}
             >
-              Review Details
-            </h5>
-            {/* </Card> */}
-            <Form.Check
-              label="Execute Now"
-              style={{
-                backgroundColor: "#F7901D",
-                alignItems: "Center",
-                border: "none",
-                color: "white",
-                // justifyContent: "center",
-                marginRight: "1%",
-              }}
-            />
-          </div>
-          <Container
-            style={{
-              minHeight: "70vh",
-              maxHeight: "70vh",
-              overflowY: "scroll",
-            }}
-          >
-            <Card.Body>
-              <Row>
-                <Col>
-                  {isSubmitted ? (
-                    <p>Thank you. This page can be closed now!</p>
-                  ) : (
+              <Card.Body>
+                <Row>
+                  <Col>
                     <Card>
                       <div>
                         <Card.Header className="d-flex justify-content-between float-right">
@@ -385,29 +410,58 @@ const ReviewFrom = (props) => {
                         <Card.Body></Card.Body> */}
                       </div>
                     </Card>
-                  )}
-                </Col>
-              </Row>
-            </Card.Body>
-          </Container>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Container>
 
-          <Card.Footer className="d-flex justify-content-between float-right">
-            <button
-              className="btn-c"
-              onClick={() => props.cancel()}
-              // disabled={step == 1}
-            >
-              Cancel
-            </button>
-            <button
-              className="btn-s-1"
-              onClick={submitHandler}
-              // disabled={step == 1}
-            >
-              Submit
-            </button>
-          </Card.Footer>
-        </Card>
+            <Card.Footer className="d-flex justify-content-between float-right">
+              <button
+                className="btn-c"
+                onClick={() => props.cancel()}
+                // disabled={step == 1}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn-s-1"
+                onClick={handleShow}
+                // disabled={step == 1}
+              >
+                Submit
+              </button>
+              <Modal show={showModal} onHide={closeHandler}>
+                <Modal.Header closeButton>
+                  {/* <Modal.Title>Modal heading</Modal.Title> */}
+                </Modal.Header>
+                <Modal.Body>
+                  Are you sure you want to submit the pipeline?
+                  <FormCheck
+                    style={{ marginTop: "10px" }}
+                    label="I also want to execute the pipeline now."
+                  ></FormCheck>
+                </Modal.Body>
+                <Modal.Footer>
+                  <button
+                    className="btn-c"
+                    variant="secondary"
+                    onClick={closeHandler}
+                  >
+                    {" "}
+                    No, Cancel
+                  </button>
+                  <button
+                    className="btn-s-1"
+                    variant="primary"
+                    onClick={submitHandler}
+                  >
+                    Yes, Submit
+                  </button>
+                </Modal.Footer>
+              </Modal>
+            </Card.Footer>
+          </Card>
+        )}
       </Container>
     </div>
   );

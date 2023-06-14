@@ -88,6 +88,7 @@ function App() {
         Alert: "",
         Abort: "",
       },
+      MaintainCopyInDataLake: false,
       DataLakeConnection: "",
       DataLakeFileFormat: "",
       DataLakeTargetTemplate: "",
@@ -303,6 +304,7 @@ function App() {
                       setIsReview={setIsReview}
                       cancel={closeHandler}
                       formData={formData}
+                      setshowMainPage={setshowMainPage}
                     ></ReviewForm>
                   </DataProvider>
                 ) : (

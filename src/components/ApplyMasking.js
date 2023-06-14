@@ -24,16 +24,18 @@ const ApplyMasking = ({ formData, updateTargetLoad }) => {
         <tr>{ThData()}</tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td>
-            <FormCheck></FormCheck>
-          </td>
+        {formData.tableData.map((column, index) => (
+          <tr key={index}>
+            <td>{column.column_name}</td>
+            <td>
+              <FormCheck></FormCheck>
+            </td>
 
-          <td>
-            <Form.Control></Form.Control>
-          </td>
-        </tr>
+            <td>
+              <Form.Control></Form.Control>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
