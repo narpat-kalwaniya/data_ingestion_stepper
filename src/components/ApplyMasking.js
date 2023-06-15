@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Table, Form, Input, Col, Row, FormCheck } from "react-bootstrap";
 import TableData from "./TableData";
+import { DataContext } from "./DataContext";
+import Select from "react-select";
 
 const headers = [
   // "Policy Name",
@@ -16,6 +18,42 @@ const ThData = () => {
 };
 
 const ApplyMasking = ({ formData, updateTargetLoad }) => {
+  const [connections, setConnections] = useState([]);
+  const [masking, setMasking] = useState([]);
+  const [selectedMasking, setSelectedMasking] = useState([]);
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/maskmasterdata/"
+        );
+        const data = await response.json();
+        setMasking(data);
+      } catch (error) {
+        console.error("Error fetching masking:", error);
+      }
+    };
+
+    fetchApplications();
+  }, []);
+
+  const handleMaskingChange = (option, index) => {
+    setSelectedMasking((prevSelectedMasking) => {
+      const updatedSelectedMasking = [...prevSelectedMasking];
+      updatedSelectedMasking[index] = option;
+      return updatedSelectedMasking;
+    });
+  };
+
+  const handleMaskingToggle = (index, checked) => {
+    setSelectedMasking((prevSelectedMasking) => {
+      const updatedSelectedMasking = [...prevSelectedMasking];
+      updatedSelectedMasking[index] = checked ? {} : null;
+      return updatedSelectedMasking;
+    });
+  };
   console.log("masking target load", updateTargetLoad);
   console.log("masking form data", formData);
   return (
@@ -28,11 +66,26 @@ const ApplyMasking = ({ formData, updateTargetLoad }) => {
           <tr key={index}>
             <td>{column.column_name}</td>
             <td>
-              <FormCheck></FormCheck>
+              <FormCheck>
+                <FormCheck.Input
+                  type="checkbox"
+                  checked={Boolean(selectedMasking[index])}
+                  onChange={(e) => handleMaskingToggle(index, e.target.checked)}
+                />
+              </FormCheck>
             </td>
 
             <td>
-              <Form.Control></Form.Control>
+              <Select
+                value={selectedMasking[index]}
+                onChange={(option) => handleMaskingChange(option, index)}
+                options={masking.map((masking) => ({
+                  value: masking.algorithm_name,
+                  label: masking.masking_algorithm,
+                }))}
+                isSearchable
+                isDisabled={!selectedMasking[index]}
+              />
             </td>
           </tr>
         ))}

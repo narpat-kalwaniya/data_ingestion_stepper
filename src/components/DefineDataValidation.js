@@ -49,6 +49,7 @@ export const DefineDataValidation = ({ formData }) => {
       console.log("Error fetching test cases:", error);
     }
   };
+  console.log("input_values", selectedTestcases);
 
   const targetDataTypes = [
     "ARRAY",
@@ -100,7 +101,7 @@ export const DefineDataValidation = ({ formData }) => {
   };
 
   console.log(formData);
-
+  console.log("input_values", selectedTestcases);
   return (
     <Table responsive>
       <thead>
