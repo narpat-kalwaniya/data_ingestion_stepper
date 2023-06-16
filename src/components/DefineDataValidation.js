@@ -28,10 +28,11 @@ const headers = [
   "Quality Score",
 ];
 
-export const DefineDataValidation = ({ formData }) => {
+export const DefineDataValidation = ({ formData, updateFormData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [tableData, setTableData] = useState([...formData.tableData]);
 
   useEffect(() => {
     fetchTestcases();
@@ -81,12 +82,33 @@ export const DefineDataValidation = ({ formData }) => {
   //   setSelectedTestcases(updatedTestcases);
   // };
 
-  const handleTestcaseChange = (option, index) => {
+  const validationRuleHandler = (option, index) => {
     setSelectedTestcases((prevSelectedTestcases) => {
       const updatedSelectedTestcases = [...prevSelectedTestcases];
       updatedSelectedTestcases[index] = option;
       return updatedSelectedTestcases;
     });
+    const updatedTableData = [...tableData];
+    updatedTableData[index].validation_rule = option.value;
+    setTableData(updatedTableData);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+  };
+
+  const validationInputHandler = (target, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].validation_input = target.value;
+    setTableData(updatedTableData);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
   };
 
   const validateTagCount = (_, value) => {
@@ -99,7 +121,13 @@ export const DefineDataValidation = ({ formData }) => {
     }
   };
 
-  console.log(formData);
+  const qualityScoreHandler = (value, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].quality_score = value;
+    setTableData(updatedTableData);
+  };
+
+  console.log(formData.tableData);
 
   return (
     <Table responsive>
@@ -135,7 +163,7 @@ export const DefineDataValidation = ({ formData }) => {
               </Form.Control> */}
               <Select
                 value={selectedTestcases[index]}
-                onChange={(option) => handleTestcaseChange(option, index)}
+                onChange={(option) => validationRuleHandler(option, index)}
                 options={testcases.map((testcase) => ({
                   value: testcase.testcase_name,
                   label: testcase.testcase_name_alias,
@@ -144,20 +172,23 @@ export const DefineDataValidation = ({ formData }) => {
                 isSearchable
               />
             </td>
-            <AntdForm.Item
-              name={`expectationInput-${index}`}
-              rules={[
-                {
-                  validator: validateTagCount,
-                },
-              ]}
-            >
-              <AntdSelect mode="tags" placeholder="Expectation Input" />
-            </AntdForm.Item>
+            <td>
+              <AntdForm.Item
+                name={`expectationInput-${index}`}
+                rules={[
+                  {
+                    validator: validateTagCount,
+                  },
+                ]}
+                onChange={(e) => validationInputHandler(e.target, index)}
+              >
+                <AntdSelect mode="tags" placeholder="Expectation Input" />
+              </AntdForm.Item>
+            </td>
             <td>
               <Form.Control
                 type="text"
-                // onChange={(e) => transformLogicHandler(e.target.value, index)}
+                onChange={(e) => qualityScoreHandler(e.target.value, index)}
               />
             </td>
           </tr>

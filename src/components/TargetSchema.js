@@ -14,10 +14,9 @@ const headers = [
 
 const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([]);
-  const [pageData, setPageData] = useState([...tableData]);
 
-  console.log(tableData);
-  console.log(pageData);
+  // console.log(tableData);
+  // console.log(pageData);
 
   useEffect(() => {
     const requestData = {
@@ -49,6 +48,16 @@ const TbData = ({ formData, updateFormData }) => {
           const responseData = await response.json();
           if (Array.isArray(responseData)) {
             // console.log("response data", requestData);
+            responseData.forEach((object) => {
+              object.is_business_key = false;
+              object.is_target_primary_key = false;
+              object.transformation_logic = "";
+              object.is_masking = false;
+              object.masking_logic = "";
+              object.validation_rule = "";
+              object.validation_input = "";
+              object.quality_score = "";
+            });
             setTableData(responseData);
           }
         } else {
@@ -58,15 +67,15 @@ const TbData = ({ formData, updateFormData }) => {
         console.error("Error:", error);
       }
 
-      const updatedFormData = {
-        ...formData,
-        tableData: tableData,
-      };
-      updateFormData(updatedFormData);
+      // const updatedFormData = {
+      //   ...formData,
+      //   tableData: tableData,
+      // };
+      // updateFormData(updatedFormData);
     };
 
     fetchData();
-  }, [updateFormData]);
+  }, []);
 
   const handleCheck = () => {
     // Handle checkbox click event if needed
@@ -82,32 +91,53 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
-    // console.log(tableData);
     // console.log(formData);
     // setPageData([
     //   ...pageData,
     //   { ...pageData[columnIndex], ["target_datatype"]: event.target.value },
     // ]);
   };
+  // console.log(pageData);
 
-  // const primaryKeyHandler = (checked, index) => {
-  //   tableData[index].PrimaryKey = checked;
-  //   setData(data);
-  //   // console.log(data);
-  // };
+  const primaryKeyHandler = (checked, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].is_target_primary_key = checked;
+    setTableData(updatedTableData);
 
-  // const businessKeyHandler = (checked, index) => {
-  //   data[index].BusinessKey = checked;
-  //   setData(data);
-  //   // console.log(data);
-  // };
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+    // console.log(pageData);
+  };
+  // console.log(formData);
+  const businessKeyHandler = (checked, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].is_business_key = checked;
+    setTableData(updatedTableData);
 
-  // const transformLogicHandler = (value, index) => {
-  //   data[index].TransformationLogic = value;
-  //   setData(data);
-  // };
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+    // console.log(pageData);
+  };
 
-  console.log("form data", formData);
+  const transformLogicHandler = (value, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].transformation_logic = value;
+    setTableData(updatedTableData);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+    // console.log(pageData);
+  };
+  // console.log("form data", formData);
 
   const targetDataTypes = [
     "ARRAY",
@@ -135,7 +165,7 @@ const TbData = ({ formData, updateFormData }) => {
   ];
 
   const { ingestionData } = useContext(DataContext);
-  console.log("target ingestion", ingestionData);
+  console.log("table data", tableData);
   return (
     <tbody>
       {tableData.map((column, index) => (
@@ -149,7 +179,7 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(event) => handleTargetDataTypeChange(event, index)}
-              value={tableData[index].target_datatype || ""}
+              // value={formData.tableData[index].target_datatype}
             >
               <option value="">Select Target Data Type</option>
               {targetDataTypes.map((dataType, index) => (
@@ -162,19 +192,22 @@ const TbData = ({ formData, updateFormData }) => {
           <td>
             <Form.Check
               type="checkbox"
-              // onChange={(e) => primaryKeyHandler(e.target.checked, index)}
+              // checked={column.is_select_distinct}
+              onChange={(e) => {
+                primaryKeyHandler(e.target.checked, index);
+              }}
             />
           </td>
           <td>
             <Form.Check
               type="checkbox"
-              // onChange={(e) => businessKeyHandler(e.target.checked, index)}
+              onChange={(e) => businessKeyHandler(e.target.checked, index)}
             />
           </td>
           <td>
             <Form.Control
               type="text"
-              // onChange={(e) => transformLogicHandler(e.target.value, index)}
+              onChange={(e) => transformLogicHandler(e.target.value, index)}
             />
           </td>
         </tr>
