@@ -21,12 +21,11 @@ const headers = [
   "Quality Score",
 ];
 
-export const DefineDataValidation = ({ formData, updateFormData }) => {
+export const DefineDataValidation = ({ formData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
   const [selectedTags, setselectedTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [tableData, setTableData] = useState([...formData.tableData]);
 
   useEffect(() => {
     fetchTestcases();
@@ -85,35 +84,6 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
   //   });
   // };
 
-
-  const validationRuleHandler = (option, index) => {
-    setSelectedTestcases((prevSelectedTestcases) => {
-      const updatedSelectedTestcases = [...prevSelectedTestcases];
-      updatedSelectedTestcases[index] = option;
-      return updatedSelectedTestcases;
-    });
-    const updatedTableData = [...tableData];
-    updatedTableData[index].validation_rule = option.value;
-    setTableData(updatedTableData);
-
-    const updatedFormData = {
-      ...formData,
-      tableData: updatedTableData,
-    };
-    updateFormData(updatedFormData);
-  };
-
-  const validationInputHandler = (target, index) => {
-    const updatedTableData = [...tableData];
-    updatedTableData[index].validation_input = target.value;
-    setTableData(updatedTableData);
-
-    const updatedFormData = {
-      ...formData,
-      tableData: updatedTableData,
-    };
-    updateFormData(updatedFormData);
-
   const handleTagsChange = (e, index, maxValue) => {
     const tempSelectedTags = JSON.parse(JSON.stringify(selectedTags));
     tempSelectedTags[index] = e;
@@ -123,7 +93,6 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
     } else {
       setselectedTags(selectedTags);
     }
-
   };
 
   const validateTagCount = (_, value) => {
@@ -136,15 +105,6 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       return Promise.resolve();
     }
   };
-
-
-  const qualityScoreHandler = (value, index) => {
-    const updatedTableData = [...tableData];
-    updatedTableData[index].quality_score = value;
-    setTableData(updatedTableData);
-  };
-
-  console.log(formData.tableData);
 
   return (
     <Table responsive>
@@ -178,21 +138,23 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
               <td>{column.column_name}</td>
               {/* <td>{column.data_type}</td> */}
               <td>{column.target_datatype}</td>
-              
-<td>
+              <td>
+                <Form.Control
+                  as="select"
+                  value={selectedTestcases[index]}
+                  onChange={(e) => handleTestcaseChange(e, index)}
+                  placeholder="Enter expectation"
+                >
+                  <option value="">Select Test Case</option>
+                  {testcases.map((testcase, subIndex) => (
+                    <option key={testcase.testcase_master_id} value={subIndex}>
+                      {testcase.testcase_name_alias}
+                    </option>
+                  ))}
+                </Form.Control>
+              </td>
+              {/* <AntdForm.Item name={`expectationInput-${index}`}> */}
               <Select
-                value={selectedTestcases[index]}
-                onChange={(option) => handleTestcaseChange(option, index)}
-                options={testcases.map((testcase) => ({
-                  value: testcase.testcase_name,
-                  label: testcase.testcase_name_alias,
-                }))}
-                placeholder="Select Test Case"
-                isSearchable
-              />
-            </td>
-            <td>
-             <Select
                 allowClear={true}
                 // disabled={selectedTags[index]?.length > selectedValue - 1}
                 // autoClearSearchValue={true}
@@ -205,13 +167,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                 mode="tags"
                 placeholder="Expectation Input"
               />
-            </td>
-            <td>
-              <Form.Control
-                type="text"
-                onChange={(e) => qualityScoreHandler(e.target.value, index)}
-              />
-</td>
+              {/* </AntdForm.Item> */}
             </tr>
           );
         })}
