@@ -10,7 +10,14 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
+import {
+  Select,
+  Form as AntdForm,
+  Input as AntdInput,
+  Tag,
+  Multiple,
+} from "antd";
+// import "./DefineDataValidation.css";
 
 const headers = [
   "Column Name",
@@ -23,6 +30,7 @@ const headers = [
 export const DefineDataValidation = ({ formData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
+  const [selectedTags, setselectedTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -73,7 +81,19 @@ export const DefineDataValidation = ({ formData }) => {
     setSelectedTestcases(updatedTestcases);
   };
 
+  const handleTagsChange = (e, index, maxValue) => {
+    debugger;
+    const tempSelectedTags = JSON.parse(JSON.stringify(selectedTags));
+    tempSelectedTags[index] = e;
+    if (tempSelectedTags[index].length <= maxValue) {
+      setselectedTags(tempSelectedTags);
+    } else {
+      setselectedTags(selectedTags);
+    }
+  };
+
   const validateTagCount = (_, value) => {
+    console.log("value", value);
     const desiredCount = 3; // Specify the desired tag count here
     const tagCount = value ? value.length : 0;
     if (tagCount > desiredCount) {
@@ -82,8 +102,6 @@ export const DefineDataValidation = ({ formData }) => {
       return Promise.resolve();
     }
   };
-
-  console.log(formData);
 
   return (
     <Table responsive>
@@ -95,41 +113,62 @@ export const DefineDataValidation = ({ formData }) => {
         </tr>
       </thead>
       <tbody>
-        {formData.tableData.map((column, index) => (
-          <tr key={index}>
-            <td>{column.column_name}</td>
-            {/* <td>{column.data_type}</td> */}
-            <td>{column.target_datatype}</td>
-            <td>
-              <Form.Control
-                as="select"
-                value={selectedTestcases[index]}
-                onChange={(e) => handleTestcaseChange(e, index)}
-                placeholder="Enter expectation"
-              >
-                <option value="">Select Test Case</option>
-                {testcases.map((testcase) => (
-                  <option
-                    key={testcase.testcase_master_id}
-                    value={testcase.testcase_name}
-                  >
-                    {testcase.testcase_name_alias}
-                  </option>
-                ))}
-              </Form.Control>
-            </td>
-            <AntdForm.Item
-              name={`expectationInput-${index}`}
-              rules={[
-                {
-                  validator: validateTagCount,
-                },
-              ]}
-            >
-              <Select mode="tags" placeholder="Expectation Input" />
-            </AntdForm.Item>
-          </tr>
-        ))}
+        {formData.tableData.map((column, index) => {
+          let selectedValue = testcases?.[selectedTestcases[index]]
+            ? testcases?.[selectedTestcases[index]]
+            : 0;
+          if (selectedValue && selectedValue.template) {
+            selectedValue =
+              Number(
+                selectedValue?.template
+                  ?.replaceAll("}", "")
+                  ?.replaceAll("{", "")
+                  ?.replaceAll(" ", "")
+                  ?.split(",")
+                  ?.pop()
+                  ?.split(":")
+                  ?.pop()
+              ) || 0;
+          }
+          return (
+            <tr key={index}>
+              <td>{column.column_name}</td>
+              {/* <td>{column.data_type}</td> */}
+              <td>{column.target_datatype}</td>
+              <td>
+                <Form.Control
+                  as="select"
+                  value={selectedTestcases[index]}
+                  onChange={(e) => handleTestcaseChange(e, index)}
+                  placeholder="Enter expectation"
+                >
+                  <option value="">Select Test Case</option>
+                  {testcases.map((testcase, subIndex) => (
+                    <option key={testcase.testcase_master_id} value={subIndex}>
+                      {testcase.testcase_name_alias}
+                    </option>
+                  ))}
+                </Form.Control>
+              </td>
+              {/* <AntdForm.Item name={`expectationInput-${index}`}> */}
+              <Select
+                style={{ width: "100px" }}
+                allowClear={true}
+                // disabled={selectedTags[index]?.length > selectedValue - 1}
+                // autoClearSearchValue={true}
+                // mode="multiple"
+                value={selectedTags[index]}
+                onChange={(e) => {
+                  handleTagsChange(e, index, selectedValue);
+                }}
+                options={[]}
+                mode="tags"
+                placeholder="Expectation Input"
+              />
+              {/* </AntdForm.Item> */}
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );

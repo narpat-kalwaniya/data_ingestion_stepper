@@ -78,14 +78,20 @@ const Sidebar = (props) => {
         </div> */}
         <div className="top">
           <div
-            className="bar"
+            className="bar pointer"
             onClick={(e) => {
-              navigate && navigate("/");
+              // navigate && navigate("/");
+              props?.setshowMainPage(false);
             }}
           >
             <i
               class="fa-solid fa-house"
-              style={{ fontSize: "16px", color: "white" }}
+              style={{
+                fontSize: "16px",
+                color: "white",
+                // position: "fixed",
+                cursor: "pointer",
+              }}
             ></i>
           </div>
         </div>
@@ -99,12 +105,13 @@ const Sidebar = (props) => {
             left: "18px",
             opacity: "0",
             cursor: "pointer",
+            display: "none",
           }}
           onClick={handleClick}
         />
 
-        <div className="">
-          <ul>
+        <div>
+          <ul className="sidebarItemStyle">
             <li
               onClick={() => {
                 navigate && navigate("/login");
