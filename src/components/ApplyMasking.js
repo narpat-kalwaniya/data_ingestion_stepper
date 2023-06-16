@@ -1,3 +1,4 @@
+
 import React, { useState, useContext, useEffect } from "react";
 import { Table, Form, Input, Col, Row, FormCheck } from "react-bootstrap";
 import TableData from "./TableData";
@@ -23,7 +24,9 @@ const ApplyMasking = ({ formData, updateFormData }) => {
   const [selectedMasking, setSelectedMasking] = useState([]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
 
+
   const [tableData, setTableData] = useState([...formData.tableData]);
+
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -77,6 +80,9 @@ const ApplyMasking = ({ formData, updateFormData }) => {
   };
   // console.log("masking target load", updateTargetLoad);
   // console.log("masking form data", formData);
+  };
+  console.log("masking target load", updateTargetLoad);
+  console.log("masking form data", formData);
   return (
     <Table responsive>
       <thead>
