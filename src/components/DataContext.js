@@ -108,7 +108,17 @@ export const DataProvider = ({ children }) => {
         failure_email_list: null,
       },
       schedule: {
-        frequency: null,
+        job_name: "DI_dag_tdk1",
+        job_description: "DI Dag Creation test01",
+        start_timestamp: "2023-06-16T05:55:00",
+        end_timestamp: "2023-08-30T00:00:00",
+        timezone: "GMT",
+        schedule_type: "preset",
+        schedule_value: "once",
+        task_name: "task_one",
+        module_name: "di_ingest",
+        arguments: null,
+        dependency: "2",
       },
     },
   ]);
