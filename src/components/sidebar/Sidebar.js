@@ -135,7 +135,7 @@ const Sidebar = (props) => {
               }}
             >
               <i class="fas fa-project-diagram "></i>
-              <span className="side">Projects</span>
+              <span className="side">Pipelines</span>
             </li>
 
             {/* <li
@@ -154,7 +154,23 @@ const Sidebar = (props) => {
             >
               {/* <i class="fa-solid fa-book-open"></i> */}
               <i className="fa-solid fa-database"></i>
-              <span className="side">DataSets</span>
+              <a
+                href="http://3.15.237.154:9002/ingestion"
+                style={{
+                  display: "block",
+                  alignItems: "center",
+                  justifyContent: "Center",
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span
+                  className="side"
+                  style={{ marginLeft: "0px", textAlign: "left" }}
+                >
+                  Governance
+                </span>
+              </a>
             </li>
             {/*
 
@@ -235,7 +251,7 @@ const Sidebar = (props) => {
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "10px", marginRight: "4px" }}
                 ></i>{" "}
-                Profiling
+                Cost Management
               </p>
 
               <p onClick={(e) => navigate && navigate("/pbiValidation")}>
@@ -244,7 +260,7 @@ const Sidebar = (props) => {
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "10px", marginRight: "4px" }}
                 ></i>{" "}
-                Validation
+                Data Quality
               </p>
             </div>
 
@@ -261,27 +277,68 @@ const Sidebar = (props) => {
                     .classList.remove("itemC_dis");
                 }}
               >
-                MetaData <i class="fa-solid fa-chevron-down"></i>
+                Scheduling <i class="fa-solid fa-chevron-down"></i>
               </span>
             </div>
             <div className="itemD" id="meta">
-              <p onClick={(e) => navigate && navigate("/testcases")}>
+              <a
+                onClick={(e) => navigate && navigate("/testcases")}
+                href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27020/home"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  textDecoration: "none",
+                  marginLeft: "0px",
+                  textAlign: "left",
+                  color: "white",
+                }}
+              >
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "10px", marginRight: "4px" }}
+                  style={{ fontSize: "8px", marginRight: "4px" }}
                 ></i>
-                Testcases
-              </p>
-
-              <p onClick={(e) => navigate && navigate("/config")}>
+                <span
+                  className="side"
+                  style={{
+                    textDecoration: "none",
+                    marginLeft: "0px",
+                    textAlign: "left",
+                  }}
+                >
+                  Monitoring
+                </span>
+              </a>
+              <a
+                onClick={(e) => navigate && navigate("/config")}
+                style={{
+                  display: "flex",
+                  fontSize: "13px",
+                  textDecoration: "none",
+                  marginLeft: "0px",
+                  textAlign: "left",
+                  color: "white",
+                }}
+                href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "10px", marginRight: "4px" }}
+                  style={{ fontSize: "8px", marginRight: "4px" }}
                 ></i>
-                Config
-              </p>
+                <span
+                  className="side"
+                  style={{
+                    textDecoration: "none",
+                    marginLeft: "0px",
+                    textAlign: "left",
+                  }}
+                >
+                  Configuration
+                </span>
+              </a>
             </div>
 
             <div className="special">
@@ -310,14 +367,14 @@ const Sidebar = (props) => {
                 Users
               </p>
 
-              <p onClick={(e) => navigate && navigate("/role")}>
+              {/* <p onClick={(e) => navigate && navigate("/role")}>
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "10px", marginRight: "4px" }}
                 ></i>
                 Role
-              </p>
+              </p> */}
             </div>
           </ul>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
   Form,
@@ -9,6 +9,7 @@ import {
   ToggleButtonGroup,
   ToggleButton,
 } from "react-bootstrap";
+import { DataContext } from "./DataContext";
 
 import "./TargetLoadDetails.css";
 
@@ -17,6 +18,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
     formData.targetLoadDetails.MaintainCopyInDataLake
   );
   const [selectedOption, setSelectedOption] = useState("");
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   const changeHandler = (event) => {
     const updatedFormData = {
@@ -27,6 +29,13 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
       },
     };
     updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.target_load_details = {
+      ...updatedData.target_load_details,
+      [event.target.name]: event.target.value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const optionChangeHandler = (event) => {
@@ -35,10 +44,17 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
       ...formData,
       targetLoadDetails: {
         ...formData.targetLoadDetails,
-        ["TargetLoadType"]: event.target.value,
+        ["target_load_type"]: event.target.value,
       },
     };
     updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.target_load_details = {
+      ...updatedData.target_load_details,
+      ["target_load_type"]: event.target.value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const alertHandler1 = (event) => {
@@ -54,6 +70,12 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
       },
     };
     updateFormData(updatedFormData);
+    const updatedData = { ...ingestionData[0] };
+    updatedData.target_load_details = {
+      ...updatedData.target_load_details,
+      ["data_quality_monitor_" + event.target.name]: event.target.value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const alertHandler2 = (event) => {
@@ -81,9 +103,17 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
       },
     };
     updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.target_load_details = {
+      ...updatedData.target_load_details,
+      [e.target.name]: e.target.checked,
+    };
+    updateIngestionData(updatedData);
   };
 
   console.log("target formdata", formData);
+  console.log("target ingestion data", ingestionData);
 
   return (
     <div className="TargetLoadDetails">
@@ -101,9 +131,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                       <Form.Control
                         type="text"
                         className="textbox1"
-                        value={formData.targetLoadDetails.TargetEntityName}
+                        value={formData.targetLoadDetails.target_entity_name}
                         disabled={false}
-                        name="TargetEntityName"
+                        name="target_entity_name"
                         onChange={changeHandler}
                       />
                     </Col>
@@ -187,10 +217,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                       <Form.Control
                         type="text"
                         className="textbox2"
-                        name="Alert"
+                        name="alert"
                         tag="DataQualityMoniter"
                         value={
-                          formData.targetLoadDetails.DataQualityMoniter.Alert
+                          formData.targetLoadDetails.DataQualityMoniter.alert
                         }
                         onChange={alertHandler1}
                       ></Form.Control>
@@ -200,10 +230,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                       <Form.Control
                         type="text"
                         className="textbox2"
-                        name="Abort"
+                        name="abort"
                         tag="DataQualityMoniter"
                         value={
-                          formData.targetLoadDetails.DataQualityMoniter.Abort
+                          formData.targetLoadDetails.DataQualityMoniter.abort
                         }
                         onChange={alertHandler1}
                       ></Form.Control>
@@ -265,8 +295,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   <Form.Check
                     type="checkbox"
                     label="Maintain a copy in DataLake"
-                    name="MaintainCopyInDataLake"
-                    checked={formData.targetLoadDetails.MaintainCopyInDataLake}
+                    name="is_mantain_a_copy_in_datalake"
+                    checked={
+                      formData.targetLoadDetails.is_mantain_a_copy_in_datalake
+                    }
                     // onChange={chechBoxHandler}
                     onChange={(e) => {
                       setChecked(e.target.checked);
@@ -285,10 +317,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                           <Form.Select
                             aria-label=""
                             disabled={false}
-                            name="DataLakeConnection"
+                            name="datalake_connection"
                             onChange={changeHandler}
                             value={
-                              formData.targetLoadDetails.DataLakeConnection
+                              formData.targetLoadDetails.datalake_connection
                             }
                           >
                             <option>{""}</option>
@@ -301,10 +333,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                           <Form.Select
                             aria-label=""
                             disabled={false}
-                            name="DataLakeFileFormat"
+                            name="datalake_file_format"
                             onChange={changeHandler}
                             value={
-                              formData.targetLoadDetails.DataLakeFileFormat
+                              formData.targetLoadDetails.datalake_file_format
                             }
                           >
                             <option>{""}</option>
@@ -327,9 +359,10 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                             type="text"
                             className="textbox3"
                             disabled={false}
-                            name="DataLakeTargetTemplate"
+                            name="datalake_target_template"
                             value={
-                              formData.targetLoadDetails.DataLakeTargetTemplate
+                              formData.targetLoadDetails
+                                .datalake_target_template
                             }
                             onChange={changeHandler}
                           />

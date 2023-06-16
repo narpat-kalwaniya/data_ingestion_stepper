@@ -25,6 +25,7 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.3",
     "react-step-progress-bar": "^1.0.3",
     "rsuite": "^5.33.0",
     "sass": "^1.62.1",

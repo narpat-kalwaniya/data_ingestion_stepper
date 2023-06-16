@@ -344,7 +344,11 @@ const ReviewFrom = (props) => {
                             <PencilSquare></PencilSquare>
                           </button>
                         </Card.Header>
-                        <Card.Body></Card.Body>
+                        <Card.Body>
+                          {renderTable(
+                            props.formData.DefineSourceExtractCriteria
+                          )}
+                        </Card.Body>
                         <Card.Header className="d-flex justify-content-between float-right">
                           <h5>Target Load Details</h5>
                           <button
@@ -368,7 +372,28 @@ const ReviewFrom = (props) => {
                             <PencilSquare></PencilSquare>
                           </button>
                         </Card.Header>
-                        <Card.Body></Card.Body>
+                        <Card.Body>
+                          <Table striped hover responsive>
+                            <thead>
+                              <tr>
+                                <th>Column Name</th>
+                                <th>Mask/Tokenize</th>
+                                <th>Masking Logic</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {props.formData.tableData.map((obj, index) => (
+                                <tr key={index}>
+                                  <td>{obj.column_name}</td>{" "}
+                                  {/* Replace 'key' with the actual key from the object */}
+                                  <td></td>{" "}
+                                  {/* Replace 'value' with the actual value from the object */}
+                                  <td></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
                         <Card.Header className="d-flex justify-content-between float-right">
                           <h5>Meta Data</h5>
                           <button

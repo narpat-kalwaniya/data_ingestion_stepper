@@ -10,14 +10,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import {
-  Select,
-  Form as AntdForm,
-  Input as AntdInput,
-  Tag,
-  Multiple,
-} from "antd";
-// import "./DefineDataValidation.css";
+import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
 
 const headers = [
   "Column Name",
@@ -25,6 +18,7 @@ const headers = [
   "Target Data Type",
   "Validation Rule",
   "Validation Input",
+  "Quality Score",
 ];
 
 export const DefineDataValidation = ({ formData }) => {
@@ -49,6 +43,7 @@ export const DefineDataValidation = ({ formData }) => {
       console.log("Error fetching test cases:", error);
     }
   };
+  console.log("input_values", selectedTestcases);
 
   const targetDataTypes = [
     "ARRAY",
@@ -81,10 +76,18 @@ export const DefineDataValidation = ({ formData }) => {
     setSelectedTestcases(updatedTestcases);
   };
 
+  // const handleTestcaseChange = (option, index) => {
+  //   setSelectedTestcases((prevSelectedTestcases) => {
+  //     const updatedSelectedTestcases = [...prevSelectedTestcases];
+  //     updatedSelectedTestcases[index] = option;
+  //     return updatedSelectedTestcases;
+  //   });
+  // };
+
   const handleTagsChange = (e, index, maxValue) => {
-    debugger;
     const tempSelectedTags = JSON.parse(JSON.stringify(selectedTags));
     tempSelectedTags[index] = e;
+    debugger;
     if (tempSelectedTags[index].length <= maxValue) {
       setselectedTags(tempSelectedTags);
     } else {
@@ -152,7 +155,6 @@ export const DefineDataValidation = ({ formData }) => {
               </td>
               {/* <AntdForm.Item name={`expectationInput-${index}`}> */}
               <Select
-                style={{ width: "100px" }}
                 allowClear={true}
                 // disabled={selectedTags[index]?.length > selectedValue - 1}
                 // autoClearSearchValue={true}
