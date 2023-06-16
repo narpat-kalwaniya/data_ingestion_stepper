@@ -10,14 +10,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import Select from "react-select";
-
-import {
-  Select as AntdSelect,
-  Form as AntdForm,
-  Input as AntdInput,
-  Tag,
-} from "antd";
+import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
 
 const headers = [
   "Column Name",
@@ -31,6 +24,7 @@ const headers = [
 export const DefineDataValidation = ({ formData, updateFormData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
+  const [selectedTags, setselectedTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [tableData, setTableData] = useState([...formData.tableData]);
 
@@ -50,6 +44,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       console.log("Error fetching test cases:", error);
     }
   };
+  console.log("input_values", selectedTestcases);
 
   const targetDataTypes = [
     "ARRAY",
@@ -76,11 +71,20 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
     "VARCHAR",
   ];
 
-  // const handleTestcaseChange = (e, index) => {
-  //   const updatedTestcases = [...selectedTestcases];
-  //   updatedTestcases[index] = e.target.value;
-  //   setSelectedTestcases(updatedTestcases);
+  const handleTestcaseChange = (e, index) => {
+    const updatedTestcases = [...selectedTestcases];
+    updatedTestcases[index] = e.target.value;
+    setSelectedTestcases(updatedTestcases);
+  };
+
+  // const handleTestcaseChange = (option, index) => {
+  //   setSelectedTestcases((prevSelectedTestcases) => {
+  //     const updatedSelectedTestcases = [...prevSelectedTestcases];
+  //     updatedSelectedTestcases[index] = option;
+  //     return updatedSelectedTestcases;
+  //   });
   // };
+
 
   const validationRuleHandler = (option, index) => {
     setSelectedTestcases((prevSelectedTestcases) => {
@@ -109,9 +113,21 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+  const handleTagsChange = (e, index, maxValue) => {
+    const tempSelectedTags = JSON.parse(JSON.stringify(selectedTags));
+    tempSelectedTags[index] = e;
+    debugger;
+    if (tempSelectedTags[index].length <= maxValue) {
+      setselectedTags(tempSelectedTags);
+    } else {
+      setselectedTags(selectedTags);
+    }
+
   };
 
   const validateTagCount = (_, value) => {
+    console.log("value", value);
     const desiredCount = 3; // Specify the desired tag count here
     const tagCount = value ? value.length : 0;
     if (tagCount > desiredCount) {
@@ -120,6 +136,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       return Promise.resolve();
     }
   };
+
 
   const qualityScoreHandler = (value, index) => {
     const updatedTableData = [...tableData];
@@ -139,31 +156,33 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
         </tr>
       </thead>
       <tbody>
-        {formData.tableData.map((column, index) => (
-          <tr key={index}>
-            <td>{column.column_name}</td>
-            {/* <td>{column.data_type}</td> */}
-            <td>{column.target_datatype}</td>
-            <td>
-              {/* <Form.Control
-                as="select"
-                value={selectedTestcases[index]}
-                onChange={(e) => handleTestcaseChange(e, index)}
-                placeholder="Enter expectation"
-              >
-                <option value="">Select Test Case</option>
-                {testcases.map((testcase) => (
-                  <option
-                    key={testcase.testcase_master_id}
-                    value={testcase.testcase_name}
-                  >
-                    {testcase.testcase_name_alias}
-                  </option>
-                ))}
-              </Form.Control> */}
+        {formData.tableData.map((column, index) => {
+          let selectedValue = testcases?.[selectedTestcases[index]]
+            ? testcases?.[selectedTestcases[index]]
+            : 0;
+          if (selectedValue && selectedValue.template) {
+            selectedValue =
+              Number(
+                selectedValue?.template
+                  ?.replaceAll("}", "")
+                  ?.replaceAll("{", "")
+                  ?.replaceAll(" ", "")
+                  ?.split(",")
+                  ?.pop()
+                  ?.split(":")
+                  ?.pop()
+              ) || 0;
+          }
+          return (
+            <tr key={index}>
+              <td>{column.column_name}</td>
+              {/* <td>{column.data_type}</td> */}
+              <td>{column.target_datatype}</td>
+              
+<td>
               <Select
                 value={selectedTestcases[index]}
-                onChange={(option) => validationRuleHandler(option, index)}
+                onChange={(option) => handleTestcaseChange(option, index)}
                 options={testcases.map((testcase) => ({
                   value: testcase.testcase_name,
                   label: testcase.testcase_name_alias,
@@ -173,26 +192,29 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
               />
             </td>
             <td>
-              <AntdForm.Item
-                name={`expectationInput-${index}`}
-                rules={[
-                  {
-                    validator: validateTagCount,
-                  },
-                ]}
-                onChange={(e) => validationInputHandler(e.target, index)}
-              >
-                <AntdSelect mode="tags" placeholder="Expectation Input" />
-              </AntdForm.Item>
+             <Select
+                allowClear={true}
+                // disabled={selectedTags[index]?.length > selectedValue - 1}
+                // autoClearSearchValue={true}
+                // mode="multiple"
+                value={selectedTags[index]}
+                onChange={(e) => {
+                  handleTagsChange(e, index, selectedValue);
+                }}
+                options={[]}
+                mode="tags"
+                placeholder="Expectation Input"
+              />
             </td>
             <td>
               <Form.Control
                 type="text"
                 onChange={(e) => qualityScoreHandler(e.target.value, index)}
               />
-            </td>
-          </tr>
-        ))}
+</td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );
