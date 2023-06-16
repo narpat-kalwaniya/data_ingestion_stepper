@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 import "../styles/main.css";
+import { DataContext } from "./DataContext";
 
 const GatherMetaData = ({ formData, updateFormData }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   const changeHandler = (e) => {
     const updatedFormData = {
@@ -15,6 +17,12 @@ const GatherMetaData = ({ formData, updateFormData }) => {
       },
     };
     updateFormData(updatedFormData);
+    const updatedData = { ...ingestionData[0] };
+    updatedData.additional_metadata = {
+      ...updatedData.additional_metadata,
+      [e.target.name]: e.target.value,
+    };
+    updateIngestionData(updatedData);
   };
 
   const addHandler = () => {
@@ -27,6 +35,7 @@ const GatherMetaData = ({ formData, updateFormData }) => {
   };
 
   console.log("MetaformData:", formData);
+  console.log("ingestion Data", ingestionData);
 
   return (
     <div>
@@ -42,8 +51,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   <Col sm={6}>
                     <Form.Control
                       className="mb-3"
-                      name="BusinessTags"
-                      value={formData.GatherMetaData.BusinessTags}
+                      name="business_tags"
+                      value={formData.GatherMetaData.business_tags}
                       onChange={changeHandler}
                     />
                   </Col>
@@ -55,8 +64,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   <Col sm={6}>
                     <Form.Control
                       className="mb-3"
-                      name="Description"
-                      value={formData.GatherMetaData.Description}
+                      name="description"
+                      value={formData.GatherMetaData.description}
                       onChange={changeHandler}
                     />
                   </Col>
@@ -68,8 +77,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   <Col sm={6}>
                     <Form.Control
                       className="mb-3"
-                      name="Owner"
-                      value={formData.GatherMetaData.Owner}
+                      name="owner"
+                      value={formData.GatherMetaData.owner}
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
@@ -81,8 +90,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   <Col sm={6}>
                     <Form.Control
                       className="mb-3"
-                      name="OwnerEmail"
-                      value={formData.GatherMetaData.OwnerEmail}
+                      name="email"
+                      value={formData.GatherMetaData.email}
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
@@ -94,10 +103,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   <Col sm={6}>
                     <Form.Control
                       className="mb-3"
-                      name="SuccessEmailDistributionList"
-                      value={
-                        formData.GatherMetaData.SuccessEmailDistributionList
-                      }
+                      name="success_email_list"
+                      value={formData.GatherMetaData.success_email_list}
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
@@ -109,10 +116,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   <Col sm={6}>
                     <Form.Control
                       className="mb-3"
-                      name="FailureEmailDistributionList"
-                      value={
-                        formData.GatherMetaData.FailureEmailDistributionList
-                      }
+                      name="failure_email_list"
+                      value={formData.GatherMetaData.failure_email_list}
                       onChange={changeHandler}
                     ></Form.Control>
                   </Col>
