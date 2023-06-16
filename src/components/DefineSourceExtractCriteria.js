@@ -178,7 +178,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                       className="mb-0"
                       name="is_select_distinct"
                       label="Select Distinct"
-                      // value={pageData.selectDistinct}
+                      value={
+                        formData.DefineSourceExtractCriteria.is_select_distinct
+                      }
                       onChange={selectDistinctHandler}
                       checked={
                         formData.DefineSourceExtractCriteria
