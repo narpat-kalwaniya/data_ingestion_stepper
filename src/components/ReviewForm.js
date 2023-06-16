@@ -117,9 +117,9 @@ const ReviewFrom = (props) => {
     }
   };
 
-  console.log("final ingestion data", safeStringify(ingestionData[0]));
+  // console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
-  console.log(props.formData);
+  // console.log(props.formData);
 
   const renderTable = (data) => {
     return (
