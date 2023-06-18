@@ -8,7 +8,7 @@ import {
   Modal,
   ListGroup,
 } from "react-bootstrap";
-import { DataValidation } from "./components/DefineDataValidation";
+import { DataValidation } from "./components/DefineDataValidation2";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
 import Header from "./components/Header";
@@ -109,6 +109,57 @@ function App() {
     full_file_name: null,
     source_entity_name: "",
   });
+
+  useEffect(() => {
+    const requestData = {
+      data_source_type: formData.sourceEntity.data_source_type,
+      query: formData.sourceEntity.query,
+      db_name: formData.sourceEntity.db_name,
+      schema_name: formData.sourceEntity.schema_name,
+      table_name: formData.sourceEntity.table_name,
+      bucket_name: formData.sourceEntity.bucket_name,
+      full_file_name: formData.sourceEntity.full_file_name,
+      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
+      connection_id: formData.sourceEntity.connection_id,
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          }
+        );
+
+        if (response.ok) {
+          const responseData = await response.json();
+          if (Array.isArray(responseData)) {
+            responseData.forEach((object) => {});
+            console.log("response data", responseData);
+            // setTableData(responseData);
+
+            const updatedFormData = {
+              ...formData,
+              tableData: responseData,
+            };
+            updateFormData(updatedFormData);
+            // console.log("table data", tableData);
+          }
+        } else {
+          console.error("Error:", response.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [formData.sourceEntity]);
 
   // Input validation-1
   const validateInputs = () => {
