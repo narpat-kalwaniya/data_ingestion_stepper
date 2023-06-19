@@ -153,21 +153,21 @@ export const DefineDataValidation = ({ formData }) => {
                   ))}
                 </Form.Control>
               </td>
-              {/* <AntdForm.Item name={`expectationInput-${index}`}> */}
-              <Select
-                allowClear={true}
-                // disabled={selectedTags[index]?.length > selectedValue - 1}
-                // autoClearSearchValue={true}
-                // mode="multiple"
-                value={selectedTags[index]}
-                onChange={(e) => {
-                  handleTagsChange(e, index, selectedValue);
-                }}
-                options={[]}
-                mode="tags"
-                placeholder="Expectation Input"
-              />
-              {/* </AntdForm.Item> */}
+              <AntdForm.Item name={`expectationInput-${index}`}>
+                <Select
+                  allowClear={true}
+                  // disabled={selectedTags[index]?.length > selectedValue - 1}
+                  // autoClearSearchValue={true}
+                  // mode="multiple"
+                  value={selectedTags[index]}
+                  onChange={(e) => {
+                    handleTagsChange(e, index, selectedValue);
+                  }}
+                  options={[]}
+                  mode="tags"
+                  placeholder="Expectation Input"
+                />
+              </AntdForm.Item>
             </tr>
           );
         })}

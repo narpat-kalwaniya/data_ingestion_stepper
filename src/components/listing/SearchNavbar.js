@@ -19,10 +19,14 @@ import Button from "@mui/material/Button";
 import CustomizedTables from "./ListOfPipeline";
 import ButtonPages from "../buttons/ButtonPages";
 import "./SearchNavbarButton.css";
+// import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import AddIcon from "@mui/icons-material/Add";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
+  border: "1px solid #E2E2E2",
+  borderRadius: "4px",
+  fontSize: "5px",
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -188,7 +192,7 @@ export default function ListingPage({ setshowMainPage }) {
                 >
                   All Pipelines
                 </Typography>
-                <Search>
+                <Search className="searchInputStyle">
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
@@ -210,14 +214,19 @@ export default function ListingPage({ setshowMainPage }) {
                     },
                   }}
                 >
-                  <Button className="searchNavbarBtnStyle"> Bulk Upload</Button>
+                  <Button className="searchNavbarBtnStyleUpload">
+                    {" "}
+                    Upload
+                  </Button>
                   <Button
-                    className="searchNavbarBtnStyle"
+                    className="searchNavbarBtnStyleAdd"
                     onClick={() => {
                       handleClickOpen(true);
                     }}
                   >
-                    Add
+                    {/* <AddOutlinedIcon className="AddOutlinedIcon" /> */}
+                    <AddIcon className="AddOutlinedIcon" />
+                    Add New
                   </Button>
                 </Box>
               </Toolbar>

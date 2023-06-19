@@ -58,7 +58,7 @@ const Sidebar = (props) => {
   return (
     <div
       className="sidebar"
-      style={{ color: "white", backgroundColor: "rgba(0,0,0,.85)" }}
+      style={{ color: "white" }}
       onMouseOver={(e) => {
         handle(e);
       }}
@@ -111,7 +111,7 @@ const Sidebar = (props) => {
         />
 
         <div>
-          <ul className="sidebarItemStyle">
+          <ul>
             <li
               onClick={() => {
                 navigate && navigate("/login");

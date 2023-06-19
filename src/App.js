@@ -24,6 +24,7 @@ import ListingPage from "./components/listing/SearchNavbar";
 import SimpleDialogDemo from "./components/buttons/ButtonPages";
 import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -273,6 +274,17 @@ function App() {
     });
   }, []);
 
+  const theme = createTheme({
+    typography: {
+      fontFamily: 
+      [
+        '"Poppins"',
+        'sans-serif',
+      ].join(','),
+      color: '#1C1C1C'
+    }
+  });
+
   return (
     <div>
       {loading ? (
@@ -424,7 +436,9 @@ function App() {
                     </DataProvider>
                   )
                 ) : (
+                  <ThemeProvider theme={theme}>
                   <ListingPage setshowMainPage={setshowMainPage} />
+                  </ThemeProvider>
                 )}
               </div>
             </div>
