@@ -77,19 +77,19 @@ export const DefineDataValidation = ({ formData }) => {
     "VARCHAR",
   ];
 
-  const handleTestcaseChange = (e, index) => {
-    const updatedTestcases = [...selectedTestcases];
-    updatedTestcases[index] = e.target.value;
-    setSelectedTestcases(updatedTestcases);
-  };
-
-  // const handleTestcaseChange = (option, index) => {
-  //   setSelectedTestcases((prevSelectedTestcases) => {
-  //     const updatedSelectedTestcases = [...prevSelectedTestcases];
-  //     updatedSelectedTestcases[index] = option;
-  //     return updatedSelectedTestcases;
-  //   });
+  // const handleTestcaseChange = (e, index) => {
+  //   const updatedTestcases = [...selectedTestcases];
+  //   updatedTestcases[index] = e.target.value;
+  //   setSelectedTestcases(updatedTestcases);
   // };
+
+  const handleTestcaseChange = (option, index) => {
+    setSelectedTestcases((prevSelectedTestcases) => {
+      const updatedSelectedTestcases = [...prevSelectedTestcases];
+      updatedSelectedTestcases[index] = option;
+      return updatedSelectedTestcases;
+    });
+  };
 
   const handleTagsChange = (e, index, maxValue) => {
     const tempSelectedTags = JSON.parse(JSON.stringify(selectedTags));
@@ -146,19 +146,16 @@ export const DefineDataValidation = ({ formData }) => {
               {/* <td>{column.data_type}</td> */}
               <td>{column.target_datatype}</td>
               <td>
-                <Form.Control
-                  as="select"
+                <Select
                   value={selectedTestcases[index]}
-                  onChange={(e) => handleTestcaseChange(e, index)}
-                  placeholder="Enter expectation"
-                >
-                  <option value="">Select Test Case</option>
-                  {testcases.map((testcase, subIndex) => (
-                    <option key={testcase.testcase_master_id} value={subIndex}>
-                      {testcase.testcase_name_alias}
-                    </option>
-                  ))}
-                </Form.Control>
+                  onChange={(option) => handleTestcaseChange(option, index)}
+                  options={testcases.map((testcase) => ({
+                    value: testcase.testcase_name,
+                    label: testcase.testcase_name_alias,
+                  }))}
+                  placeholder="Select Test Case"
+                  isSearchable
+                />
               </td>
               <AntdForm.Item name={`expectationInput-${index}`}>
                 <Select
