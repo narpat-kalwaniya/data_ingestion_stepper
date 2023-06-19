@@ -56,6 +56,13 @@ const ApplyMasking = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleMaskingToggle = (index, checked) => {
@@ -65,7 +72,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
       return updatedSelectedMasking;
     });
     const updatedTableData = [...tableData];
-    updatedTableData[index].query = checked;
+    updatedTableData[index].is_masking = checked;
     setTableData(updatedTableData);
 
     const updatedFormData = {
@@ -73,8 +80,16 @@ const ApplyMasking = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
   console.log("masking form data", formData);
+  console.log("masking ingestion data", ingestionData);
   return (
     <Table responsive>
       <thead>
@@ -88,7 +103,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
               <FormCheck>
                 <FormCheck.Input
                   type="checkbox"
-                  checked={formData.tableData[index].query === true}
+                  checked={formData.tableData[index].is_masking === true}
                   onChange={(e) => handleMaskingToggle(index, e.target.checked)}
                 />
               </FormCheck>
@@ -103,7 +118,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
                   label: masking.masking_algorithm,
                 }))}
                 isSearchable
-                isDisabled={!formData.tableData[index].query}
+                isDisabled={!formData.tableData[index].is_masking}
               />
             </td>
           </tr>
