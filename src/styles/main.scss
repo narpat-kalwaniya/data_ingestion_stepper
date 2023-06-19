@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
 @import "./variables";
 @import "./colors";
 
@@ -125,6 +127,16 @@
 //   border-collapse: collapse;
 //   border-spacing: 0;
 // }
+body {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500;
+}
+
+/* Additional styles for other elements */
+h1, h2, h3, p /* Add other element selectors as needed */ {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500;
+}
 
 h1 {
   display: block;
@@ -173,7 +185,7 @@ h5 {
   margin-bottom: 1.33em;
   margin-left: 0;
   margin-right: 0;
-  font-weight:normal !important;
+  font-weight: normal !important;
   // font-weight: $fn-weight-bold;
 }
 
@@ -212,7 +224,8 @@ h5 {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: $fn-sz-base;
+  font-size: 0.87*$fn-sz-base;
+  font-weight: 400;
   cursor: pointer;
   float: left;
   transition: all 0.3s;
@@ -231,7 +244,9 @@ h5 {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: $fn-sz-base;
+  font-size: 0.87*$fn-sz-base;
+  font-weight: 400;
+
   cursor: pointer;
   float: left;
   transition: all 0.3s;
@@ -250,7 +265,9 @@ h5 {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: $fn-sz-base;
+  font-size: 0.87*$fn-sz-base;
+  font-weight: 400;
+
   cursor: pointer;
   float: left;
   transition: all 0.3s;
@@ -262,20 +279,22 @@ h5 {
 }
 
 .btn-c {
-  background-color: $clrGray-300;
-  border: none;
-  color: $clrGray-800;
+  background-color: "#FCFCFC";
+  border: 1px solid #ced4da;
+  color: #888a8b;
   padding: $two 3 * $two;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: $fn-sz-base;
+  font-size: 0.87*$fn-sz-base;
+  font-weight: 400;
+
   cursor: pointer;
   float: left;
   transition: all 0.3s;
   border-radius: 5px;
   &:hover {
-    background-color: $clrGray-200;
+    background-color: #e9e8e8;
     transition: all 0.3s;
   }
 }
@@ -290,13 +309,11 @@ h5 {
   display: inline;
 }
 
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 
 .App-link {
   color: #61dafb;
@@ -315,7 +332,6 @@ h5 {
   text-align: left;
 }
 
-
 .card-header {
   text-align: left;
   background-color: $clrC !important;
@@ -324,11 +340,12 @@ h5 {
 }
 
 .Card-outer {
-  background-color: $clrGray-200 !important;
-  box-shadow: none !important;
+  background-color: white !important;
   border: none !important;
   border-radius: 0px !important;
-
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .Card-progressbar {
@@ -340,14 +357,14 @@ h5 {
 }
 
 .custom-button {
-  background-color: #F7901D !important;
-  border-color: #F7901D !important;
+  background-color: #f7901d !important;
+  border-color: #f7901d !important;
   color: #ffffff !important;
 }
 
 /* Apply a border radius of 1rem to all Card components */
 .card {
-  border-radius: 1rem !important;
+  border-radius: 0.5rem !important;
   margin-top: 0% !important;
 }
 
@@ -362,29 +379,46 @@ h5 {
 // }
 
 .icon:hover {
-  color: $clrD
+  color: $clrD;
 }
 
 .form-group.required .control-label:after {
-  content:"*";
-  color:red;
+  content: "*";
+  color: red;
 }
 
 .App {
- height: '480px';
- overflow: 'auto';
+  height: "480px";
+  overflow: "auto";
 }
 
 .alertStyle {
-    border-radius: 0;
-    padding: "1.25rem";
-    width: "400px";
-    height: "120px";
-    align-items: "center";
-    justify-content: "space-evenly";
-  };
+  border-radius: 0;
+  padding: "1.25rem";
+  width: "400px";
+  height: "120px";
+  align-items: "center";
+  justify-content: "space-evenly";
+}
 
 .messageStyle {
-    margin-bottom: "0.5rem";
-  };
+  margin-bottom: "0.5rem";
+}
 
+.card-body.custom-card-body {
+  color: #4f4f4f; /* Set your desired font color */
+  font-size: "14px" !important;
+}
+
+.custom-footer {
+  background-color: #fcfcfc;
+  color: #4f4f4f; /* Set your desired font color */
+  font-size: "14px" !important;
+  border-top: 2px solid #ebeaea; /* Replace 'red' with your desired color */
+  border-width: 3px; /* Replace '3px' with your desired width */
+}
+
+.custom-card {
+  border-color: #fcfcfc;
+  /* Set your desired font color */
+}

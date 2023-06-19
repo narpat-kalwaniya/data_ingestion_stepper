@@ -83,7 +83,7 @@ const Navbar = (props) => {
       className="header"
       style={{
         background: "white",
-        boxShadow: "0 2px 5px -2px #3b3b3b",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
       }}
     >
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}
@@ -114,12 +114,12 @@ const Navbar = (props) => {
                 height: "19px",
                 textAlign: "left",
                 paddingRight: "60px",
-                letterSpacing: "0.13px",
-                color: "white",
+                letterSpacing: "0.5px",
+                // color: "white",
                 // textTransform: "uppercase",
                 opacity: "1",
-                fontSize: "19px",
-                fontWeight: "1000",
+                fontSize: "16px",
+                fontWeight: "500",
                 whiteSpace: "nowrap",
               }}
             >
@@ -203,8 +203,8 @@ const Navbar = (props) => {
             style={{
               color: "#1C1C1C",
               letterSpacing: "0.13px",
-              opacity: "0.7",
-              fontWeight: "1000",
+              opacity: "0.5",
+              fontWeight: "400",
             }}
           >
             {props.user.displayName}

@@ -128,113 +128,129 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
   console.log("ingestion data", ingestionData);
 
   return (
-    <div className="page1">
-      <Row>
-        <Card.Body>
-          <div className="text-left">
-            <Form>
+    <Card.Body className="custom-card-body">
+      <div className="text-left">
+        <Form>
+          <Row className="mb-4">
+            <Col xs={6}>
+              <Form.Label>
+                Data Source Connection <span className="text-danger">*</span>
+              </Form.Label>
               <Row>
-                <div>
-                  <Row className="mb-3">
-                    <Form.Label>
-                      Data Source Connection{" "}
-                      <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Col>
-                      <Form.Select
-                        onChange={handleSelection}
-                        value={formData.CreateDataConnection.dataSource}
-                        isInvalid={errors.dataSource}
-                        required
+                <Col xs={8}>
+                  <Form.Select
+                    onChange={handleSelection}
+                    value={formData.CreateDataConnection.dataSource}
+                    isInvalid={errors.dataSource}
+                    required
+                    // className="dropdown-item"
+                    style={{
+                      fontSize: "13px",
+                      color: "#4F4F4F",
+                      fontWeight: "400",
+                      // border: "1px solid #4F4F4F",
+                    }}
+                  >
+                    <option value="">-- Select --</option>{" "}
+                    {filteredSourceConnections.map((connection) => (
+                      <option
+                        key={connection.connection_id}
+                        value={connection.connection_name}
                       >
-                        <option value="">-- Select --</option>{" "}
-                        {filteredSourceConnections.map((connection) => (
-                          <option
-                            key={connection.connection_id}
-                            value={connection.connection_name}
-                          >
-                            {connection.connection_name}
-                          </option>
-                        ))}
-                      </Form.Select>
-                      {errors.dataSource && (
-                        <div className="error">{errors.dataSource}</div>
-                      )}
-                    </Col>
-                    <Col>
-                      <Icon.CloudPlusFill size={40} className="icon" />
-                    </Col>
-                  </Row>
-                </div>
-                <div>
-                  <Row className="mb-3">
-                    <Form.Label>
-                      Data Target Connection{" "}
-                      <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Col>
-                      <Form.Select
-                        onChange={handleTargetSelection}
-                        value={formData.CreateDataConnection.dataTarget}
-                        isInvalid={errors.dataTarget}
-                        required
-                      >
-                        <option value="">-- Select --</option>{" "}
-                        {filteredTargetConnections.map((connection) => (
-                          <option
-                            key={connection.connection_id}
-                            value={connection.connection_name}
-                          >
-                            {connection.connection_name}
-                          </option>
-                        ))}
-                      </Form.Select>
-                      {errors.dataTarget && (
-                        <div className="error">{errors.dataTarget}</div>
-                      )}
-                    </Col>
-                    <Col>
-                      <Icon.PatchPlusFill size={40} className="icon" />
-                    </Col>
-                  </Row>
-                </div>
-                <div>
-                  <Row className="mb-3">
-                    <Form.Label>
-                      Application <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Col>
-                      <Form.Select
-                        onChange={handleApplicationSelection}
-                        value={formData.CreateDataConnection.application}
-                        isInvalid={errors.application}
-                        required
-                      >
-                        <option value="">-- Select --</option>{" "}
-                        {applications.map((application) => (
-                          <option
-                            key={application.app_id}
-                            value={application.app_name}
-                          >
-                            {application.app_name}
-                          </option>
-                        ))}
-                      </Form.Select>
-                      {errors.application && (
-                        <div className="error">{errors.application}</div>
-                      )}
-                    </Col>
-                    <Col>
-                      <Icon.WindowPlus className="icon" size={40} />
-                    </Col>
-                  </Row>
-                </div>
+                        {connection.connection_name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {errors.dataSource && (
+                    <div className="error">{errors.dataSource}</div>
+                  )}
+                </Col>
+                <Col style={{ marginTop: "4px" }}>
+                  <Icon.CloudPlusFill size={25} className="icon" />
+                </Col>
               </Row>
-            </Form>
-          </div>
-        </Card.Body>
-      </Row>
-    </div>
+            </Col>
+            <Col xs={6}>
+              <Form.Label>
+                Data Target Connection <span className="text-danger">*</span>
+              </Form.Label>
+              <Row>
+                <Col xs={8}>
+                  <Form.Select
+                    onChange={handleTargetSelection}
+                    value={formData.CreateDataConnection.dataTarget}
+                    isInvalid={errors.dataTarget}
+                    required
+                    style={{
+                      fontSize: "13px",
+                      color: "rgb(141 139 139);",
+                      fontWeight: "100",
+                      // border: "1px solid #4F4F4F",
+                    }}
+                  >
+                    <option value="">-- Select --</option>{" "}
+                    {filteredTargetConnections.map((connection) => (
+                      <option
+                        key={connection.connection_id}
+                        value={connection.connection_name}
+                      >
+                        {connection.connection_name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {errors.dataTarget && (
+                    <div className="error">{errors.dataTarget}</div>
+                  )}
+                </Col>
+                <Col style={{ marginTop: "4px" }}>
+                  <Icon.PatchPlusFill size={25} className="icon" />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+
+          <Row className="mb-3">
+            <Col xs={6}>
+              <Form.Label>
+                Application <span className="text-danger">*</span>
+              </Form.Label>
+              <Row>
+                <Col xs={8}>
+                  <Form.Select
+                    onChange={handleApplicationSelection}
+                    value={formData.CreateDataConnection.application}
+                    isInvalid={errors.application}
+                    required
+                    style={{
+                      fontSize: "13px",
+                      color: "#4F4F4F",
+                      fontWeight: "400",
+                      // border: "1px solid #4F4F4F",
+                    }}
+                  >
+                    <option value="">-- Select --</option>{" "}
+                    {applications.map((application) => (
+                      <option
+                        key={application.app_id}
+                        value={application.app_name}
+                      >
+                        {application.app_name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {errors.application && (
+                    <div className="error">{errors.application}</div>
+                  )}
+                </Col>
+                <Col style={{ marginTop: "4px" }}>
+                  <Icon.WindowPlus className="icon" size={25} />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </Card.Body>
   );
 };
 

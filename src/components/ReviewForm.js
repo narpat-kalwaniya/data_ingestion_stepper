@@ -148,7 +148,7 @@ const ReviewFrom = (props) => {
   return (
     <div>
       <Container>
-        <div style={{ marginTop: "7px" }}></div>
+        <div style={{ marginTop: "12px" }}></div>
         {isSubmitted ? (
           <Success setshowMainPage={props.setshowMainPage} />
         ) : (
@@ -336,6 +336,7 @@ const ReviewFrom = (props) => {
                                 <th>Target Datatype</th>
                                 <th>Validation Rule</th>
                                 <th>Validation Input</th>
+                                <th>Quality Score</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -345,9 +346,10 @@ const ReviewFrom = (props) => {
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>{obj.data_type}</td>{" "}
                                   {/* Replace 'value' with the actual value from the object */}
-                                  <td>{obj.target_datatype}</td> <td></td>{" "}
-                                  <td></td> <td></td> <td></td>
-                                  <td></td>
+                                  <td>{obj.target_datatype}</td>
+                                  <td>{obj.validation_rule}</td>{" "}
+                                  <td>{obj.validation_input}</td>{" "}
+                                  <td>{obj.quality_score}</td>
                                 </tr>
                               ))}
                             </tbody>
@@ -406,7 +408,9 @@ const ReviewFrom = (props) => {
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>
                                     <FormCheck
-                                      checked={obj.query === true}
+
+                                      checked={obj.is_masking === true}
+
                                       disabled={true}
                                     ></FormCheck>
                                   </td>{" "}

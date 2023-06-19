@@ -58,7 +58,8 @@ const Sidebar = (props) => {
   return (
     <div
       className="sidebar"
-      style={{ color: "white" }}
+      style={{ color: "white", backgroundColor: "#1C1C1C" }}
+
       onMouseOver={(e) => {
         handle(e);
       }}
