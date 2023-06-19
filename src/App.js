@@ -12,7 +12,7 @@ import { DataValidation } from "./components/DefineDataValidation";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
 import Header from "./components/Header";
-import { Progressbar } from "./components/ProgressBar";
+// import { Progressbar } from "./components/ProgressBar";
 import ReviewForm from "./components/ReviewForm";
 import CreateDataConnection from "./components/CreateDataConnection";
 import { DataProvider } from "./components/DataContext";
@@ -360,13 +360,13 @@ function App() {
                     <DataProvider>
                       <Container className="h-100" style={{ marginTop: "7px" }}>
                         <Card className="Card-outer">
-                          <Row className="m-2">
+                          {/* <Row className="m-2">
                             <Col>
                               <Card className="Card-progressbar">
                                 <Progressbar step={step} />
                               </Card>
                             </Col>
-                          </Row>
+                          </Row> */}
                           <Row className="m-2">
                             <SectionMenu
                               step={step}
