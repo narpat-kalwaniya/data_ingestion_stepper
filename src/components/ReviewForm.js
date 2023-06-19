@@ -117,9 +117,9 @@ const ReviewFrom = (props) => {
     }
   };
 
-  console.log("final ingestion data", safeStringify(ingestionData[0]));
+  // console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
-  console.log(props.formData);
+  // console.log(props.formData);
 
   const renderTable = (data) => {
     return (
@@ -134,7 +134,11 @@ const ReviewFrom = (props) => {
           {Object.entries(data).map(([key, value]) => (
             <tr key={key}>
               <td>{key}</td>
-              <td>{typeof value === "object" ? renderTable(value) : value}</td>
+              <td>
+                {typeof value === "object"
+                  ? renderTable(value)
+                  : value.toString()}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -293,8 +297,22 @@ const ReviewFrom = (props) => {
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>{obj.data_type}</td>{" "}
                                   {/* Replace 'value' with the actual value from the object */}
-                                  <td>{obj.target_datatype}</td> <td></td>{" "}
-                                  <td></td> <td></td>{" "}
+                                  <td>{obj.target_datatype}</td>{" "}
+                                  <td>
+                                    <FormCheck
+                                      checked={
+                                        obj.is_target_primary_key === true
+                                      }
+                                      disabled={true}
+                                    ></FormCheck>
+                                  </td>{" "}
+                                  <td>
+                                    <FormCheck
+                                      checked={obj.is_business_key === true}
+                                      disabled={true}
+                                    ></FormCheck>
+                                  </td>{" "}
+                                  <td>{obj.transformation_logic}</td>{" "}
                                 </tr>
                               ))}
                             </tbody>
@@ -386,9 +404,14 @@ const ReviewFrom = (props) => {
                                 <tr key={index}>
                                   <td>{obj.column_name}</td>{" "}
                                   {/* Replace 'key' with the actual key from the object */}
-                                  <td></td>{" "}
+                                  <td>
+                                    <FormCheck
+                                      checked={obj.query === true}
+                                      disabled={true}
+                                    ></FormCheck>
+                                  </td>{" "}
                                   {/* Replace 'value' with the actual value from the object */}
-                                  <td></td>
+                                  <td>{obj.masking_logic}</td>
                                 </tr>
                               ))}
                             </tbody>

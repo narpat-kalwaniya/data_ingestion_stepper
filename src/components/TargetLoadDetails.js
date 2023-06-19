@@ -297,7 +297,8 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                     label="Maintain a copy in DataLake"
                     name="is_mantain_a_copy_in_datalake"
                     checked={
-                      formData.targetLoadDetails.is_mantain_a_copy_in_datalake
+                      formData.targetLoadDetails
+                        .is_mantain_a_copy_in_datalake === true
                     }
                     // onChange={chechBoxHandler}
                     onChange={(e) => {

@@ -10,14 +10,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import Select from "react-select";
-
-import {
-  Select as AntdSelect,
-  Form as AntdForm,
-  Input as AntdInput,
-  Tag,
-} from "antd";
+import { Select, Form as AntdForm, Input as AntdInput, Tag } from "antd";
 
 const headers = [
   "Column Name",
@@ -28,11 +21,12 @@ const headers = [
   "Quality Score",
 ];
 
-export const DefineDataValidation = ({ formData }) => {
+export const DefineDataValidation = ({ formData, updateFormData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
   const [selectedTags, setselectedTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [tableData, setTableData] = useState([...formData.tableData]);
 
   useEffect(() => {
     fetchTestcases();
@@ -50,7 +44,7 @@ export const DefineDataValidation = ({ formData }) => {
       console.log("Error fetching test cases:", error);
     }
   };
-  console.log("input_values", selectedTestcases);
+  console.log("table data", tableData);
 
   const targetDataTypes = [
     "ARRAY",
@@ -77,29 +71,56 @@ export const DefineDataValidation = ({ formData }) => {
     "VARCHAR",
   ];
 
-  const handleTestcaseChange = (e, index) => {
-    const updatedTestcases = [...selectedTestcases];
-    updatedTestcases[index] = e.target.value;
-    setSelectedTestcases(updatedTestcases);
-  };
+  const handleTestcaseChange = (option, index) => {
+    setSelectedTestcases((prevSelectedTestcases) => {
+      const updatedSelectedTestcases = [...prevSelectedTestcases];
+      updatedSelectedTestcases[index] = option;
+      return updatedSelectedTestcases;
+    });
 
-  // const handleTestcaseChange = (option, index) => {
-  //   setSelectedTestcases((prevSelectedTestcases) => {
-  //     const updatedSelectedTestcases = [...prevSelectedTestcases];
-  //     updatedSelectedTestcases[index] = option;
-  //     return updatedSelectedTestcases;
-  //   });
-  // };
+    //   const updatedTableData = [...tableData];
+    //   updatedTableData[index].validation_rules[0] = e.target.value;
+    //   setTableData(updatedTableData);
+
+    //   const updatedFormData = {
+    //     ...formData,
+    //     tableData: updatedTableData,
+    //   };
+    //   updateFormData(updatedFormData);
+    // };
+
+    // const handleTestcaseChange = (option, index) => {
+    //   setSelectedTestcases((prevSelectedTestcases) => {
+    //     const updatedSelectedTestcases = [...prevSelectedTestcases];
+    //     updatedSelectedTestcases[index] = option;
+    //     return updatedSelectedTestcases;
+    //   });
+  };
 
   const handleTagsChange = (e, index, maxValue) => {
     const tempSelectedTags = JSON.parse(JSON.stringify(selectedTags));
     tempSelectedTags[index] = e;
-    debugger;
+    // debugger;
     if (tempSelectedTags[index].length <= maxValue) {
       setselectedTags(tempSelectedTags);
     } else {
       setselectedTags(selectedTags);
     }
+    // console.log(e.target.value);
+    // const updatedTableData = [...tableData];
+    // updatedTableData[index].validation_input[0] = e.target.value;
+    // setTableData(updatedTableData);
+
+    // const updatedFormData = {
+    //   ...formData,
+    //   tableData: updatedTableData,
+    // };
+    // updateFormData(updatedFormData);
+  };
+  const qualityScoreHandler = (value, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].quality_score = value;
+    setTableData(updatedTableData);
   };
 
   const validateTagCount = (_, value) => {
@@ -146,11 +167,25 @@ export const DefineDataValidation = ({ formData }) => {
               {/* <td>{column.data_type}</td> */}
               <td>{column.target_datatype}</td>
               <td>
-                <Form.Control
+                <Select
+                  value={selectedTestcases[index]}
+                  onChange={(option) => handleTestcaseChange(option, index)}
+                  options={testcases.map((testcase) => ({
+                    value: testcase.testcase_name,
+                    label: testcase.testcase_name_alias,
+                  }))}
+                  placeholder="Select Test Case"
+                  isSearchable
+                />
+
+                {/* <Form.Control
                   as="select"
                   value={selectedTestcases[index]}
-                  onChange={(e) => handleTestcaseChange(e, index)}
+                  onChange={(e) =>
+                    handleTestcaseChange(e, index, column.column_name)
+                  }
                   placeholder="Enter expectation"
+                  // column_name={column.column_name}
                 >
                   <option value="">Select Test Case</option>
                   {testcases.map((testcase, subIndex) => (
@@ -158,9 +193,10 @@ export const DefineDataValidation = ({ formData }) => {
                       {testcase.testcase_name_alias}
                     </option>
                   ))}
-                </Form.Control>
+                </Form.Control> */}
               </td>
-              <AntdForm.Item name={`expectationInput-${index}`}>
+              <td>
+                {/* <AntdForm.Item name={`expectationInput-${index}`}> */}
                 <Select
                   allowClear={true}
                   // disabled={selectedTags[index]?.length > selectedValue - 1}
@@ -174,7 +210,15 @@ export const DefineDataValidation = ({ formData }) => {
                   mode="tags"
                   placeholder="Expectation Input"
                 />
-              </AntdForm.Item>
+                {/* </AntdForm.Item> */}
+              </td>
+              <td>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => qualityScoreHandler(e.target.value, index)}
+                  // value={formData.tableData[index].quality_score}
+                />
+              </td>
             </tr>
           );
         })}
