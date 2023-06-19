@@ -28,6 +28,7 @@
     "react-select": "^5.7.3",
     "react-slider": "^2.0.5",
     "react-step-progress-bar": "^1.0.3",
+    "react-tagsinput": "^3.20.3",
     "rsuite": "^5.33.0",
     "sass": "^1.62.1",
     "web-vitals": "^2.1.4"
