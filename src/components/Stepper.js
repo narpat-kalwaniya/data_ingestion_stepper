@@ -1,6 +1,6 @@
 import React from "react";
 import { TargetSchema } from "./TargetSchema";
-import { DefineDataValidation } from "./DefineDataValidation2";
+import { DefineDataValidation } from "./DefineDataValidation";
 import CreateDataConnection from "./CreateDataConnection";
 import DefineSourceExtractCriteria from "./DefineSourceExtractCriteria";
 import TargetLoadDetails from "./TargetLoadDetails";

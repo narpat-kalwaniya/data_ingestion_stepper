@@ -8,7 +8,7 @@ import {
   Modal,
   ListGroup,
 } from "react-bootstrap";
-import { DataValidation } from "./components/DefineDataValidation2";
+import { DataValidation } from "./components/DefineDataValidation";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
 import Header from "./components/Header";
@@ -327,13 +327,9 @@ function App() {
 
   const theme = createTheme({
     typography: {
-      fontFamily: 
-      [
-        '"Poppins"',
-        'sans-serif',
-      ].join(','),
-      color: '#1C1C1C'
-    }
+      fontFamily: ['"Poppins"', "sans-serif"].join(","),
+      color: "#1C1C1C",
+    },
   });
 
   return (
@@ -488,7 +484,7 @@ function App() {
                   )
                 ) : (
                   <ThemeProvider theme={theme}>
-                  <ListingPage setshowMainPage={setshowMainPage} />
+                    <ListingPage setshowMainPage={setshowMainPage} />
                   </ThemeProvider>
                 )}
               </div>
