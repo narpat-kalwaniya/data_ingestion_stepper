@@ -97,7 +97,6 @@ export const DefineDataValidation = ({ formData }) => {
   console.log("input_values", selectedTestcases);
   return (
     <Table responsive>
-           {" "}
       <thead>
                {" "}
         <tr>
@@ -114,11 +113,11 @@ export const DefineDataValidation = ({ formData }) => {
                {" "}
         {formData.tableData.map((column, index) => (
           <tr key={index}>
-                        <td>{column.column_name}</td>           {" "}
-            {/* <td>{column.data_type}</td> */}           {" "}
-            <td>{column.target_datatype}</td>           {" "}
-            <td style={{ width: "1000px" }}>
-              {" "}
+            <td>{column.column_name}</td>
+            {/* <td>{column.data_type}</td> */}
+            <td>{column.target_datatype}</td>
+            <td>
+
               <Select
                 value={selectedTestcases[index]}
                 onChange={(option) => handleTestcaseChange(option, index)}
