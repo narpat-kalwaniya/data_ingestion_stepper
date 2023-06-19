@@ -8,7 +8,7 @@ import {
   Modal,
   ListGroup,
 } from "react-bootstrap";
-import { DataValidation } from "./components/DefineDataValidation";
+import { DataValidation } from "./components/DefineDataValidation2";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
 import Header from "./components/Header";
@@ -109,6 +109,57 @@ function App() {
     full_file_name: null,
     source_entity_name: "",
   });
+
+  useEffect(() => {
+    const requestData = {
+      data_source_type: formData.sourceEntity.data_source_type,
+      query: formData.sourceEntity.query,
+      db_name: formData.sourceEntity.db_name,
+      schema_name: formData.sourceEntity.schema_name,
+      table_name: formData.sourceEntity.table_name,
+      bucket_name: formData.sourceEntity.bucket_name,
+      full_file_name: formData.sourceEntity.full_file_name,
+      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
+      connection_id: formData.sourceEntity.connection_id,
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          }
+        );
+
+        if (response.ok) {
+          const responseData = await response.json();
+          if (Array.isArray(responseData)) {
+            responseData.forEach((object) => {});
+            console.log("response data", responseData);
+            // setTableData(responseData);
+
+            const updatedFormData = {
+              ...formData,
+              tableData: responseData,
+            };
+            updateFormData(updatedFormData);
+            // console.log("table data", tableData);
+          }
+        } else {
+          console.error("Error:", response.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [formData.sourceEntity]);
 
   // Input validation-1
   const validateInputs = () => {
@@ -279,152 +330,154 @@ function App() {
         <p> loading </p>
       ) : user ? (
         <div user={user}>
-          <div className="d-flex">
-            <Sidebar />
-            <div className="w-100">
+          <div className="d-flex position-relative">
+            <Sidebar setshowMainPage={setshowMainPage} />
+            <div className="w-100 h-100">
               <Navbar user={user} />
-              {showMainPage ? (
-                isReview ? (
-                  <DataProvider>
-                    <ReviewForm
-                      step={step}
-                      setStep={setStep}
-                      isReview={isReview}
-                      setIsReview={setIsReview}
-                      cancel={closeHandler}
-                      formData={formData}
-                      setshowMainPage={setshowMainPage}
-                    ></ReviewForm>
-                  </DataProvider>
-                ) : (
-                  <DataProvider>
-                    <Container className="h-100" style={{ marginTop: "7px" }}>
-                      <Card className="Card-outer">
-                        <Row className="m-2">
-                          <Col>
-                            <Card className="Card-progressbar">
-                              <Progressbar step={step} />
-                            </Card>
-                          </Col>
-                        </Row>
-                        <Row className="m-2">
-                          <SectionMenu
-                            step={step}
-                            isReview={isReview}
-                            setIsReview={setIsReview}
-                          />
-                          <Col>
-                            <Card>
-                              <div>
-                                {/* <Card.Header className="header">
+              <div className="mainContainer">
+                {showMainPage ? (
+                  isReview ? (
+                    <DataProvider>
+                      <ReviewForm
+                        step={step}
+                        setStep={setStep}
+                        isReview={isReview}
+                        setIsReview={setIsReview}
+                        cancel={closeHandler}
+                        formData={formData}
+                        setshowMainPage={setshowMainPage}
+                      ></ReviewForm>
+                    </DataProvider>
+                  ) : (
+                    <DataProvider>
+                      <Container className="h-100" style={{ marginTop: "7px" }}>
+                        <Card className="Card-outer">
+                          <Row className="m-2">
+                            <Col>
+                              <Card className="Card-progressbar">
+                                <Progressbar step={step} />
+                              </Card>
+                            </Col>
+                          </Row>
+                          <Row className="m-2">
+                            <SectionMenu
+                              step={step}
+                              isReview={isReview}
+                              setIsReview={setIsReview}
+                            />
+                            <Col>
+                              <Card>
+                                <div>
+                                  {/* <Card.Header className="header">
                                   <Header step={step}></Header>
                                 </Card.Header> */}
-                                <div>
-                                  <Container
-                                    // ref={containerRef}
-                                    style={{
-                                      minHeight: "65vh",
-                                      maxHeight: "65vh",
-                                      overflowY: "scroll",
-                                    }}
-                                  >
-                                    <Card.Body>
-                                      <Stepper
-                                        step={step}
-                                        formData={formData}
-                                        updateFormData={updateFormData}
-                                        errors={errors}
-                                        errors2={errors2}
-                                        isReview={isReview}
-                                        setIsReview={setIsReview}
-                                      />
-                                    </Card.Body>
-                                  </Container>
-                                </div>
-                                <Card.Footer className="d-flex justify-content-between float-right">
-                                  <Col>
+                                  <div>
+                                    <Container
+                                      // ref={containerRef}
+                                      style={{
+                                        minHeight: "65vh",
+                                        maxHeight: "65vh",
+                                        overflowY: "scroll",
+                                      }}
+                                    >
+                                      <Card.Body>
+                                        <Stepper
+                                          step={step}
+                                          formData={formData}
+                                          updateFormData={updateFormData}
+                                          errors={errors}
+                                          errors2={errors2}
+                                          isReview={isReview}
+                                          setIsReview={setIsReview}
+                                        />
+                                      </Card.Body>
+                                    </Container>
+                                  </div>
+                                  <Card.Footer className="d-flex justify-content-between float-right">
+                                    <Col>
+                                      <button
+                                        className="btn-c"
+                                        onClick={handleShow}
+                                        disabled={step === 1}
+                                      >
+                                        Close
+                                      </button>
+                                      <Modal
+                                        show={showModal}
+                                        onHide={closeHandler}
+                                      >
+                                        <Modal.Header closeButton>
+                                          {/* <Modal.Title>Modal heading</Modal.Title> */}
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                          Are you sure you want to close? Any
+                                          unsaved data will be lost.
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                          <button
+                                            className="btn-c"
+                                            variant="secondary"
+                                            onClick={closeHandler}
+                                          >
+                                            Yes, Close
+                                          </button>
+                                          <button
+                                            className="btn-s-1"
+                                            variant="primary"
+                                            onClick={handleContinue}
+                                          >
+                                            No, Continue
+                                          </button>
+                                        </Modal.Footer>
+                                      </Modal>
+                                    </Col>
                                     <button
-                                      className="btn-c"
-                                      onClick={handleShow}
+                                      className="btn-c "
+                                      onClick={previousHandler}
                                       disabled={step === 1}
-                                    >
-                                      Close
-                                    </button>
-                                    <Modal
-                                      show={showModal}
-                                      onHide={closeHandler}
-                                    >
-                                      <Modal.Header closeButton>
-                                        {/* <Modal.Title>Modal heading</Modal.Title> */}
-                                      </Modal.Header>
-                                      <Modal.Body>
-                                        Are you sure you want to close? Any
-                                        unsaved data will be lost.
-                                      </Modal.Body>
-                                      <Modal.Footer>
-                                        <button
-                                          className="btn-c"
-                                          variant="secondary"
-                                          onClick={closeHandler}
-                                        >
-                                          Yes, Close
-                                        </button>
-                                        <button
-                                          className="btn-s-1"
-                                          variant="primary"
-                                          onClick={handleContinue}
-                                        >
-                                          No, Continue
-                                        </button>
-                                      </Modal.Footer>
-                                    </Modal>
-                                  </Col>
-                                  <button
-                                    className="btn-c "
-                                    onClick={previousHandler}
-                                    disabled={step === 1}
-                                    style={{
-                                      borderTopRightRadius: "0px",
-                                      borderBottomRightRadius: "0px",
-                                    }}
-                                  >
-                                    Back
-                                  </button>
-                                  {step === totalPagesCount ? (
-                                    <button
-                                      className="btn-s-1 "
-                                      onClick={reviewHandler}
                                       style={{
-                                        borderTopLeftRadius: "0px",
-                                        borderBottomLeftRadius: "0px",
+                                        borderTopRightRadius: "0px",
+                                        borderBottomRightRadius: "0px",
                                       }}
                                     >
-                                      Review & Submit
+                                      Back
                                     </button>
-                                  ) : (
-                                    <button
-                                      className="btn-s "
-                                      onClick={nextHandler}
-                                      style={{
-                                        borderTopLeftRadius: "0px",
-                                        borderBottomLeftRadius: "0px",
-                                      }}
-                                    >
-                                      Next
-                                    </button>
-                                  )}
-                                </Card.Footer>
-                              </div>
-                            </Card>
-                          </Col>
-                        </Row>
-                      </Card>
-                    </Container>
-                  </DataProvider>
-                )
-              ) : (
-                <ListingPage setshowMainPage={setshowMainPage} />
-              )}
+                                    {step === totalPagesCount ? (
+                                      <button
+                                        className="btn-s-1 "
+                                        onClick={reviewHandler}
+                                        style={{
+                                          borderTopLeftRadius: "0px",
+                                          borderBottomLeftRadius: "0px",
+                                        }}
+                                      >
+                                        Review & Submit
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="btn-s "
+                                        onClick={nextHandler}
+                                        style={{
+                                          borderTopLeftRadius: "0px",
+                                          borderBottomLeftRadius: "0px",
+                                        }}
+                                      >
+                                        Next
+                                      </button>
+                                    )}
+                                  </Card.Footer>
+                                </div>
+                              </Card>
+                            </Col>
+                          </Row>
+                        </Card>
+                      </Container>
+                    </DataProvider>
+                  )
+                ) : (
+                  <ListingPage setshowMainPage={setshowMainPage} />
+                )}
+              </div>
             </div>
           </div>
           <SimpleDialogDemo />

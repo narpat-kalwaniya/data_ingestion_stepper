@@ -78,14 +78,20 @@ const Sidebar = (props) => {
         </div> */}
         <div className="top">
           <div
-            className="bar"
+            className="bar pointer"
             onClick={(e) => {
-              navigate && navigate("/");
+              // navigate && navigate("/");
+              props?.setshowMainPage(false);
             }}
           >
             <i
               class="fa-solid fa-house"
-              style={{ fontSize: "16px", color: "white" }}
+              style={{
+                fontSize: "16px",
+                color: "white",
+                // position: "fixed",
+                cursor: "pointer",
+              }}
             ></i>
           </div>
         </div>
@@ -99,20 +105,21 @@ const Sidebar = (props) => {
             left: "18px",
             opacity: "0",
             cursor: "pointer",
+            display: "none",
           }}
           onClick={handleClick}
         />
 
-        <div className="">
-          <ul>
-            {/* <li
+        <div>
+          <ul className="sidebarItemStyle">
+            <li
               onClick={() => {
                 navigate && navigate("/login");
               }}
             >
               <i class="fa-solid fa-right-to-bracket"></i>
               <span className="side">Login</span>
-            </li> */}
+            </li>
 
             <li
               onClick={() => {
@@ -147,7 +154,23 @@ const Sidebar = (props) => {
             >
               {/* <i class="fa-solid fa-book-open"></i> */}
               <i className="fa-solid fa-database"></i>
-              <span className="side">Governance</span>
+              <a
+                href="http://3.15.237.154:9002/ingestion"
+                style={{
+                  display: "block",
+                  alignItems: "center",
+                  justifyContent: "Center",
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span
+                  className="side"
+                  style={{ marginLeft: "0px", textAlign: "left" }}
+                >
+                  Governance
+                </span>
+              </a>
             </li>
             {/*
 
@@ -258,26 +281,64 @@ const Sidebar = (props) => {
               </span>
             </div>
             <div className="itemD" id="meta">
-              <p onClick={(e) => navigate && navigate("/testcases")}>
-                {" "}
-                <i
-                  class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "8px", marginRight: "4px" }}
-                ></i>
-                Monitoring
-              </p>
-
-              <p
-                onClick={(e) => navigate && navigate("/config")}
-                style={{ display: "flex", fontSize: "13px" }}
+              <a
+                onClick={(e) => navigate && navigate("/testcases")}
+                href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27020/home"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  textDecoration: "none",
+                  marginLeft: "0px",
+                  textAlign: "left",
+                  color: "white",
+                }}
               >
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
                   style={{ fontSize: "8px", marginRight: "4px" }}
                 ></i>
-                Configuration
-              </p>
+                <span
+                  className="side"
+                  style={{
+                    textDecoration: "none",
+                    marginLeft: "0px",
+                    textAlign: "left",
+                  }}
+                >
+                  Monitoring
+                </span>
+              </a>
+              <a
+                onClick={(e) => navigate && navigate("/config")}
+                style={{
+                  display: "flex",
+                  fontSize: "13px",
+                  textDecoration: "none",
+                  marginLeft: "0px",
+                  textAlign: "left",
+                  color: "white",
+                }}
+                href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {" "}
+                <i
+                  class="fa-solid fa-chevron-right"
+                  style={{ fontSize: "8px", marginRight: "4px" }}
+                ></i>
+                <span
+                  className="side"
+                  style={{
+                    textDecoration: "none",
+                    marginLeft: "0px",
+                    textAlign: "left",
+                  }}
+                >
+                  Configuration
+                </span>
+              </a>
             </div>
 
             <div className="special">

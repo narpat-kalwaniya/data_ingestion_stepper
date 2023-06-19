@@ -173,7 +173,7 @@ export default function ListingPage({ setshowMainPage }) {
 
   return (
     <>
-      <div className="row justify-content-center mt-5">
+      <div className="row justify-content-center mt-5 w-100">
         <div className="col-lg-10 col-md-10">
           <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color="transparent">

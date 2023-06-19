@@ -20,8 +20,7 @@ import {
 } from "antd";
 
 const headers = [
-  "Column Name",
-  // "Source Data Type",
+  "Column Name", // "Source Data Type",
   "Target Data Type",
   "Validation Rule",
   "Validation Input",
@@ -99,19 +98,26 @@ export const DefineDataValidation = ({ formData }) => {
   return (
     <Table responsive>
       <thead>
+               {" "}
         <tr>
+                   {" "}
           {headers.map((name, index) => (
             <th key={index}>{name}</th>
           ))}
+                 {" "}
         </tr>
+             {" "}
       </thead>
+           {" "}
       <tbody>
+               {" "}
         {formData.tableData.map((column, index) => (
           <tr key={index}>
             <td>{column.column_name}</td>
             {/* <td>{column.data_type}</td> */}
             <td>{column.target_datatype}</td>
             <td>
+
               <Select
                 value={selectedTestcases[index]}
                 onChange={(option) => handleTestcaseChange(option, index)}
@@ -122,7 +128,9 @@ export const DefineDataValidation = ({ formData }) => {
                 placeholder="Select Test Case"
                 isSearchable
               />
+                         {" "}
             </td>
+                       {" "}
             <AntdForm.Item
               name={`expectationInput-${index}`}
               rules={[
@@ -131,17 +139,24 @@ export const DefineDataValidation = ({ formData }) => {
                 },
               ]}
             >
-              <AntdSelect mode="tags" placeholder="Expectation Input" />
+                           {" "}
+              <AntdSelect mode="tags" placeholder="Expectation Input" />       
+                 {" "}
             </AntdForm.Item>
+                       {" "}
             <td>
+                           {" "}
               <Form.Control
-                type="text"
-                // onChange={(e) => transformLogicHandler(e.target.value, index)}
+                type="text" // onChange={(e) => transformLogicHandler(e.target.value, index)}
               />
+                         {" "}
             </td>
+                     {" "}
           </tr>
         ))}
+             {" "}
       </tbody>
+         {" "}
     </Table>
   );
 };
