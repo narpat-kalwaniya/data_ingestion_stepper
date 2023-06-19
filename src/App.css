@@ -1,0 +1,64 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+h1, h2, h3, p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50px;
+  transition: font-size 0.3s ease;
+}
+
+.back-button:hover {
+  font-size: 18px; /* Increase the font size on hover */
+}
+
+.back-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.horizontal-line {
+  position: absolute;
+  margin: auto;
+  top: 45px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 96.4%;
+  background-color: #ececec;
+}
+
+.back-icon svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.back-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-control {
+  font-size: 24px; /* Replace '16px' with your desired font size */
+  color: #333; /* Replace '#333' with your desired font color */
+}
+
+/* Custom styles for dropdown options */
+.dropdown-item {
+  font-size: 14px; /* Replace '14px' with your desired font size */
+  color: #4F4F4F; /* Replace '#555' with your desired font color */
+  border-width: 2px;
+  border-color: black;
+}

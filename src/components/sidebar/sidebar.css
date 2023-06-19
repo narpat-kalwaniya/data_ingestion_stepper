@@ -4,7 +4,6 @@
 }
 .sidebar input[type=checkbox]:checked + div ul li span,
 .sidebar input[type=checkbox]:checked + div ul .special span {
-  font-family: 14px, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
   transform: translateX(20px) !important;
 }
 @media (max-width: 600px) {

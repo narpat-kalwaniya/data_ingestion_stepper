@@ -12,7 +12,7 @@ import { DataValidation } from "./components/DefineDataValidation";
 import "bootstrap/dist/css/bootstrap.css";
 import Stepper from "./components/Stepper";
 import Header from "./components/Header";
-import { Progressbar } from "./components/ProgressBar";
+import Slider, { Progressbar } from "./components/ProgressBar";
 import ReviewForm from "./components/ReviewForm";
 import CreateDataConnection from "./components/CreateDataConnection";
 import { DataProvider } from "./components/DataContext";
@@ -24,6 +24,7 @@ import ListingPage from "./components/listing/SearchNavbar";
 import SimpleDialogDemo from "./components/buttons/ButtonPages";
 import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
+import { FiArrowLeft } from "react-icons/fi";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -298,14 +299,27 @@ function App() {
                   </DataProvider>
                 ) : (
                   <DataProvider>
-                    <Container className="h-100" style={{ marginTop: "7px" }}>
-                      <Card className="Card-outer">
+                    {/* <Slider></Slider> */}
+                    <Container
+                      className="h-100"
+                      style={{ marginTop: "30px", backgroundColor: "white" }}
+                    >
+                      <Card className="Card-outer custom-card-body ">
                         <Row className="m-2">
-                          <Col>
-                            <Card className="Card-progressbar">
+                          <div className="back-button">
+                            <div className="back-icon">
+                              <FiArrowLeft />
+                            </div>
+                            <span className="back-text">
+                              Create New Pipeline
+                            </span>
+
+                            <div className="horizontal-line"></div>
+                          </div>
+
+                          {/* <Card className="Card-progressbar custom-card">
                               <Progressbar step={step} />
-                            </Card>
-                          </Col>
+                            </Card> */}
                         </Row>
                         <Row className="m-2">
                           <SectionMenu
@@ -314,7 +328,7 @@ function App() {
                             setIsReview={setIsReview}
                           />
                           <Col>
-                            <Card>
+                            <Card className="custom-card">
                               <div>
                                 {/* <Card.Header className="header">
                                   <Header step={step}></Header>
@@ -323,9 +337,9 @@ function App() {
                                   <Container
                                     // ref={containerRef}
                                     style={{
-                                      minHeight: "65vh",
-                                      maxHeight: "65vh",
-                                      overflowY: "scroll",
+                                      minHeight: "60vh",
+                                      maxHeight: "60vh",
+                                      // overflowY: "scroll",
                                     }}
                                   >
                                     <Card.Body>
@@ -341,7 +355,7 @@ function App() {
                                     </Card.Body>
                                   </Container>
                                 </div>
-                                <Card.Footer className="d-flex justify-content-between float-right">
+                                <Card.Footer className="d-flex justify-content-between float-right custom-footer">
                                   <Col>
                                     <button
                                       className="btn-c"
@@ -388,7 +402,7 @@ function App() {
                                       borderBottomRightRadius: "0px",
                                     }}
                                   >
-                                    Back
+                                    Prev
                                   </button>
                                   {step === totalPagesCount ? (
                                     <button

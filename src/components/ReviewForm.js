@@ -144,7 +144,7 @@ const ReviewFrom = (props) => {
   return (
     <div>
       <Container>
-        <div style={{ marginTop: "7px" }}></div>
+        <div style={{ marginTop: "12px" }}></div>
         {isSubmitted ? (
           <Success setshowMainPage={props.setshowMainPage} />
         ) : (
