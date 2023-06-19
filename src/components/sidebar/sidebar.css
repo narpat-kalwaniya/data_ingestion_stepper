@@ -1,6 +1,10 @@
+
 .sidebar {
   min-height: 100vh;
   transition: all ease 0.5s;
+  
+
+  /* position: fixed; */
 }
 .sidebar input[type=checkbox]:checked + div ul li span,
 .sidebar input[type=checkbox]:checked + div ul .special span {
@@ -73,16 +77,22 @@
   align-items: center;
   justify-content: center;
   z-index: 999 !important;
+ 
 }
 .sidebar .navF .top .logo {
   font-size: 20px;
   font-weight: bold;
   color: #6439ff;
+  
 }
 .sidebar .navF .top .cross,
 .sidebar .navF .top .bar {
   position: absolute;
   left: 20px;
+  
+}
+.pointer {
+  cursor: pointer;
 }
 .sidebar .navF hr {
   height: 0;
@@ -93,6 +103,7 @@
   margin-left: -10px;
   margin-right: -10px;
   padding: 10px;
+  /* position: fixed; */
 }
 .sidebar .navF ul .title {
   font-size: 10px;
@@ -220,3 +231,13 @@
   border-radius: 50%;
   margin-left: -10px;
 }/*# sourceMappingURL=sidebar.css.map */
+
+
+/* .sidebarStyle {
+  position: fixed;
+  height: 100vh;
+} */
+/* .homeIconStyle {
+  position:position;
+  cursor: pointer;
+} */

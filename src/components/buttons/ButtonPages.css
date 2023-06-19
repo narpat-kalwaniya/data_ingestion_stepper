@@ -1,29 +1,58 @@
-.dialogTitle{
-    text-align: center;
+.dialogTitle {
+  text-align: center;
+  color: #ea943d;
+  font-size: 14px !important;
 }
-
+.dialogBox {
+  margin-left: 8px;
+  margin-right: 8px;
+}
 .buttonElements {
-    font-size: 10px !important;
-    padding: 10px !important;
-    margin: 10px !important;
-    width: 100vh;
-    text-decoration: none;
+  margin: 8px !important;
+  width: 100vh !important;
+  text-transform: none !important;
+  background-color: #ffffff !important;
+  color: #4f4f4f !important;
+  font-size: 12px !important;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.28) !important;
 }
 
 .buttonElements:hover {
-    color: white;
+  background-color: #ea943d !important;
+  color:#ffffff !important
+  
+}
+
+/* .buttonElements:nth-child(even) {
+    margin-right: 10px !important;
+}
+
+.buttonElements:nth-child(even) {
+    margin-left: 10px !important;
+} */
+
+.buttonElements:hover {
+  color: white;
 }
 .closeIconBox {
-    position: relative;
+  position: relative;
 }
 .closeIcon {
-position: absolute;
-top: 23px;
-right: 10px;
-background-color: white;
-border-style: solid;
-cursor: pointer;
-border: 2px solid black;
-border-radius: 50px;
-
+  position: absolute;
+  top: 23px;
+  right: 10px;
+  background-color: white;
+  border-style: solid;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+.closebtn {
+  background-color: #ea943d;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 5px;
+  margin: 10px;
+  float: right;
 }

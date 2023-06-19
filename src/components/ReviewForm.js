@@ -117,9 +117,9 @@ const ReviewFrom = (props) => {
     }
   };
 
-  console.log("final ingestion data", safeStringify(ingestionData[0]));
+  // console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
-  console.log(props.formData);
+  // console.log(props.formData);
 
   const renderTable = (data) => {
     return (
@@ -134,7 +134,11 @@ const ReviewFrom = (props) => {
           {Object.entries(data).map(([key, value]) => (
             <tr key={key}>
               <td>{key}</td>
-              <td>{typeof value === "object" ? renderTable(value) : value}</td>
+              <td>
+                {typeof value === "object"
+                  ? renderTable(value)
+                  : value.toString()}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -404,7 +408,9 @@ const ReviewFrom = (props) => {
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>
                                     <FormCheck
+
                                       checked={obj.is_masking === true}
+
                                       disabled={true}
                                     ></FormCheck>
                                   </td>{" "}

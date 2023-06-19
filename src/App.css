@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -62,3 +63,9 @@ h1, h2, h3, p {
   border-width: 2px;
   border-color: black;
 }
+
+.mainContainer{
+    max-height: 90vh;
+    overflow-y: scroll;
+}
+

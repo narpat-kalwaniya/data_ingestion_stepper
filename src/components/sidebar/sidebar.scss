@@ -1,6 +1,6 @@
 .sidebar {
-  // flex: 1;
-
+  
+background-color: #49494A;;
   min-height: 100vh;
 
   transition: all ease 0.5s;
@@ -8,6 +8,10 @@
   input[type="checkbox"]:checked + div ul li,
   input[type="checkbox"]:checked + div ul .special {
     span {
+
+      // font-family: 14px, "Segoe UI", Helvetica, Arial, sans-serif,
+      //   "Apple Color Emoji", "Segoe UI Emoji" !important;
+
       transform: translateX(20px) !important;
     }
     @media (max-width: 600px) {
@@ -151,8 +155,8 @@
         span {
           font-size: 13px;
           // font-weight: 600;
-          font-family: 14px, "Segoe UI", Helvetica, Arial, sans-serif,
-            "Apple Color Emoji", "Segoe UI Emoji" !important;
+          // font-family: 14px, "Segoe UI", Helvetica, Arial, sans-serif,
+          //   "Apple Color Emoji", "Segoe UI Emoji" !important;
           color: #888;
           margin-left: 10px;
           transform: translateX(-200px) !important;
@@ -208,8 +212,8 @@
         span {
           font-size: 13px;
           // font-weight: 600;
-          font-family: 14px, "Segoe UI", Helvetica, Arial, sans-serif,
-            "Apple Color Emoji", "Segoe UI Emoji" !important;
+          // font-family: 14px, "Segoe UI", Helvetica, Arial, sans-serif,
+          //   "Apple Color Emoji", "Segoe UI Emoji" !important;
           color: #888;
           margin-left: 10px;
           transform: translateX(-200px) !important;

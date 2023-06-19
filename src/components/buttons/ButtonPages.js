@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import "./ButtonPages.css";
-import CloseIcon from "@mui/icons-material/Close";
+// import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
   const { onClose, open } = props;
@@ -23,64 +23,67 @@ export default function ButtonPages(props) {
   };
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
+    // backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    // ...theme.typography.body2,
+    // padding: theme.spacing(2),
+    // textAlign: "center",
+    // color: theme.palette.text.secondary,
   }));
   let buttonNames = [
     {
       id: 1,
-      name: "batch ingestion of relational sources for single entity",
+      name: "Batch Ingestion of Relational Sources for Single Entity",
     },
     {
       id: 2,
-      name: "batch ingestion of relational sources for multiple entities",
+      name: "Batch Ingestion of Relational Sources for Multiple Entities",
     },
     {
       id: 3,
-      name: "Upload data from UI",
+      name: "Upload Data From UI",
     },
     {
       id: 4,
-      name: "Realtime ingestion",
+      name: "Realtime Ingestion",
     },
     {
       id: 5,
-      name: "ELT - Transformations",
+      name: "ELT-Transformations",
     },
     {
       id: 6,
-      name: "Data Quality pipelines",
+      name: "Data Quality Pipelines",
       href: "http://ec2-54-197-121-247.compute-1.amazonaws.com:3000/",
     },
     {
       id: 7,
-      name: "Data Masking pipelines",
+      name: "Data Masking Pipelines",
     },
     {
       id: 8,
-      name: "Snowpark development Notebook",
+      name: "Snowpark Development Notebook",
     },
     {
       id: 9,
-      name: "Streamlit app development Notebook",
+      name: "Streamlit App Development Notebook",
     },
     {
       id: 10,
-      name: "Snowflake Data Consumption pipelines",
+      name: "Snowflake Data Consumption Pipelines",
     },
   ];
   return (
-    <Dialog className="closeIconBox" onClose={handleClose} open={open}>
-      <DialogTitle className="dialogTitle">
-        Please select data pipelines
-      </DialogTitle>
-      <CloseIcon className="closeIcon" onClick={handleClose} />
+    <Dialog
+      // className="closeIconBox"
 
-      <Box sx={{ flexGrow: 1, marginY: "20px" }}>
-        <Grid container justifyContent={"center"} spacing={2}>
+      onClose={handleClose}
+      open={open}
+    >
+      <DialogTitle className="dialogTitle">Select Data Pipelines</DialogTitle>
+      {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}
+
+      <Box className="dialogBox" sx={{}}>
+        <Grid container justifyContent={"center"} spacing={1}>
           {buttonNames.map((_, index) => (
             <Grid
               item
@@ -111,7 +114,12 @@ export default function ButtonPages(props) {
             </Grid>
           ))}
         </Grid>
+        <button className="closebtn" onClick={handleClose}>
+          {" "}
+          Close
+        </button>
       </Box>
+      {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}
     </Dialog>
   );
 }

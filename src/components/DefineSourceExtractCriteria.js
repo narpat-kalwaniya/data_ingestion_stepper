@@ -21,7 +21,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
 
   const [pageData, setPageData] = useState({
     incrementalOrFullExtract: "",
-    selectDistinct: false,
+    is_select_distinct: false,
     incrementalBy: "",
     incrementalColumns: [],
     incrementalStartDatetime: "",
@@ -34,16 +34,17 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
     orderBy: "",
   });
 
-  console.log(formData);
+  console.log("formdata", formData);
 
   const selectDistinctHandler = (e) => {
     console.log(e.target.value);
-    setPageData({ ...pageData, [e.target.name]: !pageData.selectDistinct });
+    setPageData({ ...pageData, [e.target.name]: e.target.checked });
+
     const updatedFormData = {
       ...formData,
       DefineSourceExtractCriteria: {
         ...formData.DefineSourceExtractCriteria,
-        [e.target.name]: e.target.value,
+        [e.target.name]: e.target.checked,
       },
     };
     updateFormData(updatedFormData);
@@ -178,7 +179,6 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                       className="mb-0"
                       name="is_select_distinct"
                       label="Select Distinct"
-                      // value={pageData.selectDistinct}
                       onChange={selectDistinctHandler}
                       checked={
                         formData.DefineSourceExtractCriteria

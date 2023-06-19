@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
 import { Table, Form, Input, Col, Row, FormCheck } from "react-bootstrap";
 import TableData from "./TableData";
 import { DataContext } from "./DataContext";
@@ -65,8 +66,10 @@ const ApplyMasking = ({ formData, updateFormData }) => {
       return updatedSelectedMasking;
     });
 
+
     const updatedTableData = [...tableData];
     updatedTableData[index].is_masking = checked;
+
     setTableData(updatedTableData);
 
     const updatedFormData = {
@@ -75,8 +78,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
   };
-  // console.log("masking target load", updateTargetLoad);
-  // console.log("masking form data", formData);
+
   return (
     <Table responsive>
       <thead>
@@ -90,7 +92,9 @@ const ApplyMasking = ({ formData, updateFormData }) => {
               <FormCheck>
                 <FormCheck.Input
                   type="checkbox"
-                  checked={Boolean(selectedMasking[index])}
+
+                  checked={formData.tableData[index].query === true}
+
                   onChange={(e) => handleMaskingToggle(index, e.target.checked)}
                 />
               </FormCheck>
@@ -98,14 +102,18 @@ const ApplyMasking = ({ formData, updateFormData }) => {
 
             <td>
               <Select
-                value={selectedMasking[index]}
+
+                value={formData.tableData[index].masking_logic}
+
                 onChange={(option) => handleMaskingChange(option, index)}
                 options={masking.map((masking) => ({
                   value: masking.algorithm_name,
                   label: masking.masking_algorithm,
                 }))}
                 isSearchable
-                isDisabled={!selectedMasking[index]}
+
+                isDisabled={!formData.tableData[index].is_masking}
+
               />
             </td>
           </tr>
