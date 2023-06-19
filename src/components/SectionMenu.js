@@ -18,11 +18,15 @@ const sections = [
   "Target Load Details",
   "Masking",
   "Meta Data",
+  "Review",
   // "Scheduling",
   // "Review",
 ];
 
 const SectionMenu = (props) => {
+  const handleHover = () => {
+    // Handle hover event
+  };
   const reviewHandler = () => {
     props.setIsReview(!props.isReview);
   };
@@ -33,28 +37,34 @@ const SectionMenu = (props) => {
           <ListGroup.Item
             key={index}
             style={{
-              backgroundColor: index === props.step - 1 ? "#F7901D" : "#e9ecef",
-              color: index === props.step - 1 ? "white" : "darkgray",
+              backgroundColor: "#FCFCFC",
+              color: index === props.step - 1 ? "#F7901D" : "darkgray",
+              fontSize: index === props.step - 1 ? "15px" : "14px",
+              fontWeight: index === props.step - 1 ? 500 : 400,
               border: "none",
-              borderRadius: "2px",
+              borderRadius: "none",
               transition: "ease-in-out 0.03s",
             }}
           >
             {index + 1}. {item}
           </ListGroup.Item>
         ))}
-        <ListGroup.Item
+        {/* <ListGroup.Item
           style={{
-            backgroundColor: "#18749C",
-            color: "white",
-            border: "none",
-            borderRadius: "2px",
+            borderColor: "#18749C",
+            color: "#18749C",
+            borderWidth: "1px",
+            borderRadius: "5px",
+            ":hover": {
+              backgroundColor: "red",
+              color: "black",
+            },
           }}
+          onMouseEnter={handleHover}
         >
           <button
             style={{
               backgroundColor: "transparent",
-              color: "white",
               fontWeight: "400",
               fontSize: "16px",
             }}
@@ -62,7 +72,7 @@ const SectionMenu = (props) => {
           >
             Review
           </button>
-        </ListGroup.Item>
+        </ListGroup.Item> */}
       </ListGroup>
     </Col>
   );

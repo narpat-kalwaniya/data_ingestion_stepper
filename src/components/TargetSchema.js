@@ -19,6 +19,7 @@ const TbData = ({ formData, updateFormData }) => {
   console.log(tableData);
   // console.log(pageData);
 
+
   const handleCheck = () => {
     // Handle checkbox click event if needed
   };
@@ -33,18 +34,19 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
-    // console.log(tableData);
-    console.log(formData);
+
     // setPageData([
     //   ...pageData,
     //   { ...pageData[columnIndex], ["target_datatype"]: event.target.value },
     // ]);
   };
+  // console.log(pageData);
 
   const primaryKeyHandler = (checked, index) => {
     const updatedTableData = [...tableData];
     updatedTableData[index].is_target_primary_key = checked;
     setTableData(updatedTableData);
+
 
     const updatedFormData = {
       ...formData,
@@ -63,12 +65,14 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
   };
 
   const transformLogicHandler = (value, index) => {
     const updatedTableData = [...tableData];
     updatedTableData[index].transformation_logic = value;
     setTableData(updatedTableData);
+
 
     const updatedFormData = {
       ...formData,
@@ -77,7 +81,15 @@ const TbData = ({ formData, updateFormData }) => {
     updateFormData(updatedFormData);
   };
 
-  console.log("form data", formData);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+    // console.log(pageData);
+  };
+  // console.log("form data", formData);
 
   const targetDataTypes = [
     "ARRAY",
@@ -105,7 +117,7 @@ const TbData = ({ formData, updateFormData }) => {
   ];
 
   const { ingestionData } = useContext(DataContext);
-  console.log("target ingestion", ingestionData);
+  console.log("table data", tableData);
   return (
     <tbody>
       {tableData.map((column, index) => (
@@ -119,6 +131,7 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(event) => handleTargetDataTypeChange(event, index)}
+
               value={formData.tableData[index].target_datatype}
             >
               <option value="">Select Target Data Type</option>
@@ -132,6 +145,7 @@ const TbData = ({ formData, updateFormData }) => {
           <td>
             <Form.Check
               type="checkbox"
+
               onChange={(e) => primaryKeyHandler(e.target.checked, index)}
               checked={formData.tableData[index].is_target_primary_key === true}
             />
@@ -140,14 +154,18 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Check
               type="checkbox"
               onChange={(e) => businessKeyHandler(e.target.checked, index)}
+
               checked={formData.tableData[index].is_business_key === true}
+
             />
           </td>
           <td>
             <Form.Control
               type="text"
               onChange={(e) => transformLogicHandler(e.target.value, index)}
+
               value={formData.tableData[index].transformation_logic}
+
             />
           </td>
         </tr>
