@@ -20,8 +20,6 @@ export const DataProvider = ({ children }) => {
       bucket_name: null,
       full_file_name: null,
       attributes: [],
-      testcases: [],
-      masking_rules: [],
       source_extract_criteria: {
         source_entity_type: "incremental",
         is_select_distinct: null,
