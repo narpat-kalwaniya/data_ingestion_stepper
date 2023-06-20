@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Table, Form } from "react-bootstrap";
 import { DataContext } from "./DataContext";
+import "./TargetSchema.css";
 
 const headers = [
   "",
@@ -107,7 +108,7 @@ const TbData = ({ formData, updateFormData }) => {
   const { ingestionData } = useContext(DataContext);
   console.log("table data", tableData);
   return (
-    <tbody>
+    <tbody className="targetTableSchemaContent1">
       {tableData.map((column, index) => (
         <tr key={index}>
           <td>
@@ -160,7 +161,7 @@ export const TargetSchema = ({ formData, updateFormData }) => {
   return (
     <Table responsive>
       <thead>
-        <tr>
+        <tr className="targetHeader">
           {headers.map((name, index) => (
             <th key={index}>{name}</th>
           ))}

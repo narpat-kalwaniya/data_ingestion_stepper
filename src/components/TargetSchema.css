@@ -1,0 +1,28 @@
+.targetHeader {
+    background-color: #AEAEAF !important;
+    font-size: 12px !important;
+    color: #4F4F4F !important;
+}
+.targetTableSchemaContent1 * {
+    font-size: 12px !important;
+    color: #4F4F4F !important;
+}
+
+.tableHeadDataVal *{
+    background-color: #AEAEAF !important;
+    font-size: 12px !important;
+    color: #4F4F4F !important;
+}
+.tableHeadDataValItem *{
+    font-size: 12px !important;
+    color: #4F4F4F !important;
+}
+.maskingTableHeader *{
+    font-size: 12px !important;
+    background-color: #AEAEAF !important;
+    color: #4F4F4F !important;
+}
+.maskingTableItem *{
+    font-size: 12px !important;
+    color: #4F4F4F !important;
+}

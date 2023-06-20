@@ -13,10 +13,10 @@ import "./SearchNavbarButton.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: " #3b3b3b",
+    backgroundColor: "#F3F3F3",
     fontSize: "12px",
     letterSpacing: "0px",
-    color: "#FFFFFF",
+    color: "#4F4F4F",
     opacity: 1,
     paddingTop: "9px !important",
     paddingBottom: "9px !important",
@@ -25,6 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: "12px",
     paddingTop: "9px !important",
     paddingBottom: "9px !important",
+    backgroundColor: "#FFFFFF",
   },
 }));
 
@@ -73,7 +74,7 @@ export default function CustomizedTables({ searchedData }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead style={{ backgroundColor: "#F3F3F3" }}>
+        <TableHead>
           <TableRow className="listOfPipelineNavbar">
             <StyledTableCell>Domain</StyledTableCell>
             <StyledTableCell align="center">Entity</StyledTableCell>

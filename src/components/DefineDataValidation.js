@@ -18,6 +18,7 @@ import {
   Input as AntdInput,
   Tag,
 } from "antd";
+import "./TargetSchema.css";
 
 const headers = [
   "Column Name",
@@ -99,13 +100,13 @@ export const DefineDataValidation = ({ formData }) => {
   return (
     <Table responsive>
       <thead>
-        <tr>
+        <tr className="tableHeadDataVal">
           {headers.map((name, index) => (
             <th key={index}>{name}</th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className="tableHeadDataValItem">
         {formData.tableData.map((column, index) => (
           <tr key={index}>
             <td>{column.column_name}</td>

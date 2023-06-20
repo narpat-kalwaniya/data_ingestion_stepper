@@ -2,6 +2,7 @@
   text-align: center;
   color: #ea943d;
   font-size: 14px !important;
+  margin-top: 30px !important;
 }
 .dialogBox {
   margin-left: 8px;
@@ -23,18 +24,10 @@
   
 }
 
-/* .buttonElements:nth-child(even) {
-    margin-right: 10px !important;
-}
-
-.buttonElements:nth-child(even) {
-    margin-left: 10px !important;
-} */
-
 .buttonElements:hover {
   color: white;
 }
-.closeIconBox {
+/* .closeIconBox {
   position: relative;
 }
 .closeIcon {
@@ -46,7 +39,7 @@
   cursor: pointer;
   border: 2px solid black;
   border-radius: 50px;
-}
+} */
 .closebtn {
   background-color: #ea943d;
   border-radius: 4px;
@@ -55,4 +48,5 @@
   padding: 5px;
   margin: 10px;
   float: right;
+  margin-bottom: 40px !important;
 }
