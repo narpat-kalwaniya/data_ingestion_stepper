@@ -78,40 +78,57 @@ const ApplyMasking = ({ formData, updateFormData }) => {
   // console.log("masking target load", updateTargetLoad);
   // console.log("masking form data", formData);
   return (
-    <Table responsive>
-      <thead>
-        <tr>{ThData()}</tr>
-      </thead>
-      <tbody>
-        {formData.tableData.map((column, index) => (
-          <tr key={index}>
-            <td>{column.column_name}</td>
-            <td>
-              <FormCheck>
-                <FormCheck.Input
-                  type="checkbox"
-                  checked={Boolean(selectedMasking[index])}
-                  onChange={(e) => handleMaskingToggle(index, e.target.checked)}
-                />
-              </FormCheck>
-            </td>
+    <div className="table-container">
+      <Table responsive>
+        <thead
+          style={{
+            backgroundColor: "#F3F3F3",
+            fontSize: "12px",
+            height: "50px",
+            alignItems: "center",
+          }}
+        >
+          <tr>{ThData()}</tr>
+        </thead>
+        <tbody style={{ fontSize: "12px" }}>
+          {formData.tableData.map((column, index) => (
+            <tr
+              key={index}
+              style={{
+                height: "20px",
+              }}
+            >
+              <td>{column.column_name}</td>
+              <td>
+                <FormCheck>
+                  <FormCheck.Input
+                    type="checkbox"
+                    checked={Boolean(selectedMasking[index])}
+                    onChange={(e) =>
+                      handleMaskingToggle(index, e.target.checked)
+                    }
+                  />
+                </FormCheck>
+              </td>
 
-            <td>
-              <Select
-                value={selectedMasking[index]}
-                onChange={(option) => handleMaskingChange(option, index)}
-                options={masking.map((masking) => ({
-                  value: masking.algorithm_name,
-                  label: masking.masking_algorithm,
-                }))}
-                isSearchable
-                isDisabled={!selectedMasking[index]}
-              />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+              <td style={{ width: "300px" }}>
+                <Select
+                  value={selectedMasking[index]}
+                  onChange={(option) => handleMaskingChange(option, index)}
+                  options={masking.map((masking) => ({
+                    value: masking.algorithm_name,
+                    label: masking.masking_algorithm,
+                  }))}
+                  isSearchable
+                  isDisabled={!selectedMasking[index]}
+                  className="custom-select custom-style"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 };
 

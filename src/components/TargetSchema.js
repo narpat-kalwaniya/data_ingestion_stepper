@@ -13,69 +13,10 @@ const headers = [
 ];
 
 const TbData = ({ formData, updateFormData }) => {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState([...formData.tableData]);
 
-  // console.log(tableData);
+  console.log("fd", formData);
   // console.log(pageData);
-
-  useEffect(() => {
-    const requestData = {
-      data_source_type: formData.sourceEntity.data_source_type,
-      query: formData.sourceEntity.query,
-      db_name: formData.sourceEntity.db_name,
-      schema_name: formData.sourceEntity.schema_name,
-      table_name: formData.sourceEntity.table_name,
-      bucket_name: formData.sourceEntity.bucket_name,
-      full_file_name: formData.sourceEntity.full_file_name,
-      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
-      connection_id: formData.sourceEntity.connection_id,
-    };
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-          }
-        );
-
-        if (response.ok) {
-          const responseData = await response.json();
-          if (Array.isArray(responseData)) {
-            // console.log("response data", requestData);
-            responseData.forEach((object) => {
-              object.is_business_key = false;
-              object.is_target_primary_key = false;
-              object.transformation_logic = "";
-              object.is_masking = false;
-              object.masking_logic = "";
-              object.validation_rule = "";
-              object.validation_input = "";
-              object.quality_score = "";
-            });
-            setTableData(responseData);
-          }
-        } else {
-          console.error("Error:", response.status);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-
-      // const updatedFormData = {
-      //   ...formData,
-      //   tableData: tableData,
-      // };
-      // updateFormData(updatedFormData);
-    };
-
-    fetchData();
-  }, []);
 
   const handleCheck = () => {
     // Handle checkbox click event if needed
@@ -167,19 +108,25 @@ const TbData = ({ formData, updateFormData }) => {
   const { ingestionData } = useContext(DataContext);
   console.log("table data", tableData);
   return (
-    <tbody>
-      {tableData.map((column, index) => (
-        <tr key={index}>
+    <tbody style={{ fontSize: "12px" }}>
+      {formData.tableData.map((column, index) => (
+        <tr
+          key={index}
+          style={{
+            height: "20px",
+          }}
+        >
           <td>
             <Form.Check onClick={handleCheck} />
           </td>
           <td>{column.column_name}</td>
           <td>{column.data_type}</td>
-          <td>
+          <td style={{ width: "150px" }}>
             <Form.Select
               aria-label="Default select example"
               onChange={(event) => handleTargetDataTypeChange(event, index)}
-              // value={formData.tableData[index].target_datatype}
+              value={formData.tableData[index].target_datatype}
+              className="custom-select custom-style"
             >
               <option value="">Select Target Data Type</option>
               {targetDataTypes.map((dataType, index) => (
@@ -204,10 +151,11 @@ const TbData = ({ formData, updateFormData }) => {
               onChange={(e) => businessKeyHandler(e.target.checked, index)}
             />
           </td>
-          <td>
+          <td style={{ width: "150px" }}>
             <Form.Control
               type="text"
               onChange={(e) => transformLogicHandler(e.target.value, index)}
+              className="custom-select custom-style"
             />
           </td>
         </tr>
@@ -218,8 +166,15 @@ const TbData = ({ formData, updateFormData }) => {
 
 export const TargetSchema = ({ formData, updateFormData }) => {
   return (
-    <Table responsive>
-      <thead>
+    <Table hover responsive>
+      <thead
+        style={{
+          backgroundColor: "#F3F3F3",
+          fontSize: "12px",
+          height: "50px",
+          alignItems: "center",
+        }}
+      >
         <tr>
           {headers.map((name, index) => (
             <th key={index}>{name}</th>

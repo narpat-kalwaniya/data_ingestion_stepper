@@ -260,184 +260,218 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
   }, [dataSourceType]);
 
   return (
-    <div className="page1">
-      <Row>
-        <Card.Body>
-          <div className="text-left">
-            <Form>
-              <Row className="mb-3">
-                <Col sm={6}>
-                  <div className="form-group">
-                    <Form.Label>
-                      Data Source Type <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Select
-                      aria-label=""
-                      value={formData.sourceEntity.data_source_type}
-                      onChange={selectChangeHandler}
-                      disabled={false}
-                      isInvalid={errors2.data_source_type}
-                      required
-                    >
-                      <option value="">-- Select --</option>
-                      <option value={"RDBMS-TABLE"}>RDBMS-TABLE</option>
-                      <option value={"RDBMS-QUERY"}>RDBMS-QUERY</option>
-                      <option value={"Flat File"}>Flat File</option>
-                    </Form.Select>
-                    {errors2.data_source_type && (
-                      <div className="error">{errors2.data_source_type}</div>
-                    )}
-                  </div>
-                </Col>
-              </Row>
-              <Row className="mb-3">
-                <div>
-                  <Form.Label>
-                    Query <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    className="textbox1"
-                    // disabled={dataSourceType !== "RDBMS-QUERY"}
-                    disabled={disableElement.query}
-                    value={formData.sourceEntity.query || ""}
-                    onChange={queryChangeHandler}
-                    isInvalid={errors2.query}
-                  />
-                  {errors2.query && (
-                    <div className="error">{errors2.query}</div>
-                  )}
-                </div>
-              </Row>
-              <Row className="mb-3">
-                <Col>
-                  <div className="form-group">
-                    <Form.Label>
-                      Database Name <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Select
-                      value={formData.sourceEntity.db_name}
-                      onChange={handleDatabaseChange}
-                      // disabled={dataSourceType !== "RDBMS-TABLE"}
-                      disabled={disableElement.db_name}
-                      isInvalid={errors2.db_name}
-                    >
-                      <option value="">Select Database</option>
-                      {databases.map((database) => (
-                        <option key={database} value={database}>
-                          {database}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    {errors2.db_name && (
-                      <div className="error">{errors2.db_name}</div>
-                    )}
-                  </div>
-                </Col>
-                <Col>
-                  <div className="form-group">
-                    <Form.Label>
-                      Schema Name <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Select
-                      value={formData.sourceEntity.schema_name}
-                      onChange={handleSchemaChange}
-                      // disabled={
-                      //   dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
-                      // }
-                      disabled={disableElement.schema_name || !selectedDatabase}
-                      isInvalid={errors2.schema_name}
-                    >
-                      <option value="">Select Schema</option>
-                      {schemas.map((schema) => (
-                        <option key={schema} value={schema}>
-                          {schema}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    {errors2.schema_name && (
-                      <div className="error">{errors2.schema_name}</div>
-                    )}
-                  </div>
-                </Col>
-                <Col>
-                  <div className="form-group">
-                    <Form.Label>
-                      Table Name <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Select
-                      value={formData.sourceEntity.table_name}
-                      onChange={handleTableChange}
-                      // disabled={
-                      //   dataSourceType !== "RDBMS-TABLE" ||
-                      //   !selectedDatabase ||
-                      //   !selectedSchema
-                      // }
-                      disabled={disableElement.table_name || !selectedSchema}
-                      isInvalid={errors2.table_name}
-                    >
-                      <option value="">Select Table</option>
-                      {tables.map((table) => (
-                        <option key={table} value={table}>
-                          {table}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    {errors2.table_name && (
-                      <div className="error">{errors2.table_name}</div>
-                    )}
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className="form-group">
-                    <Form.Label>
-                      Bucket Name <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="BucketName"
-                      className="textbox1"
-                      onChange={bucket_fileNameChangeHandler}
-                      value={bucketName}
-                      // disabled={dataSourceType !== "Flat File"}
-                      disabled={disableElement.bucket_name}
-                      isInvalid={errors2.bucket_name}
-                    />
-                    {errors2.bucket_name && (
-                      <div className="error">{errors2.bucket_name}</div>
-                    )}
-                  </div>
-                </Col>
-                <Col>
-                  <div className="form-group">
-                    <Form.Label>
-                      Full File Name <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="FullFileName"
-                      className="textbox1"
-                      onChange={bucket_fileNameChangeHandler}
-                      value={fullFileName}
-                      // disabled={dataSourceType !== "Flat File"}
-                      disabled={disableElement.full_file_name}
-                      isInvalid={errors2.full_file_name}
-                    />
-                    {errors2.full_file_name && (
-                      <div className="error">{errors2.full_file_name}</div>
-                    )}
-                  </div>
-                </Col>
-                <Col></Col>
-              </Row>
-            </Form>
-          </div>
-        </Card.Body>
-      </Row>
-    </div>
+    <Card.Body className="custom-card-body">
+      <div className="text-left">
+        <Form>
+          <Row className="mb-4">
+            <Col>
+              <Form.Label>
+                Data Source Type <span className="text-danger">*</span>
+              </Form.Label>
+              {/* <Form.Select
+                aria-label=""
+                value={formData.sourceEntity.data_source_type}
+                onChange={selectChangeHandler}
+                disabled={false}
+                isInvalid={errors2.data_source_type}
+                required
+                className="custom-select custom-style"
+              >
+                <option value="">-- Select --</option>
+                <option value={"RDBMS-TABLE"}>RDBMS-TABLE</option>
+                <option value={"RDBMS-QUERY"}>RDBMS-QUERY</option>
+                <option value={"Flat File"}>Flat File</option>
+              </Form.Select> */}
+              <div className="radio-group">
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="RDBMS-TABLE"
+                  name="options"
+                  value="RDBMS-TABLE"
+                  checked={dataSourceType === "RDBMS-TABLE"}
+                  onChange={selectChangeHandler}
+                  className="custom-radio"
+                />
+
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="RDBMS-QUERY"
+                  name="options"
+                  value="RDBMS-QUERY"
+                  checked={dataSourceType === "RDBMS-QUERY"}
+                  onChange={selectChangeHandler}
+                  className="custom-radio"
+                />
+
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Flat File"
+                  name="options"
+                  value="Flat File"
+                  checked={dataSourceType === "Flat File"}
+                  onChange={selectChangeHandler}
+                  className="custom-radio"
+                />
+              </div>
+
+              {errors2.data_source_type && (
+                <div className="error">{errors2.data_source_type}</div>
+              )}
+            </Col>
+          </Row>
+          {!disableElement.query && (
+            <Row className="mb-4">
+              <div>
+                <Form.Label>
+                  Query <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  className="custom-select custom-style"
+                  // disabled={dataSourceType !== "RDBMS-QUERY"}
+                  disabled={disableElement.query}
+                  value={formData.sourceEntity.query || ""}
+                  onChange={queryChangeHandler}
+                  isInvalid={errors2.query}
+                />
+                {errors2.query && <div className="error">{errors2.query}</div>}
+              </div>
+            </Row>
+          )}
+
+          <Row className="mb-4">
+            <Col>
+              <div className="form-group">
+                <Form.Label>
+                  Database Name <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  value={formData.sourceEntity.db_name}
+                  onChange={handleDatabaseChange}
+                  // disabled={dataSourceType !== "RDBMS-TABLE"}
+                  disabled={disableElement.db_name}
+                  isInvalid={errors2.db_name}
+                  className="custom-select custom-style"
+                >
+                  <option value="">Select Database</option>
+                  {databases.map((database) => (
+                    <option key={database} value={database}>
+                      {database}
+                    </option>
+                  ))}
+                </Form.Select>
+                {errors2.db_name && (
+                  <div className="error">{errors2.db_name}</div>
+                )}
+              </div>
+            </Col>
+            <Col>
+              <div className="form-group">
+                <Form.Label>
+                  Schema Name <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  value={formData.sourceEntity.schema_name}
+                  onChange={handleSchemaChange}
+                  // disabled={
+                  //   dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
+                  // }
+                  disabled={disableElement.schema_name || !selectedDatabase}
+                  isInvalid={errors2.schema_name}
+                  className="custom-select custom-style"
+                >
+                  <option value="">Select Schema</option>
+                  {schemas.map((schema) => (
+                    <option key={schema} value={schema}>
+                      {schema}
+                    </option>
+                  ))}
+                </Form.Select>
+                {errors2.schema_name && (
+                  <div className="error">{errors2.schema_name}</div>
+                )}
+              </div>
+            </Col>
+            <Col>
+              <div className="form-group">
+                <Form.Label>
+                  Table Name <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  value={formData.sourceEntity.table_name}
+                  onChange={handleTableChange}
+                  // disabled={
+                  //   dataSourceType !== "RDBMS-TABLE" ||
+                  //   !selectedDatabase ||
+                  //   !selectedSchema
+                  // }
+                  disabled={disableElement.table_name || !selectedSchema}
+                  isInvalid={errors2.table_name}
+                  className="custom-select custom-style"
+                >
+                  <option value="">Select Table</option>
+                  {tables.map((table) => (
+                    <option key={table} value={table}>
+                      {table}
+                    </option>
+                  ))}
+                </Form.Select>
+                {errors2.table_name && (
+                  <div className="error">{errors2.table_name}</div>
+                )}
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div className="form-group">
+                <Form.Label>
+                  Bucket Name <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="BucketName"
+                  className="custom-select custom-style"
+                  onChange={bucket_fileNameChangeHandler}
+                  value={bucketName}
+                  // disabled={dataSourceType !== "Flat File"}
+                  disabled={disableElement.bucket_name}
+                  isInvalid={errors2.bucket_name}
+                />
+                {errors2.bucket_name && (
+                  <div className="error">{errors2.bucket_name}</div>
+                )}
+              </div>
+            </Col>
+            <Col>
+              <div className="form-group">
+                <Form.Label>
+                  Full File Name <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="FullFileName"
+                  className="custom-select custom-style"
+                  onChange={bucket_fileNameChangeHandler}
+                  value={fullFileName}
+                  // disabled={dataSourceType !== "Flat File"}
+                  disabled={disableElement.full_file_name}
+                  isInvalid={errors2.full_file_name}
+                />
+                {errors2.full_file_name && (
+                  <div className="error">{errors2.full_file_name}</div>
+                )}
+              </div>
+            </Col>
+            <Col></Col>
+          </Row>
+        </Form>
+      </div>
+    </Card.Body>
   );
 };
 

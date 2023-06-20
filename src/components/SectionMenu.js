@@ -38,7 +38,7 @@ const SectionMenu = (props) => {
             key={index}
             style={{
               backgroundColor: "#FCFCFC",
-              color: index === props.step - 1 ? "#F7901D" : "darkgray",
+              color: index === props.step - 1 ? "#EA943D" : "darkgray",
               fontSize: index === props.step - 1 ? "15px" : "14px",
               fontWeight: index === props.step - 1 ? 500 : 400,
               border: "none",

@@ -9,14 +9,22 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useState, useEffect } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import "./SearchNavbarButton.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: " #3b3b3b",
+    fontSize: "12px",
+    letterSpacing: "0px",
+    color: "#FFFFFF",
+    opacity: 1,
+    paddingTop: "9px !important",
+    paddingBottom: "9px !important",
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: "12px",
+    paddingTop: "9px !important",
+    paddingBottom: "9px !important",
   },
 }));
 
@@ -65,8 +73,8 @@ export default function CustomizedTables({ searchedData }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
+        <TableHead style={{ color: "#E0E0E0" }}>
+          <TableRow className="listOfPipelineNavbar">
             <StyledTableCell>Domain</StyledTableCell>
             <StyledTableCell align="center">Entity</StyledTableCell>
             <StyledTableCell align="center">Description</StyledTableCell>
@@ -111,7 +119,10 @@ export default function CustomizedTables({ searchedData }) {
                   {row.source_connection_name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <VisibilityOutlinedIcon />
+                  <VisibilityOutlinedIcon
+                    className="viewBtnStyle"
+                    style={{ width: "15px", height: "15px" }}
+                  />
                 </StyledTableCell>
               </StyledTableRow>
             ))}

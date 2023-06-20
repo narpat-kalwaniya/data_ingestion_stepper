@@ -116,132 +116,117 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
   console.log("target ingestion data", ingestionData);
 
   return (
-    <div className="TargetLoadDetails">
-      <Row>
-        <Card.Body>
-          <div className="text-left">
-            <Form>
-              <Row>
-                <div className="form-group">
-                  <Row className="align-items-center mb-3">
-                    <Col xs="auto">
-                      <Form.Label>Target Entity Name</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="textbox1"
-                        value={formData.targetLoadDetails.target_entity_name}
-                        disabled={false}
-                        name="target_entity_name"
-                        onChange={changeHandler}
-                      />
-                    </Col>
-                  </Row>
-                </div>
+    <Card.Body className="custom-card-body">
+      <div className="text-left">
+        <Form>
+          <Row className="mb-4">
+            <Form.Label>Target Entity Name</Form.Label>
+            <Col>
+              <Form.Control
+                type="text"
+                className="custom-select custom-style"
+                value={formData.targetLoadDetails.target_entity_name}
+                disabled={false}
+                name="target_entity_name"
+                onChange={changeHandler}
+              />
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col xs="auto">
+              <Form.Label>Target Load Type</Form.Label>
+            </Col>
+            <Col xs="auto">
+              <div className="radio-group">
+                <Form.Check
+                  inline
+                  type="radio"
+                  id="TRUNCATE"
+                  value="TRUNCATE"
+                  checked={
+                    selectedOption === "TRUNCATE" ||
+                    formData.targetLoadDetails.TargetLoadType === "TRUNCATE"
+                  }
+                  onChange={optionChangeHandler}
+                  label="TRUNCATE"
+                  name="TRUNCATE"
+                  className="custom-radio"
+                  style={{ marginRight: "25px" }}
+                ></Form.Check>
+                <Form.Check
+                  inline
+                  type="radio"
+                  id="INSERT"
+                  value="INSERT"
+                  checked={
+                    selectedOption === "INSERT" ||
+                    formData.targetLoadDetails.TargetLoadType === "INSERT"
+                  }
+                  onChange={optionChangeHandler}
+                  label="INSERT"
+                  name="INSERT"
+                  style={{ marginRight: "25px" }}
+                ></Form.Check>
+                <Form.Check
+                  inline
+                  type="radio"
+                  id="INCREMENTAL"
+                  value="INCREMENTAL"
+                  checked={
+                    selectedOption === "INCREMENTAL" ||
+                    formData.targetLoadDetails.TargetLoadType === "INCREMENTAL"
+                  }
+                  onChange={optionChangeHandler}
+                  label="INCREMENTAL"
+                  name="INCREMENTAL"
+                  style={{ marginRight: "25px" }}
+                ></Form.Check>
+                <Form.Check
+                  inline
+                  type="radio"
+                  id="SCD TYPE II"
+                  value="SCD TYPE II"
+                  checked={
+                    selectedOption === "SCD TYPE II" ||
+                    formData.targetLoadDetails.TargetLoadType === "SCD TYPE II"
+                  }
+                  onChange={optionChangeHandler}
+                  label="SCD TYPE II"
+                  name="SCD TYPE II"
+                  style={{ marginRight: "25px" }}
+                ></Form.Check>
+              </div>
+            </Col>
+          </Row>
 
-                <div className="form-group">
-                  <Row className="align-items-center mb-3">
-                    <Col xs="auto">
-                      <Form.Label>Target Load Type</Form.Label>
-                    </Col>
-                    <Col xs="auto">
-                      <Form.Check
-                        type="radio"
-                        id="TRUNCATE"
-                        value="TRUNCATE"
-                        checked={
-                          selectedOption === "TRUNCATE" ||
-                          formData.targetLoadDetails.TargetLoadType ===
-                            "TRUNCATE"
-                        }
-                        onChange={optionChangeHandler}
-                        label="TRUNCATE"
-                        name="TRUNCATE"
-                      ></Form.Check>
-                    </Col>
-                    <Col xs="auto">
-                      <Form.Check
-                        type="radio"
-                        id="INSERT"
-                        value="INSERT"
-                        checked={
-                          selectedOption === "INSERT" ||
-                          formData.targetLoadDetails.TargetLoadType === "INSERT"
-                        }
-                        onChange={optionChangeHandler}
-                        label="INSERT"
-                        name="INSERT"
-                      ></Form.Check>
-                    </Col>
-                    <Col xs="auto">
-                      <Form.Check
-                        type="radio"
-                        id="INCREMENTAL"
-                        value="INCREMENTAL"
-                        checked={
-                          selectedOption === "INCREMENTAL" ||
-                          formData.targetLoadDetails.TargetLoadType ===
-                            "INCREMENTAL"
-                        }
-                        onChange={optionChangeHandler}
-                        label="INCREMENTAL"
-                        name="INCREMENTAL"
-                      ></Form.Check>
-                    </Col>
-                    <Col xs="auto">
-                      <Form.Check
-                        type="radio"
-                        id="SCD TYPE II"
-                        value="SCD TYPE II"
-                        checked={
-                          selectedOption === "SCD TYPE II" ||
-                          formData.targetLoadDetails.TargetLoadType ===
-                            "SCD TYPE II"
-                        }
-                        onChange={optionChangeHandler}
-                        label="SCD TYPE II"
-                        name="SCD TYPE II"
-                      ></Form.Check>
-                    </Col>
-                  </Row>
-                </div>
-
-                <div className="form-group">
-                  <Row className="mb-3">
-                    <Col xs="auto">
-                      <Form.Label>Data Quality Monitor</Form.Label>
-                    </Col>
-                    <Col className="dqt" xs="auto">
-                      <Form.Label>Alert</Form.Label>
-                      <Form.Control
-                        type="text"
-                        className="textbox2"
-                        name="alert"
-                        tag="DataQualityMoniter"
-                        value={
-                          formData.targetLoadDetails.DataQualityMoniter.alert
-                        }
-                        onChange={alertHandler1}
-                      ></Form.Control>
-                    </Col>
-                    <Col xs="auto">
-                      <Form.Label>Abort</Form.Label>
-                      <Form.Control
-                        type="text"
-                        className="textbox2"
-                        name="abort"
-                        tag="DataQualityMoniter"
-                        value={
-                          formData.targetLoadDetails.DataQualityMoniter.abort
-                        }
-                        onChange={alertHandler1}
-                      ></Form.Control>
-                    </Col>
-                  </Row>
-                </div>
-                <div className="form-group">
-                  {/* <Row className="mb-3">
+          <Row className="mb-3">
+            <Col xs={3}>
+              <Form.Label>Data Quality Monitor</Form.Label>
+            </Col>
+            <Col>
+              <Form.Label>Alert</Form.Label>
+              <Form.Control
+                type="text"
+                name="alert"
+                tag="DataQualityMoniter"
+                value={formData.targetLoadDetails.DataQualityMoniter.alert}
+                onChange={alertHandler1}
+                className="custom-select custom-style"
+              ></Form.Control>
+            </Col>
+            <Col>
+              <Form.Label>Abort</Form.Label>
+              <Form.Control
+                type="text"
+                name="abort"
+                tag="DataQualityMoniter"
+                value={formData.targetLoadDetails.DataQualityMoniter.abort}
+                onChange={alertHandler1}
+                className="custom-select custom-style"
+              ></Form.Control>
+            </Col>
+          </Row>
+          {/* <Row className="mb-3">
                     <Col xs="auto">
                       <Form.Label>Record Count Changes Moniter</Form.Label>
                     </Col>
@@ -271,112 +256,78 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                         onChange={alertHandler2}
                       ></Form.Control>
                     </Col> */}
-                  {/* </Row> */}
-                </div>
-                {/* <div className="form-group">
-                      <Form.Label>PHI/PII Identifier Status</Form.Label>
-                    </div>
-                    <br></br>
-                    <br></br> */}
-                {/* <div className="form-group">
-                      <Form.Label>Target Load Details</Form.Label>
-                      <ToggleButtonGroup
-                        type="toggle"
-                        name="options"
-                        className="toggle-button"
-                      >
-                        <ToggleButton value="yes">Yes</ToggleButton>
-                        <ToggleButton value="no">No</ToggleButton>
-                      </ToggleButtonGroup>
-                    </div>
-                    <br></br>
-                    <br></br> */}
-                <div className="form-group">
-                  <Form.Check
-                    type="checkbox"
-                    label="Maintain a copy in DataLake"
-                    name="is_mantain_a_copy_in_datalake"
-                    checked={
-                      formData.targetLoadDetails.is_mantain_a_copy_in_datalake
-                    }
-                    // onChange={chechBoxHandler}
-                    onChange={(e) => {
-                      setChecked(e.target.checked);
-                      chechBoxHandler(e);
-                    }}
-                  ></Form.Check>
-                </div>
-                <br></br>
-                <br></br>
-                {checked && (
-                  <div>
-                    <div className="form-group">
-                      <Row className="mb-3">
-                        <Col>
-                          <Form.Label>Data Lake Connection</Form.Label>
-                          <Form.Select
-                            aria-label=""
-                            disabled={false}
-                            name="datalake_connection"
-                            onChange={changeHandler}
-                            value={
-                              formData.targetLoadDetails.datalake_connection
-                            }
-                          >
-                            <option>{""}</option>
-                            <option>Connection1</option>
-                            <option>Connection2</option>
-                          </Form.Select>
-                        </Col>
-                        <Col>
-                          <Form.Label>Data Lake File Format</Form.Label>
-                          <Form.Select
-                            aria-label=""
-                            disabled={false}
-                            name="datalake_file_format"
-                            onChange={changeHandler}
-                            value={
-                              formData.targetLoadDetails.datalake_file_format
-                            }
-                          >
-                            <option>{""}</option>
-                            <option>CSV</option>
-                            <option>PARQUET</option>
-                            <option>AVRO</option>
-                            <option>Source Format</option>
-                          </Form.Select>
-                        </Col>
-                      </Row>
-                    </div>
-
-                    <div className="form-group">
-                      <Row className="align-items-center mb-3">
-                        <Col xs="auto">
-                          <Form.Label>Data Lake Target Template</Form.Label>
-                        </Col>
-                        <Col>
-                          <Form.Control
-                            type="text"
-                            className="textbox3"
-                            disabled={false}
-                            name="datalake_target_template"
-                            value={
-                              formData.targetLoadDetails
-                                .datalake_target_template
-                            }
-                            onChange={changeHandler}
-                          />
-                        </Col>
-                      </Row>
-                    </div>
-                  </div>
-                )}
+          {/* </Row> */}
+          <Row className="mb-3">
+            <Form.Check
+              type="checkbox"
+              label="Maintain a copy in DataLake"
+              name="is_mantain_a_copy_in_datalake"
+              checked={formData.targetLoadDetails.is_mantain_a_copy_in_datalake}
+              // onChange={chechBoxHandler}
+              onChange={(e) => {
+                setChecked(e.target.checked);
+                chechBoxHandler(e);
+              }}
+              className="custom-select custom-style"
+            ></Form.Check>
+          </Row>
+          {checked && (
+            <div>
+              <Row className="mb-3">
+                <Col>
+                  <Form.Label>Data Lake Connection</Form.Label>
+                  <Form.Select
+                    aria-label=""
+                    disabled={false}
+                    className="custom-select custom-style"
+                    name="datalake_connection"
+                    onChange={changeHandler}
+                    value={formData.targetLoadDetails.datalake_connection}
+                  >
+                    <option>{""}</option>
+                    <option>Connection1</option>
+                    <option>Connection2</option>
+                  </Form.Select>
+                </Col>
+                <Col>
+                  <Form.Label>Data Lake File Format</Form.Label>
+                  <Form.Select
+                    aria-label=""
+                    disabled={false}
+                    className="custom-select custom-style"
+                    name="datalake_file_format"
+                    onChange={changeHandler}
+                    value={formData.targetLoadDetails.datalake_file_format}
+                  >
+                    <option>{""}</option>
+                    <option>CSV</option>
+                    <option>PARQUET</option>
+                    <option>AVRO</option>
+                    <option>Source Format</option>
+                  </Form.Select>
+                </Col>
               </Row>
-            </Form>
-          </div>
-        </Card.Body>
-      </Row>
-    </div>
+
+              <Row className="align-items-center mb-3">
+                <Col xs="auto">
+                  <Form.Label>Data Lake Target Template</Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    className="custom-select custom-style"
+                    disabled={false}
+                    name="datalake_target_template"
+                    value={formData.targetLoadDetails.datalake_target_template}
+                    onChange={changeHandler}
+                  />
+                </Col>
+              </Row>
+            </div>
+          )}
+        </Form>
+      </div>
+    </Card.Body>
   );
 };
 

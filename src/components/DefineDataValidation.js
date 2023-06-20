@@ -131,16 +131,28 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
 
   return (
     <Table responsive>
-      <thead>
+      <thead
+        style={{
+          backgroundColor: "#F3F3F3",
+          fontSize: "12px",
+          height: "50px",
+          alignItems: "center",
+        }}
+      >
         <tr>
           {headers.map((name, index) => (
             <th key={index}>{name}</th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{ fontSize: "12px" }}>
         {formData.tableData.map((column, index) => (
-          <tr key={index}>
+          <tr
+            key={index}
+            style={{
+              height: "20px",
+            }}
+          >
             <td>{column.column_name}</td>
             {/* <td>{column.data_type}</td> */}
             <td>{column.target_datatype}</td>
@@ -170,10 +182,11 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                 }))}
                 placeholder="Select Test Case"
                 isSearchable
+                className="custom-select custom-style"
               />
             </td>
             <td>
-              <AntdForm.Item
+              {/* <AntdForm.Item
                 name={`expectationInput-${index}`}
                 rules={[
                   {
@@ -181,14 +194,16 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                   },
                 ]}
                 onChange={(e) => validationInputHandler(e.target, index)}
+                className="custom-select custom-style"
               >
                 <AntdSelect mode="tags" placeholder="Expectation Input" />
-              </AntdForm.Item>
+              </AntdForm.Item> */}
             </td>
             <td>
               <Form.Control
                 type="text"
                 onChange={(e) => qualityScoreHandler(e.target.value, index)}
+                className="custom-select custom-style"
               />
             </td>
           </tr>

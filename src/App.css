@@ -1,10 +1,13 @@
 body {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
-h1, h2, h3, p {
-  font-family: 'Poppins', sans-serif;
+h1,
+h2,
+h3,
+p {
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
 }
 
@@ -39,6 +42,17 @@ h1, h2, h3, p {
   background-color: #ececec;
 }
 
+.horizontal-line-1 {
+  position: relative;
+  margin: auto;
+  top: 10px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 99.5%;
+  background-color: #ececec;
+}
+
 .back-icon svg {
   width: 16px;
   height: 16px;
@@ -58,7 +72,75 @@ h1, h2, h3, p {
 /* Custom styles for dropdown options */
 .dropdown-item {
   font-size: 14px; /* Replace '14px' with your desired font size */
-  color: #4F4F4F; /* Replace '#555' with your desired font color */
+  color: #4f4f4f; /* Replace '#555' with your desired font color */
   border-width: 2px;
   border-color: black;
 }
+
+.custom-select.custom-style {
+  font-size: 13px !important;
+  color: #4f4f4f !important;
+  font-weight: 400 !important;
+  /* border: "1px solid #4F4F4F"; */
+}
+
+.radio-group .form-check-input[type="radio"] {
+  /* Style for the radio icon */
+  /* Example: Add background color and border radius */
+  /* background-color: #FCF5EF; */
+  border-radius: 50%;
+}
+
+.radio-group .form-check-label {
+  /* Style for the label text */
+  /* Example: Add padding and margin */
+  padding-left: 0px;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.radio-group .form-check-inline {
+  /* Spacing between options */
+  /* Example: Add margin-right */
+  margin-right: 20px;
+  background-color: #FCF5EF;
+  padding: 5px 20px 5px 40px;
+  border-radius: 20px;
+}
+
+.key {
+  margin-right: 40px;
+   width: 250px;
+}
+
+.colon {
+  margin-right : 40px;
+  margin-left : 40px;
+}
+
+.value {
+  margin-left : 60px;
+}
+
+td, th {
+  vertical-align: middle;
+}
+thead {
+  vertical-align: middle;
+}
+
+.table {
+  border: 1px solid #dee2e6; /* Outer border color */
+width: 100%;
+}
+
+.table-container {
+  max-width: 600px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the table horizontally */
+}
+
+
+
+
+
+

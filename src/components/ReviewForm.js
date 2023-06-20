@@ -10,9 +10,11 @@ import {
   Table,
 } from "react-bootstrap";
 import Success from "./Success";
-import { PencilSquare } from "react-bootstrap-icons";
+// import { AiOutlineEdit } from "react-bootstrap-icons";
+import { AiOutlineEdit } from "react-icons/ai";
 import { DataContext } from "./DataContext";
 import safeStringify from "json-stringify-safe";
+
 // import "bootstrap/dist/css/bootstrap.css";
 import "../styles/main.css";
 
@@ -123,14 +125,14 @@ const ReviewFrom = (props) => {
 
   const renderTable = (data) => {
     return (
-      <Table striped hover responsive>
+      <Table responsive>
         {/* <thead>
           <tr>
             <th>Key</th>
             <th>Value</th>
           </tr>
         </thead> */}
-        <tbody>
+        <tbody style={{ fontSize: "12px" }}>
           {Object.entries(data).map(([key, value]) => (
             <tr key={key}>
               <td>{key}</td>
@@ -148,8 +150,8 @@ const ReviewFrom = (props) => {
         {isSubmitted ? (
           <Success setshowMainPage={props.setshowMainPage} />
         ) : (
-          <Card>
-            <div
+          <div>
+            {/* <div
               style={{
                 backgroundColor: "#F7901D",
                 borderTopLeftRadius: "10px",
@@ -160,8 +162,8 @@ const ReviewFrom = (props) => {
                 justifyContent: "space-between",
                 height: "50px",
               }}
-            >
-              {/* <Card
+            > */}
+            {/* <Card
               style={
                 {
                   // backgroundColor: "#F7901D",
@@ -175,15 +177,15 @@ const ReviewFrom = (props) => {
                 }
               }
             > */}
-              <h5
+            {/* <h5
                 style={{
                   marginLeft: "1%",
                 }}
               >
                 Review Details
-              </h5>
-              {/* </Card> */}
-              {/* <Form.Check
+              </h5> */}
+            {/* </Card> */}
+            {/* <Form.Check
                 label="Execute Now"
                 style={{
                   backgroundColor: "#F7901D",
@@ -194,268 +196,328 @@ const ReviewFrom = (props) => {
                   marginRight: "1%",
                 }}
               /> */}
-            </div>
+            {/* </div> */}
             <Container
               style={{
-                minHeight: "70vh",
-                maxHeight: "70vh",
+                minHeight: "60vh",
+                maxHeight: "60vh",
                 overflowY: "scroll",
               }}
             >
               <Card.Body>
                 <Row>
                   <Col>
-                    <Card>
-                      <div>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Create Data Connection</h5>
+                    <div>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Data Connection</p>
                           <button
-                            style={{ backgroundColor: "#49494A" }}
+                            // style={{ backgroundColor: "#49494A" }}
                             onClick={editHandler1}
                           >
-                            <PencilSquare></PencilSquare>
+                            <AiOutlineEdit
+                            // style={{ backgroundColor: "none" }}
+                            ></AiOutlineEdit>
                           </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <Table striped hover responsive>
-                            {/* <thead>
-                      <tr>
-                        <th>Key</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead> */}
-                            <tbody>
-                              {Object.entries(
-                                props.formData.CreateDataConnection
-                              ).map(([key, value]) => (
-                                <tr key={key}>
-                                  <td>{key}</td>
-                                  <td>{value}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Source Entity Selection</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler2}
+                        </div>
+                        {/* <div
+                          style={{
+                            position: "relative",
+                            overflow: "auto",
+                            height: "5px",
+                          }}
+                        > */}
+                        <div className="horizontal-line-1"></div>
+                        {/* </div> */}
+                      </div>
+
+                      <Card.Body
+                      // style={{ justifyItems: "center", alignItems: "center" }}
+                      >
+                        {Object.entries(
+                          props.formData.CreateDataConnection
+                        ).map(([key, value]) => (
+                          <div
+                            key={key}
+                            style={{ display: "flex", marginBottom: "10px" }}
                           >
-                            <PencilSquare></PencilSquare>
-                          </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <Table striped hover responsive>
-                            {/* <thead>
-                      <tr>
-                        <th>Key</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead> */}
-                            <tbody>
-                              {Object.entries(props.formData.sourceEntity).map(
-                                ([key, value]) => (
-                                  <tr key={key}>
-                                    <td>{key}</td>
-                                    <td>{value}</td>
-                                  </tr>
-                                )
-                              )}
-                            </tbody>
-                          </Table>
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Target Schema</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler3}
-                          >
-                            <PencilSquare></PencilSquare>
-                          </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <Table striped hover responsive>
-                            <thead>
-                              <tr>
-                                <th>Column Name</th>
-                                <th>Source Datatype</th>
-                                <th>Target Datatype</th>
-                                <th>Primary Key</th>
-                                <th>Business Key</th>
-                                <th>Transformation Logic</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {props.formData.tableData.map((obj, index) => (
-                                <tr key={index}>
-                                  <td>{obj.column_name}</td>{" "}
-                                  {/* Replace 'key' with the actual key from the object */}
-                                  <td>{obj.data_type}</td>{" "}
-                                  {/* Replace 'value' with the actual value from the object */}
-                                  <td>{obj.target_datatype}</td>{" "}
-                                  <td>
-                                    <FormCheck
-                                      checked={
-                                        obj.is_target_primary_key === true
-                                      }
-                                      disabled={true}
-                                    ></FormCheck>
-                                  </td>{" "}
-                                  <td>
-                                    <FormCheck
-                                      checked={obj.is_business_key === true}
-                                      disabled={true}
-                                    ></FormCheck>
-                                  </td>{" "}
-                                  <td>{obj.transformation_logic}</td>{" "}
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Define Data Validation</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler4}
-                          >
-                            <PencilSquare></PencilSquare>
-                          </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <Table striped hover responsive>
-                            <thead>
-                              <tr>
-                                <th>Column Name</th>
-                                <th>Source Datatype</th>
-                                <th>Target Datatype</th>
-                                <th>Validation Rule</th>
-                                <th>Validation Input</th>
-                                <th>Quality Score</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {props.formData.tableData.map((obj, index) => (
-                                <tr key={index}>
-                                  <td>{obj.column_name}</td>{" "}
-                                  {/* Replace 'key' with the actual key from the object */}
-                                  <td>{obj.data_type}</td>{" "}
-                                  {/* Replace 'value' with the actual value from the object */}
-                                  <td>{obj.target_datatype}</td>
-                                  <td>{obj.validation_rule}</td>{" "}
-                                  <td>{obj.validation_input}</td>{" "}
-                                  <td>{obj.quality_score}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Source Extract Criteria</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler5}
-                          >
-                            <PencilSquare></PencilSquare>
-                          </button>
-                        </Card.Header>
-                        <Card.Body>
-                          {renderTable(
-                            props.formData.DefineSourceExtractCriteria
-                          )}
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Target Load Details</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler6}
-                          >
-                            <PencilSquare></PencilSquare>
-                          </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <div>
-                            {renderTable(props.formData.targetLoadDetails)}
+                            <span className="key">{key}</span>
+                            <span className="colon">:</span>
+                            <span className="value">{value}</span>
                           </div>
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Masking</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler7}
-                          >
-                            <PencilSquare></PencilSquare>
+                        ))}
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Source Entity</p>
+                          <button onClick={editHandler2}>
+                            <AiOutlineEdit />
                           </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <Table striped hover responsive>
-                            <thead>
-                              <tr>
-                                <th>Column Name</th>
-                                <th>Mask/Tokenize</th>
-                                <th>Masking Logic</th>
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        {Object.entries(props.formData.sourceEntity).map(
+                          ([key, value]) => (
+                            <div
+                              key={key}
+                              style={{ display: "flex", marginBottom: "10px" }}
+                            >
+                              <span className="key">{key}</span>
+                              <span className="colon">:</span>
+                              <span className="value">{value}</span>
+                            </div>
+                          )
+                        )}
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Target Schema</p>
+                          <button onClick={editHandler3}>
+                            <AiOutlineEdit />
+                          </button>
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        <Table responsive>
+                          <thead
+                            style={{
+                              backgroundColor: "#F3F3F3",
+                              fontSize: "12px",
+                              height: "50px",
+                              alignItems: "center",
+                            }}
+                          >
+                            <tr>
+                              <th>Column Name</th>
+                              <th>Source Datatype</th>
+                              <th>Target Datatype</th>
+                              <th>Primary Key</th>
+                              <th>Business Key</th>
+                              <th>Transformation Logic</th>
+                            </tr>
+                          </thead>
+                          <tbody style={{ fontSize: "12px" }}>
+                            {props.formData.tableData.map((obj, index) => (
+                              <tr
+                                key={index}
+                                style={{
+                                  height: "20px",
+                                }}
+                              >
+                                <td>{obj.column_name}</td>{" "}
+                                {/* Replace 'key' with the actual key from the object */}
+                                <td>{obj.data_type}</td>{" "}
+                                {/* Replace 'value' with the actual value from the object */}
+                                <td>{obj.target_datatype}</td>{" "}
+                                <td>
+                                  <FormCheck
+                                    checked={obj.is_target_primary_key === true}
+                                    disabled={true}
+                                  ></FormCheck>
+                                </td>{" "}
+                                <td>
+                                  <FormCheck
+                                    checked={obj.is_business_key === true}
+                                    disabled={true}
+                                  ></FormCheck>
+                                </td>{" "}
+                                <td>{obj.transformation_logic}</td>{" "}
                               </tr>
-                            </thead>
-                            <tbody>
-                              {props.formData.tableData.map((obj, index) => (
-                                <tr key={index}>
-                                  <td>{obj.column_name}</td>{" "}
-                                  {/* Replace 'key' with the actual key from the object */}
-                                  <td>
-                                    <FormCheck
-                                      checked={obj.is_masking === true}
-                                      disabled={true}
-                                    ></FormCheck>
-                                  </td>{" "}
-                                  {/* Replace 'value' with the actual value from the object */}
-                                  <td>{obj.masking_logic}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </Card.Body>
-                        <Card.Header className="d-flex justify-content-between float-right">
-                          <h5>Meta Data</h5>
-                          <button
-                            style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler8}
-                          >
-                            <PencilSquare></PencilSquare>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Data Validation</p>
+                          <button onClick={editHandler4}>
+                            <AiOutlineEdit />
                           </button>
-                        </Card.Header>
-                        <Card.Body>
-                          <Table striped hover responsive>
-                            {/* <thead>
-                      <tr>
-                        <th>Key</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead> */}
-                            <tbody>
-                              {Object.entries(
-                                props.formData.GatherMetaData
-                              ).map(([key, value]) => (
-                                <tr key={key}>
-                                  <td>{key}</td>
-                                  <td>{value}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </Card.Body>
-                        {/* <Card.Header className="d-flex justify-content-between float-right">
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        <Table responsive>
+                          <thead
+                            style={{
+                              backgroundColor: "#F3F3F3",
+                              fontSize: "12px",
+                              height: "50px",
+                              alignItems: "center",
+                            }}
+                          >
+                            <tr>
+                              <th>Column Name</th>
+                              <th>Source Datatype</th>
+                              <th>Target Datatype</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Input</th>
+                              <th>Quality Score</th>
+                            </tr>
+                          </thead>
+                          <tbody style={{ fontSize: "12px" }}>
+                            {props.formData.tableData.map((obj, index) => (
+                              <tr key={index}>
+                                <td>{obj.column_name}</td>{" "}
+                                {/* Replace 'key' with the actual key from the object */}
+                                <td>{obj.data_type}</td>{" "}
+                                {/* Replace 'value' with the actual value from the object */}
+                                <td>{obj.target_datatype}</td>
+                                <td>{obj.validation_rule}</td>{" "}
+                                <td>{obj.validation_input}</td>{" "}
+                                <td>{obj.quality_score}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Source Extract Criteria</p>
+                          <button onClick={editHandler5}>
+                            <AiOutlineEdit />
+                          </button>
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        {Object.entries(
+                          props.formData.DefineSourceExtractCriteria
+                        ).map(([key, value]) => (
+                          <div
+                            key={key}
+                            style={{ display: "flex", marginBottom: "10px" }}
+                          >
+                            <span className="key">{key}</span>
+                            <span className="colon">:</span>
+                            <span className="value">{value}</span>
+                          </div>
+                        ))}
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Target Load Details</p>
+                          <button onClick={editHandler6}>
+                            <AiOutlineEdit />
+                          </button>
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        <div>
+                          {renderTable(props.formData.targetLoadDetails)}
+                        </div>
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Masking</p>
+                          <button onClick={editHandler7}>
+                            <AiOutlineEdit />
+                          </button>
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        <Table responsive>
+                          <thead
+                            style={{
+                              backgroundColor: "#F3F3F3",
+                              fontSize: "12px",
+                              height: "50px",
+                              alignItems: "center",
+                            }}
+                          >
+                            <tr>
+                              <th>Column Name</th>
+                              <th>Mask/Tokenize</th>
+                              <th>Masking Logic</th>
+                            </tr>
+                          </thead>
+                          <tbody style={{ fontSize: "12px" }}>
+                            {props.formData.tableData.map((obj, index) => (
+                              <tr key={index}>
+                                <td>{obj.column_name}</td>{" "}
+                                {/* Replace 'key' with the actual key from the object */}
+                                <td>
+                                  <FormCheck
+                                    checked={obj.is_masking === true}
+                                    disabled={true}
+                                  ></FormCheck>
+                                </td>{" "}
+                                {/* Replace 'value' with the actual value from the object */}
+                                <td>{obj.masking_logic}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </Card.Body>
+                      <div className="block">
+                        <div
+                          className="d-flex justify-content-between float-right"
+                          style={{ color: "#000000" }}
+                        >
+                          <p>Meta Data</p>
+                          <button onClick={editHandler8}>
+                            <AiOutlineEdit />
+                          </button>
+                        </div>
+
+                        <div className="horizontal-line-1"></div>
+                      </div>
+                      <Card.Body>
+                        {Object.entries(props.formData.GatherMetaData).map(
+                          ([key, value]) => (
+                            <div
+                              key={key}
+                              style={{ display: "flex", marginBottom: "10px" }}
+                            >
+                              <span className="key">{key}</span>
+                              <span className="colon">:</span>
+                              <span className="value">{value}</span>
+                            </div>
+                          )
+                        )}
+                      </Card.Body>
+                      {/* <Card.Header className="d-flex justify-content-between float-right">
                           <h5>Scheduling</h5>
                           <button
                             style={{ backgroundColor: "#49494A" }}
                             onClick={editHandler9}
                           >
-                            <PencilSquare></PencilSquare>
+                            <  AiOutlineEdit></  AiOutlineEdit>
                           </button>
                         </Card.Header>
                         <Card.Body></Card.Body> */}
-                      </div>
-                    </Card>
+                    </div>
                   </Col>
                 </Row>
               </Card.Body>
@@ -506,7 +568,7 @@ const ReviewFrom = (props) => {
                 </Modal.Footer>
               </Modal>
             </Card.Footer>
-          </Card>
+          </div>
         )}
       </Container>
     </div>

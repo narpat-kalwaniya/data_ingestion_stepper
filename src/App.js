@@ -35,6 +35,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
   const [showMainPage, setshowMainPage] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -110,6 +111,57 @@ function App() {
     full_file_name: null,
     source_entity_name: "",
   });
+
+  useEffect(() => {
+    const requestData = {
+      data_source_type: formData.sourceEntity.data_source_type,
+      query: formData.sourceEntity.query,
+      db_name: formData.sourceEntity.db_name,
+      schema_name: formData.sourceEntity.schema_name,
+      table_name: formData.sourceEntity.table_name,
+      bucket_name: formData.sourceEntity.bucket_name,
+      full_file_name: formData.sourceEntity.full_file_name,
+      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
+      connection_id: formData.sourceEntity.connection_id,
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          }
+        );
+
+        if (response.ok) {
+          const responseData = await response.json();
+          if (Array.isArray(responseData)) {
+            responseData.forEach((object) => {});
+            console.log("response data", responseData);
+            // setTableData(responseData);
+
+            const updatedFormData = {
+              ...formData,
+              tableData: responseData,
+            };
+            updateFormData(updatedFormData);
+            // console.log("table data", tableData);
+          }
+        } else {
+          console.error("Error:", response.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [formData.sourceEntity]);
 
   // Input validation-1
   const validateInputs = () => {
@@ -285,49 +337,52 @@ function App() {
             <div className="w-100">
               <Navbar user={user} />
               {showMainPage ? (
-                isReview ? (
-                  <DataProvider>
-                    <ReviewForm
-                      step={step}
-                      setStep={setStep}
-                      isReview={isReview}
-                      setIsReview={setIsReview}
-                      cancel={closeHandler}
-                      formData={formData}
-                      setshowMainPage={setshowMainPage}
-                    ></ReviewForm>
-                  </DataProvider>
-                ) : (
-                  <DataProvider>
-                    {/* <Slider></Slider> */}
-                    <Container
-                      className="h-100"
-                      style={{ marginTop: "30px", backgroundColor: "white" }}
-                    >
-                      <Card className="Card-outer custom-card-body ">
-                        <Row className="m-2">
-                          <div className="back-button">
-                            <div className="back-icon">
-                              <FiArrowLeft />
-                            </div>
-                            <span className="back-text">
-                              Create New Pipeline
-                            </span>
-
-                            <div className="horizontal-line"></div>
+                <DataProvider>
+                  {/* <Slider></Slider> */}
+                  <Container
+                    className="h-100"
+                    style={{ marginTop: "30px", backgroundColor: "white" }}
+                  >
+                    <Card className="Card-outer custom-card-body ">
+                      <Row className="m-2">
+                        <div className="back-button">
+                          <div className="back-icon">
+                            <FiArrowLeft />
                           </div>
+                          <span
+                            className="back-text"
+                            // onClick={setshowMainPage(!showMainPage)}
+                          >
+                            Create New Pipeline
+                          </span>
 
-                          {/* <Card className="Card-progressbar custom-card">
+                          <div className="horizontal-line"></div>
+                        </div>
+
+                        {/* <Card className="Card-progressbar custom-card">
                               <Progressbar step={step} />
                             </Card> */}
-                        </Row>
-                        <Row className="m-2">
-                          <SectionMenu
-                            step={step}
-                            isReview={isReview}
-                            setIsReview={setIsReview}
-                          />
-                          <Col>
+                      </Row>
+                      <Row className="m-2">
+                        <SectionMenu
+                          step={step}
+                          isReview={isReview}
+                          setIsReview={setIsReview}
+                        />
+                        <Col>
+                          {isReview ? (
+                            <DataProvider>
+                              <ReviewForm
+                                step={step}
+                                setStep={setStep}
+                                isReview={isReview}
+                                setIsReview={setIsReview}
+                                cancel={closeHandler}
+                                formData={formData}
+                                setshowMainPage={setshowMainPage}
+                              ></ReviewForm>
+                            </DataProvider>
+                          ) : (
                             <Card className="custom-card">
                               <div>
                                 {/* <Card.Header className="header">
@@ -339,7 +394,7 @@ function App() {
                                     style={{
                                       minHeight: "60vh",
                                       maxHeight: "60vh",
-                                      // overflowY: "scroll",
+                                      overflowY: "scroll",
                                     }}
                                   >
                                     <Card.Body>
@@ -430,12 +485,12 @@ function App() {
                                 </Card.Footer>
                               </div>
                             </Card>
-                          </Col>
-                        </Row>
-                      </Card>
-                    </Container>
-                  </DataProvider>
-                )
+                          )}
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Container>
+                </DataProvider>
               ) : (
                 <ListingPage setshowMainPage={setshowMainPage} />
               )}

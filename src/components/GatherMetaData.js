@@ -38,128 +38,127 @@ const GatherMetaData = ({ formData, updateFormData }) => {
   console.log("ingestion Data", ingestionData);
 
   return (
-    <div>
-      <Row>
-        <Card.Body>
-          <div className="text-left">
-            <Form>
-              <Row>
+    <Card.Body>
+      <div className="text-left">
+        <Form>
+          <Row className="mb-4">
+            <Col>
+              <Form.Label>Business Tags</Form.Label>
+
+              <Col xs={10}>
+                <Form.Control
+                  name="business_tags"
+                  value={formData.GatherMetaData.business_tags}
+                  onChange={changeHandler}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </Col>
+            <Col>
+              <Col>
+                <Form.Label>Description</Form.Label>
+              </Col>
+              <Col xs={10}>
+                <Form.Control
+                  className="custom-select custom-style"
+                  name="description"
+                  value={formData.GatherMetaData.description}
+                  onChange={changeHandler}
+                />
+              </Col>
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              <Col>
+                <Form.Label>Owner</Form.Label>
+              </Col>
+              <Col xs={10}>
+                <Form.Control
+                  className="custom-select custom-style"
+                  name="owner"
+                  value={formData.GatherMetaData.owner}
+                  onChange={changeHandler}
+                ></Form.Control>
+              </Col>
+            </Col>
+            <Col>
+              <Col>
+                <Form.Label>Owner Email</Form.Label>
+              </Col>
+              <Col xs={10}>
+                <Form.Control
+                  className="custom-select custom-style"
+                  name="email"
+                  value={formData.GatherMetaData.email}
+                  onChange={changeHandler}
+                ></Form.Control>
+              </Col>
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Form.Label>Success Email Distribution List</Form.Label>
+
+            <Col xs={8}>
+              <Form.Control
+                className="custom-select custom-style"
+                name="success_email_list"
+                value={formData.GatherMetaData.success_email_list}
+                onChange={changeHandler}
+              ></Form.Control>
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Form.Label>Failure Email Distribution List</Form.Label>
+
+            <Col xs={8}>
+              <Form.Control
+                className="custom-select custom-style"
+                name="failure_email_list"
+                value={formData.GatherMetaData.failure_email_list}
+                onChange={changeHandler}
+              ></Form.Control>
+            </Col>
+          </Row>
+          <hr className="line-separator" /> {/* Line for separation */}
+          {additionalFields.map((field) => (
+            <Row key={field.id} className="mb-4">
+              <Col>
+                <Form.Control
+                  plaintext
+                  className="custom-select custom-style"
+                  placeholder="Enter Title"
+                />
                 <Row>
-                  <Col sm={4}>
-                    <Form.Label>Business Tags</Form.Label>
-                  </Col>
-                  <Col sm={6}>
+                  <Col xs={8}>
                     <Form.Control
-                      className="mb-3"
-                      name="business_tags"
-                      value={formData.GatherMetaData.business_tags}
-                      onChange={changeHandler}
+                      className="custom-select custom-style"
+                      placeholder="Enter Details"
                     />
                   </Col>
-                </Row>
-                <Row>
-                  <Col sm={4}>
-                    <Form.Label>Description</Form.Label>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Control
-                      className="mb-3"
-                      name="description"
-                      value={formData.GatherMetaData.description}
-                      onChange={changeHandler}
-                    />
+                  <Col xs={1}>
+                    <Button
+                      variant="link"
+                      className="close-button"
+                      onClick={() => removeHandler(field.id)}
+                    >
+                      <XCircle size={18} color="red" />
+                    </Button>
                   </Col>
                 </Row>
-                <Row>
-                  <Col sm={4}>
-                    <Form.Label>Owner</Form.Label>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Control
-                      className="mb-3"
-                      name="owner"
-                      value={formData.GatherMetaData.owner}
-                      onChange={changeHandler}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={4}>
-                    <Form.Label>Owner Email</Form.Label>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Control
-                      className="mb-3"
-                      name="email"
-                      value={formData.GatherMetaData.email}
-                      onChange={changeHandler}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={4}>
-                    <Form.Label>Success Email Distribution List</Form.Label>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Control
-                      className="mb-3"
-                      name="success_email_list"
-                      value={formData.GatherMetaData.success_email_list}
-                      onChange={changeHandler}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={4}>
-                    <Form.Label>Failure Email Distribution List</Form.Label>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Control
-                      className="mb-3"
-                      name="failure_email_list"
-                      value={formData.GatherMetaData.failure_email_list}
-                      onChange={changeHandler}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-                <hr className="line-separator" /> {/* Line for separation */}
-                {additionalFields.map((field) => (
-                  <Row key={field.id}>
-                    <Col sm={4}>
-                      <Form.Control
-                        plaintext
-                        className="mb-3"
-                        placeholder="Enter Title"
-                      />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Control
-                        className="mb-3"
-                        placeholder="Enter Details"
-                      />
-                    </Col>
-                    <Col sm={2}>
-                      <Button
-                        variant="link"
-                        className="close-button"
-                        onClick={() => removeHandler(field.id)}
-                      >
-                        <XCircle size={18} color="red" />
-                      </Button>
-                    </Col>
-                  </Row>
-                ))}
-              </Row>
-              <div style={{ float: "right" }}>
-                <Button className="btn-s-1" onClick={addHandler}>
-                  Add
-                </Button>
-              </div>
-            </Form>
+              </Col>
+            </Row>
+          ))}
+          <div style={{ float: "right" }}>
+            <Row className="mb-4">
+              <Button className="btn-s-1" onClick={addHandler}>
+                Add
+              </Button>
+            </Row>
           </div>
-        </Card.Body>
-      </Row>
-    </div>
+        </Form>
+      </div>
+    </Card.Body>
   );
 };
 
