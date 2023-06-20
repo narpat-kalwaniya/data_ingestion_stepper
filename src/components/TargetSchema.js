@@ -15,6 +15,7 @@ const headers = [
 
 const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([...formData.tableData]);
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
   // const [pageData, setPageData] = useState([...tableData]);
 
   console.log(tableData);
@@ -39,6 +40,13 @@ const TbData = ({ formData, updateFormData }) => {
     //   ...pageData,
     //   { ...pageData[columnIndex], ["target_datatype"]: event.target.value },
     // ]);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
   // console.log(pageData);
 
@@ -52,6 +60,13 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
   const businessKeyHandler = (checked, index) => {
@@ -64,6 +79,12 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
   const transformLogicHandler = (value, index) => {
@@ -76,6 +97,13 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
   // console.log("form data", formData);
@@ -105,8 +133,7 @@ const TbData = ({ formData, updateFormData }) => {
     "VARCHAR",
   ];
 
-  const { ingestionData } = useContext(DataContext);
-  console.log("table data", tableData);
+  console.log("target ingestion", ingestionData);
   return (
     <tbody className="targetTableSchemaContent1">
       {tableData.map((column, index) => (

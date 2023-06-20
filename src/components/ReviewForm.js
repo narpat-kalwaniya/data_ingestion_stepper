@@ -408,9 +408,7 @@ const ReviewFrom = (props) => {
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>
                                     <FormCheck
-
                                       checked={obj.is_masking === true}
-
                                       disabled={true}
                                     ></FormCheck>
                                   </td>{" "}

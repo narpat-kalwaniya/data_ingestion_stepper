@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  Form,
-  Input,
-  InputGroup,
-  Col,
-  Row,
-  Badge,
-  FormControl,
-} from "react-bootstrap";
-
+import { Table, Form, FormControl } from "react-bootstrap";
 import Select from "react-select";
-
-import {
-  Select as AntdSelect,
-  Form as AntdForm,
-  Input as AntdInput,
-  Tag,
-} from "antd";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
 import "./TargetSchema.css";
 
 const headers = [
   "Column Name",
-  // "Source Data Type",
   "Target Data Type",
   "Validation Rule",
   "Validation Input",
@@ -32,7 +16,7 @@ const headers = [
 export const DefineDataValidation = ({ formData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [tagValues, setTagValues] = useState([]);
 
   useEffect(() => {
     fetchTestcases();
@@ -42,40 +26,14 @@ export const DefineDataValidation = ({ formData }) => {
     try {
       const response = await fetch(
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/testcasemaster/"
-      ); // Replace with your API endpoint
+      );
       const data = await response.json();
       setTestcases(data);
-      setSelectedTestcases(Array(formData.tableData.length).fill(""));
+      setSelectedTestcases(Array(formData.tableData.length).fill([]));
     } catch (error) {
       console.log("Error fetching test cases:", error);
     }
   };
-  console.log("input_values", selectedTestcases);
-
-  const targetDataTypes = [
-    "ARRAY",
-    "BIGINT",
-    "BINARY",
-    "BOOLEAN",
-    "CHAR",
-    "DECIMAL",
-    "DOUBLE",
-    "DOUBLE PRECISION",
-    "INT",
-    "INTEGER",
-    "NCHAR",
-    "NUMERIC",
-    "NVARCHAR",
-    "NUMBER",
-    "STRING",
-    "TEXT",
-    "TIME",
-    "TIMASTAMP_TZ",
-    "TIMESTAMP_LTZ",
-    "TIMESTAMP_NTZ",
-    "VARBINARY",
-    "VARCHAR",
-  ];
 
   const handleTestcaseChange = (option, index) => {
     setSelectedTestcases((prevSelectedTestcases) => {
@@ -85,18 +43,22 @@ export const DefineDataValidation = ({ formData }) => {
     });
   };
 
-  const validateTagCount = (_, value) => {
-    const desiredCount = 3; // Specify the desired tag count here
-    const tagCount = value ? value.length : 0;
-    if (tagCount > desiredCount) {
-      return Promise.reject(`Please select fewer than ${desiredCount} values`);
-    } else {
-      return Promise.resolve();
-    }
+  const handleTagChange = (tags, index) => {
+    setTagValues((prevTagValues) => {
+      const updatedTagValues = [...prevTagValues];
+      updatedTagValues[index] = tags;
+      return updatedTagValues;
+    });
   };
 
-  console.log(formData);
-  console.log("input_values", selectedTestcases);
+  const validateTagCount = (tags) => {
+    const desiredCount = 3; // Specify the desired tag count here
+    if (tags.length > desiredCount) {
+      return false;
+    }
+    return true;
+  };
+
   return (
     <Table responsive>
       <thead>
@@ -110,7 +72,6 @@ export const DefineDataValidation = ({ formData }) => {
         {formData.tableData.map((column, index) => (
           <tr key={index}>
             <td>{column.column_name}</td>
-            {/* <td>{column.data_type}</td> */}
             <td>{column.target_datatype}</td>
             <td>
               <Select
@@ -124,20 +85,28 @@ export const DefineDataValidation = ({ formData }) => {
                 isSearchable
               />
             </td>
-            <AntdForm.Item
-              name={`expectationInput-${index}`}
-              rules={[
-                {
-                  validator: validateTagCount,
-                },
-              ]}
-            >
-              <AntdSelect mode="tags" placeholder="Expectation Input" />
-            </AntdForm.Item>
             <td>
-              <Form.Control
+              <Form.Group>
+                <TagsInput
+                  value={tagValues[index] || []}
+                  onChange={(tags) => handleTagChange(tags, index)}
+                  validationRegex={/^.*$/}
+                  validationError="Please enter valid tags"
+                  tagProps={{ className: "react-tagsinput-tag info" }}
+                />
+                {!validateTagCount(tagValues[index] || []) && (
+                  <Form.Text className="text-danger">
+                    Please select fewer than 3 values
+                  </Form.Text>
+                )}
+              </Form.Group>
+            </td>
+            <td>
+              <FormControl
                 type="text"
-                // onChange={(e) => transformLogicHandler(e.target.value, index)}
+                onChange={(e) => {
+                  // Handle Quality Score change
+                }}
               />
             </td>
           </tr>
