@@ -117,7 +117,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
     updateIngestionData(updatedData);
   };
 
-  console.log("sourceExtractform data", formData);
+  // console.log("sourceExtractform data", formData);
   console.log("source ingestion data", ingestionData);
 
   const handleSelect = (e) => {

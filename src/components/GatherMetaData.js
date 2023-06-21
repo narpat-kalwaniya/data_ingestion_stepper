@@ -34,8 +34,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
     setAdditionalFields(updatedFields);
   };
 
-  console.log("MetaformData:", formData);
-  console.log("ingestion Data", ingestionData);
+  // console.log("MetaformData:", formData);
+  console.log("meta ingestion Data", ingestionData);
 
   return (
     <Card.Body>

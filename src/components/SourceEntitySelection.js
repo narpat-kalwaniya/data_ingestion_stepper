@@ -259,6 +259,8 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
     }
   }, [dataSourceType]);
 
+  console.log("source entity ingestion data", ingestionData);
+
   return (
     <Card.Body className="custom-card-body">
       <div className="text-left">

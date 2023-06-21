@@ -372,17 +372,15 @@ function App() {
                         />
                         <Col>
                           {isReview ? (
-                            <DataProvider>
-                              <ReviewForm
-                                step={step}
-                                setStep={setStep}
-                                isReview={isReview}
-                                setIsReview={setIsReview}
-                                cancel={closeHandler}
-                                formData={formData}
-                                setshowMainPage={setshowMainPage}
-                              ></ReviewForm>
-                            </DataProvider>
+                            <ReviewForm
+                              step={step}
+                              setStep={setStep}
+                              isReview={isReview}
+                              setIsReview={setIsReview}
+                              cancel={closeHandler}
+                              formData={formData}
+                              setshowMainPage={setshowMainPage}
+                            ></ReviewForm>
                           ) : (
                             <Card className="custom-card">
                               <div>

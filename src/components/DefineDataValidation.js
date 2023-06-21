@@ -115,11 +115,12 @@
 //   );
 // };
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Table, Form, FormControl, Button } from "react-bootstrap";
 import Select from "react-select";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
+import { DataContext } from "./DataContext";
 import { HiOutlinePlus } from "react-icons/hi";
 
 const headers = [
@@ -138,6 +139,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
     formData.tableData.map(() => 1)
   );
   const [tableData, setTableData] = useState([...formData.tableData]);
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   useEffect(() => {
     fetchTestcases();
@@ -170,6 +172,25 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       const selectedTestcasesForRow = updatedSelectedTestcases[rowIndex] || [];
       selectedTestcasesForRow[inputIndex] = option;
       updatedSelectedTestcases[rowIndex] = selectedTestcasesForRow;
+
+      const updatedTableData = [...tableData];
+      updatedTableData[rowIndex].validation_rules = selectedTestcasesForRow.map(
+        (object) => object.value
+      );
+      setTableData(updatedTableData);
+
+      const updatedFormData = {
+        ...formData,
+        tableData: updatedTableData,
+      };
+      updateFormData(updatedFormData);
+      const updatedData = {
+        attributes: [
+          updatedTableData, // Add new attribute object
+        ],
+      };
+      updateIngestionData(updatedData);
+
       return updatedSelectedTestcases;
     });
   };
@@ -180,6 +201,23 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       const tagValuesForRow = updatedTagValues[rowIndex] || [];
       tagValuesForRow[inputIndex] = tags;
       updatedTagValues[rowIndex] = tagValuesForRow;
+
+      const updatedTableData = [...tableData];
+      updatedTableData[rowIndex].validation_input = tagValuesForRow;
+      setTableData(updatedTableData);
+
+      const updatedFormData = {
+        ...formData,
+        tableData: updatedTableData,
+      };
+      updateFormData(updatedFormData);
+
+      const updatedData = {
+        attributes: [
+          updatedTableData, // Add new attribute object
+        ],
+      };
+      updateIngestionData(updatedData);
       return updatedTagValues;
     });
   };
@@ -203,10 +241,17 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
     // console.log(pageData);
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
-  console.log("testcases", selectedTestcases);
-  console.log("tags", formData);
-
+  // console.log("testcases", selectedTestcases);
+  // console.log("tags", tagValues);
+  // console.log("forndata", formData);
+  console.log("define data validation ingestionData", ingestionData);
   return (
     <Table responsive>
       <thead
