@@ -139,7 +139,7 @@ const TbData = ({ formData, updateFormData }) => {
           <td>
             <Form.Check
               type="checkbox"
-              // checked={column.is_select_distinct}
+              checked={column.is_target_primary_key}
               onChange={(e) => {
                 primaryKeyHandler(e.target.checked, index);
               }}
@@ -148,12 +148,14 @@ const TbData = ({ formData, updateFormData }) => {
           <td>
             <Form.Check
               type="checkbox"
+              checked={column.is_business_key}
               onChange={(e) => businessKeyHandler(e.target.checked, index)}
             />
           </td>
           <td style={{ width: "150px" }}>
             <Form.Control
               type="text"
+              value={column.transformation_logic}
               onChange={(e) => transformLogicHandler(e.target.value, index)}
               className="custom-select custom-style"
             />

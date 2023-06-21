@@ -32,7 +32,7 @@ const LoginPage = (props) => {
       <div className={classes["forms-container"]}>
         <div className={classes["signin-signup"]}>
           <form action="#" className={classes["sign-in-form"]}>
-            <h2 className={classes.title}>Sign in</h2>
+            <h4 className={classes.title}>Sign in</h4>
             <div className={classes["input-field"]}>
               <i className="fas fa-user"></i>
               <input type="email" placeholder="Email ID" />
@@ -42,19 +42,22 @@ const LoginPage = (props) => {
               <input type="password" placeholder="Password" />
             </div>
             <div className={classes.forget}>
-              <label for="">
+              {/* <label for="">
                 <input type="checkbox"></input>
                 Remember Me
               </label>
-              <a href="#"> Forgot Password</a>
+              <a href="#"> Forgot Password</a> */}
             </div>
             <input
               type="submit"
               value="Login"
               // className="btn solid"
               className="btn-s-1"
+              style={{
+                marginTop: "20px",
+              }}
             />
-            <p className={classes["social-text"]}>Or </p>
+            <p className={classes["social-text"]}>Or</p>
             <div
               className="btn-s-1"
               style={{

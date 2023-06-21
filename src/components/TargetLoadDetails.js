@@ -15,7 +15,7 @@ import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({ formData, updateFormData }) => {
   const [checked, setChecked] = useState(
-    formData.targetLoadDetails.MaintainCopyInDataLake
+    formData.targetLoadDetails.is_mantain_a_copy_in_datalake
   );
   const [selectedOption, setSelectedOption] = useState("");
   const { ingestionData, updateIngestionData } = useContext(DataContext);
@@ -145,7 +145,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   value="TRUNCATE"
                   checked={
                     selectedOption === "TRUNCATE" ||
-                    formData.targetLoadDetails.TargetLoadType === "TRUNCATE"
+                    formData.targetLoadDetails.target_load_type === "TRUNCATE"
                   }
                   onChange={optionChangeHandler}
                   label="TRUNCATE"
@@ -160,7 +160,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   value="INSERT"
                   checked={
                     selectedOption === "INSERT" ||
-                    formData.targetLoadDetails.TargetLoadType === "INSERT"
+                    formData.targetLoadDetails.target_load_type === "INSERT"
                   }
                   onChange={optionChangeHandler}
                   label="INSERT"
@@ -174,7 +174,8 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   value="INCREMENTAL"
                   checked={
                     selectedOption === "INCREMENTAL" ||
-                    formData.targetLoadDetails.TargetLoadType === "INCREMENTAL"
+                    formData.targetLoadDetails.target_load_type ===
+                      "INCREMENTAL"
                   }
                   onChange={optionChangeHandler}
                   label="INCREMENTAL"
@@ -188,7 +189,8 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   value="SCD TYPE II"
                   checked={
                     selectedOption === "SCD TYPE II" ||
-                    formData.targetLoadDetails.TargetLoadType === "SCD TYPE II"
+                    formData.targetLoadDetails.target_load_type ===
+                      "SCD TYPE II"
                   }
                   onChange={optionChangeHandler}
                   label="SCD TYPE II"
@@ -265,7 +267,7 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
               checked={formData.targetLoadDetails.is_mantain_a_copy_in_datalake}
               // onChange={chechBoxHandler}
               onChange={(e) => {
-                setChecked(e.target.checked);
+                setChecked(!checked);
                 chechBoxHandler(e);
               }}
               className="custom-select custom-style"

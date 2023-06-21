@@ -127,17 +127,17 @@ const headers = [
   "Target Data Type",
   "Validation Rule",
   "Validation Input",
-  "Add Test Cases",
   "Quality Score",
 ];
 
-export const DefineDataValidation = ({ formData }) => {
+export const DefineDataValidation = ({ formData, updateFormData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
   const [tagValues, setTagValues] = useState([]);
   const [inputCounts, setInputCounts] = useState(
     formData.tableData.map(() => 1)
   );
+  const [tableData, setTableData] = useState([...formData.tableData]);
 
   useEffect(() => {
     fetchTestcases();
@@ -191,19 +191,39 @@ export const DefineDataValidation = ({ formData }) => {
     }
     return true;
   };
+
+  const qualityScoreHandler = (value, index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[index].quality_score = value;
+    setTableData(updatedTableData);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+    // console.log(pageData);
+  };
   console.log("testcases", selectedTestcases);
-  console.log("tags", tagValues);
+  console.log("tags", formData);
 
   return (
     <Table responsive>
-      <thead>
+      <thead
+        style={{
+          backgroundColor: "#F3F3F3",
+          fontSize: "12px",
+          height: "50px",
+          alignItems: "center",
+        }}
+      >
         <tr>
           {headers.map((name, index) => (
             <th key={index}>{name}</th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{ fontSize: "12px" }}>
         {formData.tableData.map((column, rowIndex) => (
           <tr key={rowIndex}>
             <td>{column.column_name}</td>
@@ -227,58 +247,66 @@ export const DefineDataValidation = ({ formData }) => {
                       }))}
                       placeholder="Select Test Case"
                       isSearchable
+                      className="custom-select custom-style"
                     />
                     <br /> {/* Add spacing between the fields */}
                   </React.Fragment>
                 ))}
             </td>
             <td>
-              {Array(inputCounts[rowIndex])
-                .fill()
-                .map((_, inputIndex) => (
-                  <React.Fragment key={`${rowIndex}-${inputIndex}`}>
-                    <Form.Group>
-                      <TagsInput
-                        value={
+              <div className="d-flex justify-content-between align-items-center">
+                {Array(inputCounts[rowIndex])
+                  .fill()
+                  .map((_, inputIndex) => (
+                    <React.Fragment key={`${rowIndex}-${inputIndex}`}>
+                      <Form.Group>
+                        <TagsInput
+                          value={
+                            (tagValues[rowIndex] &&
+                              tagValues[rowIndex][inputIndex]) ||
+                            []
+                          }
+                          onChange={(tags) =>
+                            handleTagChange(tags, rowIndex, inputIndex)
+                          }
+                          validationRegex={/^.*$/}
+                          validationError="Please enter valid tags"
+                          tagProps={{ className: "react-tagsinput-tag info" }}
+                        />
+                        {!validateTagCount(
                           (tagValues[rowIndex] &&
                             tagValues[rowIndex][inputIndex]) ||
-                          []
-                        }
-                        onChange={(tags) =>
-                          handleTagChange(tags, rowIndex, inputIndex)
-                        }
-                        validationRegex={/^.*$/}
-                        validationError="Please enter valid tags"
-                        tagProps={{ className: "react-tagsinput-tag info" }}
-                      />
-                      {!validateTagCount(
-                        (tagValues[rowIndex] &&
-                          tagValues[rowIndex][inputIndex]) ||
-                          []
-                      ) && (
-                        <Form.Text className="text-danger">
-                          Please select fewer than 3 values
-                        </Form.Text>
-                      )}
-                    </Form.Group>
-                    <br /> {/* Add spacing between the fields */}
-                  </React.Fragment>
-                ))}
+                            []
+                        ) && (
+                          <Form.Text className="text-danger">
+                            Please select fewer than 3 values
+                          </Form.Text>
+                        )}
+                      </Form.Group>
+                      <br /> {/* Add spacing between the fields */}
+                    </React.Fragment>
+                  ))}
+
+                <HiOutlinePlus
+                  style={{
+                    height: "15px",
+                    width: "15px",
+                    color: "white",
+                    backgroundColor: "#4F4F4F",
+                  }}
+                  onClick={() => handleAddInput(rowIndex)}
+                />
+              </div>
             </td>
-            <td>
-              <Button
-                variant="secondary"
-                onClick={() => handleAddInput(rowIndex)}
-              >
-                <HiOutlinePlus />
-              </Button>
-            </td>
+
             <td>
               <FormControl
                 type="text"
                 onChange={(e) => {
-                  // Handle Quality Score change
+                  qualityScoreHandler(e.target.value, rowIndex);
                 }}
+                className="custom-select custom-style"
+                value={column.quality_score}
               />
             </td>
           </tr>

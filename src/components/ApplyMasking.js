@@ -41,23 +41,6 @@ const ApplyMasking = ({ formData, updateFormData }) => {
     fetchApplications();
   }, []);
 
-  const handleMaskingChange = (option, index) => {
-    setSelectedMasking((prevSelectedMasking) => {
-      const updatedSelectedMasking = [...prevSelectedMasking];
-      updatedSelectedMasking[index] = option;
-      return updatedSelectedMasking;
-    });
-    const updatedTableData = [...tableData];
-    updatedTableData[index].masking_logic = option.value;
-    setTableData(updatedTableData);
-
-    const updatedFormData = {
-      ...formData,
-      tableData: updatedTableData,
-    };
-    updateFormData(updatedFormData);
-  };
-
   const handleMaskingToggle = (index, checked) => {
     setSelectedMasking((prevSelectedMasking) => {
       const updatedSelectedMasking = [...prevSelectedMasking];
@@ -75,10 +58,28 @@ const ApplyMasking = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
   };
+
+  const handleMaskingChange = (option, index) => {
+    setSelectedMasking((prevSelectedMasking) => {
+      const updatedSelectedMasking = [...prevSelectedMasking];
+      updatedSelectedMasking[index] = option;
+      return updatedSelectedMasking;
+    });
+    const updatedTableData = [...tableData];
+    updatedTableData[index].masking_logic = option.value;
+    setTableData(updatedTableData);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+  };
+
   // console.log("masking target load", updateTargetLoad);
   // console.log("masking form data", formData);
   return (
-    <div className="table-container">
+    <div>
       <Table responsive>
         <thead
           style={{
@@ -103,7 +104,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
                 <FormCheck>
                   <FormCheck.Input
                     type="checkbox"
-                    checked={Boolean(selectedMasking[index])}
+                    checked={column.is_masking}
                     onChange={(e) =>
                       handleMaskingToggle(index, e.target.checked)
                     }
@@ -113,14 +114,14 @@ const ApplyMasking = ({ formData, updateFormData }) => {
 
               <td style={{ width: "300px" }}>
                 <Select
-                  value={selectedMasking[index]}
+                  value={column.masking_logic}
                   onChange={(option) => handleMaskingChange(option, index)}
                   options={masking.map((masking) => ({
                     value: masking.algorithm_name,
                     label: masking.masking_algorithm,
                   }))}
                   isSearchable
-                  isDisabled={!selectedMasking[index]}
+                  isDisabled={!column.is_masking}
                   className="custom-select custom-style"
                 />
               </td>

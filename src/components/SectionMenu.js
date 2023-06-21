@@ -31,25 +31,26 @@ const SectionMenu = (props) => {
     props.setIsReview(!props.isReview);
   };
   return (
-    <Col sm={2}>
-      <ListGroup style={{ maxWidth: "200px" }}>
-        {sections.map((item, index) => (
-          <ListGroup.Item
-            key={index}
-            style={{
-              backgroundColor: "#FCFCFC",
-              color: index === props.step - 1 ? "#EA943D" : "darkgray",
-              fontSize: index === props.step - 1 ? "15px" : "14px",
-              fontWeight: index === props.step - 1 ? 500 : 400,
-              border: "none",
-              borderRadius: "none",
-              transition: "ease-in-out 0.03s",
-            }}
-          >
-            {index + 1}. {item}
-          </ListGroup.Item>
-        ))}
-        {/* <ListGroup.Item
+    <div style={{ width: "250px" }}>
+      <Col>
+        <ListGroup>
+          {sections.map((item, index) => (
+            <ListGroup.Item
+              key={index}
+              style={{
+                backgroundColor: "#FCFCFC",
+                color: index === props.step - 1 ? "#EA943D" : "darkgray",
+                fontSize: index === props.step - 1 ? "15px" : "14px",
+                fontWeight: index === props.step - 1 ? 500 : 400,
+                border: "none",
+                borderRadius: "none",
+                transition: "ease-in-out 0.03s",
+              }}
+            >
+              {item}
+            </ListGroup.Item>
+          ))}
+          {/* <ListGroup.Item
           style={{
             borderColor: "#18749C",
             color: "#18749C",
@@ -73,8 +74,9 @@ const SectionMenu = (props) => {
             Review
           </button>
         </ListGroup.Item> */}
-      </ListGroup>
-    </Col>
+        </ListGroup>
+      </Col>
+    </div>
   );
 };
 

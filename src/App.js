@@ -25,6 +25,7 @@ import SimpleDialogDemo from "./components/buttons/ButtonPages";
 import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
+import { ProgressBar } from "react-bootstrap";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

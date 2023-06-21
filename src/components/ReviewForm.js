@@ -143,6 +143,28 @@ const ReviewFrom = (props) => {
       </Table>
     );
   };
+
+  const renderObject = (obj) => {
+    return Object.entries(obj).map(([key, value]) => {
+      if (typeof value === "object" && !Array.isArray(value)) {
+        return (
+          <div key={key}>
+            <p style={{ fontWeight: "500" }}>{key}</p>
+            {renderObject(value)}
+          </div>
+        );
+      } else {
+        return (
+          <div key={key} style={{ display: "flex", marginBottom: "10px" }}>
+            <span className="key">{key}</span>
+            <span className="colon">:</span>
+            <span className="value">{value}</span>
+          </div>
+        );
+      }
+    });
+  };
+
   return (
     <div>
       <Container>
@@ -430,7 +452,7 @@ const ReviewFrom = (props) => {
                       </div>
                       <Card.Body>
                         <div>
-                          {renderTable(props.formData.targetLoadDetails)}
+                          {renderObject(props.formData.targetLoadDetails)}
                         </div>
                       </Card.Body>
                       <div className="block">
