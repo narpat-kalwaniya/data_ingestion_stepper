@@ -125,7 +125,7 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
 
   console.log("form data", formData);
 
-  console.log("ingestion data", ingestionData);
+  console.log("connection ingestion data", ingestionData);
 
   return (
     <Card.Body className="custom-card-body">
