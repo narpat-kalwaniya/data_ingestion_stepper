@@ -25,7 +25,6 @@ import SimpleDialogDemo from "./components/buttons/ButtonPages";
 import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
 import { createTheme, ThemeProvider } from "@mui/material";
-// import JobForm from "./components/JobForm";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -496,7 +495,6 @@ function App() {
       ) : (
         <LoginPage />
       )}
-      {/* <JobForm /> */}
     </div>
   );
 }
