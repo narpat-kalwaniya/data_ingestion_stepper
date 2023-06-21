@@ -147,6 +147,10 @@ width: 100%;
   margin-top: 100px; /* Adjust as needed */
 }
 
+.MuiTableCell-root.MuiTableCell-head {
+  background-color: rgb(79, 79, 79); /* Set your desired color here */
+}
+
 
 
 
