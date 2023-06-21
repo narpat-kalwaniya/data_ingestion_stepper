@@ -317,6 +317,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                           validationRegex={/^.*$/}
                           validationError="Please enter valid tags"
                           tagProps={{ className: "react-tagsinput-tag info" }}
+                          inputProps={{ placeholder: " " }}
                         />
                         {!validateTagCount(
                           (tagValues[rowIndex] &&
