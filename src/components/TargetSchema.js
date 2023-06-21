@@ -14,6 +14,7 @@ const headers = [
 
 const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([...formData.tableData]);
+  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   console.log("fd", formData);
   // console.log(pageData);
@@ -37,6 +38,13 @@ const TbData = ({ formData, updateFormData }) => {
     //   ...pageData,
     //   { ...pageData[columnIndex], ["target_datatype"]: event.target.value },
     // ]);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
   // console.log(pageData);
 
@@ -51,6 +59,13 @@ const TbData = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
     // console.log(pageData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
   // console.log(formData);
   const businessKeyHandler = (checked, index) => {
@@ -64,6 +79,13 @@ const TbData = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
     // console.log(pageData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
   const transformLogicHandler = (value, index) => {
@@ -77,8 +99,16 @@ const TbData = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
     // console.log(pageData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
   // console.log("form data", formData);
+  console.log("target ingestion", ingestionData);
 
   const targetDataTypes = [
     "ARRAY",
@@ -105,7 +135,6 @@ const TbData = ({ formData, updateFormData }) => {
     "VARCHAR",
   ];
 
-  const { ingestionData } = useContext(DataContext);
   console.log("table data", tableData);
   return (
     <tbody style={{ fontSize: "12px" }}>
