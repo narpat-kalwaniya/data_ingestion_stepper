@@ -234,7 +234,7 @@ const headers = [
 const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([...formData.tableData]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
-
+  const [showInputBoxes, setShowInputBoxes] = useState(false);
   console.log("fd", formData);
   // console.log(pageData);
 
@@ -371,6 +371,10 @@ const TbData = ({ formData, updateFormData }) => {
     updateFormData(updatedFormData);
   };
 
+  useEffect(() => {
+    setShowInputBoxes(true); // Show input boxes for newly added row after rendering is complete
+  }, [tableData]);
+
   console.log("target ingestion", ingestionData);
 
   const targetDataTypes = [
@@ -417,7 +421,7 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Check onClick={handleCheck} />
           </td>
           <td>
-            {index === 0 ? (
+            {index === 0 && showInputBoxes ? (
               <Form.Control
                 type="text"
                 value={column.column_name}
@@ -429,7 +433,7 @@ const TbData = ({ formData, updateFormData }) => {
             )}
           </td>
           <td>
-            {index === 0 ? (
+            {index === 0 && showInputBoxes ? (
               <Form.Control
                 type="text"
                 value={column.data_type}
