@@ -235,6 +235,7 @@ const TbData = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([...formData.tableData]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
   const [showInputBoxes, setShowInputBoxes] = useState(false);
+  const [newRowIndex, setNewRowIndex] = useState(null);
   console.log("fd", formData);
   // console.log(pageData);
 
@@ -339,6 +340,21 @@ const TbData = ({ formData, updateFormData }) => {
 
     const updatedTableData = [newRow, ...tableData];
     setTableData(updatedTableData);
+    setNewRowIndex(0);
+    setShowInputBoxes(true);
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
+  };
+
+  const deleteRow = (index) => {
+    const updatedTableData = [...tableData];
+    updatedTableData.splice(index, 1); // Remove the row at the specified index
+    setTableData(updatedTableData);
+    setNewRowIndex(null); // Reset the new row index
 
     const updatedFormData = {
       ...formData,
@@ -370,10 +386,6 @@ const TbData = ({ formData, updateFormData }) => {
     };
     updateFormData(updatedFormData);
   };
-
-  useEffect(() => {
-    setShowInputBoxes(true); // Show input boxes for newly added row after rendering is complete
-  }, [tableData]);
 
   console.log("target ingestion", ingestionData);
 
@@ -421,7 +433,7 @@ const TbData = ({ formData, updateFormData }) => {
             <Form.Check onClick={handleCheck} />
           </td>
           <td>
-            {index === 0 && showInputBoxes ? (
+            {index === newRowIndex && showInputBoxes ? (
               <Form.Control
                 type="text"
                 value={column.column_name}
@@ -433,7 +445,7 @@ const TbData = ({ formData, updateFormData }) => {
             )}
           </td>
           <td>
-            {index === 0 && showInputBoxes ? (
+            {index === newRowIndex && showInputBoxes ? (
               <Form.Control
                 type="text"
                 value={column.data_type}
@@ -482,6 +494,11 @@ const TbData = ({ formData, updateFormData }) => {
               onChange={(e) => transformLogicHandler(e.target.value, index)}
               className="custom-select custom-style"
             />
+          </td>
+          <td>
+            {index === newRowIndex && showInputBoxes ? (
+              <button onClick={() => deleteRow(index)}>X</button>
+            ) : null}
           </td>
         </tr>
       ))}
