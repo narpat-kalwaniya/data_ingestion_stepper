@@ -3,7 +3,6 @@ import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 import "../styles/main.css";
 import { DataContext } from "./DataContext";
-import Scheduling from "./Scheduling";
 
 const GatherMetaData = ({ formData, updateFormData }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
@@ -35,8 +34,8 @@ const GatherMetaData = ({ formData, updateFormData }) => {
     setAdditionalFields(updatedFields);
   };
 
-  console.log("MetaformData:", formData);
-  console.log("ingestion Data", ingestionData);
+  // console.log("MetaformData:", formData);
+  console.log("meta ingestion Data", ingestionData);
 
   return (
     <Card.Body>
@@ -157,8 +156,10 @@ const GatherMetaData = ({ formData, updateFormData }) => {
               </Button>
             </Row>
           </div>
+          <br />
         </Form>
       </div>
+      <Scheduling />
     </Card.Body>
   );
 };

@@ -57,6 +57,13 @@ const ApplyMasking = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
   const handleMaskingChange = (option, index) => {
@@ -74,10 +81,17 @@ const ApplyMasking = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+
+    const updatedData = {
+      attributes: [
+        updatedTableData, // Add new attribute object
+      ],
+    };
+    updateIngestionData(updatedData);
   };
 
-  // console.log("masking target load", updateTargetLoad);
-  // console.log("masking form data", formData);
+  console.log("masking form data", formData);
+  console.log("masking ingestion data", ingestionData);
   return (
     <div>
       <Table responsive>

@@ -162,6 +162,7 @@ function App() {
         console.error("Error:", error);
       }
     };
+    console.log("useeffect running");
 
     fetchData();
   }, [formData.sourceEntity.table_name]);

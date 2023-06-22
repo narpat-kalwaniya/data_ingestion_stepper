@@ -112,8 +112,8 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
     updateIngestionData(updatedData);
   };
 
-  console.log("target formdata", formData);
-  console.log("target ingestion data", ingestionData);
+  // console.log("target formdata", formData);
+  console.log("target load ingestion data", ingestionData);
 
   return (
     <Card.Body className="custom-card-body">
