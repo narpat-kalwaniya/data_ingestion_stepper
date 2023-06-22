@@ -84,6 +84,7 @@ const Navbar = (props) => {
       style={{
         background: "white",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        // position: "fixed",
       }}
     >
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}

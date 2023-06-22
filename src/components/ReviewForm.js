@@ -119,6 +119,7 @@ const ReviewFrom = (props) => {
     }
   };
 
+
   console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
   // console.log(props.formData);
@@ -164,7 +165,8 @@ const ReviewFrom = (props) => {
       }
     });
   };
-
+  console.log("rule", props.formData.tableData[0].validation_rules);
+  console.log("final ingestion data", ingestionData);
   return (
     <div>
       <Container>
@@ -402,7 +404,13 @@ const ReviewFrom = (props) => {
                                 <td>{obj.data_type}</td>{" "}
                                 {/* Replace 'value' with the actual value from the object */}
                                 <td>{obj.target_datatype}</td>
-                                <td>{obj.validation_rule}</td>{" "}
+                                <td>
+                                  {obj.validation_rules.map((obj) => (
+                                    <tr>
+                                      <td>{obj}</td>
+                                    </tr>
+                                  ))}
+                                </td>{" "}
                                 <td>{obj.validation_input}</td>{" "}
                                 <td>{obj.quality_score}</td>
                               </tr>

@@ -26,7 +26,7 @@ import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
 import { ProgressBar } from "react-bootstrap";
-// import Scheduling from "./components/SchedulingForm";
+import Scheduling from "./components/Scheduling";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +38,7 @@ function App() {
   const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
   const [showMainPage, setshowMainPage] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [isScheduling, setIsScheduling] = useState(false);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -161,9 +162,10 @@ function App() {
         console.error("Error:", error);
       }
     };
+    console.log("useeffect running");
 
     fetchData();
-  }, [formData.sourceEntity]);
+  }, [formData.sourceEntity.table_name]);
 
   // Input validation-1
   const validateInputs = () => {
@@ -335,9 +337,17 @@ function App() {
       ) : user ? (
         <div user={user}>
           <div className="d-flex">
-            <Sidebar setshowMainPage={setshowMainPage} />
+            <Sidebar
+              isScheduling={isScheduling}
+              setIsScheduling={setIsScheduling}
+              setshowMainPage={setshowMainPage}
+              step={step}
+              setStep={setStep}
+            />
             <div className="w-100">
               <Navbar user={user} />
+              {isScheduling ? <Scheduling></Scheduling> : null}
+
               {showMainPage ? (
                 <DataProvider>
                   {/* <Slider></Slider> */}

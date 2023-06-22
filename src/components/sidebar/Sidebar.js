@@ -2,10 +2,15 @@ import "./sidebar.scss";
 import Navigation from "../Navigation/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ListingPage from "../listing/SearchNavbar";
 
 const Sidebar = (props) => {
   const [cross, setCross] = useState("bar");
 
+  // console.log("isscheduling", isScheduling);
+  const schedulingHandler = () => {
+    props.setIsScheduling(!props.isScheduling);
+  };
   const handleClick = (e) => {
     if (cross === "bar") {
       document.querySelector(".sidebar").style.width = "180px";
@@ -50,6 +55,12 @@ const Sidebar = (props) => {
     for (let i = 0; i < sides.length; i++) {
       sides[i].classList.remove("itemC_dis");
     }
+  };
+
+  const pipelinesHandler = () => {
+    // window.location.reload();
+    props.setshowMainPage(false);
+    props.setStep(1);
   };
 
   //  document.querySelector(".sidebar").addEventListener('mouseleave',handleB)
@@ -133,7 +144,9 @@ const Sidebar = (props) => {
               }}
             >
               <i class="fas fa-project-diagram "></i>
-              <span className="side">Pipelines</span>
+              <span className="side" onClick={pipelinesHandler}>
+                Pipelines
+              </span>
             </li>
 
             {/* <li
@@ -317,9 +330,9 @@ const Sidebar = (props) => {
                   textAlign: "left",
                   color: "white",
                 }}
-                href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
-                target="_blank"
-                rel="noopener noreferrer"
+                // href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
+                // target="_blank"
+                // rel="noopener noreferrer"
               >
                 {" "}
                 <i
@@ -333,6 +346,7 @@ const Sidebar = (props) => {
                     marginLeft: "0px",
                     textAlign: "left",
                   }}
+                  onClick={schedulingHandler}
                 >
                   Configuration
                 </span>
