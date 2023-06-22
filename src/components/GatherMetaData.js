@@ -160,7 +160,7 @@ const GatherMetaData = ({ formData, updateFormData }) => {
           <br />
         </Form>
       </div>
-      <Scheduling />
+      {/* <Scheduling /> */}
     </Card.Body>
   );
 };
