@@ -340,6 +340,9 @@ function App() {
             <Sidebar
               isScheduling={isScheduling}
               setIsScheduling={setIsScheduling}
+              setshowMainPage={setshowMainPage}
+              step={step}
+              setStep={setStep}
             />
             <div className="w-100">
               <Navbar user={user} />
