@@ -151,6 +151,37 @@ width: 100%;
   background-color: rgb(79, 79, 79); /* Set your desired color here */
 }
 
+.circle {
+  width: 14px;
+  height: 14px;
+  border: 2px solid;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.first-circle {
+  margin-bottom: 12px; /* Adjust as needed */
+}
+
+.vertical-line {
+  width: 2px;
+  background-color: gray;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 11px;
+  margin-left: -1px;
+}
+
+
+
+
+
+
+
 
 
 

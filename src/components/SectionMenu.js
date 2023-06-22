@@ -40,14 +40,37 @@ const SectionMenu = (props) => {
               style={{
                 backgroundColor: "#FCFCFC",
                 color: index === props.step - 1 ? "#EA943D" : "darkgray",
-                fontSize: index === props.step - 1 ? "15px" : "14px",
+                fontSize: index === props.step - 1 ? "14px" : "13px",
                 fontWeight: index === props.step - 1 ? 500 : 400,
                 border: "none",
                 borderRadius: "none",
                 transition: "ease-in-out 0.03s",
               }}
             >
-              {item}
+              <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center">
+                  {/* {index > 0 && index < 9 && (
+                    <div
+                      className="vertical-line"
+                      style={{ color: "a9a9a9" }}
+                    />
+                  )} */}
+                  <div
+                    className="circle"
+                    style={{
+                      borderColor:
+                        index === props.step - 1 ? "#EA943D" : "darkgray",
+                    }}
+                  ></div>
+                  {/* {index > 0 && (
+                    <div
+                      className="vertical-line"
+                      style={{ backgroundColor: "darkgray" }}
+                    />
+                  )} */}
+                </div>
+                {item}
+              </div>
             </ListGroup.Item>
           ))}
           {/* <ListGroup.Item

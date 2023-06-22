@@ -26,6 +26,7 @@ import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
 import { ProgressBar } from "react-bootstrap";
+import Scheduling from "./components/Scheduling";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,6 +38,7 @@ function App() {
   const [updateTargetLoad, setUpdateTargetLoad] = useState(false);
   const [showMainPage, setshowMainPage] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [isScheduling, setIsScheduling] = useState(false);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -335,9 +337,14 @@ function App() {
       ) : user ? (
         <div user={user}>
           <div className="d-flex">
-            <Sidebar />
+            <Sidebar
+              isScheduling={isScheduling}
+              setIsScheduling={setIsScheduling}
+            />
             <div className="w-100">
               <Navbar user={user} />
+              {isScheduling ? <Scheduling></Scheduling> : null}
+
               {showMainPage ? (
                 <DataProvider>
                   {/* <Slider></Slider> */}

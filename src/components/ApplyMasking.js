@@ -128,7 +128,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
 
               <td style={{ width: "300px" }}>
                 <Select
-                  value={column.masking_logic}
+                  value={formData.tableData[index].masking_logic}
                   onChange={(option) => handleMaskingChange(option, index)}
                   options={masking.map((masking) => ({
                     value: masking.algorithm_name,
