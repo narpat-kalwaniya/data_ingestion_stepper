@@ -28,7 +28,6 @@ export default function ButtonPages(props) {
     // padding: theme.spacing(2),
     // textAlign: "center",
     // color: theme.palette.text.secondary,
-   
   }));
   let buttonNames = [
     {
@@ -74,13 +73,7 @@ export default function ButtonPages(props) {
     },
   ];
   return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-      maxWidth="md"
-      fullWidth={true}
-      
-    >
+    <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth={true}>
       <DialogTitle className="dialogTitle">Select Data Pipelines</DialogTitle>
       {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}
 

@@ -59,7 +59,6 @@ const Sidebar = (props) => {
     <div
       className="sidebar"
       style={{ color: "white", backgroundColor: "#1C1C1C" }}
-
       onMouseOver={(e) => {
         handle(e);
       }}
@@ -80,8 +79,8 @@ const Sidebar = (props) => {
         <div className="top">
           <div
             className="bar pointer"
+            // navigate && navigate("/");
             onClick={(e) => {
-              // navigate && navigate("/");
               props?.setshowMainPage(false);
             }}
           >
