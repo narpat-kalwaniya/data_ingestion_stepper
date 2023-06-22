@@ -567,7 +567,6 @@ function App() {
       ) : (
         <LoginPage />
       )}
-      {/* <Scheduling /> */}
     </div>
   );
 }

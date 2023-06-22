@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Trash } from "react-bootstrap-icons";
-import "./Scheduling.css";
+import "./SchedulingForm.css";
 import { Stack } from "react-bootstrap";
 
 const Scheduling = () => {
@@ -55,51 +55,27 @@ const Scheduling = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/dagname/"
-        );
-        const data = await response.json();
-        setDagName(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    fetch("http://localhost:27022/api/v1/job/dagname/").then((result) => {
+      result.json().then((resp) => {
+        setDagName(resp);
+      });
+    });
   }, []);
 
   useEffect(() => {
-    const fetchModuleName = async () => {
-      try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/modulename/"
-        );
-        const data = await response.json();
-        setModuleName(data);
-      } catch (error) {
-        console.error("Error fetching module name:", error);
-      }
-    };
-
-    fetchModuleName();
+    fetch("http://localhost:27022/api/v1/job/modulename/").then((result) => {
+      result.json().then((resp) => {
+        setModuleName(resp);
+      });
+    });
   }, []);
 
   useEffect(() => {
-    const fetchTimezones = async () => {
-      try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/timezones/"
-        );
-        const data = await response.json();
-        setTimezones(data);
-      } catch (error) {
-        console.error("Error fetching timezones:", error);
-      }
-    };
-
-    fetchTimezones();
+    fetch("http://localhost:27022/api/v1/job/timezones/")
+      .then((result) => result.json())
+      .then((resp) => {
+        setTimezones(resp);
+      });
   }, []);
 
   const options = dagName.map((dag, index) => (
@@ -133,17 +109,14 @@ const Scheduling = () => {
     };
 
     // Send the data to the POST API
-    fetch(
-      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/create",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedFormData),
-      }
-    ).then((result) => {
+    fetch("http://localhost:27022/api/v1/job/create", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedFormData),
+    }).then((result) => {
       console.log("result", updatedFormData);
     });
   };
@@ -151,9 +124,10 @@ const Scheduling = () => {
     register("schedule_type");
 
   return (
-    <div className="container JobFormContainer">
+    <div className="JobFormContainer">
       <Form onSubmit={handleSubmit(onSubmitForm)}>
         {/* Form fields */}
+        <Row className="mb-3"></Row>
         <Row className="mb-3">
           <Form.Label column className="sm-2" for="job_name">
             Job Name:
