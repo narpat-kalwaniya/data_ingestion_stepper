@@ -156,7 +156,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
               <div className="radio-group">
                 <Col>
                   <Form.Label>
-                    Data Source Type <span className="text-danger">*</span>
+                    Target Load Type <span className="text-danger">*</span>
                   </Form.Label>
                 </Col>
                 <Form.Check

@@ -2,6 +2,7 @@ import "./sidebar.scss";
 import Navigation from "../Navigation/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ListingPage from "../listing/SearchNavbar";
 
 const Sidebar = (props) => {
   const [cross, setCross] = useState("bar");
@@ -54,6 +55,12 @@ const Sidebar = (props) => {
     for (let i = 0; i < sides.length; i++) {
       sides[i].classList.remove("itemC_dis");
     }
+  };
+
+  const pipelinesHandler = () => {
+    // window.location.reload();
+    props.setshowMainPage(false);
+    props.setStep(1);
   };
 
   //  document.querySelector(".sidebar").addEventListener('mouseleave',handleB)
@@ -132,7 +139,9 @@ const Sidebar = (props) => {
               }}
             >
               <i class="fas fa-project-diagram "></i>
-              <span className="side">Pipelines</span>
+              <span className="side" onClick={pipelinesHandler}>
+                Pipelines
+              </span>
             </li>
 
             {/* <li
