@@ -26,6 +26,7 @@ import LoginPage from "./components/auth/login/Login";
 import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
 import { ProgressBar } from "react-bootstrap";
+// import Scheduling from "./components/SchedulingForm";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -334,7 +335,7 @@ function App() {
       ) : user ? (
         <div user={user}>
           <div className="d-flex">
-            <Sidebar />
+            <Sidebar setshowMainPage={setshowMainPage} />
             <div className="w-100">
               <Navbar user={user} />
               {showMainPage ? (
@@ -500,6 +501,7 @@ function App() {
       ) : (
         <LoginPage />
       )}
+      {/* <Scheduling /> */}
     </div>
   );
 }

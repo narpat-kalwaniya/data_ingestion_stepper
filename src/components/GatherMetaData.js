@@ -3,7 +3,7 @@ import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 import "../styles/main.css";
 import { DataContext } from "./DataContext";
-import Scheduling from "./SchedulingForm";
+// import Scheduling from "./SchedulingForm";
 
 const GatherMetaData = ({ formData, updateFormData }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
@@ -160,7 +160,7 @@ const GatherMetaData = ({ formData, updateFormData }) => {
           <br />
         </Form>
       </div>
-      <Scheduling />
+      {/* <Scheduling /> */}
     </Card.Body>
   );
 };

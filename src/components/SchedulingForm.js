@@ -26,7 +26,7 @@ const Scheduling = () => {
   const scheduleType = watch("schedule_type");
 
   const addTask = () => {
-    setTasks([
+    const newTasks = [
       ...tasks,
       {
         task_name: "",
@@ -34,7 +34,9 @@ const Scheduling = () => {
         arguments: {},
         dependency: [],
       },
-    ]);
+    ];
+    setTasks(newTasks);
+    setValue("tasks", newTasks);
   };
   /*
         const removeTask = (index) => {
@@ -49,13 +51,17 @@ const Scheduling = () => {
         */
   const removeTask = (index) => {
     if (tasks.length > 1) {
-      const updatedTasks = tasks.filter((_, i) => i !== index);
+      const updatedTasks = JSON.parse(JSON.stringify(tasks)).filter(
+        (_, i) => i !== index
+      );
       setTasks(updatedTasks);
     }
   };
 
   useEffect(() => {
-    fetch("http://localhost:27022/api/v1/job/dagname/").then((result) => {
+    fetch(
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/dagname/"
+    ).then((result) => {
       result.json().then((resp) => {
         setDagName(resp);
       });
@@ -63,7 +69,9 @@ const Scheduling = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:27022/api/v1/job/modulename/").then((result) => {
+    fetch(
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/modulename/"
+    ).then((result) => {
       result.json().then((resp) => {
         setModuleName(resp);
       });
@@ -71,7 +79,9 @@ const Scheduling = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:27022/api/v1/job/timezones/")
+    fetch(
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/timezones/"
+    )
       .then((result) => result.json())
       .then((resp) => {
         setTimezones(resp);
@@ -97,10 +107,10 @@ const Scheduling = () => {
       arguments: JSON.parse(task.arguments),
     }));
     if (!data["parent_dag_id"]) {
-      data["parent_dag_id"] = "none";
+      delete data["parent_dag_id"];
     }
     if (!data["end_timestamp"]) {
-      data["end_timestamp"] = "none";
+      delete data["end_timestamp"];
     }
     // Update the form data with parsed tasks
     const updatedFormData = {
@@ -109,14 +119,17 @@ const Scheduling = () => {
     };
 
     // Send the data to the POST API
-    fetch("http://localhost:27022/api/v1/job/create", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedFormData),
-    }).then((result) => {
+    fetch(
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/create",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedFormData),
+      }
+    ).then((result) => {
       console.log("result", updatedFormData);
     });
   };
@@ -227,7 +240,14 @@ const Scheduling = () => {
               {...otherFiled}
               onChange={(e) => {
                 onScheduleChange(e);
-                resetField("schedule_value");
+                if (e.target.value == "delta_value") {
+                  setValue(
+                    "schedule_value",
+                    '{"hours":1,"days":1,"weekdays":1}'
+                  );
+                } else {
+                  resetField("schedule_value");
+                }
               }}
             >
               <option value="cron">cron</option>
@@ -285,7 +305,6 @@ const Scheduling = () => {
                   id="schedule_value"
                   name="schedule_value"
                   {...register("schedule_value")}
-                  value='{"hours":"","days":"","weekdays":""}'
                 />
               </Col>
             </>
@@ -304,61 +323,73 @@ const Scheduling = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task, index) => (
-              <tr key={index}>
-                <td>
-                  <Form.Control
-                    size="sm"
-                    className="jobFormItem"
-                    placeholder="Enter Task Name..."
-                    id={`tasks[${index}].task_name`}
-                    name={`tasks[${index}].task_name`}
-                    {...register(`tasks[${index}].task_name`)}
-                  />
-                </td>
-                <td>
-                  <Form.Select
-                    className="jobFormItem"
-                    size="sm"
-                    placeholder="Select Module Name..."
-                    id={`tasks[${index}].module_name`}
-                    name={`tasks[${index}].module_name`}
-                    {...register(`tasks[${index}].module_name`)}
-                  >
-                    {moduleName.map((module, moduleIndex) => (
-                      <option key={moduleIndex} value={module}>
-                        {module}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </td>
-                <td>
-                  <Form.Control
-                    size="sm"
-                    className="jobFormItem"
-                    placeholder="Enter Arguments..."
-                    id={`tasks[${index}].arguments`}
-                    name={`tasks[${index}].arguments`}
-                    {...register(`tasks[${index}].arguments`)}
-                  />
-                </td>
-                <td>
-                  <Form.Control
-                    className="jobFormItem"
-                    size="sm"
-                    placeholder="Enter Dependency..."
-                    id={`tasks[${index}].dependency`}
-                    name={`tasks[${index}].dependency`}
-                    {...register(`tasks[${index}].dependency`)}
-                  />
-                </td>
-                <td>
-                  <Button variant="danger" onClick={() => removeTask(index)}>
-                    <Trash />
-                  </Button>
-                </td>
-              </tr>
-            ))}
+            {tasks.map((task, index) => {
+              const { onChange: onTashNameChange, ...otherFiled } = register(
+                `tasks[${index}].task_name`
+              );
+              return (
+                <tr key={index}>
+                  <td>
+                    <Form.Control
+                      size="sm"
+                      className="jobFormItem"
+                      placeholder="Enter Task Name..."
+                      id={`tasks[${index}].task_name`}
+                      name={`tasks[${index}].task_name`}
+                      {...otherFiled}
+                      value={task.task_name}
+                      onChange={(e) => {
+                        onTashNameChange(e);
+                        let tasksTemp = JSON.parse(JSON.stringify(tasks));
+                        tasksTemp[index].task_name = e.target.value;
+                        setTasks(tasksTemp);
+                      }}
+                    />
+                  </td>
+                  <td>
+                    <Form.Select
+                      className="jobFormItem"
+                      size="sm"
+                      placeholder="Select Module Name..."
+                      id={`tasks[${index}].module_name`}
+                      name={`tasks[${index}].module_name`}
+                      {...register(`tasks[${index}].module_name`)}
+                    >
+                      {moduleName.map((module, moduleIndex) => (
+                        <option key={moduleIndex} value={module}>
+                          {module}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </td>
+                  <td>
+                    <Form.Control
+                      size="sm"
+                      className="jobFormItem"
+                      placeholder="Enter Arguments..."
+                      id={`tasks[${index}].arguments`}
+                      name={`tasks[${index}].arguments`}
+                      {...register(`tasks[${index}].arguments`)}
+                    />
+                  </td>
+                  <td>
+                    <Form.Control
+                      className="jobFormItem"
+                      size="sm"
+                      placeholder="Enter Dependency..."
+                      id={`tasks[${index}].dependency`}
+                      name={`tasks[${index}].dependency`}
+                      {...register(`tasks[${index}].dependency`)}
+                    />
+                  </td>
+                  <td>
+                    <Button variant="danger" onClick={() => removeTask(index)}>
+                      <Trash />
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
         <Stack gap={2} direction="horizontal">
