@@ -152,7 +152,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
       <div className="text-left">
         <Form>
           <Row className="mb-4">
-            <Col xs={6}>
+            <Col>
               <div className="radio-group">
                 <Form.Check
                   inline
@@ -186,9 +186,25 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   // onChange={selectChangeHandler}
                   className="custom-radio"
                 />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Select Distinct"
+                  name="source_entity_type"
+                  value="selectDistinct"
+                  checked={
+                    selectedOption === "selectDistinct" ||
+                    formData.DefineSourceExtractCriteria.source_entity_type ===
+                      "selectDistinct"
+                  }
+                  onChange={handleRadioChange}
+                  // checked={dataSourceType === "RDBMS-QUERY"}
+                  // onChange={selectChangeHandler}
+                  className="custom-radio"
+                />
               </div>
             </Col>
-            <Col xs={3}>
+            {/* <Col xs={3}>
               <Form.Check
                 type="checkbox"
                 id="checkbox"
@@ -205,7 +221,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   true
                 }
               />
-            </Col>
+            </Col> */}
           </Row>
           <Row className="mb-4">
             <Col xs={4}>
@@ -381,7 +397,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                 type="text"
                 placeholder=""
                 className="custom-select custom-style"
-                disabled={isIncrementalSelected}
+                // disabled={isIncrementalSelected}
                 name="filter"
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.filter}
@@ -395,7 +411,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                 type="text"
                 placeholder=""
                 className="custom-select custom-style"
-                disabled={isIncrementalSelected}
+                // disabled={isIncrementalSelected}
                 name="order_by"
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.order_by}
