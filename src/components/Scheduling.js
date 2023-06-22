@@ -55,27 +55,51 @@ const Scheduling = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:27022/api/v1/job/dagname/").then((result) => {
-      result.json().then((resp) => {
-        setDagName(resp);
-      });
-    });
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/dagname/"
+        );
+        const data = await response.json();
+        setDagName(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:27022/api/v1/job/modulename/").then((result) => {
-      result.json().then((resp) => {
-        setModuleName(resp);
-      });
-    });
+    const fetchModuleName = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/modulename/"
+        );
+        const data = await response.json();
+        setModuleName(data);
+      } catch (error) {
+        console.error("Error fetching module name:", error);
+      }
+    };
+
+    fetchModuleName();
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:27022/api/v1/job/timezones/")
-      .then((result) => result.json())
-      .then((resp) => {
-        setTimezones(resp);
-      });
+    const fetchTimezones = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/timezones/"
+        );
+        const data = await response.json();
+        setTimezones(data);
+      } catch (error) {
+        console.error("Error fetching timezones:", error);
+      }
+    };
+
+    fetchTimezones();
   }, []);
 
   const options = dagName.map((dag, index) => (
@@ -109,14 +133,17 @@ const Scheduling = () => {
     };
 
     // Send the data to the POST API
-    fetch("http://localhost:27022/api/v1/job/create", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedFormData),
-    }).then((result) => {
+    fetch(
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/create",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedFormData),
+      }
+    ).then((result) => {
       console.log("result", updatedFormData);
     });
   };
