@@ -283,6 +283,11 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                         selectedTestcases[rowIndex] &&
                         selectedTestcases[rowIndex][inputIndex]
                       }
+                      // value={
+                      //   formData.tableData[rowIndex].validation_rules[
+                      //     inputIndex
+                      //   ]
+                      // }
                       onChange={(option) =>
                         handleTestcaseChange(option, rowIndex, inputIndex)
                       }

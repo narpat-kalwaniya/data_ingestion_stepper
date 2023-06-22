@@ -6,6 +6,10 @@ import { useState } from "react";
 const Sidebar = (props) => {
   const [cross, setCross] = useState("bar");
 
+  // console.log("isscheduling", isScheduling);
+  const schedulingHandler = () => {
+    props.setIsScheduling(!props.isScheduling);
+  };
   const handleClick = (e) => {
     if (cross === "bar") {
       document.querySelector(".sidebar").style.width = "180px";
@@ -312,9 +316,9 @@ const Sidebar = (props) => {
                   textAlign: "left",
                   color: "white",
                 }}
-                href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
-                target="_blank"
-                rel="noopener noreferrer"
+                // href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
+                // target="_blank"
+                // rel="noopener noreferrer"
               >
                 {" "}
                 <i
@@ -328,6 +332,7 @@ const Sidebar = (props) => {
                     marginLeft: "0px",
                     textAlign: "left",
                   }}
+                  onClick={schedulingHandler}
                 >
                   Configuration
                 </span>
