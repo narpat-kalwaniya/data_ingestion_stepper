@@ -152,8 +152,13 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
       <div className="text-left">
         <Form>
           <Row className="mb-4">
-            <Col>
+            <Col sm={6}>
               <div className="radio-group">
+                <Col>
+                  <Form.Label>
+                    Data Source Type <span className="text-danger">*</span>
+                  </Form.Label>
+                </Col>
                 <Form.Check
                   inline
                   type="radio"
@@ -186,7 +191,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   // onChange={selectChangeHandler}
                   className="custom-radio"
                 />
-                <Form.Check
+                {/* <Form.Check
                   inline
                   type="radio"
                   label="Select Distinct"
@@ -201,10 +206,10 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   // checked={dataSourceType === "RDBMS-QUERY"}
                   // onChange={selectChangeHandler}
                   className="custom-radio"
-                />
+                /> */}
               </div>
             </Col>
-            {/* <Col xs={3}>
+            <Col xs={3}>
               <Form.Check
                 type="checkbox"
                 id="checkbox"
@@ -221,7 +226,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   true
                 }
               />
-            </Col> */}
+            </Col>
           </Row>
           <Row className="mb-4">
             <Col xs={4}>
