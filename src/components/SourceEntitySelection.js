@@ -439,7 +439,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
                   name="BucketName"
                   className="custom-select custom-style"
                   onChange={bucket_fileNameChangeHandler}
-                  value={bucketName}
+                  value={formData.sourceEntity.bucket_name}
                   // disabled={dataSourceType !== "Flat File"}
                   disabled={disableElement.bucket_name}
                   isInvalid={errors2.bucket_name}
@@ -459,7 +459,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
                   name="FullFileName"
                   className="custom-select custom-style"
                   onChange={bucket_fileNameChangeHandler}
-                  value={fullFileName}
+                  value={formData.sourceEntity.full_file_name}
                   // disabled={dataSourceType !== "Flat File"}
                   disabled={disableElement.full_file_name}
                   isInvalid={errors2.full_file_name}
