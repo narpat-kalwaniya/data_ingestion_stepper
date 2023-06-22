@@ -23,7 +23,71 @@ const ApplicationModal = (props) => {
         <Modal.Title>Create Application</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Some Content</p>
+        <Card.Body className="custom-card-body">
+          <Form>
+            <Row className="mb-4">
+              <Col xs={3}>
+                <Form.Label>Application Name</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="text"
+                  disabled={false}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col xs={3}>
+                <Form.Label>Description</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="text"
+                  disabled={false}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </Row>
+
+            <Row className="mb-4">
+              <Col xs={3}>
+                <Form.Label>Description</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="text"
+                  disabled={false}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col xs={3}>
+                <Form.Label>Description</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="text"
+                  disabled={false}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col xs={3}>
+                <Form.Label>Description</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="text"
+                  disabled={false}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </Row>
+          </Form>
+        </Card.Body>
       </Modal.Body>
       <Modal.Footer>
         <Button

@@ -27,9 +27,7 @@ const DataSourceModal = (props) => {
           <Form>
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>
-                  Connection Name <span className="text-danger">*</span>
-                </Form.Label>
+                <Form.Label>Connection Name</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -42,9 +40,7 @@ const DataSourceModal = (props) => {
             </Row>
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>
-                  Connection Type <span className="text-danger">*</span>
-                </Form.Label>
+                <Form.Label>Connection Type</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -58,9 +54,7 @@ const DataSourceModal = (props) => {
 
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>
-                  Data Source Name <span className="text-danger">*</span>
-                </Form.Label>
+                <Form.Label>Data Source Name</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -73,9 +67,7 @@ const DataSourceModal = (props) => {
             </Row>
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>
-                  Environment <span className="text-danger">*</span>
-                </Form.Label>
+                <Form.Label>Environment</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -88,9 +80,7 @@ const DataSourceModal = (props) => {
             </Row>
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>
-                  Connection String <span className="text-danger">*</span>
-                </Form.Label>
+                <Form.Label>Connection String</Form.Label>
               </Col>
               <Col>
                 <Form.Control
