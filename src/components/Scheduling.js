@@ -11,30 +11,35 @@ import "./Scheduling.css";
 import { Stack } from "react-bootstrap";
 
 const Scheduling = () => {
-  const [tasks, setTasks] = useState([
-    {
-      task_name: "",
-      module_name: "",
-      arguments: {},
-      dependency: [],
-    },
-  ]);
   const [dagName, setDagName] = useState([]);
   const [moduleName, setModuleName] = useState([]);
   const [timezones, setTimezones] = useState([]);
-  const { register, handleSubmit, watch, setValue, resetField } = useForm();
+  const { register, handleSubmit, watch, setValue, resetField } = useForm({
+    defaultValues: {
+      tasks: [
+        {
+          task_name: "",
+          module_name: "",
+          arguments: {},
+          dependency: [],
+        },
+      ],
+    },
+  });
   const scheduleType = watch("schedule_type");
+  const tasks = watch("tasks");
 
   const addTask = () => {
-    setTasks([
-      ...tasks,
+    const newTasks = [
+      ...(tasks || []),
       {
         task_name: "",
         module_name: "",
         arguments: {},
         dependency: [],
       },
-    ]);
+    ];
+    setValue("tasks", newTasks);
   };
   /*
         const removeTask = (index) => {
@@ -50,7 +55,7 @@ const Scheduling = () => {
   const removeTask = (index) => {
     if (tasks.length > 1) {
       const updatedTasks = tasks.filter((_, i) => i !== index);
-      setTasks(updatedTasks);
+      setValue("tasks", updatedTasks);
     }
   };
 
@@ -330,7 +335,7 @@ const Scheduling = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task, index) => (
+            {(tasks || []).map((task, index) => (
               <tr key={index}>
                 <td>
                   <Form.Control
