@@ -14,7 +14,7 @@ import "../App.css";
 import { DataContext } from "./DataContext";
 import Select from "react-select";
 
-const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
+const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
@@ -191,6 +191,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData }) => {
                   // onChange={selectChangeHandler}
                   className="custom-radio"
                 />
+                {errors5.source_entity_type && (
+                  <div className="error">{errors5.source_entity_type}</div>
+                )}
                 {/* <Form.Check
                   inline
                   type="radio"

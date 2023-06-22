@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Row,
+  Col,
+  Card,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { DataContext } from "./DataContext";
 import "../styles/main.css";
@@ -123,6 +131,31 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
 
+  //Modal
+  const [showModalDSC, setShowModalDSC] = useState(false);
+  const handleShowModalDSC = () => {
+    setShowModalDSC(true);
+  };
+  const handleCloseModalDSC = () => {
+    setShowModalDSC(false);
+  };
+
+  const [showModalDTC, setShowModalDTC] = useState(false);
+  const handleShowModalDTC = () => {
+    setShowModalDTC(true);
+  };
+  const handleCloseModalDTC = () => {
+    setShowModalDTC(false);
+  };
+
+  const [showModalApp, setShowModalApp] = useState(false);
+  const handleShowModalApp = () => {
+    setShowModalApp(true);
+  };
+  const handleCloseModalApp = () => {
+    setShowModalApp(false);
+  };
+
   console.log("form data", formData);
 
   console.log("connection ingestion data", ingestionData);
@@ -166,7 +199,39 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                   )}
                 </Col>
                 <Col style={{ marginTop: "4px" }}>
-                  <Icon.CloudPlusFill size={25} className="icon" />
+                  <Icon.CloudPlusFill
+                    size={25}
+                    className="icon"
+                    onClick={handleShowModalDSC}
+                  />
+                  <Modal
+                    show={showModalDSC}
+                    onHide={handleCloseModalDSC}
+                    size="xl"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Create Data Scouce Connection</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>Some Content</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="secondary"
+                        onClick={handleCloseModalDSC}
+                        className="btn-cl"
+                      >
+                        Close
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={handleCloseModalDSC}
+                        className="btn-save"
+                      >
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </Col>
               </Row>
             </Col>
@@ -203,7 +268,39 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                   )}
                 </Col>
                 <Col style={{ marginTop: "4px" }}>
-                  <Icon.PatchPlusFill size={25} className="icon" />
+                  <Icon.PatchPlusFill
+                    size={25}
+                    className="icon"
+                    onClick={handleShowModalDTC}
+                  />
+                  <Modal
+                    show={showModalDTC}
+                    onHide={handleCloseModalDTC}
+                    size="xl"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Create Data Target Connection</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>Some Content</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="secondary"
+                        onClick={handleCloseModalDTC}
+                        className="btn-cl"
+                      >
+                        Close
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={handleCloseModalDTC}
+                        className="btn-save"
+                      >
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </Col>
               </Row>
             </Col>
@@ -243,7 +340,39 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                   )}
                 </Col>
                 <Col style={{ marginTop: "4px" }}>
-                  <Icon.WindowPlus className="icon" size={25} />
+                  <Icon.WindowPlus
+                    className="icon"
+                    size={25}
+                    onClick={handleShowModalApp}
+                  />
+                  <Modal
+                    show={showModalApp}
+                    onHide={handleCloseModalApp}
+                    size="xl"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Create Application</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>Some Content</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="secondary"
+                        onClick={handleCloseModalApp}
+                        className="btn-cl"
+                      >
+                        Close
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={handleCloseModalApp}
+                        className="btn-save"
+                      >
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </Col>
               </Row>
             </Col>
