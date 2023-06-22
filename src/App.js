@@ -103,7 +103,6 @@ function App() {
     dataTarget: "",
     application: "",
   });
-
   const [errors2, setErrors2] = useState({
     data_source_type: "",
     query: null,
@@ -113,6 +112,13 @@ function App() {
     bucket_name: null,
     full_file_name: null,
     source_entity_name: "",
+  });
+  const [errors5, setErrors5] = useState({
+    source_entity_type: "",
+  });
+  const [errors6, setErrors6] = useState({
+    target_entity_name: "",
+    target_load_type: "",
   });
 
   useEffect(() => {
@@ -257,6 +263,42 @@ function App() {
     return Object.keys(newErrors2).length === 0;
   };
 
+  const validateInputs5 = () => {
+    const newErrors5 = {};
+
+    if (
+      !formData.DefineSourceExtractCriteria.source_entity_type ||
+      !formData.DefineSourceExtractCriteria.source_entity_type === ""
+    ) {
+      newErrors5.source_entity_type = "This field is required";
+    }
+
+    setErrors5(newErrors5);
+
+    return Object.keys(newErrors5).length === 0;
+  };
+
+  const validateInputs6 = () => {
+    const newErrors6 = {};
+
+    if (
+      !formData.targetLoadDetails.target_entity_name ||
+      formData.targetLoadDetails.target_entity_name === ""
+    ) {
+      newErrors6.target_entity_name = "This field is required";
+    }
+    if (
+      !formData.targetLoadDetails.target_load_type ||
+      formData.targetLoadDetails.target_load_type === ""
+    ) {
+      newErrors6.target_load_type = "This field is required";
+    }
+
+    setErrors6(newErrors6);
+
+    return Object.keys(newErrors6).length === 0;
+  };
+
   const totalPagesCount = 8;
 
   const previousHandler = () => {
@@ -281,10 +323,22 @@ function App() {
       } else {
         setStep((step) => step);
       }
+    } else if (step === 5) {
+      if (validateInputs5()) {
+        setStep((step) => step + 1);
+      } else {
+        setStep((step) => step);
+      }
+    } else if (step === 6) {
+      if (validateInputs6()) {
+        setStep((step) => step + 1);
+      } else {
+        setStep((step) => step);
+      }
     } else {
       setStep((step) => step + 1);
     }
-    console.log("Current Step:", step);
+    // console.log("Current Step:", step);
   };
 
   const closeHandler = () => {
@@ -411,6 +465,8 @@ function App() {
                                         updateFormData={updateFormData}
                                         errors={errors}
                                         errors2={errors2}
+                                        errors5={errors5}
+                                        errors6={errors6}
                                         isReview={isReview}
                                         setIsReview={setIsReview}
                                       />

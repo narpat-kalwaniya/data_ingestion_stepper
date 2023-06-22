@@ -18,6 +18,8 @@ const Stepper = ({
   updateTableData,
   errors,
   errors2,
+  errors5,
+  errors6,
   updateTargetLoad,
 }) => {
   return (
@@ -54,12 +56,14 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          errors5={errors5}
         />
       ) : step === 6 ? (
         <TargetLoadDetails
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          errors6={errors6}
         />
       ) : step === 7 ? (
         <ApplyMasking

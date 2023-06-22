@@ -13,7 +13,7 @@ import { DataContext } from "./DataContext";
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = ({ formData, updateFormData }) => {
+const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
   const [checked, setChecked] = useState(
     formData.targetLoadDetails.is_mantain_a_copy_in_datalake
   );
@@ -120,7 +120,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
       <div className="text-left">
         <Form>
           <Row className="mb-4">
-            <Form.Label>Target Entity Name</Form.Label>
+            <Form.Label>
+              Target Entity Name <span className="text-danger">*</span>
+            </Form.Label>
             <Col>
               <Form.Control
                 type="text"
@@ -129,12 +131,18 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                 disabled={false}
                 name="target_entity_name"
                 onChange={changeHandler}
+                isInvalid={errors6.target_entity_name}
               />
+              {errors6.target_entity_name && (
+                <div className="error">{errors6.target_entity_name}</div>
+              )}
             </Col>
           </Row>
           <Row className="mb-4">
             <Col xs="auto">
-              <Form.Label>Target Load Type</Form.Label>
+              <Form.Label>
+                Target Load Type <span className="text-danger">*</span>
+              </Form.Label>
             </Col>
             <Col xs="auto">
               <div className="radio-group">
@@ -198,6 +206,9 @@ const TargetLoadDetails = ({ formData, updateFormData }) => {
                   style={{ marginRight: "25px" }}
                 ></Form.Check>
               </div>
+              {errors6.target_load_type && (
+                <div className="error">{errors6.target_load_type}</div>
+              )}
             </Col>
           </Row>
 
