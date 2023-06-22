@@ -160,9 +160,10 @@ function App() {
         console.error("Error:", error);
       }
     };
+    console.log("useeffect running");
 
     fetchData();
-  }, [formData.sourceEntity]);
+  }, [formData.sourceEntity.table_name]);
 
   // Input validation-1
   const validateInputs = () => {
