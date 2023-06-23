@@ -8,8 +8,12 @@ const Sidebar = (props) => {
   const [cross, setCross] = useState("bar");
 
   // console.log("isscheduling", isScheduling);
+  const homeHandler = () => {
+    props.setIsHome(true);
+    console.log("isHome", props.isHome);
+  };
   const schedulingHandler = () => {
-    props.setIsScheduling(!props.isScheduling);
+    props.setIsScheduling(true);
   };
   const handleClick = (e) => {
     if (cross === "bar") {
@@ -61,6 +65,8 @@ const Sidebar = (props) => {
     // window.location.reload();
     props.setshowMainPage(false);
     props.setStep(1);
+    props.setIsHome(false);
+    props.setIsScheduling(false);
   };
 
   //  document.querySelector(".sidebar").addEventListener('mouseleave',handleB)
@@ -90,13 +96,20 @@ const Sidebar = (props) => {
         <div className="top">
           <div
             className="bar"
-            onClick={(e) => {
-              navigate && navigate("/");
-            }}
+            // onClick={(e) => {
+            //   navigate && navigate("/");
+            // }}
           >
             <i
               class="fa-solid fa-house"
-              style={{ fontSize: "16px", color: "white" }}
+              style={{
+                fontSize: "16px",
+                color: "white",
+                width: "20px",
+                height: "20px",
+              }}
+              type="button"
+              onClick={homeHandler}
             ></i>
           </div>
         </div>

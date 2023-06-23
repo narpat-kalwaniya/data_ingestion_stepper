@@ -27,6 +27,7 @@ import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
 import { ProgressBar } from "react-bootstrap";
 import Scheduling from "./components/Scheduling";
+import Home from "./components/Home";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,6 +40,7 @@ function App() {
   const [showMainPage, setshowMainPage] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [isScheduling, setIsScheduling] = useState(false);
+  const [isHome, setIsHome] = useState(false);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -348,12 +350,16 @@ function App() {
               setshowMainPage={setshowMainPage}
               step={step}
               setStep={setStep}
+              isHome={isHome}
+              setIsHome={setIsHome}
             />
             <div className="w-100">
               <Navbar user={user} />
-              {isScheduling ? <Scheduling></Scheduling> : null}
-
-              {showMainPage ? (
+              {isHome ? (
+                <Home setIsHome={setIsHome} setIsScheduling={setIsScheduling} />
+              ) : isScheduling ? (
+                <Scheduling></Scheduling>
+              ) : showMainPage ? (
                 <DataProvider>
                   {/* <Slider></Slider> */}
                   <Container
@@ -363,15 +369,13 @@ function App() {
                     <Card className="Card-outer custom-card-body ">
                       <Row className="m-2">
                         <div className="back-button">
-                          <div className="back-icon">
-                            <FiArrowLeft />
-                          </div>
-                          <span
-                            className="back-text"
+                          <div
+                            className="back-icon"
                             onClick={createNewPipelineHandler}
                           >
-                            Create New Pipeline
-                          </span>
+                            <FiArrowLeft />
+                          </div>
+                          <span className="back-text">Create New Pipeline</span>
 
                           <div className="horizontal-line"></div>
                         </div>
