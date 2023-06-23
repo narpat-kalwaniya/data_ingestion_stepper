@@ -403,7 +403,7 @@ function App() {
                               cancel={closeHandler}
                               formData={formData}
                               setshowMainPage={setshowMainPage}
-                            ></ReviewForm>
+                            />
                           ) : (
                             <Card className="custom-card">
                               <div>
