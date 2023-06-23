@@ -27,6 +27,7 @@ import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
 import { ProgressBar } from "react-bootstrap";
 import Scheduling from "./components/Scheduling";
+import Home from "./components/Home";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,6 +40,7 @@ function App() {
   const [showMainPage, setshowMainPage] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [isScheduling, setIsScheduling] = useState(false);
+  const [isHome, setIsHome] = useState(true);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -103,7 +105,6 @@ function App() {
     dataTarget: "",
     application: "",
   });
-
   const [errors2, setErrors2] = useState({
     data_source_type: "",
     query: null,
@@ -113,6 +114,13 @@ function App() {
     bucket_name: null,
     full_file_name: null,
     source_entity_name: "",
+  });
+  const [errors5, setErrors5] = useState({
+    source_entity_type: "",
+  });
+  const [errors6, setErrors6] = useState({
+    target_entity_name: "",
+    target_load_type: "",
   });
 
   useEffect(() => {
@@ -166,6 +174,11 @@ function App() {
 
     fetchData();
   }, [formData.sourceEntity.table_name]);
+
+  const createNewPipelineHandler = () => {
+    setshowMainPage(false);
+    setStep(1);
+  };
 
   // Input validation-1
   const validateInputs = () => {
@@ -257,6 +270,42 @@ function App() {
     return Object.keys(newErrors2).length === 0;
   };
 
+  const validateInputs5 = () => {
+    const newErrors5 = {};
+
+    if (
+      !formData.DefineSourceExtractCriteria.source_entity_type ||
+      !formData.DefineSourceExtractCriteria.source_entity_type === ""
+    ) {
+      newErrors5.source_entity_type = "This field is required";
+    }
+
+    setErrors5(newErrors5);
+
+    return Object.keys(newErrors5).length === 0;
+  };
+
+  const validateInputs6 = () => {
+    const newErrors6 = {};
+
+    if (
+      !formData.targetLoadDetails.target_entity_name ||
+      formData.targetLoadDetails.target_entity_name === ""
+    ) {
+      newErrors6.target_entity_name = "This field is required";
+    }
+    if (
+      !formData.targetLoadDetails.target_load_type ||
+      formData.targetLoadDetails.target_load_type === ""
+    ) {
+      newErrors6.target_load_type = "This field is required";
+    }
+
+    setErrors6(newErrors6);
+
+    return Object.keys(newErrors6).length === 0;
+  };
+
   const totalPagesCount = 8;
 
   const previousHandler = () => {
@@ -281,10 +330,22 @@ function App() {
       } else {
         setStep((step) => step);
       }
+    } else if (step === 5) {
+      if (validateInputs5()) {
+        setStep((step) => step + 1);
+      } else {
+        setStep((step) => step);
+      }
+    } else if (step === 6) {
+      if (validateInputs6()) {
+        setStep((step) => step + 1);
+      } else {
+        setStep((step) => step);
+      }
     } else {
       setStep((step) => step + 1);
     }
-    console.log("Current Step:", step);
+    // console.log("Current Step:", step);
   };
 
   const closeHandler = () => {
@@ -343,12 +404,16 @@ function App() {
               setshowMainPage={setshowMainPage}
               step={step}
               setStep={setStep}
+              isHome={isHome}
+              setIsHome={setIsHome}
             />
             <div className="w-100">
               <Navbar user={user} />
-              {isScheduling ? <Scheduling></Scheduling> : null}
-
-              {showMainPage ? (
+              {isHome ? (
+                <Home setIsHome={setIsHome} setIsScheduling={setIsScheduling} />
+              ) : isScheduling ? (
+                <Scheduling></Scheduling>
+              ) : showMainPage ? (
                 <DataProvider>
                   {/* <Slider></Slider> */}
                   <Container
@@ -358,15 +423,13 @@ function App() {
                     <Card className="Card-outer custom-card-body ">
                       <Row className="m-2">
                         <div className="back-button">
-                          <div className="back-icon">
+                          <div
+                            className="back-icon"
+                            onClick={createNewPipelineHandler}
+                          >
                             <FiArrowLeft />
                           </div>
-                          <span
-                            className="back-text"
-                            // onClick={setshowMainPage(!showMainPage)}
-                          >
-                            Create New Pipeline
-                          </span>
+                          <span className="back-text">Create New Pipeline</span>
 
                           <div className="horizontal-line"></div>
                         </div>
@@ -414,6 +477,8 @@ function App() {
                                         updateFormData={updateFormData}
                                         errors={errors}
                                         errors2={errors2}
+                                        errors5={errors5}
+                                        errors6={errors6}
                                         isReview={isReview}
                                         setIsReview={setIsReview}
                                       />

@@ -1,9 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Row,
+  Col,
+  Card,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { DataContext } from "./DataContext";
 import "../styles/main.css";
 import "./CreateDataConnection.css";
+import ApplicationModal from "./CreateModals/ApplicationModal";
+import DataSourceModal from "./CreateModals/DataSourceModal";
+import DataTargetModal from "./CreateModals/DataTargetModal";
+// import DataSourceModalForm from "./CreateModalsForms/DataSourceModalForm";
 
 const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
   const [connections, setConnections] = useState([]);
@@ -123,6 +135,31 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
 
+  //Modal
+  const [showModalDSC, setShowModalDSC] = useState(false);
+  const handleShowModalDSC = () => {
+    setShowModalDSC(true);
+  };
+  const handleCloseModalDSC = () => {
+    setShowModalDSC(false);
+  };
+
+  const [showModalDTC, setShowModalDTC] = useState(false);
+  const handleShowModalDTC = () => {
+    setShowModalDTC(true);
+  };
+  const handleCloseModalDTC = () => {
+    setShowModalDTC(false);
+  };
+
+  const [showModalApp, setShowModalApp] = useState(false);
+  const handleShowModalApp = () => {
+    setShowModalApp(true);
+  };
+  const handleCloseModalApp = () => {
+    setShowModalApp(false);
+  };
+
   console.log("form data", formData);
 
   console.log("connection ingestion data", ingestionData);
@@ -166,7 +203,16 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                   )}
                 </Col>
                 <Col style={{ marginTop: "4px" }}>
-                  <Icon.CloudPlusFill size={25} className="icon" />
+                  <Icon.CloudPlusFill
+                    size={25}
+                    className="icon"
+                    onClick={handleShowModalDSC}
+                  />
+                  <DataSourceModal
+                    showModalDSC={showModalDSC}
+                    handleShowModalDSC={handleShowModalDSC}
+                    handleCloseModalDSC={handleCloseModalDSC}
+                  ></DataSourceModal>
                 </Col>
               </Row>
             </Col>
@@ -203,7 +249,16 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                   )}
                 </Col>
                 <Col style={{ marginTop: "4px" }}>
-                  <Icon.PatchPlusFill size={25} className="icon" />
+                  <Icon.PatchPlusFill
+                    size={25}
+                    className="icon"
+                    onClick={handleShowModalDTC}
+                  />
+                  <DataTargetModal
+                    showModalDTC={showModalDTC}
+                    handleShowModalDTC={handleShowModalDTC}
+                    handleCloseModalDTC={handleCloseModalDTC}
+                  ></DataTargetModal>
                 </Col>
               </Row>
             </Col>
@@ -243,7 +298,16 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                   )}
                 </Col>
                 <Col style={{ marginTop: "4px" }}>
-                  <Icon.WindowPlus className="icon" size={25} />
+                  <Icon.WindowPlus
+                    className="icon"
+                    size={25}
+                    onClick={handleShowModalApp}
+                  />
+                  <ApplicationModal
+                    showModalApp={showModalApp}
+                    handleShowModalApp={handleShowModalApp}
+                    handleCloseModalApp={handleCloseModalApp}
+                  ></ApplicationModal>
                 </Col>
               </Row>
             </Col>
