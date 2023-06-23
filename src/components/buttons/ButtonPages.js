@@ -78,9 +78,8 @@ export default function ButtonPages(props) {
 
       onClose={handleClose}
       open={open}
-      // style={{
-      //   marginLeft: "100px",
-      // }}
+      maxWidth="md"
+      fullWidth={true}
     >
       <DialogTitle className="dialogTitle">Select Data Pipelines</DialogTitle>
       {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}

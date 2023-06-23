@@ -93,14 +93,20 @@ const Sidebar = (props) => {
             </div>
           )}
         </div> */}
-        <div className="top">
-          <div
-            className="bar"
-            // onClick={(e) => {
-            //   navigate && navigate("/");
-            // }}
-          >
+
+        <div
+          className="top"
+          onClick={(e) => {
+            e.stopPropagation();
+            props?.setshowMainPage(false);
+          }}
+        >
+          <div className="bar">
             <i
+              onClick={(e) => {
+                e.stopPropagation();
+                props?.setshowMainPage(false);
+              }}
               class="fa-solid fa-house"
               style={{
                 fontSize: "16px",
