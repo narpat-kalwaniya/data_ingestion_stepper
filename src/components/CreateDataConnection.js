@@ -12,6 +12,10 @@ import * as Icon from "react-bootstrap-icons";
 import { DataContext } from "./DataContext";
 import "../styles/main.css";
 import "./CreateDataConnection.css";
+import ApplicationModal from "./CreateModals/ApplicationModal";
+import DataSourceModal from "./CreateModals/DataSourceModal";
+import DataTargetModal from "./CreateModals/DataTargetModal";
+// import DataSourceModalForm from "./CreateModalsForms/DataSourceModalForm";
 
 const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
   const [connections, setConnections] = useState([]);
@@ -204,34 +208,11 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                     className="icon"
                     onClick={handleShowModalDSC}
                   />
-                  <Modal
-                    show={showModalDSC}
-                    onHide={handleCloseModalDSC}
-                    size="xl"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Create Data Scouce Connection</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p>Some Content</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button
-                        variant="secondary"
-                        onClick={handleCloseModalDSC}
-                        className="btn-cl"
-                      >
-                        Close
-                      </Button>
-                      <Button
-                        variant="primary"
-                        onClick={handleCloseModalDSC}
-                        className="btn-save"
-                      >
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                  <DataSourceModal
+                    showModalDSC={showModalDSC}
+                    handleShowModalDSC={handleShowModalDSC}
+                    handleCloseModalDSC={handleCloseModalDSC}
+                  ></DataSourceModal>
                 </Col>
               </Row>
             </Col>
@@ -273,34 +254,11 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                     className="icon"
                     onClick={handleShowModalDTC}
                   />
-                  <Modal
-                    show={showModalDTC}
-                    onHide={handleCloseModalDTC}
-                    size="xl"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Create Data Target Connection</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p>Some Content</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button
-                        variant="secondary"
-                        onClick={handleCloseModalDTC}
-                        className="btn-cl"
-                      >
-                        Close
-                      </Button>
-                      <Button
-                        variant="primary"
-                        onClick={handleCloseModalDTC}
-                        className="btn-save"
-                      >
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                  <DataTargetModal
+                    showModalDTC={showModalDTC}
+                    handleShowModalDTC={handleShowModalDTC}
+                    handleCloseModalDTC={handleCloseModalDTC}
+                  ></DataTargetModal>
                 </Col>
               </Row>
             </Col>
@@ -345,34 +303,11 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
                     size={25}
                     onClick={handleShowModalApp}
                   />
-                  <Modal
-                    show={showModalApp}
-                    onHide={handleCloseModalApp}
-                    size="xl"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Create Application</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p>Some Content</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button
-                        variant="secondary"
-                        onClick={handleCloseModalApp}
-                        className="btn-cl"
-                      >
-                        Close
-                      </Button>
-                      <Button
-                        variant="primary"
-                        onClick={handleCloseModalApp}
-                        className="btn-save"
-                      >
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                  <ApplicationModal
+                    showModalApp={showModalApp}
+                    handleShowModalApp={handleShowModalApp}
+                    handleCloseModalApp={handleCloseModalApp}
+                  ></ApplicationModal>
                 </Col>
               </Row>
             </Col>
