@@ -130,9 +130,19 @@ import {
 
 import "../../styles/main.css";
 import "./DataSourceModal.css";
+import ReactJson from "react-json-view";
 
 const DataSourceModal = (props) => {
   const [selectedItem, setSelectedItem] = useState(null);
+  const [parsedJson, setParsedJson] = useState(null);
+
+  const [formData, setFormData] = useState({
+    connection_name: "",
+    connection_type: "",
+    data_source_name: "",
+    environment: "",
+    connection_string: "",
+  });
 
   const sidebarData = [
     {
@@ -152,16 +162,53 @@ const DataSourceModal = (props) => {
     // Add more items as needed
   ];
 
+  const handleParseJson = (value) => {
+    try {
+      const parsedObject = JSON.parse(value);
+      setParsedJson(parsedObject);
+    } catch (error) {
+      setParsedJson(null);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedItem) {
+      setFormData(selectedItem);
+    }
+  }, [selectedItem]);
+
   const handleSidebarItemClick = (item) => {
     setSelectedItem(item);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveChanges = () => {
+    // Handle saving the changes (e.g., send the formData to backend)
+    console.log("Form Data:", formData);
+    handleCloseModalDSC();
+  };
+
+  const handleCloseModalDSC = () => {
+    setSelectedItem(null);
+    setFormData({
+      connection_name: "",
+      connection_type: "",
+      data_source_name: "",
+      environment: "",
+      connection_string: "",
+    });
+    props.handleCloseModalDSC();
+  };
+
   return (
-    <Modal
-      show={props.showModalDSC}
-      onHide={props.handleCloseModalDSC}
-      size="lg"
-    >
+    <Modal show={props.showModalDSC} onHide={handleCloseModalDSC} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>Create Data Source Connection</Modal.Title>
       </Modal.Header>
@@ -170,7 +217,7 @@ const DataSourceModal = (props) => {
           <Row>
             <Col xs={4} className="sidebar-container">
               <div className="sidebar">
-                <div className="sidebar-heading">Sidebar Heading</div>
+                <div className="sidebar-heading">Connection List</div>
                 {sidebarData.map((item, index) => (
                   <div
                     key={index}
@@ -195,10 +242,10 @@ const DataSourceModal = (props) => {
                     <Col>
                       <Form.Control
                         type="text"
-                        disabled={false}
                         className="custom-select custom-style"
                         name="connection_name"
-                        value={selectedItem ? selectedItem.connection_name : ""}
+                        value={formData.connection_name}
+                        onChange={handleChange}
                       />
                     </Col>
                   </Row>
@@ -209,10 +256,10 @@ const DataSourceModal = (props) => {
                     <Col>
                       <Form.Control
                         type="text"
-                        disabled={false}
                         className="custom-select custom-style"
                         name="connection_type"
-                        value={selectedItem ? selectedItem.connection_type : ""}
+                        value={formData.connection_type}
+                        onChange={handleChange}
                       />
                     </Col>
                   </Row>
@@ -224,12 +271,10 @@ const DataSourceModal = (props) => {
                     <Col>
                       <Form.Control
                         type="text"
-                        disabled={false}
                         className="custom-select custom-style"
                         name="data_source_name"
-                        value={
-                          selectedItem ? selectedItem.data_source_name : ""
-                        }
+                        value={formData.data_source_name}
+                        onChange={handleChange}
                       />
                     </Col>
                   </Row>
@@ -240,10 +285,10 @@ const DataSourceModal = (props) => {
                     <Col>
                       <Form.Control
                         type="text"
-                        disabled={false}
                         className="custom-select custom-style"
                         name="environment"
-                        value={selectedItem ? selectedItem.environment : ""}
+                        value={formData.environment}
+                        onChange={handleChange}
                       />
                     </Col>
                   </Row>
@@ -255,13 +300,24 @@ const DataSourceModal = (props) => {
                       <Form.Control
                         as="textarea"
                         rows={3}
-                        disabled={false}
-                        className="custom-select custom-style"
+                        className="custom-select custom-style connection-string-textarea"
                         name="connection_string"
-                        value={
-                          selectedItem ? selectedItem.connection_string : ""
-                        }
+                        value={formData.connection_string}
+                        onChange={handleChange}
+                        onBlur={(e) => handleParseJson(e.target.value)}
                       />
+                      {parsedJson && (
+                        <div className="json-view-container">
+                          <ReactJson
+                            src={parsedJson}
+                            theme="ocean"
+                            name={null}
+                            enableClipboard={false}
+                            displayDataTypes={false}
+                            displayObjectSize={false}
+                          />
+                        </div>
+                      )}
                     </Col>
                   </Row>
                 </Form>
@@ -273,14 +329,14 @@ const DataSourceModal = (props) => {
       <Modal.Footer>
         <Button
           variant="secondary"
-          onClick={props.handleCloseModalDSC}
+          onClick={handleCloseModalDSC}
           className="btn-cl"
         >
           Close
         </Button>
         <Button
           variant="primary"
-          onClick={props.handleCloseModalDSC}
+          onClick={handleSaveChanges}
           className="btn-save"
         >
           Save Changes

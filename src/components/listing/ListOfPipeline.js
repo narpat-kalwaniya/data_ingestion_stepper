@@ -31,7 +31,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
+    // backgroundColor: theme.palette.action.hover,
   },
   // hide last border
   "&:last-child td, &:last-child th": {
@@ -60,7 +60,7 @@ export default function CustomizedTables({ searchedData }) {
   const fetchTestcases = async () => {
     try {
       const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingestreview/"
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/entitydetails/"
       );
       const data = await response.json();
       console.log(data);
@@ -76,9 +76,9 @@ export default function CustomizedTables({ searchedData }) {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead style={{ color: "#E0E0E0" }}>
           <TableRow className="listOfPipelineNavbar">
-            <StyledTableCell>Domain</StyledTableCell>
-            <StyledTableCell align="center">Entity</StyledTableCell>
-            <StyledTableCell align="center">Description</StyledTableCell>
+            <StyledTableCell>Module</StyledTableCell>
+            <StyledTableCell align="center">Source Entity</StyledTableCell>
+            <StyledTableCell align="center">Target Entity</StyledTableCell>
             <StyledTableCell align="center">Status</StyledTableCell>
             <StyledTableCell align="center">View</StyledTableCell>
           </TableRow>
@@ -108,16 +108,16 @@ export default function CustomizedTables({ searchedData }) {
             .map((row) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">
-                  {row.app_name}
+                  Data Ingestion
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.source_entity_name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.target_connection_name}
+                  {row.target_entity_name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.source_connection_name}
+                  {row.entity_status}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <VisibilityOutlinedIcon
