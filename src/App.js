@@ -27,7 +27,6 @@ import firebase from "./services/firebase";
 import { FiArrowLeft } from "react-icons/fi";
 import { ProgressBar } from "react-bootstrap";
 import Scheduling from "./components/Scheduling";
-import Home from "./components/Home";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,7 +39,6 @@ function App() {
   const [showMainPage, setshowMainPage] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [isScheduling, setIsScheduling] = useState(false);
-  const [isHome, setIsHome] = useState(true);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -174,11 +172,6 @@ function App() {
 
     fetchData();
   }, [formData.sourceEntity.table_name]);
-
-  const createNewPipelineHandler = () => {
-    setshowMainPage(false);
-    setStep(1);
-  };
 
   // Input validation-1
   const validateInputs = () => {
@@ -404,16 +397,12 @@ function App() {
               setshowMainPage={setshowMainPage}
               step={step}
               setStep={setStep}
-              isHome={isHome}
-              setIsHome={setIsHome}
             />
             <div className="w-100">
               <Navbar user={user} />
-              {isHome ? (
-                <Home setIsHome={setIsHome} setIsScheduling={setIsScheduling} />
-              ) : isScheduling ? (
-                <Scheduling></Scheduling>
-              ) : showMainPage ? (
+              {isScheduling ? <Scheduling></Scheduling> : null}
+
+              {showMainPage ? (
                 <DataProvider>
                   {/* <Slider></Slider> */}
                   <Container
@@ -423,13 +412,15 @@ function App() {
                     <Card className="Card-outer custom-card-body ">
                       <Row className="m-2">
                         <div className="back-button">
-                          <div
-                            className="back-icon"
-                            onClick={createNewPipelineHandler}
-                          >
+                          <div className="back-icon">
                             <FiArrowLeft />
                           </div>
-                          <span className="back-text">Create New Pipeline</span>
+                          <span
+                            className="back-text"
+                            // onClick={setshowMainPage(!showMainPage)}
+                          >
+                            Create New Pipeline
+                          </span>
 
                           <div className="horizontal-line"></div>
                         </div>
@@ -576,7 +567,6 @@ function App() {
       ) : (
         <LoginPage />
       )}
-      {/* <Scheduling /> */}
     </div>
   );
 }

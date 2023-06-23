@@ -21,7 +21,6 @@ import "../styles/main.css";
 const ReviewFrom = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { ingestionData, updateIngestionData } = useContext(DataContext);
 
   const editHandler1 = () => {
     props.setStep((step) => 1);
@@ -77,24 +76,6 @@ const ReviewFrom = (props) => {
     setShowModal(false);
   };
 
-  const handleCheckboxChange = (event) => {
-    const isChecked = event.target.checked;
-    if (isChecked) {
-      // Execute the pipeline now
-      const updatedData = {
-        run_now: true,
-      };
-      updateIngestionData(updatedData);
-    } else {
-      // Checkbox is unchecked
-      const updatedData = {
-        run_now: false,
-      };
-      updateIngestionData(updatedData);
-    }
-    console.log("final ingestion data checkbox", ingestionData);
-  };
-
   const submitHandler = async (event) => {
     setIsSubmitted(true);
 
@@ -108,6 +89,9 @@ const ReviewFrom = (props) => {
     }
     setShowModal(false);
   };
+
+  // post request send the final ingestion data
+  const { ingestionData } = useContext(DataContext);
 
   // Function to handle the POST request
   const sendData = async () => {
@@ -134,6 +118,7 @@ const ReviewFrom = (props) => {
       console.error("Error:", error.message);
     }
   };
+
 
   console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
@@ -592,7 +577,6 @@ const ReviewFrom = (props) => {
                   <FormCheck
                     style={{ marginTop: "10px" }}
                     label="I also want to execute the pipeline now."
-                    onChange={handleCheckboxChange}
                   ></FormCheck>
                 </Modal.Body>
                 <Modal.Footer>
