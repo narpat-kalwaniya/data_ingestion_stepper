@@ -39,7 +39,7 @@ const ApplicationModal = (props) => {
             </Row>
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Application Type</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -52,7 +52,7 @@ const ApplicationModal = (props) => {
 
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Failure Recipients</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -64,19 +64,7 @@ const ApplicationModal = (props) => {
             </Row>
             <Row className="mb-4">
               <Col xs={3}>
-                <Form.Label>Description</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="text"
-                  disabled={false}
-                  className="custom-select custom-style"
-                />
-              </Col>
-            </Row>
-            <Row className="mb-4">
-              <Col xs={3}>
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Success Recipients</Form.Label>
               </Col>
               <Col>
                 <Form.Control
