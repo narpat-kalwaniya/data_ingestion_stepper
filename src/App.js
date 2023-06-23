@@ -40,7 +40,7 @@ function App() {
   const [showMainPage, setshowMainPage] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [isScheduling, setIsScheduling] = useState(false);
-  const [isHome, setIsHome] = useState(false);
+  const [isHome, setIsHome] = useState(true);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
