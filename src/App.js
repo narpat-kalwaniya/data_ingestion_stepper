@@ -167,6 +167,11 @@ function App() {
     fetchData();
   }, [formData.sourceEntity.table_name]);
 
+  const createNewPipelineHandler = () => {
+    setshowMainPage(false);
+    setStep(1);
+  };
+
   // Input validation-1
   const validateInputs = () => {
     const newErrors = {};
@@ -363,7 +368,7 @@ function App() {
                           </div>
                           <span
                             className="back-text"
-                            // onClick={setshowMainPage(!showMainPage)}
+                            onClick={createNewPipelineHandler}
                           >
                             Create New Pipeline
                           </span>
