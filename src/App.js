@@ -356,12 +356,15 @@ function App() {
             <div className="w-100">
               <Navbar user={user} />
               {isHome ? (
-                <Home setIsHome={setIsHome} setIsScheduling={setIsScheduling} />
+                <Home
+                  setIsHome={setIsHome}
+                  setIsScheduling={setIsScheduling}
+                  setStep={setStep}
+                />
               ) : isScheduling ? (
-                <Scheduling></Scheduling>
+                <Scheduling />
               ) : showMainPage ? (
                 <DataProvider>
-                  {/* <Slider></Slider> */}
                   <Container
                     className="h-100"
                     style={{ marginTop: "30px", backgroundColor: "white" }}
