@@ -67,6 +67,7 @@ export const DataProvider = ({ children }) => {
         arguments: null,
         dependency: "2",
       },
+      run_now: false,
     },
   ]);
 
