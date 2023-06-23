@@ -26,7 +26,6 @@
     transition: all 0.3s;
     border-radius: 5px;
 }
-.jobFormBtn:hover {
-    background-color: #fcb160;;;
-    
+.jobFormBtn:active:hover,.jobFormBtn:hover {
+    background-color: #fcb160;
 }
