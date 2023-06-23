@@ -160,6 +160,8 @@ width: 100%;
   position: relative;
   display: inline-block;
   vertical-align: middle;
+  z-index: 1000;
+  background-color: white;
 }
 
 .first-circle {
@@ -168,12 +170,14 @@ width: 100%;
 
 .vertical-line {
   width: 2px;
-  background-color: gray;
+  background-color: darkgray;
   position: absolute;
-  top: 0;
+  top: -20px;
   bottom: 0;
-  left: 11px;
+  left: 23px;
   margin-left: -1px;
+  z-index: 500;
+  height: 98%;
 }
 
 
