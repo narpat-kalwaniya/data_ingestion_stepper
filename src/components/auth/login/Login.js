@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import "../../../styles/main.css";
-
 import { signInWithGoogle } from "../../../services/firebase";
-import "./login.css";
 
 import loginimage from "./Illustration.svg";
 import tigerLogo from "./download (2).png";
 import ssoIcon from "./sso-icon.png";
+
+import classes from "./Login.module.css";
 
 const LoginPage = (props) => {
   // const loginHandler = () => {
@@ -23,37 +23,37 @@ const LoginPage = (props) => {
     };
   }, []);
   return (
-    <div className="loginContainer">
-      <div className="login-left">
+    <div className={classes.loginContainer}>
+      <div className={classes["login-left"]}>
         <img src={loginimage} alt="img" />
-        <p className="login-img-text">
+        <p className={classes["login-img-text" ]}>
           Seamless, all-in-one solution for scalable, integrated data management
           and analytics on Snowflake.
         </p>
       </div>
-      <div className="login-right">
-        <div className="brand">
-          <img className="brand-logo" src={tigerLogo} alt="tigerlogo" />
+      <div className={classes["login-right" ]} >
+        <div className={classes.brand}>
+          <img className={classes["brand-logo"]}  src={tigerLogo} alt="tigerlogo" />
           <h1> Snowflake data fabric</h1>
         </div>
-        <form action="#" className="login-form">
-          <input className="email-input" type="email" placeholder="Email ID" />
+        <form action="#" className={classes["login-form" ]}>
+          <input className= {classes["email-input"  ]} type="email" placeholder="Email ID" />
           <input
-            className="password-input"
+            className= {classes["password-input" ]}
             type="password"
             placeholder="Password"
           />
-          <div className="forget-password">
+          <div className= {classes["forget-password" ]}>
             <span>Forget password?</span>
           </div>
-          <input type="submit" value="Login" className="login-button" />
-          <p className="or-text">Or</p>
-          <div className="sso-button" onClick={signInWithGoogle}>
+          <input type="submit" value="Login" className={classes["login-button"  ]} />
+          <p className= {classes["or-text"]}>Or</p>
+          <div className= {classes["sso-button"]} onClick={signInWithGoogle}>
             <img alt="Google sign-in" src={ssoIcon} />
             <p>Continue with SSO</p>
           </div>
         </form>
-        <div className="login-footer">
+        <div className= {classes["login-footer"]}>
           <p>
             Don’t have an account? <a href="#">Sign Up now</a>
           </p>
