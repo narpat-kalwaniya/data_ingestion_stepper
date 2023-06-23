@@ -30,6 +30,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
   });
 
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  const [updatedQuery, setUpdatedQuery] = useState("");
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
@@ -111,6 +112,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
 
   const queryChangeHandler = (event) => {
     const { value } = event.target;
+    setUpdatedQuery(value);
     const updatedSourceEntity = {
       ...formData.sourceEntity,
       query: value,
@@ -126,6 +128,30 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
     };
     updateIngestionData(updatedData);
   };
+
+  // const handleKeyPress = (event, updatedQuery) => {
+  //   if (event.key === "Enter" && !event.shiftKey) {
+  //     event.preventDefault();
+  //     saveData(updatedQuery);
+  //   }
+  // };
+
+  // const saveData = (updatedQuery) => {
+  //   const updatedSourceEntity = {
+  //     ...formData.sourceEntity,
+  //     query: updatedQuery,
+  //   };
+  //   const updatedFormData = {
+  //     ...formData,
+  //     sourceEntity: updatedSourceEntity,
+  //   };
+  //   updateFormData(updatedFormData);
+
+  //   const updatedData = {
+  //     query: updatedQuery,
+  //   };
+  //   updateIngestionData(updatedData);
+  // };
 
   // Event listener for Bucket Name and Full File Name Change Handler
   const bucket_fileNameChangeHandler = (event) => {
@@ -339,6 +365,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
                   value={formData.sourceEntity.query || ""}
                   onChange={queryChangeHandler}
                   isInvalid={errors2.query}
+                  // onKeyPress={handleKeyPress}
                 />
                 {errors2.query && <div className="error">{errors2.query}</div>}
               </div>
