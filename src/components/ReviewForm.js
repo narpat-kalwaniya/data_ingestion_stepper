@@ -22,6 +22,8 @@ const ReviewFrom = (props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState({});
 
   const editHandler1 = () => {
     props.setStep((step) => 1);
@@ -96,8 +98,6 @@ const ReviewFrom = (props) => {
   };
 
   const submitHandler = async (event) => {
-    setIsSubmitted(true);
-
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
@@ -111,6 +111,7 @@ const ReviewFrom = (props) => {
 
   // Function to handle the POST request
   const sendData = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingeststore/",
@@ -130,12 +131,15 @@ const ReviewFrom = (props) => {
       // Handle the response if needed
       const responseData = await response.json();
       console.log("Response:", responseData);
+      setResponse({ ...responseData });
     } catch (error) {
       console.error("Error:", error.message);
     }
+    setIsLoading(false);
+    setIsSubmitted(true);
   };
 
-  console.log("final ingestion data", safeStringify(ingestionData[0]));
+  // console.log("final ingestion data", safeStringify(ingestionData[0]));
   console.log("final ingestion data without stringy", ingestionData);
   // console.log(props.formData);
 
@@ -184,13 +188,19 @@ const ReviewFrom = (props) => {
   console.log("final ingestion data", ingestionData);
   return (
     <div>
-      <Container>
-        <div style={{ marginTop: "12px" }}></div>
-        {isSubmitted ? (
-          <Success setshowMainPage={props.setshowMainPage} />
-        ) : (
-          <div>
-            {/* <div
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Container>
+          <div style={{ marginTop: "12px" }}></div>
+          {isSubmitted ? (
+            <Success
+              setshowMainPage={props.setshowMainPage}
+              response={response}
+            />
+          ) : (
+            <div>
+              {/* <div
               style={{
                 backgroundColor: "#F7901D",
                 borderTopLeftRadius: "10px",
@@ -202,7 +212,7 @@ const ReviewFrom = (props) => {
                 height: "50px",
               }}
             > */}
-            {/* <Card
+              {/* <Card
               style={
                 {
                   // backgroundColor: "#F7901D",
@@ -216,15 +226,15 @@ const ReviewFrom = (props) => {
                 }
               }
             > */}
-            {/* <h5
+              {/* <h5
                 style={{
                   marginLeft: "1%",
                 }}
               >
                 Review Details
               </h5> */}
-            {/* </Card> */}
-            {/* <Form.Check
+              {/* </Card> */}
+              {/* <Form.Check
                 label="Execute Now"
                 style={{
                   backgroundColor: "#F7901D",
@@ -235,76 +245,50 @@ const ReviewFrom = (props) => {
                   marginRight: "1%",
                 }}
               /> */}
-            {/* </div> */}
-            <Container
-              style={{
-                minHeight: "60vh",
-                maxHeight: "60vh",
-                overflowY: "scroll",
-              }}
-            >
-              <Card.Body>
-                <Row>
-                  <Col>
-                    <div>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Data Connection</p>
-                          <button
-                            // style={{ backgroundColor: "#49494A" }}
-                            onClick={editHandler1}
+              {/* </div> */}
+              <Container
+                style={{
+                  minHeight: "60vh",
+                  maxHeight: "60vh",
+                  overflowY: "scroll",
+                }}
+              >
+                <Card.Body>
+                  <Row>
+                    <Col>
+                      <div>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
                           >
-                            <AiOutlineEdit
-                            // style={{ backgroundColor: "none" }}
-                            ></AiOutlineEdit>
-                          </button>
-                        </div>
-                        {/* <div
+                            <p>Data Connection</p>
+                            <button
+                              // style={{ backgroundColor: "#49494A" }}
+                              onClick={editHandler1}
+                            >
+                              <AiOutlineEdit
+                              // style={{ backgroundColor: "none" }}
+                              ></AiOutlineEdit>
+                            </button>
+                          </div>
+                          {/* <div
                           style={{
                             position: "relative",
                             overflow: "auto",
                             height: "5px",
                           }}
                         > */}
-                        <div className="horizontal-line-1"></div>
-                        {/* </div> */}
-                      </div>
-
-                      <Card.Body
-                      // style={{ justifyItems: "center", alignItems: "center" }}
-                      >
-                        {Object.entries(
-                          props.formData.CreateDataConnection
-                        ).map(([key, value]) => (
-                          <div
-                            key={key}
-                            style={{ display: "flex", marginBottom: "10px" }}
-                          >
-                            <span className="key">{key}</span>
-                            <span className="colon">:</span>
-                            <span className="value">{value}</span>
-                          </div>
-                        ))}
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Source Entity</p>
-                          <button onClick={editHandler2}>
-                            <AiOutlineEdit />
-                          </button>
+                          <div className="horizontal-line-1"></div>
+                          {/* </div> */}
                         </div>
 
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        {Object.entries(props.formData.sourceEntity).map(
-                          ([key, value]) => (
+                        <Card.Body
+                        // style={{ justifyItems: "center", alignItems: "center" }}
+                        >
+                          {Object.entries(
+                            props.formData.CreateDataConnection
+                          ).map(([key, value]) => (
                             <div
                               key={key}
                               style={{ display: "flex", marginBottom: "10px" }}
@@ -313,234 +297,174 @@ const ReviewFrom = (props) => {
                               <span className="colon">:</span>
                               <span className="value">{value}</span>
                             </div>
-                          )
-                        )}
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Target Schema</p>
-                          <button onClick={editHandler3}>
-                            <AiOutlineEdit />
-                          </button>
-                        </div>
-
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        <Table responsive>
-                          <thead
-                            style={{
-                              backgroundColor: "#F3F3F3",
-                              fontSize: "12px",
-                              height: "50px",
-                              alignItems: "center",
-                            }}
+                          ))}
+                        </Card.Body>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
                           >
-                            <tr>
-                              <th>Column Name</th>
-                              <th>Source Datatype</th>
-                              <th>Target Datatype</th>
-                              <th>Primary Key</th>
-                              <th>Business Key</th>
-                              <th>Transformation Logic</th>
-                            </tr>
-                          </thead>
-                          <tbody style={{ fontSize: "12px" }}>
-                            {props.formData.tableData.map((obj, index) => (
-                              <tr
-                                key={index}
+                            <p>Source Entity</p>
+                            <button onClick={editHandler2}>
+                              <AiOutlineEdit />
+                            </button>
+                          </div>
+
+                          <div className="horizontal-line-1"></div>
+                        </div>
+                        <Card.Body>
+                          {Object.entries(props.formData.sourceEntity).map(
+                            ([key, value]) => (
+                              <div
+                                key={key}
                                 style={{
-                                  height: "20px",
+                                  display: "flex",
+                                  marginBottom: "10px",
                                 }}
                               >
-                                <td>{obj.column_name}</td>{" "}
-                                {/* Replace 'key' with the actual key from the object */}
-                                <td>{obj.data_type}</td>{" "}
-                                {/* Replace 'value' with the actual value from the object */}
-                                <td>{obj.target_datatype}</td>{" "}
-                                <td>
-                                  <FormCheck
-                                    checked={obj.is_target_primary_key === true}
-                                    disabled={true}
-                                  ></FormCheck>
-                                </td>{" "}
-                                <td>
-                                  <FormCheck
-                                    checked={obj.is_business_key === true}
-                                    disabled={true}
-                                  ></FormCheck>
-                                </td>{" "}
-                                <td>{obj.transformation_logic}</td>{" "}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Data Validation</p>
-                          <button onClick={editHandler4}>
-                            <AiOutlineEdit />
-                          </button>
-                        </div>
-
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        <Table responsive>
-                          <thead
-                            style={{
-                              backgroundColor: "#F3F3F3",
-                              fontSize: "12px",
-                              height: "50px",
-                              alignItems: "center",
-                            }}
-                          >
-                            <tr>
-                              <th>Column Name</th>
-                              <th>Source Datatype</th>
-                              <th>Target Datatype</th>
-                              <th>Validation Rule</th>
-                              <th>Validation Input</th>
-                              <th>Quality Score</th>
-                            </tr>
-                          </thead>
-                          <tbody style={{ fontSize: "12px" }}>
-                            {props.formData.tableData.map((obj, index) => (
-                              <tr key={index}>
-                                <td>{obj.column_name}</td>{" "}
-                                {/* Replace 'key' with the actual key from the object */}
-                                <td>{obj.data_type}</td>{" "}
-                                {/* Replace 'value' with the actual value from the object */}
-                                <td>{obj.target_datatype}</td>
-                                <td>
-                                  {obj.validation_rules.map((obj) => (
-                                    <tr>
-                                      <td>{obj}</td>
-                                    </tr>
-                                  ))}
-                                </td>{" "}
-                                <td>{obj.validation_input}</td>{" "}
-                                <td>{obj.quality_score}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Source Extract Criteria</p>
-                          <button onClick={editHandler5}>
-                            <AiOutlineEdit />
-                          </button>
-                        </div>
-
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        {Object.entries(
-                          props.formData.DefineSourceExtractCriteria
-                        ).map(([key, value]) => (
+                                <span className="key">{key}</span>
+                                <span className="colon">:</span>
+                                <span className="value">{value}</span>
+                              </div>
+                            )
+                          )}
+                        </Card.Body>
+                        <div className="block">
                           <div
-                            key={key}
-                            style={{ display: "flex", marginBottom: "10px" }}
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
                           >
-                            <span className="key">{key}</span>
-                            <span className="colon">:</span>
-                            <span className="value">{value}</span>
+                            <p>Target Schema</p>
+                            <button onClick={editHandler3}>
+                              <AiOutlineEdit />
+                            </button>
                           </div>
-                        ))}
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Target Load Details</p>
-                          <button onClick={editHandler6}>
-                            <AiOutlineEdit />
-                          </button>
-                        </div>
 
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        <div>
-                          {renderObject(props.formData.targetLoadDetails)}
+                          <div className="horizontal-line-1"></div>
                         </div>
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Masking</p>
-                          <button onClick={editHandler7}>
-                            <AiOutlineEdit />
-                          </button>
-                        </div>
-
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        <Table responsive>
-                          <thead
-                            style={{
-                              backgroundColor: "#F3F3F3",
-                              fontSize: "12px",
-                              height: "50px",
-                              alignItems: "center",
-                            }}
-                          >
-                            <tr>
-                              <th>Column Name</th>
-                              <th>Mask/Tokenize</th>
-                              <th>Masking Logic</th>
-                            </tr>
-                          </thead>
-                          <tbody style={{ fontSize: "12px" }}>
-                            {props.formData.tableData.map((obj, index) => (
-                              <tr key={index}>
-                                <td>{obj.column_name}</td>{" "}
-                                {/* Replace 'key' with the actual key from the object */}
-                                <td>
-                                  <FormCheck
-                                    checked={obj.is_masking === true}
-                                    disabled={true}
-                                  ></FormCheck>
-                                </td>{" "}
-                                {/* Replace 'value' with the actual value from the object */}
-                                <td>{obj.masking_logic}</td>
+                        <Card.Body>
+                          <Table responsive>
+                            <thead
+                              style={{
+                                backgroundColor: "#F3F3F3",
+                                fontSize: "12px",
+                                height: "50px",
+                                alignItems: "center",
+                              }}
+                            >
+                              <tr>
+                                <th>Column Name</th>
+                                <th>Source Datatype</th>
+                                <th>Target Datatype</th>
+                                <th>Primary Key</th>
+                                <th>Business Key</th>
+                                <th>Transformation Logic</th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </Card.Body>
-                      <div className="block">
-                        <div
-                          className="d-flex justify-content-between float-right"
-                          style={{ color: "#000000" }}
-                        >
-                          <p>Meta Data</p>
-                          <button onClick={editHandler8}>
-                            <AiOutlineEdit />
-                          </button>
-                        </div>
+                            </thead>
+                            <tbody style={{ fontSize: "12px" }}>
+                              {props.formData.tableData.map((obj, index) => (
+                                <tr
+                                  key={index}
+                                  style={{
+                                    height: "20px",
+                                  }}
+                                >
+                                  <td>{obj.column_name}</td>{" "}
+                                  {/* Replace 'key' with the actual key from the object */}
+                                  <td>{obj.data_type}</td>{" "}
+                                  {/* Replace 'value' with the actual value from the object */}
+                                  <td>{obj.target_datatype}</td>{" "}
+                                  <td>
+                                    <FormCheck
+                                      checked={
+                                        obj.is_target_primary_key === true
+                                      }
+                                      disabled={true}
+                                    ></FormCheck>
+                                  </td>{" "}
+                                  <td>
+                                    <FormCheck
+                                      checked={obj.is_business_key === true}
+                                      disabled={true}
+                                    ></FormCheck>
+                                  </td>{" "}
+                                  <td>{obj.transformation_logic}</td>{" "}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
+                          >
+                            <p>Data Validation</p>
+                            <button onClick={editHandler4}>
+                              <AiOutlineEdit />
+                            </button>
+                          </div>
 
-                        <div className="horizontal-line-1"></div>
-                      </div>
-                      <Card.Body>
-                        {Object.entries(props.formData.GatherMetaData).map(
-                          ([key, value]) => (
+                          <div className="horizontal-line-1"></div>
+                        </div>
+                        <Card.Body>
+                          <Table responsive>
+                            <thead
+                              style={{
+                                backgroundColor: "#F3F3F3",
+                                fontSize: "12px",
+                                height: "50px",
+                                alignItems: "center",
+                              }}
+                            >
+                              <tr>
+                                <th>Column Name</th>
+                                <th>Source Datatype</th>
+                                <th>Target Datatype</th>
+                                <th>Validation Rule</th>
+                                <th>Validation Input</th>
+                                <th>Quality Score</th>
+                              </tr>
+                            </thead>
+                            <tbody style={{ fontSize: "12px" }}>
+                              {props.formData.tableData.map((obj, index) => (
+                                <tr key={index}>
+                                  <td>{obj.column_name}</td>{" "}
+                                  {/* Replace 'key' with the actual key from the object */}
+                                  <td>{obj.data_type}</td>{" "}
+                                  {/* Replace 'value' with the actual value from the object */}
+                                  <td>{obj.target_datatype}</td>
+                                  <td>
+                                    {obj.validation_rules.map((obj) => (
+                                      <tr>
+                                        <td>{obj}</td>
+                                      </tr>
+                                    ))}
+                                  </td>{" "}
+                                  <td>{obj.validation_input}</td>{" "}
+                                  <td>{obj.quality_score}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
+                          >
+                            <p>Source Extract Criteria</p>
+                            <button onClick={editHandler5}>
+                              <AiOutlineEdit />
+                            </button>
+                          </div>
+
+                          <div className="horizontal-line-1"></div>
+                        </div>
+                        <Card.Body>
+                          {Object.entries(
+                            props.formData.DefineSourceExtractCriteria
+                          ).map(([key, value]) => (
                             <div
                               key={key}
                               style={{ display: "flex", marginBottom: "10px" }}
@@ -549,10 +473,104 @@ const ReviewFrom = (props) => {
                               <span className="colon">:</span>
                               <span className="value">{value}</span>
                             </div>
-                          )
-                        )}
-                      </Card.Body>
-                      {/* <Card.Header className="d-flex justify-content-between float-right">
+                          ))}
+                        </Card.Body>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
+                          >
+                            <p>Target Load Details</p>
+                            <button onClick={editHandler6}>
+                              <AiOutlineEdit />
+                            </button>
+                          </div>
+
+                          <div className="horizontal-line-1"></div>
+                        </div>
+                        <Card.Body>
+                          <div>
+                            {renderObject(props.formData.targetLoadDetails)}
+                          </div>
+                        </Card.Body>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
+                          >
+                            <p>Masking</p>
+                            <button onClick={editHandler7}>
+                              <AiOutlineEdit />
+                            </button>
+                          </div>
+
+                          <div className="horizontal-line-1"></div>
+                        </div>
+                        <Card.Body>
+                          <Table responsive>
+                            <thead
+                              style={{
+                                backgroundColor: "#F3F3F3",
+                                fontSize: "12px",
+                                height: "50px",
+                                alignItems: "center",
+                              }}
+                            >
+                              <tr>
+                                <th>Column Name</th>
+                                <th>Mask/Tokenize</th>
+                                <th>Masking Logic</th>
+                              </tr>
+                            </thead>
+                            <tbody style={{ fontSize: "12px" }}>
+                              {props.formData.tableData.map((obj, index) => (
+                                <tr key={index}>
+                                  <td>{obj.column_name}</td>{" "}
+                                  {/* Replace 'key' with the actual key from the object */}
+                                  <td>
+                                    <FormCheck
+                                      checked={obj.is_masking === true}
+                                      disabled={true}
+                                    ></FormCheck>
+                                  </td>{" "}
+                                  {/* Replace 'value' with the actual value from the object */}
+                                  <td>{obj.masking_logic}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </Card.Body>
+                        <div className="block">
+                          <div
+                            className="d-flex justify-content-between float-right"
+                            style={{ color: "#000000" }}
+                          >
+                            <p>Meta Data</p>
+                            <button onClick={editHandler8}>
+                              <AiOutlineEdit />
+                            </button>
+                          </div>
+
+                          <div className="horizontal-line-1"></div>
+                        </div>
+                        <Card.Body>
+                          {Object.entries(props.formData.GatherMetaData).map(
+                            ([key, value]) => (
+                              <div
+                                key={key}
+                                style={{
+                                  display: "flex",
+                                  marginBottom: "10px",
+                                }}
+                              >
+                                <span className="key">{key}</span>
+                                <span className="colon">:</span>
+                                <span className="value">{value}</span>
+                              </div>
+                            )
+                          )}
+                        </Card.Body>
+                        {/* <Card.Header className="d-flex justify-content-between float-right">
                           <h5>Scheduling</h5>
                           <button
                             style={{ backgroundColor: "#49494A" }}
@@ -562,61 +580,62 @@ const ReviewFrom = (props) => {
                           </button>
                         </Card.Header>
                         <Card.Body></Card.Body> */}
-                    </div>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Container>
+                      </div>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Container>
 
-            <Card.Footer className="d-flex justify-content-between float-right">
-              <button
-                className="btn-c"
-                onClick={() => props.cancel()}
-                // disabled={step == 1}
-              >
-                Cancel
-              </button>
-              <button
-                className="btn-s-1"
-                onClick={handleShow}
-                // disabled={step == 1}
-              >
-                Submit
-              </button>
-              <Modal show={showModal} onHide={closeHandler}>
-                <Modal.Header closeButton>
-                  {/* <Modal.Title>Modal heading</Modal.Title> */}
-                </Modal.Header>
-                <Modal.Body>
-                  Are you sure you want to submit the pipeline?
-                  <FormCheck
-                    style={{ marginTop: "10px" }}
-                    label="I also want to execute the pipeline now."
-                    onChange={handleCheckboxChange}
-                  ></FormCheck>
-                </Modal.Body>
-                <Modal.Footer>
-                  <button
-                    className="btn-c"
-                    variant="secondary"
-                    onClick={closeHandler}
-                  >
-                    {" "}
-                    No, Cancel
-                  </button>
-                  <button
-                    className="btn-s-1"
-                    variant="primary"
-                    onClick={submitHandler}
-                  >
-                    Yes, Submit
-                  </button>
-                </Modal.Footer>
-              </Modal>
-            </Card.Footer>
-          </div>
-        )}
-      </Container>
+              <Card.Footer className="d-flex justify-content-between float-right">
+                <button
+                  className="btn-c"
+                  onClick={() => props.cancel()}
+                  // disabled={step == 1}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn-s-1"
+                  onClick={handleShow}
+                  // disabled={step == 1}
+                >
+                  Submit
+                </button>
+                <Modal show={showModal} onHide={closeHandler}>
+                  <Modal.Header closeButton>
+                    {/* <Modal.Title>Modal heading</Modal.Title> */}
+                  </Modal.Header>
+                  <Modal.Body>
+                    Are you sure you want to submit the pipeline?
+                    <FormCheck
+                      style={{ marginTop: "10px" }}
+                      label="I also want to execute the pipeline now."
+                      onChange={handleCheckboxChange}
+                    ></FormCheck>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button
+                      className="btn-c"
+                      variant="secondary"
+                      onClick={closeHandler}
+                    >
+                      {" "}
+                      No, Cancel
+                    </button>
+                    <button
+                      className="btn-s-1"
+                      variant="primary"
+                      onClick={submitHandler}
+                    >
+                      Yes, Submit
+                    </button>
+                  </Modal.Footer>
+                </Modal>
+              </Card.Footer>
+            </div>
+          )}
+        </Container>
+      )}
     </div>
   );
 };
