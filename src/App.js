@@ -182,7 +182,7 @@ function App() {
     console.log("useeffect running");
 
     fetchData();
-  }, [formData.sourceEntity.table_name]);
+  }, [formData.sourceEntity.table_name, step === 2]);
 
   const createNewPipelineHandler = () => {
     setshowMainPage(false);
@@ -354,7 +354,7 @@ function App() {
     } else {
       setStep((step) => step + 1);
     }
-    // console.log("Current Step:", step);
+    console.log("Current Step:", step);
   };
 
   const closeHandler = () => {
