@@ -39,27 +39,37 @@ const SectionMenu = (props) => {
               key={index}
               style={{
                 backgroundColor: "#FCFCFC",
-                color: index === props.step - 1 ? "#EA943D" : "darkgray",
+                color: index <= props.step - 1 ? "#EA943D" : "darkgray",
                 fontSize: index === props.step - 1 ? "14px" : "13px",
-                fontWeight: index === props.step - 1 ? 500 : 400,
+                fontWeight: index <= props.step - 1 ? 500 : 400,
                 border: "none",
                 borderRadius: "none",
                 transition: "ease-in-out 0.03s",
               }}
             >
               <div className="d-flex align-items-center">
-                <div className="d-flex align-items-center">
-                  {/* {index > 0 && index < 9 && (
+                <div
+                  className="d-flex align-items-center"
+                  // style={{ position: "relative" }}
+                >
+                  {index > 0 && index < 9 && (
                     <div
                       className="vertical-line"
-                      style={{ color: "a9a9a9" }}
+                      style={{
+                        backgroundColor:
+                          index <= props.step - 1 ? "#EA943D" : "darkgray",
+                        transition: "ease-in-out 0.03s",
+                      }}
                     />
-                  )} */}
+                  )}
                   <div
                     className="circle"
                     style={{
                       borderColor:
-                        index === props.step - 1 ? "#EA943D" : "darkgray",
+                        index <= props.step - 1 ? "#EA943D" : "darkgray",
+                      backgroundColor:
+                        index < props.step - 1 ? "#EA943D" : "white",
+                      transition: "ease-in-out 0.03s",
                     }}
                   ></div>
                   {/* {index > 0 && (

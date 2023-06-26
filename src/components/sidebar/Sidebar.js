@@ -13,7 +13,10 @@ const Sidebar = (props) => {
     console.log("isHome", props.isHome);
   };
   const schedulingHandler = () => {
+    console.log("is clicked");
     props.setIsScheduling(true);
+    props.setIsHome(false);
+    console.log(props.isScheduling);
   };
   const handleClick = (e) => {
     if (cross === "bar") {
