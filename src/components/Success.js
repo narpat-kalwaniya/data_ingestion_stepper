@@ -15,8 +15,22 @@ const Success = (props) => {
       }}
     >
       <Alert variant="success" className="mt-3 alertStyle">
-        <p className="messageStyle">Pipeline submitted successfully!</p>
-        <p>
+        <p className="messageStyle" style={{ color: "green" }}>
+          {props.response.message}!
+        </p>
+        <p className="messageStyle"> Status : {props.response.status}</p>
+        <p className="messageStyle"> Dag Name : {props.response.dag_name}</p>
+        <p className="messageStyle"> Entity ID : {props.response.entity_id}</p>
+        <p className="messageStyle">
+          {" "}
+          Source Entity : {props.response.source_entity}
+        </p>
+        <p className="messageStyle">
+          {" "}
+          Target Entity : {props.response.target_entity}
+        </p>
+
+        {/* <p>
           <a
             href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27020/"
             target="_blank"
@@ -34,7 +48,14 @@ const Success = (props) => {
           >
             Go to Pipeline Lineage{" "}
           </a>
-        </p>
+        </p> */}
+        {/* {Object.entries(props.response).map(([key, value]) => (
+          <div key={key} style={{ display: "flex", marginBottom: "10px" }}>
+            <span className="key">{key}</span>
+            <span className="colon">:</span>
+            <span className="value">{value}</span>
+          </div>
+        ))} */}
 
         <button
           className="btn-s"
