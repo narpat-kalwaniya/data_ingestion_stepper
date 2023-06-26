@@ -15,7 +15,7 @@ const Scheduling = () => {
   const [dagName, setDagName] = useState([]);
   const [moduleName, setModuleName] = useState([]);
   const [timezones, setTimezones] = useState([]);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [snackBar, setSnackBar] = React.useState({
     open: false,
     vertical: "bottom",
@@ -187,15 +187,17 @@ const Scheduling = () => {
           return response.json();
         }
         const error = await response.json();
+        if (error?.detail) {
+          throw new Error(error?.detail);
+        }
         throw new Error(error);
       })
       .then((result) => {
-        console.log("result", updatedFormData);
         setSnackBar({ ...snackBar, open: true });
-        setError("");
+        setErrorMessage("");
       })
       .catch((err) => {
-        setError(
+        setErrorMessage(
           typeof err.message === "string" ? err.message : "Something went wrong"
         );
       });
@@ -338,12 +340,13 @@ const Scheduling = () => {
                 {...otherFiled}
                 onChange={(e) => {
                   onScheduleChange(e);
-                  resetField("schedule_value");
-                  if (e.target.value == "delta_values") {
+                  if (e.target.value == "delta_value") {
                     setValue(
                       "schedule_value",
                       '{"hours":1,"days":1,"weeks":1}'
                     );
+                  } else {
+                    resetField("schedule_value");
                   }
                 }}
               >
@@ -415,7 +418,6 @@ const Scheduling = () => {
                     name="schedule_value"
                     isInvalid={!!errors.schedule_value}
                     {...register("schedule_value", { required: true })}
-                    value='{"hours":1,"days":1,"weeks":1}'
                   />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid schedule value.
@@ -545,7 +547,7 @@ const Scheduling = () => {
               Submit
             </Button>
           </Stack>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </Form>
       </div>
     </>
