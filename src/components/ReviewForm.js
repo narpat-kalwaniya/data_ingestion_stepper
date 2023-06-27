@@ -109,7 +109,7 @@ const ReviewFrom = (props) => {
   };
 
   const submitHandler = async (event) => {
-    // setIsExecuteNow(!isExecuteNow);
+    setIsExecuteNow(!isExecuteNow);
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
