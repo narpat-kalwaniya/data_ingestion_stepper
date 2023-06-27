@@ -19,7 +19,6 @@ import safeStringify from "json-stringify-safe";
 import "../styles/main.css";
 
 const ReviewFrom = (props) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -136,7 +135,7 @@ const ReviewFrom = (props) => {
       console.error("Error:", error.message);
     }
     setIsLoading(false);
-    setIsSubmitted(true);
+    props.setIsSubmitted(true);
   };
 
   console.log("final ingestion data", safeStringify(ingestionData[0]));
@@ -189,11 +188,11 @@ const ReviewFrom = (props) => {
   return (
     <div>
       {isLoading ? (
-        <p>Loading...</p>
+        <p>Please wait while we save your data...</p>
       ) : (
         <Container>
           <div style={{ marginTop: "12px" }}></div>
-          {isSubmitted ? (
+          {props.isSubmitted ? (
             <Success
               setshowMainPage={props.setshowMainPage}
               response={response}
