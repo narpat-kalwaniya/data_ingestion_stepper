@@ -15,20 +15,34 @@ const Success = (props) => {
       }}
     >
       <Alert variant="success" className="mt-3 alertStyle">
-        <p className="messageStyle" style={{ color: "green" }}>
+        {/* <p className="messageStyle" style={{ color: "green" }}>
           {props.response.message}!
-        </p>
-        <p className="messageStyle"> Status : {props.response.status}</p>
-        <p className="messageStyle"> Dag Name : {props.response.dag_name}</p>
-        <p className="messageStyle"> Entity ID : {props.response.entity_id}</p>
-        <p className="messageStyle">
-          {" "}
-          Source Entity : {props.response.source_entity}
-        </p>
-        <p className="messageStyle">
-          {" "}
-          Target Entity : {props.response.target_entity}
-        </p>
+        </p> */}
+        {props.response.status === 201 ? (
+          <p className="messageStyle" style={{ color: "green" }}>
+            Meta Data Saving Status : Succeeded!
+          </p>
+        ) : (
+          <p className="messageStyle" style={{ color: "red" }}>
+            {" "}
+            Meta Data Saving Status : Failed!{" "}
+          </p>
+        )}
+        {props.response.schedule_status === 201 ? (
+          <p className="messageStyle">Dag Name : {props.response.dag_name}</p>
+        ) : null}
+
+        {/* <p className="messageStyle"> Entity ID : {props.response.entity_id}</p> */}
+        {props.response.status === 201 ? (
+          <p className="messageStyle">
+            Source Entity : {props.response.source_entity}
+          </p>
+        ) : null}
+        {props.response.status === 201 ? (
+          <p className="messageStyle">
+            Target Entity : {props.response.target_entity}
+          </p>
+        ) : null}
 
         {/* <p>
           <a
@@ -56,7 +70,6 @@ const Success = (props) => {
             <span className="value">{value}</span>
           </div>
         ))} */}
-
         <button
           className="btn-s"
           style={{ marginTop: "15px", marginLeft: "261px" }}
