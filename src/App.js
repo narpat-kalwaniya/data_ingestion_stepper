@@ -401,7 +401,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <>
       {loading ? (
         <p> loading </p>
       ) : user ? (
@@ -584,7 +584,7 @@ function App() {
         <LoginPage />
       )}
       {/* <Scheduling /> */}
-    </div>
+    </>
   );
 }
 

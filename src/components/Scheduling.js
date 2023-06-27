@@ -164,7 +164,7 @@ const Scheduling = () => {
       tasks: updatedTasks,
     };
 
-    if (data.schedule_type === "delta_value") {
+    if (data.schedule_type === "delta_values") {
       updatedFormData.schedule_value = JSON.parse(
         updatedFormData.schedule_value
       );
@@ -340,7 +340,7 @@ const Scheduling = () => {
                 {...otherFiled}
                 onChange={(e) => {
                   onScheduleChange(e);
-                  if (e.target.value == "delta_value") {
+                  if (e.target.value == "delta_values") {
                     setValue(
                       "schedule_value",
                       '{"hours":1,"days":1,"weeks":1}'
@@ -352,7 +352,7 @@ const Scheduling = () => {
               >
                 <option value="cron">cron</option>
                 <option value="preset">preset</option>
-                <option value="delta_value">delta_value</option>
+                <option value="delta_values">delta_values</option>
               </Form.Select>
             </Col>
 
@@ -405,7 +405,7 @@ const Scheduling = () => {
                 </Col>
               </>
             )}
-            {scheduleType === "delta_value" && (
+            {scheduleType === "delta_values" && (
               <>
                 <Form.Label column className="sm-2" for="schedule_value">
                   Schedule Value:
@@ -486,7 +486,6 @@ const Scheduling = () => {
                       >
                         <option value={null}></option>
                         {moduleName.map((module, moduleIndex) => {
-                          // debugger;
                           return (
                             <option key={moduleIndex} value={module}>
                               {module}
