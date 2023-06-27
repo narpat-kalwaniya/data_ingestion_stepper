@@ -42,6 +42,7 @@ function App() {
   const [tableData, setTableData] = useState([]);
   const [isScheduling, setIsScheduling] = useState(false);
   const [isHome, setIsHome] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { updateIngestionData } = useContext(DataContext);
 
   const [formData, setFormData] = useState({
@@ -403,7 +404,7 @@ function App() {
   return (
     <div>
       {loading ? (
-        <p> loading </p>
+        <p> loading... </p>
       ) : user ? (
         <div user={user}>
           <div className="d-flex">
@@ -433,28 +434,32 @@ function App() {
                 >
                   <Card className="Card-outer custom-card-body ">
                     <Row className="m-2">
-                      <div className="back-button">
-                        <div
-                          className="back-icon"
-                          onClick={createNewPipelineHandler}
-                        >
-                          <FiArrowLeft />
-                        </div>
-                        <span className="back-text">Create New Pipeline</span>
+                      {!isSubmitted ? (
+                        <div className="back-button">
+                          <div
+                            className="back-icon"
+                            onClick={createNewPipelineHandler}
+                          >
+                            <FiArrowLeft />
+                          </div>
+                          <span className="back-text">Create New Pipeline</span>
 
-                        <div className="horizontal-line"></div>
-                      </div>
+                          <div className="horizontal-line"></div>
+                        </div>
+                      ) : null}
 
                       {/* <Card className="Card-progressbar custom-card">
                               <Progressbar step={step} />
                             </Card> */}
                     </Row>
                     <Row className="m-2">
-                      <SectionMenu
-                        step={step}
-                        isReview={isReview}
-                        setIsReview={setIsReview}
-                      />
+                      {!isSubmitted ? (
+                        <SectionMenu
+                          step={step}
+                          isReview={isReview}
+                          setIsReview={setIsReview}
+                        />
+                      ) : null}
                       <Col>
                         {isReview ? (
                           <ReviewForm
@@ -465,6 +470,8 @@ function App() {
                             cancel={closeHandler}
                             formData={formData}
                             setshowMainPage={setshowMainPage}
+                            isSubmitted={isSubmitted}
+                            setIsSubmitted={setIsSubmitted}
                           />
                         ) : (
                           <Card className="custom-card">
