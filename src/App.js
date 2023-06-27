@@ -163,7 +163,8 @@ function App() {
               tableData: responseData,
             };
             updateFormData(updatedFormData);
-            // console.log("table data", tableData);
+            // setFormData(updatedFormData);
+            console.log("form table data", formData);
 
             const updatedData = {
               attributes: [
@@ -182,7 +183,7 @@ function App() {
     console.log("useeffect running");
 
     fetchData();
-  }, [formData.sourceEntity.table_name, step === 2]);
+  }, [step === 2]);
 
   const createNewPipelineHandler = () => {
     setshowMainPage(false);

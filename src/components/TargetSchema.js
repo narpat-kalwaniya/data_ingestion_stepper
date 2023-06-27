@@ -13,8 +13,8 @@ const headers = [
 ];
 
 const TbData = ({ formData, updateFormData }) => {
-  const [tableData, setTableData] = useState([...formData.tableData]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  // const [tableData, setTableData] = useState([...formData.tableData]);
   const [showInputBoxes, setShowInputBoxes] = useState(false);
   const [newRowIndex, setNewRowIndex] = useState(null);
   console.log("fd", formData);
@@ -25,9 +25,9 @@ const TbData = ({ formData, updateFormData }) => {
   };
 
   const handleTargetDataTypeChange = (event, columnIndex) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData[columnIndex].target_datatype = event.target.value;
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
 
     const updatedFormData = {
       ...formData,
@@ -50,9 +50,9 @@ const TbData = ({ formData, updateFormData }) => {
   // console.log(pageData);
 
   const primaryKeyHandler = (checked, index) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData[index].is_target_primary_key = checked;
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
 
     const updatedFormData = {
       ...formData,
@@ -70,9 +70,9 @@ const TbData = ({ formData, updateFormData }) => {
   };
   // console.log(formData);
   const businessKeyHandler = (checked, index) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData[index].is_business_key = checked;
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
 
     const updatedFormData = {
       ...formData,
@@ -90,9 +90,9 @@ const TbData = ({ formData, updateFormData }) => {
   };
 
   const transformLogicHandler = (value, index) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData[index].transformation_logic = value;
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
 
     const updatedFormData = {
       ...formData,
@@ -119,8 +119,8 @@ const TbData = ({ formData, updateFormData }) => {
       transformation_logic: "",
     };
 
-    const updatedTableData = [newRow, ...tableData];
-    setTableData(updatedTableData);
+    const updatedTableData = [newRow, ...formData.tableData];
+    // setTableData(updatedTableData);
     setNewRowIndex(0);
     setShowInputBoxes(true);
 
@@ -132,9 +132,9 @@ const TbData = ({ formData, updateFormData }) => {
   };
 
   const deleteRow = (index) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData.splice(index, 1); // Remove the row at the specified index
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
     setNewRowIndex(null); // Reset the new row index
 
     const updatedFormData = {
@@ -145,9 +145,9 @@ const TbData = ({ formData, updateFormData }) => {
   };
 
   const handleColumnNameChange = (event, index) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData[index].column_name = event.target.value;
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
 
     const updatedFormData = {
       ...formData,
@@ -157,9 +157,9 @@ const TbData = ({ formData, updateFormData }) => {
   };
 
   const handleDataTypeChange = (event, index) => {
-    const updatedTableData = [...tableData];
+    const updatedTableData = [...formData.tableData];
     updatedTableData[index].data_type = event.target.value;
-    setTableData(updatedTableData);
+    // setTableData(updatedTableData);
 
     const updatedFormData = {
       ...formData,
@@ -168,7 +168,7 @@ const TbData = ({ formData, updateFormData }) => {
     updateFormData(updatedFormData);
   };
 
-  console.log("target ingestion", ingestionData);
+  console.log("target ingestion", ingestionData[0].attributes);
 
   const targetDataTypes = [
     "ARRAY",
@@ -195,7 +195,7 @@ const TbData = ({ formData, updateFormData }) => {
     "VARCHAR",
   ];
 
-  console.log("table data", tableData);
+  console.log("table data", formData.tableData);
   return (
     <tbody style={{ fontSize: "12px" }}>
       <tr>
