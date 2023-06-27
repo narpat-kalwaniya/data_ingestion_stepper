@@ -20,7 +20,7 @@ const Sidebar = (props) => {
   };
   const handleClick = (e) => {
     if (cross === "bar") {
-      document.querySelector(".sidebar").style.width = "180px";
+      document.querySelector(".sidebar").style.width = "190px";
       document.querySelector("#checkbox").checked = true;
       setCross("cross");
     } else {
@@ -37,7 +37,7 @@ const Sidebar = (props) => {
 
   const handle = (e) => {
     if (cross === "bar") {
-      document.querySelector(".sidebar").style.width = "180px";
+      document.querySelector(".sidebar").style.width = "190px";
       document.querySelector("#checkbox").checked = true;
       setCross("cross");
     }
@@ -97,31 +97,41 @@ const Sidebar = (props) => {
           )}
         </div> */}
 
-        <div
+        {/* <div
           className="top"
           onClick={(e) => {
             e.stopPropagation();
             props?.setshowMainPage(false);
           }}
+        > */}
+        <div
+          onClick={homeHandler}
+          style={{
+            marginLeft: "20px",
+            marginTop: "15px",
+            width: "20px",
+            height: "30px",
+          }}
         >
-          <div className="bar">
-            <i
-              onClick={(e) => {
-                e.stopPropagation();
-                props?.setshowMainPage(false);
-              }}
-              class="fa-solid fa-house"
-              style={{
-                fontSize: "16px",
-                color: "white",
-                width: "20px",
-                height: "20px",
-              }}
-              type="button"
-              onClick={homeHandler}
-            ></i>
-          </div>
+          <i
+            // onClick={(e) => {
+            //   e.stopPropagation();
+            //   props?.setshowMainPage(false);
+            // }}
+            class="fa-solid fa-house"
+            // style={{
+            //   marginLeft: "20px",
+            //   // fontSize: "16px",
+            //   // color: "white",
+            //   // width: "20px",
+            //   // height: "20px",
+            //   marginTop: "15px",
+            //   pointerEvents: "auto",
+            // }}
+            type="button"
+          ></i>
         </div>
+        {/* </div> */}
         <input
           type="checkbox"
           className="checkbox"
@@ -184,20 +194,17 @@ const Sidebar = (props) => {
               <i className="fa-solid fa-database"></i>
               <a
                 href="http://3.15.237.154:9002/ingestion"
-                style={{
-                  display: "block",
-                  alignItems: "center",
-                  justifyContent: "Center",
-                }}
+                className="side"
+                // style={{
+                //   marginLeft: "0px",
+                //   textAlign: "left",
+                //   alignItems: "center",
+                //   justifyContent: "Center",
+                // }}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span
-                  className="side"
-                  style={{ marginLeft: "0px", textAlign: "left" }}
-                >
-                  Governance
-                </span>
+                <span className="side">Governance</span>
               </a>
             </li>
             {/*

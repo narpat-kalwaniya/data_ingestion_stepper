@@ -23,6 +23,7 @@ const ReviewFrom = (props) => {
   const { ingestionData, updateIngestionData } = useContext(DataContext);
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState({});
+  const [isExecuteNow, setIsExecuteNow] = useState(false);
 
   const editHandler1 = () => {
     props.setStep((step) => 1);
@@ -73,7 +74,10 @@ const ReviewFrom = (props) => {
     // setFormData({});
     // window.localStorage.removeItem(1);
   };
-  const handleShow = () => setShowModal(true);
+  const handleShow = () => {
+    setIsExecuteNow(!isExecuteNow);
+    setShowModal(true);
+  };
   const handleContinue = () => {
     setShowModal(false);
   };
@@ -93,10 +97,19 @@ const ReviewFrom = (props) => {
       };
       updateIngestionData(updatedData);
     }
+    setIsExecuteNow(!isExecuteNow);
     console.log("final ingestion data checkbox", ingestionData);
   };
 
+  const pipelineNameHandler = (e) => {
+    const updatedData = {
+      pipeline_name: e.target.value,
+    };
+    updateIngestionData(updatedData);
+  };
+
   const submitHandler = async (event) => {
+    // setIsExecuteNow(!isExecuteNow);
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
@@ -611,6 +624,23 @@ const ReviewFrom = (props) => {
                       label="I also want to execute the pipeline now."
                       onChange={handleCheckboxChange}
                     ></FormCheck>
+                    {isExecuteNow ? (
+                      <div style={{ marginTop: "10px" }}>
+                        <Row>
+                          <Col xs={4}>
+                            <Form.Label>Pipeline Name:</Form.Label>
+                          </Col>
+                          <Col xs={6}>
+                            <Form.Control
+                              name="business_tags"
+                              // value={formData.GatherMetaData.business_tags}
+                              onChange={pipelineNameHandler}
+                              className="custom-select custom-style"
+                            />
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
                   </Modal.Body>
                   <Modal.Footer>
                     <button

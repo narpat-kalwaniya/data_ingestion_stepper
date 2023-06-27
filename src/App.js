@@ -433,25 +433,25 @@ function App() {
                   style={{ marginTop: "30px", backgroundColor: "white" }}
                 >
                   <Card className="Card-outer custom-card-body ">
-                    <Row className="m-2">
-                      {!isSubmitted ? (
-                        <div className="back-button">
-                          <div
-                            className="back-icon"
-                            onClick={createNewPipelineHandler}
-                          >
+                    {!isSubmitted ? (
+                      <Row className="m-2">
+                        <div
+                          className="back-button"
+                          onClick={createNewPipelineHandler}
+                        >
+                          <div className="back-icon">
                             <FiArrowLeft />
                           </div>
                           <span className="back-text">Create New Pipeline</span>
 
                           <div className="horizontal-line"></div>
                         </div>
-                      ) : null}
 
-                      {/* <Card className="Card-progressbar custom-card">
+                        {/* <Card className="Card-progressbar custom-card">
                               <Progressbar step={step} />
                             </Card> */}
-                    </Row>
+                      </Row>
+                    ) : null}
                     <Row className="m-2">
                       {!isSubmitted ? (
                         <SectionMenu
