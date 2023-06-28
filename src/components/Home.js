@@ -3,10 +3,11 @@ import bg from ".././banner.jpg";
 import { Row } from "react-bootstrap";
 
 const Home = (props) => {
-  const dataIngestionHandler = () => {
+  const dataIngestionHandler = (e) => {
     props.setIsHome(false);
     props.setIsScheduling(false);
     props.setStep(1);
+    // window.location.reload();
   };
   return (
     <div

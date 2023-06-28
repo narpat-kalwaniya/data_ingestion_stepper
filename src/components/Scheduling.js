@@ -129,7 +129,8 @@ const Scheduling = () => {
         typeof task.arguments === "string"
           ? JSON.parse(task.arguments || "{}")
           : task.arguments,
-          dependency: task.dependency == [] ? delete task.dependency : task.dependency,
+      dependency:
+        task.dependency == [] ? delete task.dependency : task.dependency,
       dependency:
         task.dependency === [""] ? delete task.dependency : task.dependency,
       dependency:
@@ -179,7 +180,9 @@ const Scheduling = () => {
         console.log("result", updatedFormData);
       })
       .catch((err) => {
-        setError(typeof err.message === 'string' ? err.message : 'Something went wrong');
+        setError(
+          typeof err.message === "string" ? err.message : "Something went wrong"
+        );
       });
   };
 
@@ -192,7 +195,7 @@ const Scheduling = () => {
         {/* Form fields */}
         <Row className="mb-3">
           <Form.Label column className="sm-2" for="job_name">
-            Job Name:
+            Job/Pipeline Name:
           </Form.Label>
           <Col sm="4">
             <Form.Control
@@ -291,8 +294,8 @@ const Scheduling = () => {
                 onScheduleChange(e);
                 resetField("schedule_value");
                 if (e.target.value == "delta_values") {
-                  setValue("schedule_value", '{"hours":1,"days":1,"weeks":1}')
-              }
+                  setValue("schedule_value", '{"hours":1,"days":1,"weeks":1}');
+                }
               }}
             >
               <option value="cron">cron</option>
@@ -400,12 +403,12 @@ const Scheduling = () => {
                       {...otherModuleFields}
                       onChange={async (e) => {
                         onChangeModuleName(e);
-                       
+
                         const response = await fetch(
                           `http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/parameters/${e.target.value}`
                         );
                         const data = await response.json();
-                      
+
                         setValue(
                           `tasks[${index}].arguments`,
                           JSON.stringify(data)

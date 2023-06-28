@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   Card,
   Col,
@@ -198,6 +198,18 @@ const ReviewFrom = (props) => {
   };
   console.log("rule", props.formData.tableData[0].validation_rules);
   console.log("final ingestion data", ingestionData);
+
+  const cardBodyRef = useRef(null);
+
+  useEffect(() => {
+    const cardBodyNode = cardBodyRef.current;
+    if (cardBodyNode) {
+      const shouldOverflow =
+        cardBodyNode.scrollHeight > cardBodyNode.clientHeight;
+      cardBodyNode.classList.toggle("overflow-auto", shouldOverflow);
+    }
+  }, []);
+
   return (
     <div>
       {isLoading ? (
@@ -258,14 +270,14 @@ const ReviewFrom = (props) => {
                 }}
               /> */}
               {/* </div> */}
-              <Container
-                style={{
-                  minHeight: "60vh",
-                  maxHeight: "60vh",
-                  overflowY: "scroll",
-                }}
-              >
-                <Card.Body>
+              <Container>
+                <Card.Body
+                  ref={cardBodyRef}
+                  style={{
+                    minHeight: "60vh",
+                    maxHeight: "60vh",
+                  }}
+                >
                   <Row>
                     <Col>
                       <div>
