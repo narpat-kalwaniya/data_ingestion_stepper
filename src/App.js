@@ -127,6 +127,21 @@ function App() {
   });
 
   useEffect(() => {
+    // Check if selected key is false
+    const updatedTableData = formData.tableData.filter(
+      (row) => row.selected !== false
+    );
+
+    // Update formData with the modified tableData
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+
+    updateFormData(updatedFormData);
+  }, [step === 3]);
+
+  useEffect(() => {
     const requestData = {
       data_source_type: formData.sourceEntity.data_source_type,
       query: formData.sourceEntity.query,
@@ -164,7 +179,8 @@ function App() {
               tableData: responseData,
             };
             updateFormData(updatedFormData);
-            // console.log("table data", tableData);
+            // setFormData(updatedFormData);
+            console.log("form table data", formData);
 
             const updatedData = {
               attributes: [
@@ -183,7 +199,7 @@ function App() {
     console.log("useeffect running");
 
     fetchData();
-  }, [formData.sourceEntity.table_name, step === 2]);
+  }, [step === 2]);
 
   const createNewPipelineHandler = () => {
     setshowMainPage(false);
@@ -413,7 +429,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <>
       {loading ? (
         <p> loading... </p>
       ) : user ? (
@@ -604,7 +620,7 @@ function App() {
         <LoginPage />
       )}
       {/* <Scheduling /> */}
-    </div>
+    </>
   );
 }
 

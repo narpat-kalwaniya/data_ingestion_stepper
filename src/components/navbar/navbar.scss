@@ -1,6 +1,10 @@
 .header {
   display: flex;
   justify-content: space-between !important;
+  position: sticky;
+  top: 0;
+  width: 100%;
+ 
   .wrapper {
     width: 100% !important;
     padding: 15px !important;

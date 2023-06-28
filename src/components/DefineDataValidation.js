@@ -140,6 +140,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
   );
   const [tableData, setTableData] = useState([...formData.tableData]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     fetchTestcases();

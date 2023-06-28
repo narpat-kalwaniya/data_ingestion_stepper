@@ -1,6 +1,7 @@
 .header {
   display: flex;
   justify-content: space-between !important;
+
 }
 .header .wrapper {
   width: 100% !important;
