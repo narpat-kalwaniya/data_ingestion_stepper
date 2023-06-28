@@ -20,8 +20,23 @@ const TbData = ({ formData, updateFormData }) => {
   console.log("fd", formData);
   // console.log(pageData);
 
-  const handleCheck = () => {
-    // Handle checkbox click event if needed
+  const handleCheck = (checked, index) => {
+    const updatedTableData = [...formData.tableData];
+
+    // if (checked) {
+    //   // Add or update the is_target_primary_key property
+    //   updatedTableData[index].selected = true;
+    // } else {
+    //   // Remove the column from tableData
+    //   updatedTableData.splice(index, 1);
+    // }
+    updatedTableData[index].selected = checked;
+
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+    updateFormData(updatedFormData);
   };
 
   const handleTargetDataTypeChange = (event, columnIndex) => {
@@ -211,7 +226,13 @@ const TbData = ({ formData, updateFormData }) => {
           }}
         >
           <td>
-            <Form.Check onClick={handleCheck} />
+            <Form.Check
+              type="checkbox"
+              checked={column.selected}
+              onChange={(e) => {
+                handleCheck(e.target.checked, index);
+              }}
+            />
           </td>
           <td>
             {index === newRowIndex && showInputBoxes ? (
