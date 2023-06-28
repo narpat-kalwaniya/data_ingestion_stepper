@@ -108,7 +108,7 @@ const Sidebar = (props) => {
           onClick={homeHandler}
           style={{
             marginLeft: "20px",
-            marginTop: "15px",
+            paddingTop: "15px",
             width: "20px",
             height: "30px",
           }}

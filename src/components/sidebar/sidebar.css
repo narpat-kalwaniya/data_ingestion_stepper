@@ -62,7 +62,7 @@
   border-radius: 50%;
 }
 .sidebar .navF {
-  border-right: 0.5px solid rgb(230, 227, 227);
+  /* border-right: 0.5px solid rgb(230, 227, 227); */
   min-height: 100vh;
   position: sticky;
   top: 0px;
@@ -129,6 +129,7 @@
   display: none;
   margin-top: 5px;
   margin-left: 80px;
+  /* margin-left: 45px; */
   cursor: pointer;
 }
 .sidebar .navF ul .itemD p:hover {

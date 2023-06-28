@@ -1,0 +1,10 @@
+.HomeImage {
+    width: 100%;
+    position: absolute;
+    overflow-x:hidden;
+}
+.homepageimagebtn {
+    position: relative;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}

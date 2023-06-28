@@ -1,6 +1,7 @@
 import React from "react";
 import bg from ".././banner.jpg";
 import { Row } from "react-bootstrap";
+import "./Home.css";
 
 const Home = (props) => {
   const dataIngestionHandler = () => {
@@ -9,31 +10,11 @@ const Home = (props) => {
     props.setStep(1);
   };
   return (
-    <div
-      style={{
-        flex: "1",
-        zIndex: "-10",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "5%",
-        // boxShadow: "0px 10px 5px 1px rgba(0, 0, 0, 0.2)",
-
-        // bottom: "0",
-        // right: "0",
-      }}
-    >
-      <img
-        src={bg}
-        alt="Logo"
-        style={{
-          width: "1316px",
-          position: "absolute",
-        }}
-      ></img>
+    <div className="homepageimagebtn">
+      <img className="HomeImage" src={bg} alt="Logo"></img>
       <button
         className="btn-s"
         style={{
-          // maxWidth: "160px",
           position: "absolute",
           marginLeft: "400px",
           marginTop: "270px",

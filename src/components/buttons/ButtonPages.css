@@ -2,6 +2,7 @@
   text-align: center;
   color: #ea943d;
   font-size: 14px !important;
+
 }
 .dialogBox {
   margin-left: 8px;
@@ -52,7 +53,19 @@
   border-radius: 4px;
   color: #ffffff;
   font-size: 14px;
-  padding: 5px;
+  font-weight: 500;
+  padding: 6px 10px;
+  line-height: 1.5;
+  font-family:"Poppins", sans-serif ;
   margin: 10px;
   float: right;
+}
+.horizontalLine {
+ /* margin: 10px 0px; */
+ background-color: hsl(0, 11%, 72%);
+ margin-left: 8px;
+ margin-right: 8px;
+ margin-top: 0px;
+  height: 1.75px;
+  font-weight: 400px;
 }

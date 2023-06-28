@@ -81,10 +81,11 @@ export default function ButtonPages(props) {
       maxWidth="md"
       fullWidth={true}
     >
-      <DialogTitle className="dialogTitle">Select Data Pipelines</DialogTitle>
+      <DialogTitle className="dialogTitle">Select Data Pipeline</DialogTitle>
       {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}
 
       <Box className="dialogBox" sx={{}}>
+        <hr className="horizontalLine" />
         <Grid container justifyContent={"center"} spacing={1}>
           {buttonNames.map((_, index) => (
             <Grid
