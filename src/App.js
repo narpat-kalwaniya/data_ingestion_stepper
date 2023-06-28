@@ -127,6 +127,21 @@ function App() {
   });
 
   useEffect(() => {
+    // Check if selected key is false
+    const updatedTableData = formData.tableData.filter(
+      (row) => row.selected !== false
+    );
+
+    // Update formData with the modified tableData
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+
+    updateFormData(updatedFormData);
+  }, [step === 3]);
+
+  useEffect(() => {
     const requestData = {
       data_source_type: formData.sourceEntity.data_source_type,
       query: formData.sourceEntity.query,
@@ -164,7 +179,8 @@ function App() {
               tableData: responseData,
             };
             updateFormData(updatedFormData);
-            // console.log("table data", tableData);
+            // setFormData(updatedFormData);
+            console.log("form table data", formData);
 
             const updatedData = {
               attributes: [
@@ -183,7 +199,7 @@ function App() {
     console.log("useeffect running");
 
     fetchData();
-  }, [formData.sourceEntity.table_name, step === 2]);
+  }, [step === 2]);
 
   const createNewPipelineHandler = () => {
     setshowMainPage(false);
@@ -401,6 +417,17 @@ function App() {
     });
   }, []);
 
+  const BodyRef = useRef(null);
+
+  useEffect(() => {
+    const cardBodyNode = BodyRef.current;
+    if (cardBodyNode) {
+      const shouldOverflow =
+        cardBodyNode.scrollHeight > cardBodyNode.clientHeight;
+      cardBodyNode.classList.toggle("overflow-auto", shouldOverflow);
+    }
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -481,14 +508,16 @@ function App() {
                                 </Card.Header> */}
                               <div>
                                 <Container
-                                  // ref={containerRef}
-                                  style={{
-                                    minHeight: "60vh",
-                                    maxHeight: "60vh",
-                                    overflowY: "scroll",
-                                  }}
+                                // ref={containerRef}
                                 >
-                                  <Card.Body>
+                                  <Card.Body
+                                    ref={BodyRef}
+                                    style={{
+                                      minHeight: "60vh",
+                                      maxHeight: "60vh",
+                                      // overflowY: "scroll",
+                                    }}
+                                  >
                                     <Stepper
                                       step={step}
                                       formData={formData}
