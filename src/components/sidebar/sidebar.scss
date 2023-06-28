@@ -2,6 +2,7 @@
   // flex: 1;
   min-height: 100vh;
   transition: all ease 0.5s;
+  border-right: 0.5px solid rgb(230, 227, 227);
 
   input[type="checkbox"]:checked + div ul li,
   input[type="checkbox"]:checked + div ul .special {
@@ -84,7 +85,7 @@
   }
 
   .navF {
-    border-right: 0.5px solid rgb(230, 227, 227);
+    // border-right: 0.5px solid rgb(230, 227, 227);
     min-height: 100vh;
     position: sticky;
     top: 0px;

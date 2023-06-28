@@ -417,6 +417,17 @@ function App() {
     });
   }, []);
 
+  const BodyRef = useRef(null);
+
+  useEffect(() => {
+    const cardBodyNode = BodyRef.current;
+    if (cardBodyNode) {
+      const shouldOverflow =
+        cardBodyNode.scrollHeight > cardBodyNode.clientHeight;
+      cardBodyNode.classList.toggle("overflow-auto", shouldOverflow);
+    }
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -497,14 +508,16 @@ function App() {
                                 </Card.Header> */}
                               <div>
                                 <Container
-                                  // ref={containerRef}
-                                  style={{
-                                    minHeight: "60vh",
-                                    maxHeight: "60vh",
-                                    overflowY: "scroll",
-                                  }}
+                                // ref={containerRef}
                                 >
-                                  <Card.Body>
+                                  <Card.Body
+                                    ref={BodyRef}
+                                    style={{
+                                      minHeight: "60vh",
+                                      maxHeight: "60vh",
+                                      // overflowY: "scroll",
+                                    }}
+                                  >
                                     <Stepper
                                       step={step}
                                       formData={formData}
