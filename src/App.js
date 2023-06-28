@@ -126,6 +126,21 @@ function App() {
   });
 
   useEffect(() => {
+    // Check if selected key is false
+    const updatedTableData = formData.tableData.filter(
+      (row) => row.selected !== false
+    );
+
+    // Update formData with the modified tableData
+    const updatedFormData = {
+      ...formData,
+      tableData: updatedTableData,
+    };
+
+    updateFormData(updatedFormData);
+  }, [step === 3]);
+
+  useEffect(() => {
     const requestData = {
       data_source_type: formData.sourceEntity.data_source_type,
       query: formData.sourceEntity.query,
