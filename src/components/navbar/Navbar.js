@@ -227,7 +227,7 @@ const Navbar = (props) => {
             </div> */}
 
             <div
-              className="item help"
+              className="item help logoutBtn"
               style={{
                 fontSize: "20px",
                 color: "#1C1C1C",
@@ -237,6 +237,7 @@ const Navbar = (props) => {
             >
               <i
                 class="fa-solid fa-power-off"
+               
                 onClick={() => {
                   auth.signOut();
                   window.location.reload();

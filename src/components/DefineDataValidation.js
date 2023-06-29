@@ -140,11 +140,34 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
   );
   const [tableData, setTableData] = useState([...formData.tableData]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     fetchTestcases();
   }, []);
+
+  useEffect(() => {
+    if (tableData && Array.isArray(tableData) && testcases.length) {
+      const _selectedTestCases = [];
+      const _tagValues = [];
+
+      tableData.forEach((_tableData, index) => {
+        const option = (testcases || []).find(
+          (_tc) => _tc.testcase_name === _tableData?.validation_rules?.[0]
+        );
+        if (option) {
+          _selectedTestCases[index] = [
+            {
+              value: option.testcase_name,
+              label: option.testcase_name_alias,
+            },
+          ];
+        }
+        _tagValues[index] = _tableData?.validation_input || [];
+      });
+      setTagValues(_tagValues);
+      setSelectedTestcases([..._selectedTestCases]);
+    }
+  }, [testcases, tableData]);
 
   const fetchTestcases = async () => {
     try {
@@ -195,7 +218,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       return updatedSelectedTestcases;
     });
   };
-
+  console.log(tagValues);
   const handleTagChange = (tags, rowIndex, inputIndex) => {
     setTagValues((prevTagValues) => {
       const updatedTagValues = [...prevTagValues];
@@ -241,7 +264,6 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
-    // console.log(pageData);
     const updatedData = {
       attributes: [
         updatedTableData, // Add new attribute object
@@ -249,10 +271,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
     };
     updateIngestionData(updatedData);
   };
-  // console.log("testcases", selectedTestcases);
-  // console.log("tags", tagValues);
-  // console.log("forndata", formData);
-  console.log("define data validation ingestionData", ingestionData);
+
   return (
     <Table responsive>
       <thead

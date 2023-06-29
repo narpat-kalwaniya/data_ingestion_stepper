@@ -169,9 +169,8 @@ function App() {
 
         if (response.ok) {
           const responseData = await response.json();
-          if (Array.isArray(responseData)) {
+          if (Array.isArray(responseData) && responseData[1] !== 400) {
             responseData.forEach((object) => {});
-            console.log("response data", responseData);
             // setTableData(responseData);
 
             const updatedFormData = {
@@ -180,7 +179,6 @@ function App() {
             };
             updateFormData(updatedFormData);
             // setFormData(updatedFormData);
-            console.log("form table data", formData);
 
             const updatedData = {
               attributes: [
@@ -196,8 +194,6 @@ function App() {
         console.error("Error:", error);
       }
     };
-    console.log("useeffect running");
-
     fetchData();
   }, [step === 2]);
 

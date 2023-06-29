@@ -21,11 +21,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingTop: "9px !important",
     paddingBottom: "9px !important",
     fontWeight: "700",
+    textAlign : "left"
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: "12px",
     paddingTop: "9px !important",
     paddingBottom: "9px !important",
+    textAlign : "left"
   },
 }));
 
