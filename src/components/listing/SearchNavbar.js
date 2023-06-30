@@ -9,18 +9,16 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-// import MoreIcon from "@mui/icons-material/MoreVert";
 import Button from "@mui/material/Button";
 import CustomizedTables from "./ListOfPipeline";
 import ButtonPages from "../buttons/ButtonPages";
 import "./SearchNavbarButton.css";
-// import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import AddIcon from "@mui/icons-material/Add";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,7 +59,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function ListingPage({ setshowMainPage }) {
+export default function ListingPage() {
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchedData, setsearchedData] = React.useState("");
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -83,17 +83,13 @@ export default function ListingPage({ setshowMainPage }) {
     handleMobileMenuClose();
   };
 
-  // const handleMobileMenuOpen = (event) => {
-  //   setMobileMoreAnchorEl(event.currentTarget);
-  // };
-
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = (value) => {
     if (value) {
-      setshowMainPage(true);
+      navigate("/pipelines/add");
     }
     setOpen(false);
   };

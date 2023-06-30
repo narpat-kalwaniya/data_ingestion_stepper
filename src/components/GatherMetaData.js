@@ -4,6 +4,7 @@ import { XCircle } from "react-bootstrap-icons";
 import "../styles/main.css";
 import { DataContext } from "./DataContext";
 import Scheduling from "./Scheduling";
+import "./GatherMetaData.css";
 
 const GatherMetaData = ({ formData, updateFormData }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
@@ -152,7 +153,7 @@ const GatherMetaData = ({ formData, updateFormData }) => {
           ))}
           <div style={{ float: "right" }}>
             <Row className="mb-4">
-              <Button className="btn-s-1" onClick={addHandler}>
+              <Button className="addBtn" onClick={addHandler}>
                 Add
               </Button>
             </Row>

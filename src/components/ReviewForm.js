@@ -218,10 +218,7 @@ const ReviewFrom = (props) => {
         <Container>
           <div style={{ marginTop: "12px" }}></div>
           {props.isSubmitted ? (
-            <Success
-              setshowMainPage={props.setshowMainPage}
-              response={response}
-            />
+            <Success response={response} />
           ) : (
             <div>
               {/* <div

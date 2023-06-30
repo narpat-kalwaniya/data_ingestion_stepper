@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import { NotificationsNoneOutlinedIcon } from "@mui/icons-material";
-import "./navbar.scss";
-// import Navigation from "../Navigation/Navigation";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebase";
+import "./navbar.scss";
 
 const Navbar = (props) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
@@ -237,10 +235,9 @@ const Navbar = (props) => {
             >
               <i
                 class="fa-solid fa-power-off"
-               
-                onClick={() => {
-                  auth.signOut();
-                  window.location.reload();
+                onClick={async () => {
+                  await auth.signOut();
+                  navigate("/login");
                 }}
               ></i>
             </div>

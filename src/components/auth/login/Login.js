@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import "../../../styles/main.css";
-import { signInWithGoogle } from "../../../services/firebase";
+import firebase, { signInWithGoogle } from "../../../services/firebase";
 
 import loginimage from "./Illustration.svg";
 import tigerLogo from "./download (2).png";
 import ssoIcon from "./sso-icon.png";
 
+import { useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
 
-const LoginPage = (props) => {
-  // const loginHandler = () => {
-  //   props.setIsLoggedIn(!props.isLoggedIn);
-  // };
+const LoginPage = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const script = document.createElement("script");
     // script.src = "https://kit.fontawesome.com/64d58efce2.js";
@@ -22,6 +22,15 @@ const LoginPage = (props) => {
       document.head.removeChild(script);
     };
   }, []);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/home");
+      }
+    });
+  }, []);
+
   return (
     <div className={classes.loginContainer}>
       <div className={classes["login-left"]}>

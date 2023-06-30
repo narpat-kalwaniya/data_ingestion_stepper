@@ -13,19 +13,19 @@
     overflow: hidden;
     border-radius: 4px;
     border-style: none; */
-    background-color: #F7901D;
-    border: none;
-    color: #fff;
-    padding: 0.5rem 1.5rem;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 0.87rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.3s;
-    border-radius: 5px;
+    background-color: #F7901D !important;
+    border: none !important ;
+    color: #fff !important;
+    padding: 0.5rem 1.5rem !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    /* display: inline-block !important; */
+    font-size: 0.87rem !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    border-radius: 5px !important;
 }
 .jobFormBtn:active:hover,.jobFormBtn:hover {
-    background-color: #fcb160;
+    background-color: #fcb160 !important;
 }

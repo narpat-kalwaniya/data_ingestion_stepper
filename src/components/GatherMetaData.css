@@ -1,0 +1,17 @@
+.addBtn {
+    background-color: #18749C !important;
+    border: none !important;
+    color: #fff !important;
+    padding: 0.5rem 1.5rem !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 0.87rem !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    border-radius: 5px !important;
+}
+.addBtn:hover {
+    background-color: rgb(53, 143, 182) !important;
+}

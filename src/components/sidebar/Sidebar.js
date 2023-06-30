@@ -1,23 +1,11 @@
-import "./sidebar.scss";
-import Navigation from "../Navigation/Navigation";
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ListingPage from "../listing/SearchNavbar";
+import { useNavigate } from "react-router-dom";
+import "./sidebar.scss";
 
-const Sidebar = (props) => {
+const Sidebar = () => {
+  const navigateRouter = useNavigate();
   const [cross, setCross] = useState("bar");
 
-  // console.log("isscheduling", isScheduling);
-  const homeHandler = () => {
-    props.setIsHome(true);
-    console.log("isHome", props.isHome);
-  };
-  const schedulingHandler = () => {
-    console.log("is clicked");
-    props.setIsScheduling(true);
-    props.setIsHome(false);
-    console.log(props.isScheduling);
-  };
   const handleClick = (e) => {
     if (cross === "bar") {
       document.querySelector(".sidebar").style.width = "190px";
@@ -47,13 +35,8 @@ const Sidebar = (props) => {
     for (let i = 0; i < all.length; i++) {
       all[i].classList.remove("expandDis");
     }
-    //  const sides = document.querySelectorAll('.side')
-    //  for(let i=0;i<sides.length;i++){
-
-    //   sides[i].classList.toggle('dis')
-
-    //  }
   };
+
   const handleB = (e) => {
     document.querySelector("#checkbox").checked = false;
     setCross("bar");
@@ -64,17 +47,8 @@ const Sidebar = (props) => {
     }
   };
 
-  const pipelinesHandler = () => {
-    // window.location.reload();
-    props.setshowMainPage(false);
-    props.setStep(1);
-    props.setIsHome(false);
-    props.setIsScheduling(false);
-  };
-
-  //  document.querySelector(".sidebar").addEventListener('mouseleave',handleB)
-
   const navigate = null;
+
   return (
     <div
       className="sidebar"
@@ -85,53 +59,19 @@ const Sidebar = (props) => {
       onMouseLeave={handleB}
     >
       <div className="navF">
-        {/* <div className="top">
-          {cross === "bar" ? (
-            <div className="bar">
-              <i class="fa-solid fa-bars" style={{ fontSize: "16px" }}></i>
-            </div>
-          ) : (
-            <div className="cross">
-              <i class="fa-solid fa-xmark" style={{ fontSize: "16px" }}></i>
-            </div>
-          )}
-        </div> */}
-
-        {/* <div
-          className="top"
-          onClick={(e) => {
-            e.stopPropagation();
-            props?.setshowMainPage(false);
-          }}
-        > */}
         <div
-          onClick={homeHandler}
           style={{
-            marginLeft: "20px",
+            paddingLeft: "20px",
             paddingTop: "15px",
             width: "20px",
             height: "30px",
           }}
+          onClick={() => {
+            navigateRouter && navigateRouter("/home");
+          }}
         >
-          <i
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   props?.setshowMainPage(false);
-            // }}
-            class="fa-solid fa-house"
-            // style={{
-            //   marginLeft: "20px",
-            //   // fontSize: "16px",
-            //   // color: "white",
-            //   // width: "20px",
-            //   // height: "20px",
-            //   marginTop: "15px",
-            //   pointerEvents: "auto",
-            // }}
-            type="button"
-          ></i>
+          <i class="fa-solid fa-house" type="button"></i>
         </div>
-        {/* </div> */}
         <input
           type="checkbox"
           className="checkbox"
@@ -148,15 +88,6 @@ const Sidebar = (props) => {
 
         <div className="">
           <ul>
-            {/* <li
-              onClick={() => {
-                navigate && navigate("/login");
-              }}
-            >
-              <i class="fa-solid fa-right-to-bracket"></i>
-              <span className="side">Login</span>
-            </li> */}
-
             <li
               onClick={() => {
                 navigate && navigate("/connections");
@@ -167,23 +98,12 @@ const Sidebar = (props) => {
             </li>
             <li
               onClick={() => {
-                navigate && navigate("/projects");
+                navigateRouter && navigateRouter("/pipelines");
               }}
             >
               <i class="fas fa-project-diagram "></i>
-              <span className="side" onClick={pipelinesHandler}>
-                Pipelines
-              </span>
+              <span className="side">Pipelines</span>
             </li>
-
-            {/* <li
-              onClick={() => {
-                 navigate && navigate("/datasets");
-              }}
-            >
-              <i className="fa-solid fa-database"></i>
-              <span className="side">DataSets</span>
-            </li> */}
 
             <li
               onClick={() => {
@@ -195,54 +115,12 @@ const Sidebar = (props) => {
               <a
                 href="http://3.15.237.154:9002/ingestion"
                 className="side"
-                // style={{
-                //   marginLeft: "0px",
-                //   textAlign: "left",
-                //   alignItems: "center",
-                //   justifyContent: "Center",
-                // }}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <span className="side">Governance</span>
               </a>
             </li>
-            {/*
-
-            <li
-              onClick={() => {
-                 navigate && navigate("/profiling");
-              }}
-            >
-              <i className="fa-solid fa-file-arrow-down"></i>
-              <span className="side">Profiling</span>
-            </li> */}
-
-            {/* <li
-              onClick={() => {
-                 navigate && navigate("/validate");
-              }}
-            >
-              <i class="fa-solid fa-vial"></i>
-              <span className="side">Validation</span>
-            </li> */}
-
-            {/* <div className="special">
-              <i class="fa-solid fa-vial"></i>
-              <span
-                className="side"
-                onClick={(e) => {
-                  document.getElementById("val").classList.toggle("itemC_dis");
-                  document.getElementById("meta").classList.remove("itemC_dis");
-                  document.getElementById("dash").classList.remove("itemC_dis");
-                  document
-                    .getElementById("admini")
-                    .classList.remove("itemC_dis");
-                }}
-              >
-                Validation <i class="fa-solid fa-chevron-down"></i>
-              </span>
-            </div> */}
             <div className="itemD" id="val">
               <p onClick={(e) => navigate && navigate("/execution")}>
                 {" "}
@@ -312,7 +190,8 @@ const Sidebar = (props) => {
                     .classList.remove("itemC_dis");
                 }}
               >
-                Scheduling <i class="fa-solid fa-chevron-down"></i>
+                Scheduling
+                <i class="fa-solid fa-chevron-down"></i>
               </span>
             </div>
             <div className="itemD" id="meta">
@@ -339,13 +218,16 @@ const Sidebar = (props) => {
                     textDecoration: "none",
                     marginLeft: "0px",
                     textAlign: "left",
+                    fontSize: "13px",
                   }}
                 >
                   Monitoring
                 </span>
               </a>
               <a
-                onClick={(e) => navigate && navigate("/config")}
+                onClick={() => {
+                  navigateRouter && navigateRouter("/scheduling/configuration");
+                }}
                 style={{
                   display: "flex",
                   fontSize: "13px",
@@ -354,9 +236,6 @@ const Sidebar = (props) => {
                   textAlign: "left",
                   color: "white",
                 }}
-                // href="http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/docs"
-                // target="_blank"
-                // rel="noopener noreferrer"
               >
                 {" "}
                 <i
@@ -370,7 +249,6 @@ const Sidebar = (props) => {
                     marginLeft: "0px",
                     textAlign: "left",
                   }}
-                  onClick={schedulingHandler}
                 >
                   Configuration
                 </span>
@@ -402,33 +280,8 @@ const Sidebar = (props) => {
                 ></i>{" "}
                 Users
               </p>
-
-              {/* <p onClick={(e) => navigate && navigate("/role")}>
-                {" "}
-                <i
-                  class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "10px", marginRight: "4px" }}
-                ></i>
-                Role
-              </p> */}
             </div>
           </ul>
-        </div>
-        <div className="bottom">
-          {props.childrens}
-          {/* <div className="item help" style={{ fontSize: "20px" }}>
-            <i className="fa-solid fa-circle-question"></i>
-          </div>
-          <div className="item profile">
-            <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="avatar"
-            />
-          </div>
-          <div className="item help" style={{ fontSize: "20px" }}>
-          <i class="fa-solid fa-power-off"></i>
-          </div> */}
         </div>
       </div>
     </div>

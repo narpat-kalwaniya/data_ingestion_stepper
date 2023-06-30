@@ -1,15 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import bg from ".././banner.jpg";
-import { Row } from "react-bootstrap";
 import "./Home.css";
 
-const Home = (props) => {
+const Home = () => {
+  const navigate = useNavigate();
+
   const dataIngestionHandler = (e) => {
-    props.setIsHome(false);
-    props.setIsScheduling(false);
-    props.setStep(1);
-    // window.location.reload();
+    navigate("/pipelines");
   };
+
   return (
     <div className="homepageimagebtn">
       <img className="HomeImage" src={bg} alt="Logo"></img>
