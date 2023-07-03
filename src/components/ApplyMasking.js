@@ -26,6 +26,26 @@ const ApplyMasking = ({ formData, updateFormData }) => {
   const [tableData, setTableData] = useState([...formData.tableData]);
 
   useEffect(() => {
+    if (tableData && Array.isArray(tableData) && masking.length) {
+      const _selectedMasking = [];
+
+      tableData.forEach((_tableData, index) => {
+        const option = (masking || []).find(
+          (_tc) => _tc.algorithm_name === _tableData?.masking_logic
+        );
+
+        if (option) {
+          _selectedMasking[index] = {
+            value: option.algorithm_name,
+            label: option.masking_algorithm,
+          };
+        }
+      });
+      setSelectedMasking([..._selectedMasking]);
+    }
+  }, [masking, tableData]);
+
+  useEffect(() => {
     const fetchApplications = async () => {
       try {
         const response = await fetch(
@@ -90,8 +110,6 @@ const ApplyMasking = ({ formData, updateFormData }) => {
     updateIngestionData(updatedData);
   };
 
-  console.log("masking form data", formData);
-  console.log("masking ingestion data", ingestionData);
   return (
     <div>
       <Table responsive>
@@ -128,7 +146,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
 
               <td style={{ width: "300px" }}>
                 <Select
-                  // value={formData.tableData[index].masking_logic}
+                  value={selectedMasking[index]}
                   onChange={(option) => handleMaskingChange(option, index)}
                   options={masking.map((masking) => ({
                     value: masking.algorithm_name,
