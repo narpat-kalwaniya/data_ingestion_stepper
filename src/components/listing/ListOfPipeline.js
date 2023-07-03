@@ -123,6 +123,9 @@ export default function CustomizedTables({ searchedData }) {
                   <VisibilityOutlinedIcon
                     className="viewBtnStyle"
                     style={{ width: "15px", height: "15px" }}
+                    onClick={() => {
+                      console.log("Icon clicked!", row.entity_id);
+                    }}
                   />
                 </StyledTableCell>
               </StyledTableRow>
