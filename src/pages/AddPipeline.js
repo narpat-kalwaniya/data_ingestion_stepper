@@ -432,7 +432,7 @@ function AddPipeline() {
                         style={{
                           minHeight: "60vh",
                           maxHeight: "60vh",
-                          // overflowY: "scroll",
+                           overflowY: "scroll",
                         }}
                       >
                         <Stepper
