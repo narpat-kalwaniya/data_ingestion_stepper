@@ -10,8 +10,10 @@ import { Trash } from "react-bootstrap-icons";
 import "./Scheduling.css";
 import { Stack } from "react-bootstrap";
 import { Snackbar } from "@mui/material";
+import SchedulingPopupPages from "./SchedulingPopupPages";
 
 const Scheduling = () => {
+  const [show, setShow] = useState(false);
   const [dagName, setDagName] = useState([]);
   const [moduleName, setModuleName] = useState([]);
   const [timezones, setTimezones] = useState([]);
@@ -21,7 +23,6 @@ const Scheduling = () => {
     vertical: "bottom",
     horizontal: "center",
   });
-
   const {
     register,
     handleSubmit,
@@ -208,6 +209,11 @@ const Scheduling = () => {
   const handleClose = () => {
     setSnackBar({ ...snackBar, open: false });
   };
+
+  const handleCloseSchedulingModal = () => {
+    setShow(false);
+  };
+  const handleShowSchedulingModal = () => setShow(true);
 
   const { vertical, horizontal, open } = snackBar;
 
@@ -445,7 +451,6 @@ const Scheduling = () => {
                     required: true,
                   }),
                 };
-
                 return (
                   <tr key={index}>
                     <td>
@@ -545,10 +550,18 @@ const Scheduling = () => {
             <Button className="jobFormBtn" variant="primary" type="submit">
               Submit
             </Button>
+            <Button
+              className="jobFormBtn"
+              variant="primary"
+              onClick={handleShowSchedulingModal}
+            >
+              Add Multiple Tasks
+            </Button>
           </Stack>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </Form>
       </div>
+      <SchedulingPopupPages show={show} onHide={handleCloseSchedulingModal} />
     </>
   );
 };

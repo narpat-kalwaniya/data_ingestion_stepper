@@ -61,7 +61,7 @@ const LoginPage = () => {
             placeholder="Password"
           />
           <div className={classes["forget-password"]}>
-            <span>Forget Password?</span>
+            <span>Forgot Password?</span>
           </div>
           <input
             type="submit"
