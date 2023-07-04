@@ -37,6 +37,7 @@ function AddPipeline() {
       source_entity_type: "",
       is_select_distinct: false,
       incremental_by: "",
+      source_incremental_column: null,
       incremental_start_time: "",
       incremental_end_time: "",
       incremental_start_sequence: "",
@@ -432,7 +433,7 @@ function AddPipeline() {
                         style={{
                           minHeight: "60vh",
                           maxHeight: "60vh",
-                           overflowY: "scroll",
+                          overflowY: "scroll",
                         }}
                       >
                         <Stepper
