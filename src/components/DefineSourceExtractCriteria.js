@@ -95,7 +95,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     };
     updateIngestionData(updatedData);
   };
-  console.log("pagedata", pageData);
+  // console.log("pagedata", pageData);
 
   const incrementalByHandler = (e) => {
     setSelectedIncrementalBy(e.target.value);
@@ -127,6 +127,21 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         ...prevSelectedValues,
         selectedOption,
       ]);
+      const updatedFormData = {
+        ...formData,
+        DefineSourceExtractCriteria: {
+          ...formData.DefineSourceExtractCriteria,
+          [e.target.name]: [...selectedValues, selectedOption],
+        },
+      };
+      updateFormData(updatedFormData);
+
+      const updatedData = { ...ingestionData[0] };
+      updatedData.source_extract_criteria = {
+        ...updatedData.source_extract_criteria,
+        [e.target.name]: [...selectedValues, selectedOption],
+      };
+      updateIngestionData(updatedData);
     }
   };
 
@@ -134,6 +149,21 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     setSelectedValues((prevSelectedValues) =>
       prevSelectedValues.filter((v) => v !== value)
     );
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        source_incremental_column: selectedValues.filter((v) => v !== value),
+      },
+    };
+    updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.source_extract_criteria = {
+      ...updatedData.source_extract_criteria,
+      source_incremental_column: selectedValues.filter((v) => v !== value),
+    };
+    updateIngestionData(updatedData);
   };
 
   const isIncrementalSelected =
@@ -145,7 +175,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   // console.log("selected values", selectedValues);
   // console.log("selected options", selectedOption);
   // console.log("selected incremental", selectedIncrementalBy);
-  console.log("selected pageData", pageData);
+  console.log("form data in source", formData);
 
   return (
     <Card.Body className="custom-card-body">
@@ -260,8 +290,12 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                   multiple
                   onChange={handleSelect}
                   disabled={!isIncrementalSelected}
-                  value={selectedValues}
+                  value={
+                    formData.DefineSourceExtractCriteria
+                      .source_incremental_column
+                  }
                   className="custom-select custom-style"
+                  name="source_incremental_column"
                 >
                   {formData.tableData.map((column, index) => (
                     <option key={index} value={column.column_name}>
@@ -270,23 +304,25 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                   ))}
                 </Form.Select>
                 <div className="mt-2">
-                  {selectedValues.map((value) => (
-                    <Badge
-                      key={value}
-                      variant="primary"
-                      className="mr-1 mb-3"
-                      style={{ marginRight: "5px" }}
-                    >
-                      {value}
-                      <span
-                        className="badge badge-secondary ml-1"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleBadgeClose(value)}
+                  {formData.DefineSourceExtractCriteria.source_incremental_column.map(
+                    (value) => (
+                      <Badge
+                        key={value}
+                        variant="primary"
+                        className="mr-1 mb-3"
+                        style={{ marginRight: "5px" }}
                       >
-                        X
-                      </span>
-                    </Badge>
-                  ))}
+                        {value}
+                        <span
+                          className="badge badge-secondary ml-1"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handleBadgeClose(value)}
+                        >
+                          X
+                        </span>
+                      </Badge>
+                    )
+                  )}
                 </div>
               </Col>
             )}

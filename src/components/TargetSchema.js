@@ -132,6 +132,9 @@ const TbData = ({ formData, updateFormData }) => {
       is_target_primary_key: false,
       is_business_key: false,
       transformation_logic: "",
+      validation_rules: [],
+      validation_input: [],
+      quality_score: null,
     };
 
     const updatedTableData = [newRow, ...formData.tableData];

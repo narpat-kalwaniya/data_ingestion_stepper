@@ -37,6 +37,7 @@ function AddPipeline() {
       source_entity_type: "",
       is_select_distinct: false,
       incremental_by: "",
+      source_incremental_column: null,
       incremental_start_time: "",
       incremental_end_time: "",
       incremental_start_sequence: "",
@@ -418,7 +419,7 @@ function AddPipeline() {
                 setIsSubmitted={setIsSubmitted}
               />
             ) : (
-              <Card className="custom-card">
+              <Card className="custom-card" style={{ border: "none" }}>
                 <div>
                   {/* <Card.Header className="header">
                                   <Header step={step}></Header>
@@ -428,12 +429,13 @@ function AddPipeline() {
                     // ref={containerRef}
                     >
                       <Card.Body
-                        ref={BodyRef}
+                        // ref={BodyRef}
                         style={{
                           minHeight: "60vh",
                           maxHeight: "60vh",
-                           overflowY: "scroll",
+                          overflowY: "scroll",
                         }}
+                        className="overflow-auto"
                       >
                         <Stepper
                           step={step}
