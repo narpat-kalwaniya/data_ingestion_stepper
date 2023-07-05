@@ -11,6 +11,7 @@ import "./Scheduling.css";
 import { Stack } from "react-bootstrap";
 import { Snackbar } from "@mui/material";
 import SchedulingPopupPages from "./SchedulingPopupPages";
+import "./SchedulingPopupPages.css";
 
 const Scheduling = () => {
   const [show, setShow] = useState(false);

@@ -11,20 +11,17 @@ import { useForm } from "react-hook-form";
 export default function SchedulingPopupPages(props) {
   const [entityScheduleData, setEntityScheduleData] = useState([]);
   const [applicationNames, setApplicationNames] = useState([]);
-  // const [checklist, setChecklist] = useState({
-  //   parent: false,
-  //   children: [
-  //     { id: 1, checked: false },
-  //     { id: 2, checked: false },
-  //     { id: 3, checked: false },
-  //     // Add more child objects as needed
-  //   ],
-  // });
-  // const [popupPage, setPopupPage] = useState([]);
+
+  useEffect(() => {
+    if (props.show) {
+      reset();
+    }
+  }, [props.show]);
 
   const {
     register,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -63,10 +60,26 @@ export default function SchedulingPopupPages(props) {
 
   const applicationName = watch("application_name");
 
+  let isAllchecked = entityScheduleData.every((item) => item.isSelected);
+
+  const checkBoxBtn = () => {
+    let tempentityScheduleData = JSON.parse(JSON.stringify(entityScheduleData));
+    tempentityScheduleData = tempentityScheduleData.map((item) => {
+      item.isSelected = !isAllchecked;
+      return item;
+    });
+    setEntityScheduleData(tempentityScheduleData);
+  };
+
   return (
-    <Modal show={props.show} onHide={props.onHide} size="xl">
+    <Modal
+      show={props.show}
+      onHide={props.onHide}
+      size="lg"
+      className="modalContainer"
+    >
       <Modal.Header closeButton>
-        <Modal.Title>Add Multiple Tasks </Modal.Title>
+        <Modal.Title className="modalTitle">Add Multiple Tasks </Modal.Title>
       </Modal.Header>
       <Form>
         <Modal.Body>
@@ -76,6 +89,7 @@ export default function SchedulingPopupPages(props) {
             </Form.Label>
             <Col sm="8">
               <Form.Select
+                className="selectOptions"
                 id="application_name"
                 name="application_name"
                 {...register("application_name", { required: true })}
@@ -89,61 +103,43 @@ export default function SchedulingPopupPages(props) {
             <Table responsive="sm">
               <thead>
                 <tr>
-                  {/* <th>
-                  <Form.Check
-                    aria-label="option 1"
-                    checked={checklist.parent}
-                    onChange={() =>
-                      setChecklist((prevState) => ({
-                        ...prevState,
-                        parent: !prevState.parent,
-                        children: prevState.children.map((child) => ({
-                          ...child,
-                          checked: !prevState.parent,
-                        })),
-                      }))
-                    }
-                  />
-                </th> */}
                   <th>
-                    <Form.Check aria-label="option 1" />
+                    <Form.Check
+                      aria-label="option 1"
+                      checked={isAllchecked}
+                      onClick={checkBoxBtn}
+                    />
                   </th>
                   <th>Source Entity</th>
                   <th>Target Entity</th>
                 </tr>
               </thead>
               <tbody>
-                {/* <tr>
-                {checklist.children.map((child) => (
-                  <td key={child.id}>
-                    <Form.Check
-                      aria-label="option 1"
-                      checked={child.checked}
-                      onChange={() =>
-                        setChecklist((prevState) => ({
-                          ...prevState,
-                          children: prevState.children.map((c) =>
-                            c.id === child.id
-                              ? { ...c, checked: !c.checked }
-                              : c
-                          ),
-                          parent: prevState.children.every((c) => c.checked),
-                        }))
-                      }
-                    />
-                    {child.id}
-                  </td>
-                ))}
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr> */}
                 {entityScheduleData
                   .filter((item) => item.application === applicationName)
                   .map((sourceEntity, index) => {
                     return (
                       <tr>
                         <td>
-                          <Form.Check aria-label="option 1" />
+                          <Form.Check
+                            aria-label="option 1"
+                            checked={sourceEntity.isSelected}
+                            onClick={() => {
+                              let tempentityScheduleData = JSON.parse(
+                                JSON.stringify(entityScheduleData)
+                              );
+                              tempentityScheduleData =
+                                tempentityScheduleData.map((item) => {
+                                  if (
+                                    item.entity_id == sourceEntity.entity_id
+                                  ) {
+                                    item.isSelected = !item.isSelected;
+                                  }
+                                  return item;
+                                });
+                              setEntityScheduleData(tempentityScheduleData);
+                            }}
+                          />
                         </td>
                         <td>{sourceEntity.source_entity}</td>
                         <td>{sourceEntity.target_entity}</td>
@@ -169,7 +165,7 @@ export default function SchedulingPopupPages(props) {
             variant="primary"
             onClick={props.onHide}
           >
-            Save Changes
+            Save
           </Button>
         </Modal.Footer>
       </Form>

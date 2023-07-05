@@ -1,0 +1,13 @@
+.modalContainer {
+    font-size: 14px;
+    line-height: 1;
+    
+}
+.modalTitle {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.selectOptions {
+    font-size: 14px !important;
+}
