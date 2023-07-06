@@ -227,10 +227,6 @@ const DataSourceModal = (props) => {
   //   handleParseJson(e.target.value); // Call the handleParseJson function
   // };
 
-  const filteredSourceConnections = connections.filter(
-    (connection) => connection.connection_type !== "SNOWFLAKE"
-  );
-
   return (
     <Modal show={props.showModalDSC} onHide={handleCloseModalDSC} size="lg">
       <Modal.Header closeButton>
@@ -242,7 +238,7 @@ const DataSourceModal = (props) => {
             <Col xs={4} className="sidebar-container">
               <div className="sidebar">
                 <div className="sidebar-heading">Connection List</div>
-                {filteredSourceConnections.map((item, index) => (
+                {connections.map((item, index) => (
                   <div
                     key={index}
                     className={`sidebar-item ${

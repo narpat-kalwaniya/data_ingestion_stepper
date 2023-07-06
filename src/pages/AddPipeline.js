@@ -37,7 +37,7 @@ function AddPipeline() {
       source_entity_type: "",
       is_select_distinct: false,
       incremental_by: "",
-      source_incremental_column: null,
+      source_incremental_column: [],
       incremental_start_time: "",
       incremental_end_time: "",
       incremental_start_sequence: "",
