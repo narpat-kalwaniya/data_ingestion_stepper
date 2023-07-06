@@ -75,7 +75,7 @@ const ReviewFrom = (props) => {
     // window.localStorage.removeItem(1);
   };
   const handleShow = () => {
-    setIsExecuteNow(!isExecuteNow);
+    setIsExecuteNow(false);
     setShowModal(true);
   };
   const handleContinue = () => {
@@ -109,7 +109,7 @@ const ReviewFrom = (props) => {
   };
 
   const submitHandler = async (event) => {
-    setIsExecuteNow(!isExecuteNow);
+    setIsExecuteNow(false);
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
@@ -622,7 +622,11 @@ const ReviewFrom = (props) => {
                 >
                   Submit
                 </button>
-                <Modal show={showModal} onHide={closeHandler}>
+                <Modal
+                  show={showModal}
+                  onHide={closeHandler}
+                  style={{ fontSize: "14px", color: "#4F4F4F" }}
+                >
                   <Modal.Header closeButton>
                     {/* <Modal.Title>Modal heading</Modal.Title> */}
                   </Modal.Header>

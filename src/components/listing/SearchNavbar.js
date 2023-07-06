@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import CustomizedTables from "./ListOfPipeline";
 import ButtonPages from "../buttons/ButtonPages";
 import "./SearchNavbarButton.css";
+import "../../styles/main.css";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
@@ -168,6 +169,10 @@ export default function ListingPage() {
     </Menu>
   );
 
+  const showDraftsHandler = () => {};
+
+  const drafts = [{}, {}];
+
   return (
     <>
       <div className="row justify-content-center mt-5 w-100">
@@ -205,15 +210,66 @@ export default function ListingPage() {
                     display: {
                       md: "flex",
                       gap: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
                     },
                   }}
                 >
+                  <div
+                    style={{
+                      display: "inline-block",
+                      position: "relative",
+                      marginRight: "15px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: "rgb(53, 143, 182)",
+                        fontSize: "14px",
+                        cursor: "pointer",
+                        marginBottom: "0px",
+                        transition: "font-size 0.4s",
+                      }}
+                      onClick={showDraftsHandler}
+                      onMouseEnter={(e) =>
+                        (e.target.style.color = "rgb(123, 162, 179)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.target.style.color = "rgb(53, 143, 182)")
+                      }
+                    >
+                      Drafts
+                    </span>
+                    {drafts.length > 0 && (
+                      <sup
+                        style={{
+                          width: "13px",
+                          height: "13px",
+                          backgroundColor: "red",
+                          borderRadius: "50%",
+                          color: "white",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          position: "absolute",
+                          top: "-1px",
+                          right: "-12px",
+                          // border: "1px solid white",
+                        }}
+                      >
+                        {drafts.length}
+                      </sup>
+                    )}
+                  </div>
                   <Button className="searchNavbarBtnStyleUpload">
                     {" "}
                     Upload
                   </Button>
-                  <Button
-                    className="searchNavbarBtnStyleAdd"
+                  <button
+                    className="btn-s"
+                    style={{ paddingLeft: "10px", paddingRight: "10px" }}
                     onClick={() => {
                       handleClickOpen(true);
                     }}
@@ -221,7 +277,7 @@ export default function ListingPage() {
                     {/* <AddOutlinedIcon className="AddOutlinedIcon" /> */}
                     <AddIcon className="AddOutlinedIcon" />
                     Add New
-                  </Button>
+                  </button>
                 </Box>
               </Toolbar>
             </AppBar>
