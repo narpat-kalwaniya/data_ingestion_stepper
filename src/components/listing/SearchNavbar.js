@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import CustomizedTables from "./ListOfPipeline";
 import ButtonPages from "../buttons/ButtonPages";
 import "./SearchNavbarButton.css";
+import "../../styles/main.css";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
@@ -168,6 +169,8 @@ export default function ListingPage() {
     </Menu>
   );
 
+  const showDraftsHandler = () => {};
+
   return (
     <>
       <div className="row justify-content-center mt-5 w-100">
@@ -205,15 +208,33 @@ export default function ListingPage() {
                     display: {
                       md: "flex",
                       gap: "10px",
+                      alignItems: "center",
+                      justifyContent: "center",
                     },
                   }}
                 >
+                  <div>
+                    <p
+                      style={{
+                        color: "rgb(53, 143, 182)",
+                        cursor: "pointer",
+                        marginBottom: "0px",
+                        transition: "font-size 0.4s",
+                      }}
+                      onClick={showDraftsHandler}
+                      onMouseEnter={(e) => (e.target.style.fontSize = "16px")}
+                      onMouseLeave={(e) => (e.target.style.fontSize = "15px")}
+                    >
+                      Drafts
+                    </p>
+                  </div>
                   <Button className="searchNavbarBtnStyleUpload">
                     {" "}
                     Upload
                   </Button>
-                  <Button
-                    className="searchNavbarBtnStyleAdd"
+                  <button
+                    className="btn-s"
+                    style={{ paddingLeft: "10px", paddingRight: "10px" }}
                     onClick={() => {
                       handleClickOpen(true);
                     }}
@@ -221,7 +242,7 @@ export default function ListingPage() {
                     {/* <AddOutlinedIcon className="AddOutlinedIcon" /> */}
                     <AddIcon className="AddOutlinedIcon" />
                     Add New
-                  </Button>
+                  </button>
                 </Box>
               </Toolbar>
             </AppBar>
