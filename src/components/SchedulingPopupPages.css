@@ -1,13 +1,21 @@
 .modalContainer {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1;
     
 }
 .modalTitle {
-    font-size: 14px !important;
+    font-size: 12px !important;
     font-weight: 600 !important;
 }
 
 .selectOptions {
-    font-size: 14px !important;
+    font-size: 12px !important;
+}
+.popUpCloseBtn {
+    margin-right: 10px;
+}
+.popUpTableVerticalScrollBar {
+    height: 63vh !important;
+    overflow: auto !important;
+    /* height: 500px; */
 }

@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useForm } from "react-hook-form";
+import "./SchedulingPopupPages.css";
 
 export default function SchedulingPopupPages(props) {
   const [entityScheduleData, setEntityScheduleData] = useState([]);
@@ -71,6 +72,13 @@ export default function SchedulingPopupPages(props) {
     setEntityScheduleData(tempentityScheduleData);
   };
 
+  const handleSave = () => {
+    const selectedItems = entityScheduleData.filter((item) => item.isSelected);
+    // console.log(selectedItems);
+    props.onDataUpdate(selectedItems);
+    // Perform any further processing or send the data to the server
+  };
+
   return (
     <Modal
       show={props.show}
@@ -78,8 +86,27 @@ export default function SchedulingPopupPages(props) {
       size="lg"
       className="modalContainer"
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title className="modalTitle">Add Multiple Tasks </Modal.Title>
+        <div>
+          <Button
+            className="jobFormBtn popUpCloseBtn"
+            variant="secondary"
+            onClick={props.onHide}
+          >
+            Close
+          </Button>
+          <Button
+            className="jobFormBtn"
+            variant="primary"
+            onClick={() => {
+              props.onHide();
+              handleSave();
+            }}
+          >
+            Save
+          </Button>
+        </div>
       </Modal.Header>
       <Form>
         <Modal.Body>
@@ -94,13 +121,16 @@ export default function SchedulingPopupPages(props) {
                 name="application_name"
                 {...register("application_name", { required: true })}
               >
-                <option value={null}>Please Select</option>
+                <option value="" disabled selected>
+                  Please Select
+                </option>
+                {/* <option value={null}>Please Select</option> */}
                 {options}
               </Form.Select>
             </Col>
           </Row>
           {applicationName !== "Please Select" ? (
-            <Table responsive="sm">
+            <Table responsive="sm popUpTableVerticalScrollBar">
               <thead>
                 <tr>
                   <th>
@@ -152,7 +182,7 @@ export default function SchedulingPopupPages(props) {
             ""
           )}
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button
             className="jobFormBtn"
             variant="secondary"
@@ -163,11 +193,14 @@ export default function SchedulingPopupPages(props) {
           <Button
             className="jobFormBtn"
             variant="primary"
-            onClick={props.onHide}
+            onClick={() => {
+              props.onHide();
+              handleSave();
+            }}
           >
             Save
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Form>
     </Modal>
   );

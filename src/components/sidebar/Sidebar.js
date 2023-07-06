@@ -101,7 +101,7 @@ const Sidebar = () => {
                 navigateRouter && navigateRouter("/pipelines");
               }}
             >
-              <i class="fas fa-project-diagram "></i>
+              <i class="fas fa-project-diagram"></i>
               <span className="side">Pipelines</span>
             </li>
 

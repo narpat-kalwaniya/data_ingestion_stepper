@@ -19,6 +19,7 @@ const Scheduling = () => {
   const [moduleName, setModuleName] = useState([]);
   const [timezones, setTimezones] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  // const [popupBoxSelectItem, setpopupBoxSelectItem] = useState([]);
   const [snackBar, setSnackBar] = React.useState({
     open: false,
     vertical: "bottom",
@@ -217,6 +218,23 @@ const Scheduling = () => {
   const handleShowSchedulingModal = () => setShow(true);
 
   const { vertical, horizontal, open } = snackBar;
+
+  const handleDataChange = (selectedItems) => {
+    // console.log("Received data in parent:", selectedItems);
+    const diInject = moduleName.find(
+      (moduleName) => moduleName === "di_ingest"
+    );
+    selectedItems = selectedItems.map((item) => {
+      return {
+        task_name: item.task_name,
+        module_name: diInject,
+        arguments: JSON.stringify(item.arguments),
+        dependency: [],
+      };
+    });
+    const newTasks = [...(tasks || []), ...selectedItems];
+    setValue("tasks", newTasks);
+  };
 
   return (
     <>
@@ -562,7 +580,11 @@ const Scheduling = () => {
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </Form>
       </div>
-      <SchedulingPopupPages show={show} onHide={handleCloseSchedulingModal} />
+      <SchedulingPopupPages
+        show={show}
+        onHide={handleCloseSchedulingModal}
+        onDataUpdate={handleDataChange}
+      />
     </>
   );
 };

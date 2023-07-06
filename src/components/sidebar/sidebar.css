@@ -134,13 +134,13 @@
 }
 .sidebar .navF ul .itemD p:hover {
   color: #a6a8aa;
-}
+} 
 .sidebar .navF ul .itemC_dis {
   display: block;
 }
 .sidebar .navF ul li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 18px;
   cursor: pointer;
   transition: all ease 0.2s;
