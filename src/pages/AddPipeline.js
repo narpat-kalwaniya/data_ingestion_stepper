@@ -169,6 +169,7 @@ function AddPipeline() {
 
   const createNewPipelineHandler = () => {
     setStep(1);
+    setIsReview(false);
   };
 
   // Input validation-1
@@ -356,6 +357,7 @@ function AddPipeline() {
     setIsReview(true);
     setStep((step) => step + 1);
   };
+  const showDraftsHandler = () => {};
 
   const updateFormData = (data) => {
     setFormData((prevData) => ({
@@ -485,6 +487,34 @@ function AddPipeline() {
                         </Modal.Footer>
                       </Modal>
                     </Col>
+                    {step >= 3 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginRight: "20px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "rgb(53, 143, 182)",
+                            cursor: "pointer",
+                            marginBottom: "0px",
+                            transition: "font-size 0.2s",
+                          }}
+                          onClick={showDraftsHandler}
+                          onMouseEnter={(e) =>
+                            (e.target.style.color = "rgb(123, 162, 179)")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.target.style.color = "rgb(53, 143, 182)")
+                          }
+                        >
+                          Save as Draft
+                        </p>
+                      </div>
+                    )}
                     <button
                       className="btn-c "
                       onClick={previousHandler}
