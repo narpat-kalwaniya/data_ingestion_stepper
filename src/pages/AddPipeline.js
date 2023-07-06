@@ -380,7 +380,7 @@ function AddPipeline() {
 
   return (
     <Container
-      className="h-100"
+      // className="h-100"
       style={{ marginTop: "30px", backgroundColor: "white" }}
     >
       <Card className="Card-outer custom-card-body ">
