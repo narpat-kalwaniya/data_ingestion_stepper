@@ -55,16 +55,20 @@ const DataSourceModal = (props) => {
   useEffect(() => {
     if (selectedItem) {
       setFormData(selectedItem);
+      setFormData({
+        ...selectedItem,
+        process_flag: "update",
+      });
     }
   }, [selectedItem]);
 
   const handleSidebarItemClick = (item) => {
     setSelectedItem(item);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      ...item,
-      process_flag: "update",
-    }));
+    // setFormData((prevFormData) => ({
+    //   ...prevFormData,
+    //   ...item,
+    //   process_flag: "update",
+    // }));
   };
 
   const handleChange = (e) => {
@@ -318,7 +322,7 @@ const DataSourceModal = (props) => {
                       <Form.Control
                         type="text"
                         className="custom-select custom-style"
-                        name="environment"
+                        name="connection_env"
                         value={formData.connection_env}
                         onChange={handleChange}
                       />
