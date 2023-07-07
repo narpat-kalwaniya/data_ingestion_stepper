@@ -1,122 +1,3 @@
-// import React, { useState, useEffect, useContext } from "react";
-// import {
-//   Container,
-//   Form,
-//   Row,
-//   Col,
-//   Card,
-//   Button,
-//   Modal,
-// } from "react-bootstrap";
-
-// import "../../styles/main.css";
-// import "./DataSourceModal.css";
-
-// const DataSourceModal = (props) => {
-//   return (
-//     <Modal
-//       show={props.showModalDSC}
-//       onHide={props.handleCloseModalDSC}
-//       size="lg"
-//     >
-//       <Modal.Header closeButton>
-//         <Modal.Title>Create Data Scouce Connection</Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         <Card.Body className="custom-card-body">
-//           <Form>
-//             <Row className="mb-4">
-//               <Col xs={3}>
-//                 <Form.Label>Connection Name</Form.Label>
-//               </Col>
-//               <Col>
-//                 <Form.Control
-//                   type="text"
-//                   disabled={false}
-//                   className="custom-select custom-style"
-//                   name="connection_name"
-//                 />
-//               </Col>
-//             </Row>
-//             <Row className="mb-4">
-//               <Col xs={3}>
-//                 <Form.Label>Connection Type</Form.Label>
-//               </Col>
-//               <Col>
-//                 <Form.Control
-//                   type="text"
-//                   disabled={false}
-//                   className="custom-select custom-style"
-//                   name="connection_type"
-//                 />
-//               </Col>
-//             </Row>
-
-//             <Row className="mb-4">
-//               <Col xs={3}>
-//                 <Form.Label>Data Source Name</Form.Label>
-//               </Col>
-//               <Col>
-//                 <Form.Control
-//                   type="text"
-//                   disabled={false}
-//                   className="custom-select custom-style"
-//                   name="data_source_name"
-//                 />
-//               </Col>
-//             </Row>
-//             <Row className="mb-4">
-//               <Col xs={3}>
-//                 <Form.Label>Environment</Form.Label>
-//               </Col>
-//               <Col>
-//                 <Form.Control
-//                   type="text"
-//                   disabled={false}
-//                   className="custom-select custom-style"
-//                   name="environment"
-//                 />
-//               </Col>
-//             </Row>
-//             <Row className="mb-4">
-//               <Col xs={3}>
-//                 <Form.Label>Connection String</Form.Label>
-//               </Col>
-//               <Col>
-//                 <Form.Control
-//                   as="textarea"
-//                   rows={3}
-//                   disabled={false}
-//                   className="custom-select custom-style"
-//                   name="connection_string"
-//                 />
-//               </Col>
-//             </Row>
-//           </Form>
-//         </Card.Body>
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <Button
-//           variant="secondary"
-//           onClick={props.handleCloseModalDSC}
-//           className="btn-cl"
-//         >
-//           Close
-//         </Button>
-//         <Button
-//           variant="primary"
-//           onClick={props.handleCloseModalDSC}
-//           className="btn-save"
-//         >
-//           Save Changes
-//         </Button>
-//       </Modal.Footer>
-//     </Modal>
-//   );
-// };
-
-// export default DataSourceModal;
-
 import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
@@ -142,7 +23,8 @@ const DataSourceModal = (props) => {
     connection_type: "",
     data_source_name: "",
     connection_env: "",
-    connect_string: "",
+    connect_string: null,
+    process_flag: "insert",
   });
 
   useEffect(() => {
@@ -160,22 +42,6 @@ const DataSourceModal = (props) => {
 
     fetchConnections();
   }, []);
-  // const sidebarData = [
-  //   {
-  //     connection_name: "Connection 1",
-  //     connection_type: "Type 1",
-  //     data_source_name: "Source 1",
-  //     environment: "Environment 1",
-  //     connection_string: "Connection String 1",
-  //   },
-  //   {
-  //     connection_name: "Connection 2",
-  //     connection_type: "Type 2",
-  //     data_source_name: "Source 2",
-  //     environment: "Environment 2",
-  //     connection_string: "Connection String 2",
-  //   },
-  // ];
 
   const handleParseJson = (value) => {
     try {
@@ -194,20 +60,68 @@ const DataSourceModal = (props) => {
 
   const handleSidebarItemClick = (item) => {
     setSelectedItem(item);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ...item,
+      process_flag: "update",
+    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+
+    if (name === "connection_type") {
+      const selectedConnectionType = connectionType[value];
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connection_type: value,
+        connect_string: selectedConnectionType.connection_string,
+      }));
+    } else if (name === "connection_string") {
+      let parsedValue;
+      try {
+        parsedValue = JSON.parse(value);
+      } catch (error) {
+        parsedValue = parsedValue;
+      }
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connect_string: parsedValue,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSaveChanges = () => {
-    // Handle saving the changes (e.g., send the formData to backend)
-    console.log("Form Data:", formData);
-    handleCloseModalDSC();
+  const handleSaveChanges = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/conn/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        // Handle successful response
+        console.log("Form Data sent successfully!");
+        console.log("connection data sending", formData);
+        handleCloseModalDSC();
+      } else {
+        // Handle error response
+        console.error("Error sending Form Data:", response.status);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("Error sending Form Data:", error);
+    }
   };
 
   const handleCloseModalDSC = () => {
@@ -217,21 +131,112 @@ const DataSourceModal = (props) => {
       connection_type: "",
       data_source_name: "",
       connection_env: "",
-      connect_string: "",
+      connect_string: null,
+      process_flag: "insert",
     });
     props.handleCloseModalDSC();
   };
 
-  // const handleInputChange = (e) => {
-  //   handleChange(e); // Call the handleChange function
-  //   handleParseJson(e.target.value); // Call the handleParseJson function
-  // };
+  const connectionType = {
+    POSTGRESQL: {
+      label: "POSTGRESQL",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+      },
+    },
+    SNOWFLAKE: {
+      label: "SNOWFLAKE",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+        warehouse: "",
+        role: "",
+      },
+    },
+    ORACLE: {
+      label: "ORACLE",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+        service: "",
+      },
+    },
+    SQL_SERVER: {
+      label: "SQL SERVER",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+      },
+    },
+    MYSQL: {
+      label: "MYSQL",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+      },
+    },
+    S3: {
+      label: "S3",
+      connection_string: {
+        bucket_name: "",
+        access_key: "",
+        secret_key: "",
+      },
+    },
+    AZURE_STORAGE_ACCOUNT: {
+      label: "AZURE STORAGE ACCOUNT",
+      connection_string: {
+        storage_account_name: "",
+        container_name: "",
+        access_key: "",
+      },
+    },
+  };
+
+  const handleAddConnection = () => {
+    setFormData({
+      connection_name: "",
+      connection_type: "",
+      data_source_name: "",
+      connection_env: "",
+      connect_string: null,
+      process_flag: "insert",
+    });
+  };
+
+  const handleJsonViewChange = (updatedJson) => {
+    if (updatedJson.updated_src) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connect_string: updatedJson.updated_src,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connect_string: updatedJson,
+      }));
+    }
+  };
 
   return (
     <Modal show={props.showModalDSC} onHide={handleCloseModalDSC} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>Create Data Source Connection</Modal.Title>
       </Modal.Header>
+      <Button variant="primary" onClick={handleAddConnection}>
+        Add Connection
+      </Button>
       <Modal.Body>
         <Container fluid>
           <Row>
@@ -275,12 +280,19 @@ const DataSourceModal = (props) => {
                     </Col>
                     <Col>
                       <Form.Control
-                        type="text"
+                        as="select"
                         className="custom-select custom-style"
                         name="connection_type"
                         value={formData.connection_type}
                         onChange={handleChange}
-                      />
+                      >
+                        <option value="">-- Select --</option>{" "}
+                        {Object.keys(connectionType).map((key) => (
+                          <option key={key} value={key}>
+                            {key}
+                          </option>
+                        ))}
+                      </Form.Control>
                     </Col>
                   </Row>
 
@@ -326,15 +338,18 @@ const DataSourceModal = (props) => {
                         onChange={handleChange}
                         onBlur={(e) => handleParseJson(e.target.value)}
                       />
-                      {parsedJson && (
+                      {parsedJson && formData.connect_string && (
                         <div className="json-view-container">
                           <ReactJson
-                            src={parsedJson}
+                            src={formData.connect_string}
                             theme="ocean"
                             name={null}
                             enableClipboard={false}
                             displayDataTypes={false}
                             displayObjectSize={false}
+                            onEdit={handleJsonViewChange}
+                            onAdd={handleJsonViewChange}
+                            onDelete={handleJsonViewChange}
                           />
                         </div>
                       )}

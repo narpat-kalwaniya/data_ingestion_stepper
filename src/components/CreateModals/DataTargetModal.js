@@ -1,52 +1,3 @@
-// import React from "react";
-// import {
-//   Container,
-//   Form,
-//   Row,
-//   Col,
-//   Card,
-//   Button,
-//   Modal,
-// } from "react-bootstrap";
-
-// import "../../styles/main.css";
-// import "./DataTargetModal.css";
-
-// const DataTargetModal = (props) => {
-//   return (
-//     <Modal
-//       show={props.showModalDTC}
-//       onHide={props.handleCloseModalDTC}
-//       size="lg"
-//     >
-//       <Modal.Header closeButton>
-//         <Modal.Title>Create Data Target Connection</Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         <p>Some Content</p>
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <Button
-//           variant="secondary"
-//           onClick={props.handleCloseModalDTC}
-//           className="btn-cl"
-//         >
-//           Close
-//         </Button>
-//         <Button
-//           variant="primary"
-//           onClick={props.handleCloseModalDTC}
-//           className="btn-save"
-//         >
-//           Save Changes
-//         </Button>
-//       </Modal.Footer>
-//     </Modal>
-//   );
-// };
-
-// export default DataTargetModal;
-
 import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
@@ -62,16 +13,17 @@ import "../../styles/main.css";
 import "./DataSourceModal.css";
 import ReactJson from "react-json-view";
 
-const DataSourceModal = (props) => {
+const DataTargetModal = (props) => {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [connections, setConnections] = useState([]);
   const [parsedJson, setParsedJson] = useState(null);
+  const [connections, setConnections] = useState([]);
+
   const [formData, setFormData] = useState({
     connection_name: "",
     connection_type: "",
     data_source_name: "",
     connection_env: "",
-    connect_string: "",
+    connect_string: null,
   });
 
   useEffect(() => {
@@ -89,23 +41,6 @@ const DataSourceModal = (props) => {
 
     fetchConnections();
   }, []);
-
-  // const sidebarData = [
-  //   {
-  //     connection_name: "Connection 1",
-  //     connection_type: "Type 1",
-  //     data_source_name: "Source 1",
-  //     environment: "Environment 1",
-  //     connection_string: "Connection String 1",
-  //   },
-  //   {
-  //     connection_name: "Connection 2",
-  //     connection_type: "Type 2",
-  //     data_source_name: "Source 2",
-  //     environment: "Environment 2",
-  //     connection_string: "Connection String 2",
-  //   },
-  // ];
 
   const handleParseJson = (value) => {
     try {
@@ -128,16 +63,58 @@ const DataSourceModal = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+
+    if (name === "connection_type") {
+      const selectedConnectionType = connectionType[value];
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connection_type: value,
+        connect_string: selectedConnectionType.connection_string,
+      }));
+    } else if (name === "connection_string") {
+      let parsedValue;
+      try {
+        parsedValue = JSON.parse(value);
+      } catch (error) {
+        parsedValue = parsedValue;
+      }
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connect_string: parsedValue,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSaveChanges = () => {
-    // Handle saving the changes (e.g., send the formData to backend)
-    console.log("Form Data:", formData);
-    handleCloseModalDTC();
+  const handleSaveChanges = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/conn/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        // Handle successful response
+        console.log("Form Data sent successfully!");
+        handleCloseModalDTC();
+      } else {
+        // Handle error response
+        console.error("Error sending Form Data:", response.status);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("Error sending Form Data:", error);
+    }
   };
 
   const handleCloseModalDTC = () => {
@@ -147,26 +124,117 @@ const DataSourceModal = (props) => {
       connection_type: "",
       data_source_name: "",
       connection_env: "",
-      connect_string: "",
+      connect_string: null,
     });
     props.handleCloseModalDTC();
   };
-  const filteredTargetConnections = connections.filter(
-    (connection) => connection.connection_type === "SNOWFLAKE"
-  );
+
+  const connectionType = {
+    POSTGRESQL: {
+      label: "POSTGRESQL",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+      },
+    },
+    SNOWFLAKE: {
+      label: "SNOWFLAKE",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+        warehouse: "",
+        role: "",
+      },
+    },
+    ORACLE: {
+      label: "ORACLE",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+        service: "",
+      },
+    },
+    SQL_SERVER: {
+      label: "SQL SERVER",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+      },
+    },
+    MYSQL: {
+      label: "MYSQL",
+      connection_string: {
+        host: "",
+        user: "",
+        password: "",
+        database: "",
+      },
+    },
+    S3: {
+      label: "S3",
+      connection_string: {
+        bucket_name: "",
+        access_key: "",
+        secret_key: "",
+      },
+    },
+    AZURE_STORAGE_ACCOUNT: {
+      label: "AZURE STORAGE ACCOUNT",
+      connection_string: {
+        storage_account_name: "",
+        container_name: "",
+        access_key: "",
+      },
+    },
+  };
+
+  const handleAddConnection = () => {
+    setFormData({
+      connection_name: "",
+      connection_type: "",
+      data_source_name: "",
+      connection_env: "",
+      connect_string: null,
+    });
+  };
+
+  const handleJsonViewChange = (updatedJson) => {
+    if (updatedJson.updated_src) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connect_string: updatedJson.updated_src,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        connect_string: updatedJson,
+      }));
+    }
+  };
 
   return (
     <Modal show={props.showModalDTC} onHide={handleCloseModalDTC} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Create Data Target Connection</Modal.Title>
+        <Modal.Title>Create Data Source Connection</Modal.Title>
       </Modal.Header>
+      <Button variant="primary" onClick={handleAddConnection}>
+        Add Connection
+      </Button>
       <Modal.Body>
         <Container fluid>
           <Row>
             <Col xs={4} className="sidebar-container">
               <div className="sidebar">
                 <div className="sidebar-heading">Connection List</div>
-                {filteredTargetConnections.map((item, index) => (
+                {connections.map((item, index) => (
                   <div
                     key={index}
                     className={`sidebar-item ${
@@ -203,18 +271,25 @@ const DataSourceModal = (props) => {
                     </Col>
                     <Col>
                       <Form.Control
-                        type="text"
+                        as="select"
                         className="custom-select custom-style"
                         name="connection_type"
                         value={formData.connection_type}
                         onChange={handleChange}
-                      />
+                      >
+                        <option value="">-- Select --</option>{" "}
+                        {Object.keys(connectionType).map((key) => (
+                          <option key={key} value={key}>
+                            {key}
+                          </option>
+                        ))}
+                      </Form.Control>
                     </Col>
                   </Row>
 
                   <Row className="mb-4">
                     <Col xs={3}>
-                      <Form.Label>Data Target Name</Form.Label>
+                      <Form.Label>Data Source Name</Form.Label>
                     </Col>
                     <Col>
                       <Form.Control
@@ -254,15 +329,18 @@ const DataSourceModal = (props) => {
                         onChange={handleChange}
                         onBlur={(e) => handleParseJson(e.target.value)}
                       />
-                      {parsedJson && (
+                      {parsedJson && formData.connect_string && (
                         <div className="json-view-container">
                           <ReactJson
-                            src={parsedJson}
+                            src={formData.connect_string}
                             theme="ocean"
                             name={null}
                             enableClipboard={false}
                             displayDataTypes={false}
                             displayObjectSize={false}
+                            onEdit={handleJsonViewChange}
+                            onAdd={handleJsonViewChange}
+                            onDelete={handleJsonViewChange}
                           />
                         </div>
                       )}
@@ -294,4 +372,4 @@ const DataSourceModal = (props) => {
   );
 };
 
-export default DataSourceModal;
+export default DataTargetModal;
