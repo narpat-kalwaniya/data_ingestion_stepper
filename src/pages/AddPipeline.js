@@ -358,7 +358,34 @@ function AddPipeline() {
     setIsReview(true);
     setStep((step) => step + 1);
   };
-  const showDraftsHandler = () => {};
+  // const showDraftsHandler = () => { };
+  const showDraftsHandler = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/draftentity/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        // Handle successful response
+        console.log("draft sent successfully!");
+        console.log("draft sending", JSON.stringify(formData));
+        // handleCloseModalApp();
+      } else {
+        // Handle error response
+        console.error("Error sending Form Data:", response.status);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("Error sending Form Data:", error);
+    }
+  };
 
   const updateFormData = (data) => {
     setFormData((prevData) => ({
@@ -380,7 +407,7 @@ function AddPipeline() {
 
   return (
     <Container
-      // className="h-100"
+      className="h-100"
       style={{ marginTop: "30px", backgroundColor: "white" }}
     >
       <Card className="Card-outer custom-card-body ">
