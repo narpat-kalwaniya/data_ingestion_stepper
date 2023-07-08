@@ -84,7 +84,6 @@ const Scheduling = () => {
         }
         return task;
       });
-      debugger;
       setValue("tasks", updatedTasks);
     }
   };
@@ -151,7 +150,6 @@ const Scheduling = () => {
 
   const onSubmitForm = (data) => {
     // Parse tasks arguments to JSON
-    debugger;
     const updatedTasks = data.tasks.map((task) => ({
       ...task,
       // arguments: task.arguments,
@@ -250,7 +248,7 @@ const Scheduling = () => {
 
   // const deleteRow = (currenttask)=> {
   //   let tempTasks = JSON.parse(JSON.stringify(tasks));
-  //   // debugger;
+  //
   //   tempTasks = tempTasks.map((task)=>{
   //     if(task.dependency.includes(currenttask.task_name)){
   //       task.dependency = task.dependency.filter((item)=>{
@@ -259,7 +257,7 @@ const Scheduling = () => {
   //     }
   //     return task
   //   })
-  //   // debugger
+  //
   //   setValue('tasks', tempTasks)
   // }
 
@@ -592,10 +590,9 @@ const Scheduling = () => {
                         )}
                       </Form.Control> */}
                       <Form.Select
-                        // multiple
+                        style={{ height: "30px" }}
                         aria-label="Default select example"
-                        className="jobFormItem"
-                        size="sm"
+                        // size="sm"
                         placeholder="Enter Dependency..."
                         id={`tasks[${index}].dependency`}
                         name={`tasks[${index}].dependency`}
