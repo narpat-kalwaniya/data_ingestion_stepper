@@ -339,6 +339,7 @@ function AddPipeline() {
       setStep((step) => step + 1);
     }
     console.log("Current Step:", step);
+    setFormData({ ...formData, current_step: step + 1 });
   };
 
   const closeHandler = () => {
@@ -346,6 +347,12 @@ function AddPipeline() {
     setIsReview(false);
     setStep((step) => 1);
     setShowModal(false);
+    // const clearedObject = Object.keys(formData).reduce(
+    //   (acc, key) => ({ ...acc, [key]: "" }),
+    //   {}
+    // );
+
+    // setFormData(clearedObject);
     // setFormData({});
     // window.localStorage.removeItem(1);
   };
@@ -359,7 +366,7 @@ function AddPipeline() {
     setStep((step) => step + 1);
   };
   // const showDraftsHandler = () => { };
-  const showDraftsHandler = async () => {
+  const saveDraftsHandler = async () => {
     try {
       const response = await fetch(
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/draftentity/",
@@ -406,10 +413,7 @@ function AddPipeline() {
   }, []);
 
   return (
-    <Container
-      className="h-100"
-      style={{ marginTop: "30px", backgroundColor: "white" }}
-    >
+    <Container style={{ marginTop: "30px", backgroundColor: "white" }}>
       <Card className="Card-outer custom-card-body ">
         {!isSubmitted ? (
           <Row className="m-2">
@@ -531,7 +535,7 @@ function AddPipeline() {
                             marginBottom: "0px",
                             transition: "font-size 0.2s",
                           }}
-                          onClick={showDraftsHandler}
+                          onClick={saveDraftsHandler}
                           onMouseEnter={(e) =>
                             (e.target.style.color = "rgb(123, 162, 179)")
                           }
