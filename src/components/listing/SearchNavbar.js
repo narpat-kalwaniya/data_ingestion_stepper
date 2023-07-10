@@ -84,7 +84,7 @@ export default function ListingPage() {
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getdrafts/"
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setDrafts(data);
       // setSelectedTestcases(Array(formData.tableData.length).fill(""));
     } catch (error) {
@@ -194,7 +194,13 @@ export default function ListingPage() {
     setIsShowDrafts(!isShowDrafts);
   };
 
-  // const drafts = [{}, {}];
+  const deleteHandler = (index) => {
+    const updatedItems = [...drafts.drafts];
+
+    updatedItems.splice(index, 1);
+    console.log(updatedItems);
+    setDrafts({ ...drafts, drafts: updatedItems });
+  };
 
   return (
     <>
@@ -263,7 +269,7 @@ export default function ListingPage() {
                     >
                       Drafts
                     </span>
-                    {drafts.length > 0 && (
+                    {drafts.length > 0 && !isShowDrafts && (
                       <sup
                         style={{
                           width: "13px",
@@ -308,7 +314,11 @@ export default function ListingPage() {
             {renderMenu}
           </Box>
           {isShowDrafts ? (
-            <Drafts drafts={drafts} setDrafts={setDrafts} />
+            <Drafts
+              drafts={drafts}
+              setDrafts={setDrafts}
+              deleteHandler={deleteHandler}
+            />
           ) : (
             <CustomizedTables searchedData={searchedData} />
           )}

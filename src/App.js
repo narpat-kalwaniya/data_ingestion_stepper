@@ -13,6 +13,7 @@ import NotFound from "./components/notFound/NotFound";
 function App() {
   const [user, setUser] = useState();
   const [loading, setloading] = useState(true);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -24,6 +25,11 @@ function App() {
   if (loading) {
     return "loading...";
   }
+
+  const handleData = (data) => {
+    setFormData(data);
+    console.log("Received data from child:", formData);
+  };
 
   return (
     <BrowserRouter>
@@ -40,7 +46,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/pipelines" element={<ListingPage />} />
-            <Route path="/pipelines/add" element={<AddPipeline />} />
+            <Route
+              path="/pipelines/add"
+              element={<AddPipeline onData={handleData} />}
+            />
             <Route path="/scheduling/configuration" element={<Scheduling />} />
           </Route>
           <Route path="*" element={<NotFound />} />
