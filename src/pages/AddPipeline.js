@@ -7,13 +7,16 @@ import { FiArrowLeft } from "react-icons/fi";
 import { DataContext } from "../components/DataContext";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/main.css";
+import { FaCheck } from "react-icons/fa";
 
-function AddPipeline() {
+function AddPipeline(onData) {
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { updateIngestionData } = useContext(DataContext);
+  const [isDraftSaved, setIsDraftSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     CreateDataConnection: {
@@ -72,6 +75,8 @@ function AddPipeline() {
       failure_email_list: "",
     },
   });
+
+  // onData(formData);
 
   // Error state- Page 1 - by Rajesh
   const [errors, setErrors] = useState({
@@ -311,6 +316,7 @@ function AddPipeline() {
   // };
 
   const nextHandler = () => {
+    setIsDraftSaved(false);
     if (step === 1) {
       if (validateInputs()) {
         setStep((step) => step + 1);
@@ -367,6 +373,7 @@ function AddPipeline() {
   };
   // const showDraftsHandler = () => { };
   const saveDraftsHandler = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/draftentity/",
@@ -383,6 +390,8 @@ function AddPipeline() {
         // Handle successful response
         console.log("draft sent successfully!");
         console.log("draft sending", JSON.stringify(formData));
+        setIsDraftSaved(true);
+        setIsLoading(false);
         // handleCloseModalApp();
       } else {
         // Handle error response
@@ -414,6 +423,11 @@ function AddPipeline() {
 
   return (
     <Container style={{ marginTop: "30px", backgroundColor: "white" }}>
+      {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+      )}
       <Card className="Card-outer custom-card-body ">
         {!isSubmitted ? (
           <Row className="m-2">
@@ -450,6 +464,8 @@ function AddPipeline() {
                 formData={formData}
                 isSubmitted={isSubmitted}
                 setIsSubmitted={setIsSubmitted}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             ) : (
               <Card className="custom-card" style={{ border: "none" }}>
@@ -480,6 +496,8 @@ function AddPipeline() {
                           errors6={errors6}
                           isReview={isReview}
                           setIsReview={setIsReview}
+                          isLoading={isLoading}
+                          setIsLoading={setIsLoading}
                         />
                       </Card.Body>
                     </Container>
@@ -519,34 +537,63 @@ function AddPipeline() {
                         </Modal.Footer>
                       </Modal>
                     </Col>
-                    {step >= 3 && (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginRight: "20px",
-                        }}
-                      >
-                        <p
+                    {step >= 3 &&
+                      (!isDraftSaved ? (
+                        <div
                           style={{
-                            color: "rgb(53, 143, 182)",
-                            cursor: "pointer",
-                            marginBottom: "0px",
-                            transition: "font-size 0.2s",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginRight: "20px",
                           }}
-                          onClick={saveDraftsHandler}
-                          onMouseEnter={(e) =>
-                            (e.target.style.color = "rgb(123, 162, 179)")
-                          }
-                          onMouseLeave={(e) =>
-                            (e.target.style.color = "rgb(53, 143, 182)")
-                          }
                         >
-                          Save as Draft
-                        </p>
-                      </div>
-                    )}
+                          <p
+                            style={{
+                              color: "rgb(53, 143, 182)",
+                              cursor: "pointer",
+                              marginBottom: "0px",
+                              transition: "font-size 0.2s",
+                            }}
+                            onClick={saveDraftsHandler}
+                            onMouseEnter={(e) =>
+                              (e.target.style.color = "rgb(123, 162, 179)")
+                            }
+                            onMouseLeave={(e) =>
+                              (e.target.style.color = "rgb(53, 143, 182)")
+                            }
+                          >
+                            Save as Draft
+                          </p>
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginRight: "20px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              color: "rgb(53, 143, 182)",
+                              cursor: "pointer",
+                              marginBottom: "0px",
+                              transition: "font-size 0.2s",
+                            }}
+                            onClick={saveDraftsHandler}
+                            onMouseEnter={(e) =>
+                              (e.target.style.color = "rgb(123, 162, 179)")
+                            }
+                            onMouseLeave={(e) =>
+                              (e.target.style.color = "rgb(53, 143, 182)")
+                            }
+                          >
+                            <FaCheck style={{ marginRight: "5px" }} />
+                            Saved as Draft
+                          </p>
+                        </div>
+                      ))}
                     <button
                       className="btn-c "
                       onClick={previousHandler}

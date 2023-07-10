@@ -21,7 +21,7 @@ import "../styles/main.css";
 const ReviewFrom = (props) => {
   const [showModal, setShowModal] = useState(false);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState({});
   const [isExecuteNow, setIsExecuteNow] = useState(false);
 
@@ -123,7 +123,7 @@ const ReviewFrom = (props) => {
 
   // Function to handle the POST request
   const sendData = async () => {
-    setIsLoading(true);
+    props.setIsLoading(true);
     try {
       const response = await fetch(
         "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingeststore/",
@@ -147,7 +147,7 @@ const ReviewFrom = (props) => {
     } catch (error) {
       console.error("Error:", error.message);
     }
-    setIsLoading(false);
+    props.setIsLoading(false);
     props.setIsSubmitted(true);
   };
 
@@ -212,9 +212,7 @@ const ReviewFrom = (props) => {
 
   return (
     <div>
-      {isLoading ? (
-        <p>Please wait while we save your data...</p>
-      ) : (
+      {props.isLoading ? null : (
         <Container>
           <div style={{ marginTop: "12px" }}></div>
           {props.isSubmitted ? (
