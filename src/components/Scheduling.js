@@ -20,6 +20,8 @@ const Scheduling = () => {
   const [moduleName, setModuleName] = useState([]);
   const [timezones, setTimezones] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  // const [parentIDData, setParentIDData] = useState("");
+
   const [snackBar, setSnackBar] = React.useState({
     open: false,
     vertical: "bottom",
@@ -35,17 +37,18 @@ const Scheduling = () => {
   } = useForm({
     defaultValues: {
       tasks: [
-        {
-          task_name: "",
-          module_name: "",
-          arguments: "",
-          dependency: [],
-        },
+        // {
+        //   task_name: "",
+        //   module_name: "",
+        //   arguments: "",
+        //   dependency: [],
+        // },
       ],
     },
   });
   const scheduleType = watch("schedule_type");
   const tasks = watch("tasks");
+  const parentDagId = watch("parent_dag_id")
 
   const addTask = () => {
     const newTasks = [
@@ -103,6 +106,34 @@ const Scheduling = () => {
 
     fetchData();
   }, []);
+
+  const fetchDataParentId = async (dag_name) => {
+    try {
+      const response = await fetch(`http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/getschedule/${dag_name}`);
+      const jsonParentIDData = await response.json();
+
+      setValue("schedule_type", jsonParentIDData.schedule_type);
+      setValue(
+        "schedule_value",
+        typeof jsonParentIDData.schedule_value === 'object'
+          ? JSON.stringify(jsonParentIDData.schedule_value)
+          : jsonParentIDData.schedule_value
+        );
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handleInputParentIdChange = (event) => {
+    const inputValue = event.target.value;
+    if(inputValue){
+      fetchDataParentId(inputValue);
+    }
+    setValue("parent_dag_id", inputValue)
+  };
+
+
+
 
   useEffect(() => {
     const fetchModuleName = async () => {
@@ -352,8 +383,9 @@ const Scheduling = () => {
                 id="parent_dag_id"
                 name="parent_dag_id"
                 {...register("parent_dag_id")}
+                onChange={handleInputParentIdChange}
               >
-                <option value={null}></option>
+                <option value={null} ></option>
                 {options}
               </Form.Select>
             </Col>
@@ -382,7 +414,8 @@ const Scheduling = () => {
               Schedule Type:
             </Form.Label>
             <Col sm="4">
-              <Form.Select
+              <Form.Select 
+                disabled={parentDagId}
                 className="jobFormItem"
                 size="sm"
                 id="schedule_type"
@@ -414,6 +447,7 @@ const Scheduling = () => {
                 </Form.Label>
                 <Col sm="4">
                   <Form.Select
+                       disabled={parentDagId}
                     className="jobFormItem"
                     size="sm"
                     id="schedule_value"
@@ -448,6 +482,7 @@ const Scheduling = () => {
                     name="schedule_value"
                     isInvalid={!!errors.schedule_value}
                     {...register("schedule_value", { required: true })}
+                    disabled={parentDagId}
                   />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid schedule value.
@@ -468,6 +503,7 @@ const Scheduling = () => {
                     name="schedule_value"
                     isInvalid={!!errors.schedule_value}
                     {...register("schedule_value", { required: true })}
+                     disabled={parentDagId}
                   />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid schedule value.

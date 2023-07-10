@@ -117,8 +117,9 @@ const Sidebar = () => {
                 className="side"
                 target="_blank"
                 rel="noopener noreferrer"
+                
               >
-                <span className="side">Governance</span>
+                <span className="side"  style={{marginLeft: "-5px"}}> Governance</span>
               </a>
             </li>
             <div className="itemD" id="val">
@@ -235,12 +236,13 @@ const Sidebar = () => {
                   marginLeft: "0px",
                   textAlign: "left",
                   color: "white",
+                  marginTop: "10px"
                 }}
               >
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "8px", marginRight: "4px" }}
+                  style={{ fontSize: "8px", marginRight: "4px", marginTop: "6px" }}
                 ></i>
                 <span
                   className="side"
@@ -248,6 +250,7 @@ const Sidebar = () => {
                     textDecoration: "none",
                     marginLeft: "0px",
                     textAlign: "left",
+                   
                   }}
                 >
                   Configuration
