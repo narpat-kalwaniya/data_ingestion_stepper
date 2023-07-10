@@ -20,6 +20,7 @@ import "./SearchNavbarButton.css";
 import "../../styles/main.css";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
+import Drafts from "../Drafts";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,6 +71,26 @@ export default function ListingPage() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [isShowDrafts, setIsShowDrafts] = React.useState(false);
+  const [drafts, setDrafts] = React.useState([]);
+
+  React.useEffect(() => {
+    fetchDrafts();
+  }, []);
+
+  const fetchDrafts = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getdrafts/"
+      );
+      const data = await response.json();
+      console.log(data);
+      setDrafts(data);
+      // setSelectedTestcases(Array(formData.tableData.length).fill(""));
+    } catch (error) {
+      console.log("Error fetching test cases:", error);
+    }
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -169,9 +190,11 @@ export default function ListingPage() {
     </Menu>
   );
 
-  const showDraftsHandler = () => {};
+  const showDraftsHandler = () => {
+    setIsShowDrafts(!isShowDrafts);
+  };
 
-  const drafts = [{}, {}];
+  // const drafts = [{}, {}];
 
   return (
     <>
@@ -284,7 +307,11 @@ export default function ListingPage() {
             {renderMobileMenu}
             {renderMenu}
           </Box>
-          <CustomizedTables searchedData={searchedData} />
+          {isShowDrafts ? (
+            <Drafts drafts={drafts} setDrafts={setDrafts} />
+          ) : (
+            <CustomizedTables searchedData={searchedData} />
+          )}
         </div>
       </div>
       <ButtonPages open={open} onClose={handleClose} />

@@ -339,6 +339,7 @@ function AddPipeline() {
       setStep((step) => step + 1);
     }
     console.log("Current Step:", step);
+    setFormData({ ...formData, current_step: step + 1 });
   };
 
   const closeHandler = () => {
@@ -346,6 +347,12 @@ function AddPipeline() {
     setIsReview(false);
     setStep((step) => 1);
     setShowModal(false);
+    // const clearedObject = Object.keys(formData).reduce(
+    //   (acc, key) => ({ ...acc, [key]: "" }),
+    //   {}
+    // );
+
+    // setFormData(clearedObject);
     // setFormData({});
     // window.localStorage.removeItem(1);
   };
@@ -358,7 +365,34 @@ function AddPipeline() {
     setIsReview(true);
     setStep((step) => step + 1);
   };
-  const showDraftsHandler = () => {};
+  // const showDraftsHandler = () => { };
+  const saveDraftsHandler = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/draftentity/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        // Handle successful response
+        console.log("draft sent successfully!");
+        console.log("draft sending", JSON.stringify(formData));
+        // handleCloseModalApp();
+      } else {
+        // Handle error response
+        console.error("Error sending Form Data:", response.status);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("Error sending Form Data:", error);
+    }
+  };
 
   const updateFormData = (data) => {
     setFormData((prevData) => ({
@@ -379,10 +413,7 @@ function AddPipeline() {
   }, []);
 
   return (
-    <Container
-      // className="h-100"
-      style={{ marginTop: "30px", backgroundColor: "white" }}
-    >
+    <Container style={{ marginTop: "30px", backgroundColor: "white" }}>
       <Card className="Card-outer custom-card-body ">
         {!isSubmitted ? (
           <Row className="m-2">
@@ -504,7 +535,7 @@ function AddPipeline() {
                             marginBottom: "0px",
                             transition: "font-size 0.2s",
                           }}
-                          onClick={showDraftsHandler}
+                          onClick={saveDraftsHandler}
                           onMouseEnter={(e) =>
                             (e.target.style.color = "rgb(123, 162, 179)")
                           }
