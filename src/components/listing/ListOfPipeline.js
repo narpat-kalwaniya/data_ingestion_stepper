@@ -21,13 +21,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingTop: "9px !important",
     paddingBottom: "9px !important",
     fontWeight: "700",
-    textAlign : "left"
+    textAlign: "left",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: "12px",
     paddingTop: "9px !important",
     paddingBottom: "9px !important",
-    textAlign : "left"
+    textAlign: "left",
   },
 }));
 
@@ -55,6 +55,7 @@ const rows = [
 
 export default function CustomizedTables({ searchedData }) {
   const [piplineData, setPipelineData] = useState([]);
+
   useEffect(() => {
     fetchTestcases();
   }, []);
