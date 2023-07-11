@@ -12,8 +12,7 @@ import { Stack } from "react-bootstrap";
 import { Snackbar } from "@mui/material";
 import SchedulingPopupPages from "./SchedulingPopupPages";
 import "./SchedulingPopupPages.css";
-
-
+import Select from "react-select";
 
 const Scheduling = () => {
   const [field, setField] = useState([]);
@@ -22,7 +21,8 @@ const Scheduling = () => {
   const [moduleName, setModuleName] = useState([]);
   const [timezones, setTimezones] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  // const [parentIDData, setParentIDData] = useState("");
+  const [togggleState, settogggleState] = useState(false);
+  const [tasks, settasks] = useState([]);
 
   const [snackBar, setSnackBar] = React.useState({
     open: false,
@@ -37,20 +37,11 @@ const Scheduling = () => {
     resetField,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      tasks: [
-        // {
-        //   task_name: "",
-        //   module_name: "",
-        //   arguments: "",
-        //   dependency: [],
-        // },
-      ],
-    },
+    defaultValues: {},
   });
   const scheduleType = watch("schedule_type");
-  const tasks = watch("tasks");
-  const parentDagId = watch("parent_dag_id")
+  // const tasks = watch("tasks");
+  const parentDagId = watch("parent_dag_id");
 
   const addTask = () => {
     const newTasks = [
@@ -62,7 +53,7 @@ const Scheduling = () => {
         dependency: [],
       },
     ];
-    setValue("tasks", newTasks);
+    settasks(newTasks);
   };
 
   /*
@@ -76,20 +67,22 @@ const Scheduling = () => {
                 setTasks(tasks.filter((task, i) => i !== index));
             };
         */
+
   const removeTask = (index) => {
     if (tasks.length > 1) {
       let currenttask = JSON.parse(JSON.stringify(tasks[index]));
-      let updatedTasks = tasks.filter((_, i) => i !== index);
+      let updatedTasks = JSON.parse(JSON.stringify(tasks)).filter(
+        (_, i) => i !== index
+      );
       updatedTasks = updatedTasks.map((task) => {
-        if (task.dependency.includes(currenttask.task_name)) {
-          task.dependency =
-            task.dependency?.filter((item) => {
-              return item != currenttask.task_name;
-            }) || [];
-        }
-        return task;
+        const taskDependency =
+          task.dependency?.filter((item) => {
+            return item.label != currenttask.task_name;
+          }) || [];
+        return { ...task, dependency: taskDependency };
       });
-      setValue("tasks", updatedTasks);
+      settasks(updatedTasks);
+      settogggleState(!togggleState);
     }
   };
 
@@ -111,31 +104,29 @@ const Scheduling = () => {
 
   const fetchDataParentId = async (dag_name) => {
     try {
-      const response = await fetch(`http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/getschedule/${dag_name}`);
+      const response = await fetch(
+        `http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/getschedule/${dag_name}`
+      );
       const jsonParentIDData = await response.json();
-
       setValue("schedule_type", jsonParentIDData.schedule_type);
       setValue(
         "schedule_value",
-        typeof jsonParentIDData.schedule_value === 'object'
+        typeof jsonParentIDData.schedule_value === "object"
           ? JSON.stringify(jsonParentIDData.schedule_value)
           : jsonParentIDData.schedule_value
-        );
+      );
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
   const handleInputParentIdChange = (event) => {
     const inputValue = event.target.value;
-    if(inputValue){
+    if (inputValue) {
       fetchDataParentId(inputValue);
     }
-    setValue("parent_dag_id", inputValue)
+    setValue("parent_dag_id", inputValue);
   };
-
-
-
 
   useEffect(() => {
     const fetchModuleName = async () => {
@@ -145,6 +136,7 @@ const Scheduling = () => {
         );
         const data = await response.json();
         setModuleName(data);
+        debugger;
       } catch (error) {
         console.error("Error fetching module name:", error);
       }
@@ -183,22 +175,29 @@ const Scheduling = () => {
 
   const onSubmitForm = (data) => {
     // Parse tasks arguments to JSON
-    const updatedTasks = data.tasks.map((task) => ({
-      ...task,
-      // arguments: task.arguments,
-      arguments:
-        typeof task.arguments === "string"
-          ? JSON.parse(task.arguments || "{}")
-          : task.arguments,
-      dependency:
-        task.dependency == [] ? delete task.dependency : task.dependency,
-      dependency:
-        task.dependency === [""] ? delete task.dependency : task.dependency,
-      dependency:
-        typeof task.dependency === "string"
-          ? task.dependency.split(",").map((item) => item.trim())
-          : task.dependency,
-    }));
+    let updatedTasks = JSON.parse(JSON.stringify(tasks));
+    updatedTasks = updatedTasks.map((item) => {
+      item.arguments = JSON.parse(item.arguments || "{}");
+      item.dependency = item.dependency.map((subitem) => {
+        return subitem.label;
+      });
+      return item;
+    });
+    //   .map((task) => ({
+    //   ...task,
+    //   // arguments: task.arguments,
+    //   arguments:
+    //     typeof task.arguments === "string"
+    //       ? JSON.parse(task.arguments || "{}")
+    //       : task.arguments,
+    //   dependency:
+    //     task.dependency == [] ? delete task.dependency : task.dependency,
+    //   dependency: task.dependency === task.dependency,
+    //   dependency:
+    //     typeof task.dependency === "string"
+    //       ? task.dependency.split(",").map((item) => item.trim())
+    //       : task.dependency,
+    // }));
     if (!data["parent_dag_id"]) {
       delete data["parent_dag_id"];
     }
@@ -276,7 +275,7 @@ const Scheduling = () => {
       };
     });
     const newTasks = [...(tasks || []), ...selectedItems];
-    setValue("tasks", newTasks);
+    settasks(newTasks);
   };
 
   // const deleteRow = (currenttask)=> {
@@ -387,7 +386,7 @@ const Scheduling = () => {
                 {...register("parent_dag_id")}
                 onChange={handleInputParentIdChange}
               >
-                <option value={null} ></option>
+                <option value={null}></option>
                 {options}
               </Form.Select>
             </Col>
@@ -416,7 +415,7 @@ const Scheduling = () => {
               Schedule Type:
             </Form.Label>
             <Col sm="4">
-              <Form.Select 
+              <Form.Select
                 disabled={parentDagId}
                 className="jobFormItem"
                 size="sm"
@@ -449,7 +448,7 @@ const Scheduling = () => {
                 </Form.Label>
                 <Col sm="4">
                   <Form.Select
-                       disabled={parentDagId}
+                    disabled={parentDagId}
                     className="jobFormItem"
                     size="sm"
                     id="schedule_value"
@@ -505,7 +504,7 @@ const Scheduling = () => {
                     name="schedule_value"
                     isInvalid={!!errors.schedule_value}
                     {...register("schedule_value", { required: true })}
-                     disabled={parentDagId}
+                    disabled={parentDagId}
                   />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid schedule value.
@@ -528,19 +527,6 @@ const Scheduling = () => {
             </thead>
             <tbody>
               {(tasks || []).map((task, index) => {
-                const { onChange: onChangeModuleName, ...otherModuleFields } = {
-                  ...register(`tasks[${index}].module_name`, {
-                    required: true,
-                  }),
-                };
-
-                const {
-                  onChange: onChangeDependency,
-                  ...otherDependencyFields
-                } = {
-                  ...register(`tasks[${index}].dependency`),
-                };
-
                 return (
                   <tr key={index}>
                     <td>
@@ -551,9 +537,12 @@ const Scheduling = () => {
                         id={`tasks[${index}].task_name`}
                         name={`tasks[${index}].task_name`}
                         isInvalid={!!errors?.tasks?.[index]?.task_name}
-                        {...register(`tasks[${index}].task_name`, {
-                          required: true,
-                        })}
+                        value={task.task_name}
+                        onChange={async (e) => {
+                          let tasksTemp = JSON.parse(JSON.stringify(tasks));
+                          tasksTemp[index].task_name = e.target.value;
+                          settasks(tasksTemp);
+                        }}
                       />
                     </td>
                     <td>
@@ -564,18 +553,21 @@ const Scheduling = () => {
                         id={`tasks[${index}].module_name`}
                         name={`tasks[${index}].module_name`}
                         isInvalid={!!errors?.tasks?.[index]?.module_name}
-                        {...otherModuleFields}
+                        // {...otherModuleFields}
+                        value={task.module_name}
                         onChange={async (e) => {
-                          onChangeModuleName(e);
+                          // onChangeModuleName(e);
+
+                          let tasksTemp = JSON.parse(JSON.stringify(tasks));
+                          tasksTemp[index].module_name = e.target.value;
+                          debugger;
+                          settasks(tasksTemp);
                           const response = await fetch(
                             `http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/parameters/${e.target.value}`
                           );
                           const data = await response.json();
-
-                          setValue(
-                            `tasks[${index}].arguments`,
-                            JSON.stringify(data)
-                          );
+                          tasksTemp[index].arguments = JSON.stringify(data);
+                          settasks(tasksTemp);
                         }}
                       >
                         <option value={null}></option>
@@ -596,12 +588,18 @@ const Scheduling = () => {
                         id={`tasks[${index}].arguments`}
                         name={`tasks[${index}].arguments`}
                         isInvalid={!!errors?.tasks?.[index]?.arguments}
-                        {...register(`tasks[${index}].task_name`, {
-                          required: true,
-                        })}
-                        {...register(`tasks[${index}].arguments`, {
-                          required: true,
-                        })}
+                        value={task.arguments}
+                        onChange={async (e) => {
+                          let tasksTemp = JSON.parse(JSON.stringify(tasks));
+                          tasksTemp[index].arguments = e.target.value;
+                          settasks(tasksTemp);
+                        }}
+                        // {...register(`tasks[${index}].task_name`, {
+                        //   required: true,
+                        // })}
+                        // {...register(`tasks[${index}].arguments`, {
+                        //   required: true,
+                        // })}
                       />
                     </td>
                     <td>
@@ -627,7 +625,32 @@ const Scheduling = () => {
                           }
                         )}
                       </Form.Control> */}
-                      <Form.Select
+
+                      <Select
+                        isMulti
+                        placeholder="Enter Dependency..."
+                        id={`tasks[${index}].dependency`}
+                        name={`tasks[${index}].dependency`}
+                        value={tasks[index].dependency}
+                        options={tasks
+                          .map((item) => {
+                            return {
+                              label: item.task_name,
+                              value: item.task_name,
+                            };
+                          })
+                          .filter(
+                            (item) => item.label && item.label != task.task_name
+                          )}
+                        onChange={(e, data) => {
+                          let value = e;
+                          let tasksTemp = JSON.parse(JSON.stringify(tasks));
+                          tasksTemp[index].dependency = value;
+                          settasks(tasksTemp);
+                          settogggleState(!togggleState);
+                        }}
+                      />
+                      {/* <Form.Select
                         style={{ height: "30px" }}
                         aria-label="Default select example"
                         // size="sm"
@@ -658,7 +681,7 @@ const Scheduling = () => {
                             else return null;
                           }
                         )}
-                      </Form.Select>
+                      </Form.Select> */}
                     </td>
                     <td>
                       <Button
