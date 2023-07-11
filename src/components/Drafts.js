@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { styled } from "@mui/material/styles";
 import { Table } from "react-bootstrap";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
-function Drafts(drafts, setDrafts) {
+import { Trash } from "react-bootstrap-icons";
+
+function Drafts(drafts, setDrafts, deleteHandler) {
   const headers = [
     "Module",
     "Source Entity Name",
     "Target Entity Name",
     "Status",
+    "",
   ];
 
   console.log(drafts);
@@ -49,6 +44,9 @@ function Drafts(drafts, setDrafts) {
             <td>{row.tableData[0].source_entity_name}</td>
             <td>{row.tableData[0].target_entity_name}</td>
             <td style={{ color: "red" }}>Draft</td>
+            <td>
+              <Trash />
+            </td>
             {/* <td style={{ color: "blue" }}>View</td>
             <td style={{ color: "blue" }}>Edit</td>
             <td style={{ color: "blue" }}>Delete</td> */}
