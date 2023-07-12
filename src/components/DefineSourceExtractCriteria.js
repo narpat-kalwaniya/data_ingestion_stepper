@@ -12,9 +12,13 @@ import {
 } from "react-bootstrap";
 import "../App.css";
 import { DataContext } from "./DataContext";
+import { FaQuestion } from "react-icons/fa";
 import Select from "react-select";
+import SuggestionPopUpBox from "./SuggestionPopUpBox";
+import "./SuggestPopUpBox.css";
 
 const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
@@ -95,7 +99,6 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     };
     updateIngestionData(updatedData);
   };
-  // console.log("pagedata", pageData);
 
   const incrementalByHandler = (e) => {
     setSelectedIncrementalBy(e.target.value);
@@ -172,9 +175,6 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     formData.DefineSourceExtractCriteria.source_entity_type === "incremental" &&
     formData.DefineSourceExtractCriteria.incremental_by === "Date";
 
-  // console.log("selected values", selectedValues);
-  // console.log("selected options", selectedOption);
-  // console.log("selected incremental", selectedIncrementalBy);
   console.log("form data in source", formData);
 
   return (
@@ -330,10 +330,15 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
 
           <Row className="mb-4">
             <Col>
-              <Form.Label>Incremental Start Datetime</Form.Label>
+              <Form.Label for="incremental_start_time">
+                Incremental Start Datetime
+              </Form.Label>
               <Form.Control
-                type="text"
+                // type="text"
+                type="datetime-local"
+                step="0.001"
                 placeholder=""
+                id="incremental_start_time"
                 className="custom-select custom-style"
                 name="incremental_start_time"
                 value={
@@ -347,12 +352,17 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label>Incremental End Datetime</Form.Label>
+              <Form.Label for="incremental_start_time">
+                Incremental End Datetime
+              </Form.Label>
               <Form.Control
-                type="text"
+                // type="text"
+                type="datetime-local"
                 placeholder=""
                 className="custom-select custom-style"
                 name="incremental_end_time"
+                step="0.001"
+                id="incremental_end_time"
                 value={
                   formData.DefineSourceExtractCriteria.incremental_end_time
                 }
@@ -364,16 +374,21 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label>Default Start Date</Form.Label>
+              <Form.Label for="default_start_date">
+                Default Start Date
+              </Form.Label>
               <Form.Control
-                type="text"
+                // type="text"
                 placeholder=""
+                type="datetime-local"
+                step="0.001"
                 className="custom-select custom-style"
                 disabled={
                   !isIncrementalSelected ||
                   formData.DefineSourceExtractCriteria.incremental_by !== "Date"
                 }
                 name="default_start_date"
+                id="default_start_date"
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.default_start_date}
               />
@@ -381,12 +396,18 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
           </Row>
           <Row className="mb-4">
             <Col>
-              <Form.Label>Incremental Start Seq</Form.Label>
+              <Form.Label for="incremental_start_sequence">
+                {" "}
+                Incremental Start Seq
+              </Form.Label>
               <Form.Control
-                type="text"
+                // type="text"
+                type="datetime-local"
+                step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
                 name="incremental_start_sequence"
+                id="incremental_start_sequence"
                 value={
                   formData.DefineSourceExtractCriteria
                     .incremental_start_sequence
@@ -400,9 +421,13 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label>Incremental End Seq</Form.Label>
+              <Form.Label for="incremental_end_sequence">
+                Incremental End Seq
+              </Form.Label>
               <Form.Control
-                type="text"
+                // type="text"
+                type="datetime-local"
+                step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
                 disabled={
@@ -411,6 +436,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                     "Sequence"
                 }
                 name="incremental_end_sequence"
+                id="incremental_end_sequence"
                 onChange={changeHandler}
                 value={
                   formData.DefineSourceExtractCriteria.incremental_end_sequence
@@ -418,9 +444,11 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label>Default Start Seq</Form.Label>
+              <Form.Label for="default_start_seq">Default Start Seq</Form.Label>
               <Form.Control
-                type="text"
+                // type="text"
+                type="datetime-local"
+                step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
                 disabled={
@@ -429,13 +457,19 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                     "Sequence"
                 }
                 name="default_start_seq"
+                id="default_start_seq"
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.default_start_seq}
               />
             </Col>
           </Row>
           <Row className="mb-3">
-            <Form.Label>Filter to be applied</Form.Label>
+            <Form.Label>
+              Filter to be applied
+              <SuggestionPopUpBox title={"test title"}>
+                <FaQuestion className="suggetionPopupIconstyle" />
+              </SuggestionPopUpBox>
+            </Form.Label>
             <Col>
               <Form.Control
                 type="text"

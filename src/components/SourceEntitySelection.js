@@ -2,7 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 
-const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
+const SourceEntitySelection = ({
+  step,
+  formData,
+  updateFormData,
+  errors2,
+  isVisibleOption,
+}) => {
   const [dataSourceType, setDataSourceType] = useState(
     formData.sourceEntity.data_source_type
   );
@@ -285,7 +291,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
     }
   }, [dataSourceType]);
 
-  console.log("source entity ingestion data", ingestionData);
+  // console.log("source entity ingestion data", ingestionData);
 
   return (
     <Card.Body className="custom-card-body">
@@ -320,6 +326,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
                   checked={dataSourceType === "RDBMS-TABLE"}
                   onChange={selectChangeHandler}
                   className="custom-radio"
+                  disabled={!isVisibleOption}
                 />
 
                 <Form.Check
@@ -331,6 +338,7 @@ const SourceEntitySelection = ({ step, formData, updateFormData, errors2 }) => {
                   checked={dataSourceType === "RDBMS-QUERY"}
                   onChange={selectChangeHandler}
                   className="custom-radio"
+                  disabled={!isVisibleOption}
                 />
 
                 <Form.Check
