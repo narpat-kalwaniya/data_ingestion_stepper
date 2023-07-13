@@ -232,12 +232,12 @@ function AddPipeline() {
   const validateInputs6 = () => {
     const newErrors6 = {};
 
-    if (
-      !formData.targetLoadDetails.target_entity_name ||
-      formData.targetLoadDetails.target_entity_name === ""
-    ) {
-      newErrors6.target_entity_name = "This field is required";
-    }
+    // if (
+    //   !formData.targetLoadDetails.target_entity_name ||
+    //   formData.targetLoadDetails.target_entity_name === ""
+    // ) {
+    //   newErrors6.target_entity_name = "This field is required";
+    // }
     if (
       !formData.targetLoadDetails.target_load_type ||
       formData.targetLoadDetails.target_load_type === ""

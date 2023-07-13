@@ -74,9 +74,7 @@ export default function SchedulingPopupPages(props) {
 
   const handleSave = () => {
     const selectedItems = entityScheduleData.filter((item) => item.isSelected);
-    // console.log(selectedItems);
     props.onDataUpdate(selectedItems);
-    // Perform any further processing or send the data to the server
   };
 
   return (

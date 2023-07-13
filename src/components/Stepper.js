@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TargetSchema } from "./TargetSchema";
 import { DefineDataValidation } from "./DefineDataValidation";
 import CreateDataConnection from "./CreateDataConnection";
@@ -22,10 +22,14 @@ const Stepper = ({
   errors6,
   updateTargetLoad,
 }) => {
+  const [isVisibleOption, setisVisibleOption] = useState(true);
+
   return (
     <div>
       {step === 1 ? (
         <CreateDataConnection
+          isVisibleOption={isVisibleOption}
+          setisVisibleOption={setisVisibleOption}
           step={step}
           formData={formData}
           updateFormData={updateFormData}
@@ -33,6 +37,7 @@ const Stepper = ({
         />
       ) : step === 2 ? (
         <SourceEntitySelection
+          isVisibleOption={isVisibleOption}
           step={step}
           formData={formData}
           updateFormData={updateFormData}

@@ -17,7 +17,13 @@ import DataSourceModal from "./CreateModals/DataSourceModal";
 import DataTargetModal from "./CreateModals/DataTargetModal";
 // import DataSourceModalForm from "./CreateModalsForms/DataSourceModalForm";
 
-const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
+const CreateDataConnection = ({
+  formData,
+  updateFormData,
+  step,
+  errors,
+  setisVisibleOption,
+}) => {
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
@@ -53,6 +59,12 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
 
   const handleSelection = (event) => {
     const selectedConnectionName = event.target.value;
+
+    if (event.target.value == "datacopy-s3") {
+      setisVisibleOption(false);
+    } else {
+      setisVisibleOption(true);
+    }
 
     const selectedConnection = connections.find(
       (connection) => connection.connection_name === selectedConnectionName
@@ -159,6 +171,10 @@ const CreateDataConnection = ({ formData, updateFormData, step, errors }) => {
   const handleCloseModalApp = () => {
     setShowModalApp(false);
   };
+
+  // const dataSourceSelection = () => {
+  //   setdisabledDataSourceCollection(false)
+  // }
 
   console.log("form data", formData);
 

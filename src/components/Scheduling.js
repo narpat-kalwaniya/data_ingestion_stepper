@@ -217,17 +217,14 @@ const Scheduling = () => {
     }
 
     // Send the data to the POST API
-    fetch(
-      "http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/create",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedFormData),
-      }
-    )
+    fetch("http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/createdag/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedFormData),
+    })
       .then(async (response) => {
         if (response.ok) {
           return response.json();
