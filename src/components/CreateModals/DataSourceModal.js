@@ -230,18 +230,28 @@ const DataSourceModal = (props) => {
   };
 
   return (
-    <Modal show={props.showModalDSC} onHide={handleCloseModalDSC} size="lg">
+    <Modal
+      show={props.showModalDSC}
+      onHide={handleCloseModalDSC}
+      size="lg"
+      style={{ fontSize: "14px" }}
+    >
       <Modal.Header closeButton>
-        <Modal.Title>Create Data Source Connection</Modal.Title>
+        {/* <p>Create Data Source Connection</p> */}
       </Modal.Header>
-      <Button variant="primary" onClick={handleAddConnection}>
-        Add Connection
-      </Button>
-      <Modal.Body>
-        <Container fluid>
+
+      <Modal.Body
+        style={{
+          minHeight: "60vh",
+          maxHeight: "60vh",
+          overflowY: "scroll",
+        }}
+        className="overflow-auto"
+      >
+        <Card.Body className="custom-card-body" style={{ marginTop: "5px" }}>
           <Row>
             <Col xs={4} className="sidebar-container">
-              <div className="sidebar">
+              <div>
                 <div className="sidebar-heading">Connection List</div>
                 {connections.map((item, index) => (
                   <div
@@ -258,124 +268,119 @@ const DataSourceModal = (props) => {
               </div>
             </Col>
             <Col>
-              <Card.Body className="custom-card-body">
-                <Form>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Connection Name</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="connection_name"
-                        value={formData.connection_name}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Connection Type</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        as="select"
-                        className="custom-select custom-style"
-                        name="connection_type"
-                        value={formData.connection_type}
-                        onChange={handleChange}
-                      >
-                        <option value="">-- Select --</option>{" "}
-                        {Object.keys(connectionType).map((key) => (
-                          <option key={key} value={key}>
-                            {key}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </Col>
-                  </Row>
+              <Form>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Connection Name</Form.Label>
 
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Data Source Name</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="data_source_name"
-                        value={formData.data_source_name}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Environment</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="environment"
-                        value={formData.connection_env}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Connection String</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        className="custom-select custom-style connection-string-textarea"
-                        name="connection_string"
-                        value={JSON.stringify(formData.connect_string)}
-                        onChange={handleChange}
-                        onBlur={(e) => handleParseJson(e.target.value)}
-                      />
-                      {parsedJson && formData.connect_string && (
-                        <div className="json-view-container">
-                          <ReactJson
-                            src={formData.connect_string}
-                            theme="ocean"
-                            name={null}
-                            enableClipboard={false}
-                            displayDataTypes={false}
-                            displayObjectSize={false}
-                            onEdit={handleJsonViewChange}
-                            onAdd={handleJsonViewChange}
-                            onDelete={handleJsonViewChange}
-                          />
-                        </div>
-                      )}
-                    </Col>
-                  </Row>
-                </Form>
-              </Card.Body>
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="connection_name"
+                      value={formData.connection_name}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Connection Type</Form.Label>
+
+                    <Form.Select
+                      as="select"
+                      className="custom-select custom-style"
+                      name="connection_type"
+                      value={formData.connection_type}
+                      onChange={handleChange}
+                    >
+                      <option value="">-- Select --</option>{" "}
+                      {Object.keys(connectionType).map((key) => (
+                        <option key={key} value={key}>
+                          {key}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Col>
+                </Row>
+
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Data Source Name</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="data_source_name"
+                      value={formData.data_source_name}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Environment</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="environment"
+                      value={formData.connection_env}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Connection String</Form.Label>
+
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      className="custom-select custom-style connection-string-textarea"
+                      name="connection_string"
+                      value={JSON.stringify(formData.connect_string)}
+                      onChange={handleChange}
+                      onBlur={(e) => handleParseJson(e.target.value)}
+                    />
+                    {parsedJson && formData.connect_string && (
+                      <div className="json-view-container">
+                        <ReactJson
+                          src={formData.connect_string}
+                          theme="ocean"
+                          name={null}
+                          enableClipboard={false}
+                          displayDataTypes={false}
+                          displayObjectSize={false}
+                          onEdit={handleJsonViewChange}
+                          onAdd={handleJsonViewChange}
+                          onDelete={handleJsonViewChange}
+                        />
+                      </div>
+                    )}
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
-        </Container>
+        </Card.Body>
       </Modal.Body>
       <Modal.Footer>
-        <Button
+        <Col>
+          <button className="btn-s-1" onClick={handleAddConnection}>
+            Add Connection
+          </button>
+        </Col>
+
+        <button
           variant="secondary"
           onClick={handleCloseModalDSC}
-          className="btn-cl"
+          className="btn-c"
         >
           Close
-        </Button>
-        <Button
-          variant="primary"
-          onClick={handleSaveChanges}
-          className="btn-save"
-        >
+        </button>
+        <button variant="primary" onClick={handleSaveChanges} className="btn-s">
           Save Changes
-        </Button>
+        </button>
       </Modal.Footer>
     </Modal>
   );

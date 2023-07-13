@@ -17,81 +17,83 @@ const ApplicationModal = (props) => {
     <Modal
       show={props.showModalApp}
       onHide={props.handleCloseModalApp}
-      size="lg"
+      // size="lg"
+      style={{ fontSize: "14px" }}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Create Application</Modal.Title>
+        {/* <Modal.Title>Create Application</Modal.Title> */}
       </Modal.Header>
-      <Modal.Body>
-        <Card.Body className="custom-card-body">
-          <Form>
-            <Row className="mb-4">
-              <Col xs={3}>
-                <Form.Label>Application Name</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="text"
-                  disabled={false}
-                  className="custom-select custom-style"
-                />
-              </Col>
-            </Row>
-            <Row className="mb-4">
-              <Col xs={3}>
-                <Form.Label>Application Type</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="text"
-                  disabled={false}
-                  className="custom-select custom-style"
-                />
-              </Col>
-            </Row>
-            <Row className="mb-4">
-              <Col xs={3}>
-                <Form.Label> Failure Recipients</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="text"
-                  disabled={false}
-                  className="custom-select custom-style"
-                />
-              </Col>
-            </Row>
+      <Modal.Body
+        style={{
+          minHeight: "60vh",
+          maxHeight: "60vh",
+          overflowY: "scroll",
+        }}
+        className="overflow-auto"
+      >
+        <Card.Body className="custom-card-body" style={{ marginTop: "5px" }}>
+          <Row className="mb-4">
+            <Col>
+              <Form.Label>Application Name</Form.Label>
 
-            <Row className="mb-4">
-              <Col xs={3}>
-                <Form.Label>Success Recipients</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="text"
-                  disabled={false}
-                  className="custom-select custom-style"
-                />
-              </Col>
-            </Row>
-          </Form>
+              <Form.Control
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              <Form.Label>Application Type</Form.Label>
+
+              <Form.Control
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              <Form.Label> Failure Recipients</Form.Label>
+
+              <Form.Control
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col>
+              <Form.Label>Success Recipients</Form.Label>
+
+              <Form.Control
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
+            </Col>
+          </Row>
         </Card.Body>
       </Modal.Body>
       <Modal.Footer>
-        <Button
+        <button
           variant="secondary"
           onClick={props.handleCloseModalApp}
-          className="btn-cl"
+          className="btn-c"
         >
           Close
-        </Button>
-        <Button
+        </button>
+        <button
           variant="primary"
           onClick={props.handleCloseModalApp}
-          className="btn-save"
+          className="btn-s"
         >
           Save Changes
-        </Button>
+        </button>
       </Modal.Footer>
     </Modal>
   );

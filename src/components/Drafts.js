@@ -4,7 +4,10 @@ import { Table } from "react-bootstrap";
 
 import { Trash } from "react-bootstrap-icons";
 
-function Drafts(drafts, setDrafts, deleteHandler) {
+import { formContext } from "./formContext";
+import { useContext } from "react";
+
+function Drafts(props) {
   const headers = [
     "Module",
     "Source Entity Name",
@@ -13,7 +16,14 @@ function Drafts(drafts, setDrafts, deleteHandler) {
     "",
   ];
 
-  console.log(drafts);
+  console.log(props.formData);
+
+  const rowClickHandler = (row) => {
+    props.setFormData(row);
+    props.setOpen(true);
+    // props.setStep(row.current_step);
+    console.log(props.formData);
+  };
 
   return (
     <Table hover responsive>
@@ -33,12 +43,13 @@ function Drafts(drafts, setDrafts, deleteHandler) {
       </thead>
 
       <tbody style={{ fontSize: "12px" }}>
-        {drafts.drafts.map((row, index) => (
+        {props.drafts.map((row, index) => (
           <tr
             key={index}
             style={{
               height: "20px",
             }}
+            onClick={(event) => rowClickHandler(row)}
           >
             <td>Data Ingestion</td>
             <td>{row.tableData[0].source_entity_name}</td>
