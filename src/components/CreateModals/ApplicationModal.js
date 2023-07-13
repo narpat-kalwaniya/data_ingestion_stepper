@@ -199,15 +199,27 @@ const ApplicationModal = (props) => {
   };
 
   return (
-    <Modal show={props.showModalApp} onHide={handleCloseModalApp} size="lg">
+    <Modal
+      show={props.showModalApp}
+      onHide={handleCloseModalApp}
+      size="lg"
+      style={{ fontSize: "14px" }}
+    >
       <Modal.Header closeButton>
-        <Modal.Title>Create Application</Modal.Title>
+        {/* <Modal.Title>Create Application</Modal.Title> */}
       </Modal.Header>
-      <Modal.Body>
-        <Container fluid>
+      <Modal.Body
+        style={{
+          minHeight: "60vh",
+          maxHeight: "60vh",
+          overflowY: "scroll",
+        }}
+        className="overflow-auto"
+      >
+        <Card.Body className="custom-card-body" style={{ marginTop: "5px" }}>
           <Row>
             <Col xs={4} className="sidebar-container">
-              <div className="sidebar">
+              <div>
                 <div className="sidebar-heading">Connection List</div>
                 {connections.map((item, index) => (
                   <div
@@ -224,86 +236,76 @@ const ApplicationModal = (props) => {
               </div>
             </Col>
             <Col>
-              <Card.Body className="custom-card-body">
-                <Form>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Application Name</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="app_name"
-                        value={formData.app_name}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Application Type</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="app_type"
-                        value={formData.app_type}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
+              <Form>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Application Name</Form.Label>
 
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Failure Recipients</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="failure_recipients"
-                        value={formData.failure_recipients}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="mb-4">
-                    <Col xs={3}>
-                      <Form.Label>Success Recipients</Form.Label>
-                    </Col>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        className="custom-select custom-style"
-                        name="success_recipients"
-                        value={formData.success_recipients}
-                        onChange={handleChange}
-                      />
-                    </Col>
-                  </Row>
-                </Form>
-              </Card.Body>
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="app_name"
+                      value={formData.app_name}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Application Type</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="app_type"
+                      value={formData.app_type}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Failure Recipients</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="failure_recipients"
+                      value={formData.failure_recipients}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-4">
+                  <Col>
+                    <Form.Label>Success Recipients</Form.Label>
+
+                    <Form.Control
+                      type="text"
+                      className="custom-select custom-style"
+                      name="success_recipients"
+                      value={formData.success_recipients}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
-        </Container>
+        </Card.Body>
       </Modal.Body>
       <Modal.Footer>
-        <Button
+        <button
           variant="secondary"
           onClick={handleCloseModalApp}
-          className="btn-cl"
+          className="btn-c"
         >
           Close
-        </Button>
-        <Button
-          variant="primary"
-          onClick={handleSaveChanges}
-          className="btn-save"
-        >
+        </button>
+        <button variant="primary" onClick={handleSaveChanges} className="btn-s">
           Save Changes
-        </Button>
+        </button>
       </Modal.Footer>
     </Modal>
   );

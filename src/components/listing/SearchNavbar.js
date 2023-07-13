@@ -21,6 +21,8 @@ import "../../styles/main.css";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import Drafts from "../Drafts";
+import { formContext } from "../formContext";
+import { stepContext } from "../stepContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -73,6 +75,10 @@ export default function ListingPage() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [isShowDrafts, setIsShowDrafts] = React.useState(false);
   const [drafts, setDrafts] = React.useState([]);
+  const { formData, setFormData } = React.useContext(formContext);
+  const { step, setStep } = React.useContext(stepContext);
+
+  // console.log("formData", setFormData);
 
   React.useEffect(() => {
     fetchDrafts();
@@ -318,6 +324,12 @@ export default function ListingPage() {
               drafts={drafts}
               setDrafts={setDrafts}
               deleteHandler={deleteHandler}
+              formData={formData}
+              setFormData={setFormData}
+              step={step}
+              setStep={setStep}
+              open={open}
+              setOpen={setOpen}
             />
           ) : (
             <CustomizedTables searchedData={searchedData} />
