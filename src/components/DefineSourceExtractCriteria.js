@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import "../App.css";
 import { DataContext } from "./DataContext";
-import { FaQuestion } from "react-icons/fa";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
 import Select from "react-select";
 import SuggestionPopUpBox from "./SuggestionPopUpBox";
 import "./SuggestPopUpBox.css";
@@ -329,9 +329,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
           </Row>
 
           <Row className="mb-4">
-            <Col>
+            <Col md={4}>
               <Form.Label for="incremental_start_time">
-                Incremental Start Datetime
+                Start Datetime
               </Form.Label>
               <Form.Control
                 // type="text"
@@ -351,10 +351,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 onChange={changeHandler}
               />
             </Col>
-            <Col>
-              <Form.Label for="incremental_start_time">
-                Incremental End Datetime
-              </Form.Label>
+            <Col md={4}>
+              <Form.Label for="incremental_start_time">End Datetime</Form.Label>
               <Form.Control
                 // type="text"
                 type="datetime-local"
@@ -373,10 +371,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 onChange={changeHandler}
               />
             </Col>
-            <Col>
-              <Form.Label for="default_start_date">
-                Default Start Date
-              </Form.Label>
+            <Col md={4}>
+              <Form.Label for="default_start_date">Start Date</Form.Label>
               <Form.Control
                 // type="text"
                 placeholder=""
@@ -398,11 +394,10 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
             <Col>
               <Form.Label for="incremental_start_sequence">
                 {" "}
-                Incremental Start Seq
+                Start Seq
               </Form.Label>
               <Form.Control
-                // type="text"
-                type="datetime-local"
+                type="text"
                 step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
@@ -421,12 +416,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label for="incremental_end_sequence">
-                Incremental End Seq
-              </Form.Label>
+              <Form.Label for="incremental_end_sequence">End Seq</Form.Label>
               <Form.Control
-                // type="text"
-                type="datetime-local"
+                type="text"
                 step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
@@ -444,10 +436,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label for="default_start_seq">Default Start Seq</Form.Label>
+              <Form.Label for="default_start_seq"> Start Seq</Form.Label>
               <Form.Control
-                // type="text"
-                type="datetime-local"
+                type="text"
                 step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
@@ -467,7 +458,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
             <Form.Label>
               Filter to be applied
               <SuggestionPopUpBox title={"test title"}>
-                <FaQuestion className="suggetionPopupIconstyle" />
+                <AiOutlineExclamationCircle className="suggetionPopupIconstyle" />
               </SuggestionPopUpBox>
             </Form.Label>
             <Col>

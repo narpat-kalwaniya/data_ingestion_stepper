@@ -14,6 +14,8 @@ import { DataContext } from "./DataContext";
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
+  console.log("formData==>", formData);
+  console.log("error", errors6);
   const [checked, setChecked] = useState(
     formData.targetLoadDetails.is_mantain_a_copy_in_datalake
   );
@@ -36,6 +38,16 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
       [event.target.name]: event.target.value,
     };
     updateIngestionData(updatedData);
+  };
+
+  const changeTableHandler = (event, index) => {
+    const _fromData = { ...formData };
+    // console.log(_fromData.tableData, event.target.name, event.target.value);
+    _fromData.tableData[index] = {
+      ...(_fromData.tableData[index] || {}),
+      [event.target.name]: event.target.value,
+    };
+    updateFormData(_fromData);
   };
 
   const optionChangeHandler = (event) => {
@@ -113,28 +125,90 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
   };
 
   // console.log("target formdata", formData);
-  console.log("target load ingestion data", ingestionData);
+  // console.log("target load ingestion data", ingestionData);
 
   return (
     <Card.Body className="custom-card-body">
       <div className="text-left">
         <Form>
           <Row className="mb-4">
-            <Form.Label>
-              Target Entity Name <span className="text-danger">*</span>
-            </Form.Label>
-            <Col>
+            <Col md={4}>
+              <Form.Label>
+                Target Database <span className="text-danger">*</span>
+              </Form.Label>
+
               <Form.Control
                 type="text"
                 className="custom-select custom-style"
-                value={formData.targetLoadDetails.target_entity_name}
-                disabled={false}
-                name="target_entity_name"
-                onChange={changeHandler}
-                isInvalid={errors6.target_entity_name}
+                style={{
+                  fontSize: "13px",
+                  color: "rgb(141 139 139);",
+                  fontWeight: "100",
+                  border: "1px solid #4F4F4F",
+                }}
+                value={formData.tableData[0]?.target_database}
+                disabled={true}
+                name="target_database"
+                onChange={(e) => changeTableHandler(e, 0)}
+                isInvalid={errors6.target_database}
               />
-              {errors6.target_entity_name && (
-                <div className="error">{errors6.target_entity_name}</div>
+              {errors6.target_database && (
+                <div className="error">{errors6.target_database}</div>
+              )}
+            </Col>
+
+            <Col md={4}>
+              <Form.Label>
+                Target Schema <span className="text-danger">*</span>
+              </Form.Label>
+              <Form.Select
+                required
+                className="custom-select custom-style"
+                value={formData.tableData[0]?.selectedTableSchema}
+                name="selectedTableSchema"
+                onChange={(e) => changeTableHandler(e, 0)}
+                style={{
+                  fontSize: "13px",
+                  color: "rgb(141 139 139);",
+                  fontWeight: "100",
+                  border: "1px solid #4F4F4F",
+                }}
+              >
+                <option value="">-- Select --</option>{" "}
+                {formData.tableData?.[0]?.target_schemas?.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+                {errors6.target_schemas && (
+                  <div className="error">{errors6.target_schemas}</div>
+                )}
+              </Form.Select>
+            </Col>
+
+            <Col md={4}>
+              <Form.Label>
+                Target Entity Name <span className="text-danger">*</span>
+              </Form.Label>
+
+              <Form.Control
+                // required
+                type="text"
+                className="custom-select custom-style"
+                value={formData.tableData[0]?.target_table}
+                disabled={false}
+                name="target_table"
+                onChange={(e) => changeTableHandler(e, 0)}
+                isInvalid={errors6.target_table}
+                style={{
+                  fontSize: "13px",
+                  color: "rgb(141 139 139);",
+                  fontWeight: "100",
+                  border: "1px solid #4F4F4F",
+                }}
+              />
+              {errors6.target_table && (
+                <div className="error">{errors6.target_table}</div>
               )}
             </Col>
           </Row>
