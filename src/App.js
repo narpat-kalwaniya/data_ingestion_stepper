@@ -9,11 +9,70 @@ import LoginPage from "./components/auth/login/Login";
 import Home from "./components/Home";
 import ListingPage from "./components/listing/SearchNavbar";
 import NotFound from "./components/notFound/NotFound";
+import { formContext } from "./components/formContext";
+import { stepContext } from "./components/stepContext";
 
 function App() {
   const [user, setUser] = useState();
   const [loading, setloading] = useState(true);
-  const [formData, setFormData] = useState({});
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    CreateDataConnection: {
+      dataSource: "",
+      dataTarget: "",
+      application: "",
+    },
+    sourceEntity: {
+      data_source_type: "",
+      query: null,
+      db_name: "",
+      schema_name: "",
+      table_name: "",
+      bucket_name: null,
+      full_file_name: null,
+      source_entity_name: "",
+      connection_id: null,
+    },
+    tableData: [],
+    DefineSourceExtractCriteria: {
+      source_entity_type: "",
+      is_select_distinct: false,
+      incremental_by: "",
+      source_incremental_column: [],
+      incremental_start_time: "",
+      incremental_end_time: "",
+      incremental_start_sequence: "",
+      incremental_end_sequence: "",
+      default_start_date: "",
+      default_start_seq: "",
+      filter: "",
+      order_by: "",
+    },
+    targetLoadDetails: {
+      target_entity_name: "",
+      target_load_type: "",
+      DataQualityMoniter: {
+        alert: "",
+        abort: "",
+      },
+      RecordCountChangesMoniter: {
+        alert: "",
+        abort: "",
+      },
+      is_mantain_a_copy_in_datalake: false,
+      datalake_connection: "",
+      datalake_file_format: "",
+      datalake_target_template: "",
+    },
+    GatherMetaData: {
+      business_tags: "",
+      description: "",
+      owner: "",
+      email: "",
+      success_email_list: "",
+      failure_email_list: "",
+    },
+  });
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -26,35 +85,34 @@ function App() {
     return "loading...";
   }
 
-  const handleData = (data) => {
-    setFormData(data);
-    console.log("Received data from child:", formData);
-  };
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/">
-          <Route index path="/login" element={<LoginPage />} />
-          <Route
-            element={
-              <RouteGuard user={user}>
-                <Layout user={user} />
-              </RouteGuard>
-            }
-          >
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/pipelines" element={<ListingPage />} />
-            <Route
-              path="/pipelines/add"
-              element={<AddPipeline onData={handleData} />}
-            />
-            <Route path="/scheduling/configuration" element={<Scheduling />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <stepContext.Provider value={{ step, setStep }}>
+        <formContext.Provider value={{ formData, setFormData }}>
+          <Routes>
+            <Route path="/">
+              <Route index path="/login" element={<LoginPage />} />
+              <Route
+                element={
+                  <RouteGuard user={user}>
+                    <Layout user={user} />
+                  </RouteGuard>
+                }
+              >
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/pipelines" element={<ListingPage />} />
+                <Route path="/pipelines/add" element={<AddPipeline />} />
+                <Route
+                  path="/scheduling/configuration"
+                  element={<Scheduling />}
+                />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </formContext.Provider>
+      </stepContext.Provider>
     </BrowserRouter>
   );
 }

@@ -260,6 +260,7 @@ width: 100%;
 
 .overflow-auto {
   overflow-y: auto;
+  overflow-x: none;
 }
 
 .overflow-auto::-webkit-scrollbar {

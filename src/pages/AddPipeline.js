@@ -8,9 +8,10 @@ import { DataContext } from "../components/DataContext";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/main.css";
 import { FaCheck } from "react-icons/fa";
+import { formContext } from "../components/formContext";
+import { stepContext } from "../components/stepContext";
 
-function AddPipeline(onData) {
-  const [step, setStep] = useState(1);
+function AddPipeline() {
   const [isReview, setIsReview] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -18,63 +19,8 @@ function AddPipeline(onData) {
   const [isDraftSaved, setIsDraftSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [formData, setFormData] = useState({
-    CreateDataConnection: {
-      dataSource: "",
-      dataTarget: "",
-      application: "",
-    },
-    sourceEntity: {
-      data_source_type: "",
-      query: null,
-      db_name: "",
-      schema_name: "",
-      table_name: "",
-      bucket_name: null,
-      full_file_name: null,
-      source_entity_name: "",
-      connection_id: null,
-    },
-    tableData: [],
-    DefineSourceExtractCriteria: {
-      source_entity_type: "",
-      is_select_distinct: false,
-      incremental_by: "",
-      source_incremental_column: [],
-      incremental_start_time: "",
-      incremental_end_time: "",
-      incremental_start_sequence: "",
-      incremental_end_sequence: "",
-      default_start_date: "",
-      default_start_seq: "",
-      filter: "",
-      order_by: "",
-    },
-    targetLoadDetails: {
-      target_entity_name: "",
-      target_load_type: "",
-      DataQualityMoniter: {
-        alert: "",
-        abort: "",
-      },
-      RecordCountChangesMoniter: {
-        alert: "",
-        abort: "",
-      },
-      is_mantain_a_copy_in_datalake: false,
-      datalake_connection: "",
-      datalake_file_format: "",
-      datalake_target_template: "",
-    },
-    GatherMetaData: {
-      business_tags: "",
-      description: "",
-      owner: "",
-      email: "",
-      success_email_list: "",
-      failure_email_list: "",
-    },
-  });
+  const { formData, setFormData } = useContext(formContext);
+  const { step, setStep } = useContext(stepContext);
 
   // onData(formData);
 

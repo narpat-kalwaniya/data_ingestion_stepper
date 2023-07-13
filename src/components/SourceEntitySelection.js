@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { DataContext } from "./DataContext";
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/mode-sql";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-tomorrow";
 
 const SourceEntitySelection = ({
   step,
@@ -25,6 +30,7 @@ const SourceEntitySelection = ({
 
   const [bucketName, setBucketName] = useState("");
   const [fullFileName, setFullFileName] = useState("");
+  const [query, setQuery] = useState("");
 
   const [disableElement, setDisableElement] = useState({
     query: true,
@@ -36,7 +42,9 @@ const SourceEntitySelection = ({
   });
 
   const { ingestionData, updateIngestionData } = useContext(DataContext);
-  const [updatedQuery, setUpdatedQuery] = useState("");
+  const [updatedQuery, setUpdatedQuery] = useState(
+    formData.sourceEntity.query || ""
+  );
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
@@ -116,12 +124,11 @@ const SourceEntitySelection = ({
     updateIngestionData(updatedData);
   };
 
-  const queryChangeHandler = (event) => {
-    const { value } = event.target;
-    setUpdatedQuery(value);
+  const queryChangeHandler = (newQuery) => {
+    setUpdatedQuery(newQuery);
     const updatedSourceEntity = {
       ...formData.sourceEntity,
-      query: value,
+      query: newQuery,
     };
     const updatedFormData = {
       ...formData,
@@ -130,10 +137,29 @@ const SourceEntitySelection = ({
     updateFormData(updatedFormData);
 
     const updatedData = {
-      query: value,
+      query: newQuery,
     };
     updateIngestionData(updatedData);
   };
+
+  // const queryChangeHandler = (event) => {
+  //   const { value } = event.target;
+  //   setUpdatedQuery(value);
+  //   const updatedSourceEntity = {
+  //     ...formData.sourceEntity,
+  //     query: value,
+  //   };
+  //   const updatedFormData = {
+  //     ...formData,
+  //     sourceEntity: updatedSourceEntity,
+  //   };
+  //   updateFormData(updatedFormData);
+
+  //   const updatedData = {
+  //     query: value,
+  //   };
+  //   updateIngestionData(updatedData);
+  // };
 
   // const handleKeyPress = (event, updatedQuery) => {
   //   if (event.key === "Enter" && !event.shiftKey) {
@@ -364,7 +390,7 @@ const SourceEntitySelection = ({
                 <Form.Label>
                   Query <span className="text-danger">*</span>
                 </Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   as="textarea"
                   rows={2}
                   className="custom-select custom-style"
@@ -374,6 +400,15 @@ const SourceEntitySelection = ({
                   onChange={queryChangeHandler}
                   isInvalid={errors2.query}
                   // onKeyPress={handleKeyPress}
+                /> */}
+                <AceEditor
+                  mode="sql"
+                  theme="tomorrow"
+                  name="sql-editor"
+                  editorProps={{ $blockScrolling: true }}
+                  style={{ width: "100%", height: "100px" }}
+                  value={formData.sourceEntity.query || ""}
+                  onChange={queryChangeHandler}
                 />
                 {errors2.query && <div className="error">{errors2.query}</div>}
               </div>
