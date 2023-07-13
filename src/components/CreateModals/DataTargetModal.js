@@ -196,15 +196,15 @@ const DataTargetModal = (props) => {
     },
   };
 
-  const handleAddConnection = () => {
-    setFormData({
-      connection_name: "",
-      connection_type: "",
-      data_source_name: "",
-      connection_env: "",
-      connect_string: null,
-    });
-  };
+  // const handleAddConnection = () => {
+  //   setFormData({
+  //     connection_name: "",
+  //     connection_type: "",
+  //     data_source_name: "",
+  //     connection_env: "",
+  //     connect_string: null,
+  //   });
+  // };
 
   const handleJsonViewChange = (updatedJson) => {
     if (updatedJson.updated_src) {
@@ -231,35 +231,36 @@ const DataTargetModal = (props) => {
         {/* <Modal.Title>Create Data Source Connection</Modal.Title> */}
       </Modal.Header>
 
-      <Modal.Body
-        style={{
-          minHeight: "60vh",
-          maxHeight: "60vh",
-          overflowY: "scroll",
-        }}
-        className="overflow-auto"
-      >
-        <Card.Body className="custom-card-body" style={{ marginTop: "5px" }}>
-          <Row>
-            <Col xs={4} className="sidebar-container">
-              <div>
-                <div className="sidebar-heading">Connection List</div>
-                {connections.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`sidebar-item ${
-                      selectedItem === item ? "active" : ""
-                    }`}
-                    onClick={() => handleSidebarItemClick(item)}
-                  >
-                    <span className="sidebar-item-serial">{index + 1}.</span>{" "}
-                    {item.connection_name}
-                  </div>
-                ))}
-              </div>
-            </Col>
-            <Col>
-              <Form>
+      <Modal.Body>
+        <Row>
+          <Col xs={3} className="sidebar-container">
+            <div>
+              <div className="sidebar-heading">Connection List</div>
+              {connections.map((item, index) => (
+                <div
+                  key={index}
+                  className={`sidebar-item ${
+                    selectedItem === item ? "active" : ""
+                  }`}
+                  onClick={() => handleSidebarItemClick(item)}
+                >
+                  <span className="sidebar-item-serial">{index + 1}.</span>{" "}
+                  {item.connection_name}
+                </div>
+              ))}
+            </div>
+          </Col>
+          <Col>
+            <Card style={{ border: "none" }}>
+              <Card.Body
+                style={{
+                  minHeight: "60vh",
+                  maxHeight: "60vh",
+                  width: "100%",
+                  overflowY: "scroll",
+                }}
+                className="overflow-auto"
+              >
                 <Row className="mb-4">
                   <Col>
                     <Form.Label>Connection Name</Form.Label>
@@ -350,17 +351,17 @@ const DataTargetModal = (props) => {
                     )}
                   </Col>
                 </Row>
-              </Form>
-            </Col>
-          </Row>
-        </Card.Body>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Col>
+        {/* <Col>
           <button onClick={handleAddConnection} className="btn-s-1">
             Add Connection
           </button>
-        </Col>
+        </Col> */}
         <button
           variant="secondary"
           onClick={handleCloseModalDTC}
