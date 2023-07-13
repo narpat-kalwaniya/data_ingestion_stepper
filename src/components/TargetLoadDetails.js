@@ -136,22 +136,17 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
               <Form.Label>
                 Target Database <span className="text-danger">*</span>
               </Form.Label>
+              <p>{formData.tableData[0]?.target_database}</p>
 
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 className="custom-select custom-style"
-                style={{
-                  fontSize: "13px",
-                  color: "rgb(141 139 139);",
-                  fontWeight: "100",
-                  border: "1px solid #4F4F4F",
-                }}
                 value={formData.tableData[0]?.target_database}
                 disabled={true}
                 name="target_database"
                 onChange={(e) => changeTableHandler(e, 0)}
                 isInvalid={errors6.target_database}
-              />
+              /> */}
               {errors6.target_database && (
                 <div className="error">{errors6.target_database}</div>
               )}
@@ -167,12 +162,6 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
                 onChange={(e) => changeTableHandler(e, 0)}
-                style={{
-                  fontSize: "13px",
-                  color: "rgb(141 139 139);",
-                  fontWeight: "100",
-                  border: "1px solid #4F4F4F",
-                }}
               >
                 <option value="">-- Select --</option>{" "}
                 {formData.tableData?.[0]?.target_schemas?.map((item, index) => (
@@ -200,12 +189,12 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 name="target_table"
                 onChange={(e) => changeTableHandler(e, 0)}
                 isInvalid={errors6.target_table}
-                style={{
-                  fontSize: "13px",
-                  color: "rgb(141 139 139);",
-                  fontWeight: "100",
-                  border: "1px solid #4F4F4F",
-                }}
+                // style={{
+                //   fontSize: "13px",
+                //   color: "rgb(141 139 139);",
+                //   fontWeight: "100",
+                //   border: "1px solid #4F4F4F",
+                // }}
               />
               {errors6.target_table && (
                 <div className="error">{errors6.target_table}</div>

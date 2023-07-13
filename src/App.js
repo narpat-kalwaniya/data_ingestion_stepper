@@ -46,7 +46,7 @@ function App() {
       default_start_date: "",
       default_start_seq: "",
       filter: "",
-      order_by: "",
+      order_by: [],
     },
     targetLoadDetails: {
       target_entity_name: "",

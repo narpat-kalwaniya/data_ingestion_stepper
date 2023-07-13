@@ -12,10 +12,15 @@ import {
 } from "react-bootstrap";
 import "../App.css";
 import { DataContext } from "./DataContext";
+import AceEditor from "react-ace";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import Select from "react-select";
 import SuggestionPopUpBox from "./SuggestionPopUpBox";
 import "./SuggestPopUpBox.css";
+
+import "ace-builds/src-noconflict/mode-sql";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-tomorrow";
 
 const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -23,6 +28,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  const [orderBy, setOrderBy] = useState([]);
 
   const [pageData, setPageData] = useState({
     incrementalOrFullExtract: "",
@@ -80,6 +86,25 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     updateIngestionData(updatedData);
   };
 
+  const filterHandler = (code) => {
+    setPageData({ ...pageData, filter: code });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        filter: code,
+      },
+    };
+    updateFormData(updatedFormData);
+    console.log("selected pageData", pageData);
+    const updatedData = { ...ingestionData[0] };
+    updatedData.source_extract_criteria = {
+      ...updatedData.source_extract_criteria,
+      filter: code,
+    };
+    updateIngestionData(updatedData);
+  };
+
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
     setPageData({ ...pageData, [e.target.name]: e.target.value });
@@ -116,6 +141,29 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     updatedData.source_extract_criteria = {
       ...updatedData.source_extract_criteria,
       [e.target.name]: e.target.value,
+    };
+    updateIngestionData(updatedData);
+  };
+
+  const orderByChangeHandler = (selectedOptions) => {
+    const selectedLabels = selectedOptions.map((option) => option.label);
+    setOrderBy(selectedLabels);
+    console.log("order by", orderBy);
+
+    setPageData({ ...pageData, order_by: selectedLabels });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        order_by: selectedLabels,
+      },
+    };
+    updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.source_extract_criteria = {
+      ...updatedData.source_extract_criteria,
+      order_by: selectedLabels,
     };
     updateIngestionData(updatedData);
   };
@@ -176,6 +224,21 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     formData.DefineSourceExtractCriteria.incremental_by === "Date";
 
   console.log("form data in source", formData);
+
+  function copiesOrderBy(arr, key, suffix1, suffix2) {
+    return arr.flatMap((obj) => [obj[key] + suffix1, obj[key] + suffix2]);
+  }
+
+  const orderByOptions = copiesOrderBy(
+    formData.tableData,
+    "column_name",
+    " asc",
+    " desc"
+  ).map((option) => ({
+    value: option,
+    label: option,
+  }));
+  console.log(orderByOptions);
 
   return (
     <Card.Body className="custom-card-body">
@@ -462,7 +525,15 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               </SuggestionPopUpBox>
             </Form.Label>
             <Col>
-              <Form.Control
+              <AceEditor
+                mode="sql"
+                theme="tomorrow"
+                editorProps={{ $blockScrolling: true }}
+                style={{ width: "100%", height: "50px" }}
+                value={formData.DefineSourceExtractCriteria.filter}
+                onChange={filterHandler}
+              />
+              {/* <Form.Control
                 type="text"
                 placeholder=""
                 className="custom-select custom-style"
@@ -470,21 +541,22 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 name="filter"
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.filter}
-              />
+              /> */}
             </Col>
           </Row>
           <Row className="mb-3">
             <Form.Label>Order by</Form.Label>
             <Col>
-              <Form.Control
-                type="text"
-                placeholder=""
-                className="custom-select custom-style"
-                // disabled={isIncrementalSelected}
-                name="order_by"
-                onChange={changeHandler}
-                value={formData.DefineSourceExtractCriteria.order_by}
-              />
+              <Select
+                isMulti
+                options={orderByOptions}
+                value={orderByOptions.filter((option) =>
+                  formData.DefineSourceExtractCriteria.order_by.includes(
+                    option.label
+                  )
+                )}
+                onChange={orderByChangeHandler}
+              ></Select>
             </Col>
           </Row>
         </Form>
