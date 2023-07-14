@@ -325,6 +325,7 @@ const DataTargetModal = (props) => {
                       <option>{""}</option>
                       <option>DEV</option>
                       <option>STAGE</option>
+                      <option>TEST</option>
                       <option>PRODUCTION</option>
                     </Form.Select>
                   </Col>
