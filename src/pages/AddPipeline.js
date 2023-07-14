@@ -122,6 +122,10 @@ function AddPipeline() {
     fetchData();
   }, [step === 2]);
 
+  useEffect(() => {
+    validateInputs5();
+  }, [JSON.stringify(formData.DefineSourceExtractCriteria)]);
+
   const createNewPipelineHandler = () => {
     setStep(1);
     setIsReview(false);
@@ -219,6 +223,8 @@ function AddPipeline() {
 
   const validateInputs5 = () => {
     const isIncrementalSelected = formData.DefineSourceExtractCriteria.source_entity_type === "incremental";
+    const isDate = formData.DefineSourceExtractCriteria.incremental_by === "Date";
+    const isSequence = formData.DefineSourceExtractCriteria.incremental_by === "Sequence";
 
     const newErrors5 = {};
 
@@ -238,40 +244,46 @@ function AddPipeline() {
       }
   
       if (
-        !formData.DefineSourceExtractCriteria.incremental_start_time ||
-        !formData.DefineSourceExtractCriteria.incremental_start_time === ""
+        (!formData.DefineSourceExtractCriteria.incremental_start_time ||
+        !formData.DefineSourceExtractCriteria.incremental_start_time === "")
+        && isDate
       ) {
         newErrors5.incremental_start_time = "This field is required";
       }
   
       if (
-        !formData.DefineSourceExtractCriteria.incremental_end_time ||
-        !formData.DefineSourceExtractCriteria.incremental_end_time === ""
+        (!formData.DefineSourceExtractCriteria.incremental_end_time ||
+        !formData.DefineSourceExtractCriteria.incremental_end_time === "")
+        && isDate
       ) {
         newErrors5.incremental_end_time = "This field is required";
       }
   
       if (
-        !formData.DefineSourceExtractCriteria.default_start_date ||
-        !formData.DefineSourceExtractCriteria.default_start_date === ""
+        (!formData.DefineSourceExtractCriteria.default_start_date ||
+        !formData.DefineSourceExtractCriteria.default_start_date === "")
+        && isDate
       ) {
         newErrors5.default_start_date = "This field is required";
       }
       if (
-        !formData.DefineSourceExtractCriteria.incremental_start_sequence ||
-        !formData.DefineSourceExtractCriteria.incremental_start_sequence === ""
+        (!formData.DefineSourceExtractCriteria.incremental_start_sequence ||
+        !formData.DefineSourceExtractCriteria.incremental_start_sequence === "")
+        && isSequence
       ) {
         newErrors5.incremental_start_sequence = "This field is required";
       }
       if (
-        !formData.DefineSourceExtractCriteria.incremental_end_sequence ||
-        !formData.DefineSourceExtractCriteria.incremental_end_sequence === ""
+        (!formData.DefineSourceExtractCriteria.incremental_end_sequence ||
+        !formData.DefineSourceExtractCriteria.incremental_end_sequence === "")
+        && isSequence
       ) {
         newErrors5.incremental_end_sequence = "This field is required";
       }
       if (
-        !formData.DefineSourceExtractCriteria.default_start_seq ||
-        !formData.DefineSourceExtractCriteria.default_start_seq === ""
+        (!formData.DefineSourceExtractCriteria.default_start_seq ||
+        !formData.DefineSourceExtractCriteria.default_start_seq === "")
+        && isSequence
       ) {
         newErrors5.default_start_seq = "This field is required";
       }

@@ -1,10 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Card,
-  Form,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Card, Form, Row, Col } from "react-bootstrap";
 import "../App.css";
 import { DataContext } from "./DataContext";
 import AceEditor from "react-ace";
@@ -389,9 +384,11 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                   // }
                   onChange={incrementalColumnsHandler}
                 />
-   {errors5.source_incremental_column && (
-                <div className="error">{errors5.source_incremental_column}</div>
-              )}
+                {errors5.source_incremental_column && (
+                  <div className="error">
+                    {errors5.source_incremental_column}
+                  </div>
+                )}
                 {/* <Form.Select
                   multiple
                   isInvalid={errors5.source_incremental_column}
