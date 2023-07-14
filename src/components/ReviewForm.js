@@ -276,20 +276,20 @@ const ReviewFrom = (props) => {
                   <Row>
                     <Col>
                       <div>
-                        <div className="block">
+                        <div c>
                           <div
                             className="d-flex justify-content-between float-right"
-                            style={{ color: "#000000" }}
+                            style={{
+                              color: "#000000",
+                              alignItems: "flex-start",
+                            }}
                           >
                             <p>Data Connection</p>
-                            <button
-                              // style={{ backgroundColor: "#49494A" }}
+
+                            <AiOutlineEdit
                               onClick={editHandler1}
-                            >
-                              <AiOutlineEdit
-                              // style={{ backgroundColor: "none" }}
-                              ></AiOutlineEdit>
-                            </button>
+                              s
+                            ></AiOutlineEdit>
                           </div>
                           {/* <div
                           style={{
@@ -324,9 +324,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Source Entity</p>
-                            <button onClick={editHandler2}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler2} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -354,9 +353,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Target Schema</p>
-                            <button onClick={editHandler3}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler3} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -419,9 +417,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Data Validation</p>
-                            <button onClick={editHandler4}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler4} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -473,9 +470,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Source Extract Criteria</p>
-                            <button onClick={editHandler5}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler5} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -500,9 +496,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Target Load Details</p>
-                            <button onClick={editHandler6}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler6} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -518,9 +513,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Masking</p>
-                            <button onClick={editHandler7}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler7} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -565,9 +559,8 @@ const ReviewFrom = (props) => {
                             style={{ color: "#000000" }}
                           >
                             <p>Meta Data</p>
-                            <button onClick={editHandler8}>
-                              <AiOutlineEdit />
-                            </button>
+
+                            <AiOutlineEdit onClick={editHandler8} />
                           </div>
 
                           <div className="horizontal-line-1"></div>
