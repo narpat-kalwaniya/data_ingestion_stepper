@@ -347,7 +347,7 @@ const DataSourceModal = (props) => {
                       <div className="json-view-container">
                         <ReactJson
                           src={formData.connect_string}
-                          theme="ocean"
+                          theme="rjv-default"
                           name={null}
                           enableClipboard={false}
                           displayDataTypes={false}

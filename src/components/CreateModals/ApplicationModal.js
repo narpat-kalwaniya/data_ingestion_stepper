@@ -220,7 +220,7 @@ const ApplicationModal = (props) => {
           <Row>
             <Col xs={4} className="sidebar-container">
               <div>
-                <div className="sidebar-heading">Connection List</div>
+                <div className="sidebar-heading">Application List</div>
                 {connections.map((item, index) => (
                   <div
                     key={index}
