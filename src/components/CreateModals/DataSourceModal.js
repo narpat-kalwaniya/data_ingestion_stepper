@@ -324,7 +324,7 @@ const DataSourceModal = (props) => {
                     <Form.Control
                       type="text"
                       className="custom-select custom-style"
-                      name="environment"
+                      name="connection_env"
                       value={formData.connection_env}
                       onChange={handleChange}
                     />
@@ -336,7 +336,7 @@ const DataSourceModal = (props) => {
 
                     <Form.Control
                       as="textarea"
-                      rows={3}
+                      rows={1}
                       className="custom-select custom-style connection-string-textarea"
                       name="connection_string"
                       value={JSON.stringify(formData.connect_string)}
