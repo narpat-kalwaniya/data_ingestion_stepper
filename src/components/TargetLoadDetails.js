@@ -134,24 +134,20 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
           <Row className="mb-4">
             <Col md={4}>
               <Form.Label>
-                Target Database <span className="text-danger">*</span>
+                Target Database
+                {/* <span className="text-danger">*</span> */}
               </Form.Label>
+              <p>{formData.tableData[0]?.target_database}</p>
 
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 className="custom-select custom-style"
-                style={{
-                  fontSize: "13px",
-                  color: "rgb(141 139 139);",
-                  fontWeight: "100",
-                  border: "1px solid #ced4da",
-                }}
                 value={formData.tableData[0]?.target_database}
                 disabled={true}
                 name="target_database"
                 onChange={(e) => changeTableHandler(e, 0)}
                 isInvalid={errors6.target_database}
-              />
+              /> */}
               {errors6.target_database && (
                 <div className="error">{errors6.target_database}</div>
               )}

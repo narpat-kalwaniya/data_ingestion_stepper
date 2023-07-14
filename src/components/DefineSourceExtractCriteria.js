@@ -1,21 +1,21 @@
 import React, { useState, useContext } from "react";
 import {
-  Button,
-  Container,
   Card,
   Form,
   Row,
   Col,
-  Badge,
-  ListGroup,
-  FormGroup,
 } from "react-bootstrap";
 import "../App.css";
 import { DataContext } from "./DataContext";
+import AceEditor from "react-ace";
+import Select from "react-select";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { useForm } from "react-hook-form";
 import SuggestionPopUpBox from "./SuggestionPopUpBox";
 import "./SuggestPopUpBox.css";
+
+import "ace-builds/src-noconflict/mode-sql";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-tomorrow";
 
 const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -23,6 +23,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedIncrementalBy, setSelectedIncrementalBy] = useState("");
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  const [orderBy, setOrderBy] = useState([]);
+  const [incrementalColumns, setIncrementalColumns] = useState([]);
 
   const [pageData, setPageData] = useState({
     incrementalOrFullExtract: "",
@@ -80,6 +82,25 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     updateIngestionData(updatedData);
   };
 
+  const filterHandler = (code) => {
+    setPageData({ ...pageData, filter: code });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        filter: code,
+      },
+    };
+    updateFormData(updatedFormData);
+    console.log("selected pageData", pageData);
+    const updatedData = { ...ingestionData[0] };
+    updatedData.source_extract_criteria = {
+      ...updatedData.source_extract_criteria,
+      filter: code,
+    };
+    updateIngestionData(updatedData);
+  };
+
   const handleRadioChange = (e) => {
     setSelectedOption(e.target.value);
     setPageData({ ...pageData, [e.target.name]: e.target.value });
@@ -120,43 +141,17 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     updateIngestionData(updatedData);
   };
 
-  // console.log("sourceExtractform data", formData);
-  console.log("source ingestion data", ingestionData);
+  const orderByChangeHandler = (selectedOptions) => {
+    const selectedLabels = selectedOptions.map((option) => option.label);
+    setOrderBy(selectedLabels);
+    console.log("order by", orderBy);
 
-  const handleSelect = (e) => {
-    const selectedOption = e.target.value;
-    if (!selectedValues.includes(selectedOption)) {
-      setSelectedValues((prevSelectedValues) => [
-        ...prevSelectedValues,
-        selectedOption,
-      ]);
-      const updatedFormData = {
-        ...formData,
-        DefineSourceExtractCriteria: {
-          ...formData.DefineSourceExtractCriteria,
-          [e.target.name]: [...selectedValues, selectedOption],
-        },
-      };
-      updateFormData(updatedFormData);
-
-      const updatedData = { ...ingestionData[0] };
-      updatedData.source_extract_criteria = {
-        ...updatedData.source_extract_criteria,
-        [e.target.name]: [...selectedValues, selectedOption],
-      };
-      updateIngestionData(updatedData);
-    }
-  };
-
-  const handleBadgeClose = (value) => {
-    setSelectedValues((prevSelectedValues) =>
-      prevSelectedValues.filter((v) => v !== value)
-    );
+    setPageData({ ...pageData, order_by: selectedLabels });
     const updatedFormData = {
       ...formData,
       DefineSourceExtractCriteria: {
         ...formData.DefineSourceExtractCriteria,
-        source_incremental_column: selectedValues.filter((v) => v !== value),
+        order_by: selectedLabels,
       },
     };
     updateFormData(updatedFormData);
@@ -164,16 +159,106 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
       ...updatedData.source_extract_criteria,
-      source_incremental_column: selectedValues.filter((v) => v !== value),
+      order_by: selectedLabels,
     };
     updateIngestionData(updatedData);
   };
+
+  const incrementalColumnsHandler = (selectedOptions) => {
+    const selectedLabels = selectedOptions.map((option) => option.label);
+    setIncrementalColumns(selectedLabels);
+    setPageData({ ...pageData, incrementalColumns: selectedLabels });
+    const updatedFormData = {
+      ...formData,
+      DefineSourceExtractCriteria: {
+        ...formData.DefineSourceExtractCriteria,
+        source_incremental_column: selectedLabels,
+      },
+    };
+    updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.source_extract_criteria = {
+      ...updatedData.source_extract_criteria,
+      source_incremental_column: selectedLabels,
+    };
+    updateIngestionData(updatedData);
+    // const selectedOption = e.target.value;
+    // if (!selectedValues.includes(selectedOption)) {
+    //   setSelectedValues((prevSelectedValues) => [
+    //     ...prevSelectedValues,
+    //     selectedOption,
+    //   ]);
+    //   const updatedFormData = {
+    //     ...formData,
+    //     DefineSourceExtractCriteria: {
+    //       ...formData.DefineSourceExtractCriteria,
+    //       [e.target.name]: [...selectedValues, selectedOption],
+    //     },
+    //   };
+    //   updateFormData(updatedFormData);
+
+    //   const updatedData = { ...ingestionData[0] };
+    //   updatedData.source_extract_criteria = {
+    //     ...updatedData.source_extract_criteria,
+    //     [e.target.name]: [...selectedValues, selectedOption],
+    //   };
+    //   updateIngestionData(updatedData);
+    // }
+  };
+
+  // console.log("sourceExtractform data", formData);
+  // console.log("source ingestion data", ingestionData);
+
+  // const handleBadgeClose = (value) => {
+  //   setSelectedValues((prevSelectedValues) =>
+  //     prevSelectedValues.filter((v) => v !== value)
+  //   );
+  //   const updatedFormData = {
+  //     ...formData,
+  //     DefineSourceExtractCriteria: {
+  //       ...formData.DefineSourceExtractCriteria,
+  //       source_incremental_column: selectedValues.filter((v) => v !== value),
+  //     },
+  //   };
+  //   updateFormData(updatedFormData);
+
+  //   const updatedData = { ...ingestionData[0] };
+  //   updatedData.source_extract_criteria = {
+  //     ...updatedData.source_extract_criteria,
+  //     source_incremental_column: selectedValues.filter((v) => v !== value),
+  //   };
+  //   updateIngestionData(updatedData);
+  // };
 
   const isIncrementalSelected =
     formData.DefineSourceExtractCriteria.source_entity_type === "incremental";
   const isDateSelected =
     formData.DefineSourceExtractCriteria.source_entity_type === "incremental" &&
     formData.DefineSourceExtractCriteria.incremental_by === "Date";
+
+  console.log("form data in source", formData);
+
+  function copiesOrderBy(arr, key, suffix1, suffix2) {
+    return arr.flatMap((obj) => [obj[key] + suffix1, obj[key] + suffix2]);
+  }
+
+  const orderByOptions = copiesOrderBy(
+    formData.tableData,
+    "column_name",
+    " asc",
+    " desc"
+  ).map((option) => ({
+    value: option,
+    label: option,
+  }));
+
+  const extractColumnNames = (array, key) => {
+    return array.map((item) => ({ value: item[key], label: item[key] }));
+  };
+
+  const column_names = extractColumnNames(formData.tableData, "column_name");
+  console.log(column_names);
 
   return (
     <Card.Body className="custom-card-body">
@@ -288,7 +373,26 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 // onChange={handleOptionChange}
                 // options={formData.tableData.column}
               /> */}
-                <Form.Select
+                <Select
+                  className="custom-select custom-style"
+                  isMulti
+                  options={column_names}
+                  isInvalid={errors5.source_incremental_column}
+                  disabled={!isIncrementalSelected}
+                  value={column_names.filter((option) =>
+                    formData.DefineSourceExtractCriteria.source_incremental_column.includes(
+                      option.label
+                    )
+                  )}
+                  // value={
+                  //   formData.DefineSourceExtractCriteria.incrementalColumns
+                  // }
+                  onChange={incrementalColumnsHandler}
+                />
+   {errors5.source_incremental_column && (
+                <div className="error">{errors5.source_incremental_column}</div>
+              )}
+                {/* <Form.Select
                   multiple
                   isInvalid={errors5.source_incremental_column}
                   onChange={handleSelect}
@@ -305,14 +409,8 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                       {column.column_name}
                     </option>
                   ))}
-                </Form.Select>
-                {errors5.source_incremental_column && (
-                  <div className="error">
-                    {errors5.source_incremental_column}
-                  </div>
-                )}
-
-                <div className="mt-2">
+                </Form.Select> */}
+                {/* <div className="mt-2">
                   {formData.DefineSourceExtractCriteria.source_incremental_column.map(
                     (value) => (
                       <Badge
@@ -332,7 +430,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                       </Badge>
                     )
                   )}
-                </div>
+                </div> */}
               </Col>
             )}
           </Row>
@@ -389,7 +487,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               )}
             </Col>
             <Col md={4}>
-              <Form.Label for="default_start_date">Start Date</Form.Label>
+              <Form.Label for="default_start_date">
+                Default Start Date
+              </Form.Label>
               <Form.Control
                 // type="text"
                 isInvalid={errors5.default_start_date}
@@ -466,7 +566,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               )}
             </Col>
             <Col>
-              <Form.Label for="default_start_seq"> Start Seq</Form.Label>
+              <Form.Label for="default_start_seq">Default Start Seq</Form.Label>
               <Form.Control
                 type="text"
                 isInvalid={errors5.default_start_seq}
@@ -498,7 +598,15 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               </SuggestionPopUpBox>
             </Form.Label>
             <Col>
-              <Form.Control
+              <AceEditor
+                mode="sql"
+                theme="tomorrow"
+                editorProps={{ $blockScrolling: true }}
+                style={{ width: "100%", height: "50px" }}
+                value={formData.DefineSourceExtractCriteria.filter}
+                onChange={filterHandler}
+              />
+              {/* <Form.Control
                 type="text"
                 placeholder=""
                 className="custom-select custom-style"
@@ -506,20 +614,22 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 name="filter"
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.filter}
-              />
+              /> */}
             </Col>
           </Row>
           <Row className="mb-3">
             <Form.Label>Order by</Form.Label>
             <Col>
-              <Form.Control
-                type="text"
-                placeholder=""
+              <Select
+                isMulti
+                options={orderByOptions}
+                value={orderByOptions.filter((option) =>
+                  formData.DefineSourceExtractCriteria.order_by.includes(
+                    option.label
+                  )
+                )}
+                onChange={orderByChangeHandler}
                 className="custom-select custom-style"
-                // disabled={isIncrementalSelected}
-                name="order_by"
-                onChange={changeHandler}
-                value={formData.DefineSourceExtractCriteria.order_by}
               />
             </Col>
           </Row>

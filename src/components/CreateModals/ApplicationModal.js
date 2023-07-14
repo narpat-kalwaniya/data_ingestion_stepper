@@ -210,8 +210,8 @@ const ApplicationModal = (props) => {
       </Modal.Header>
       <Modal.Body
         style={{
-          minHeight: "60vh",
-          maxHeight: "60vh",
+          minHeight: "35vh",
+          maxHeight: "35vh",
           overflowY: "scroll",
         }}
         className="overflow-auto"
@@ -220,7 +220,7 @@ const ApplicationModal = (props) => {
           <Row>
             <Col xs={4} className="sidebar-container">
               <div>
-                <div className="sidebar-heading">Connection List</div>
+                <div className="sidebar-heading">Application List</div>
                 {connections.map((item, index) => (
                   <div
                     key={index}
@@ -249,8 +249,6 @@ const ApplicationModal = (props) => {
                       onChange={handleChange}
                     />
                   </Col>
-                </Row>
-                <Row className="mb-4">
                   <Col>
                     <Form.Label>Application Type</Form.Label>
 
@@ -276,8 +274,6 @@ const ApplicationModal = (props) => {
                       onChange={handleChange}
                     />
                   </Col>
-                </Row>
-                <Row className="mb-4">
                   <Col>
                     <Form.Label>Success Recipients</Form.Label>
 
