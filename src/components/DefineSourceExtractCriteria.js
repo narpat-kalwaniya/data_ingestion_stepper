@@ -435,7 +435,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col md={4}>
-              <Form.Label for="default_start_date">Start Date</Form.Label>
+              <Form.Label for="default_start_date">
+                Default Start Date
+              </Form.Label>
               <Form.Control
                 // type="text"
                 placeholder=""
@@ -499,7 +501,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               />
             </Col>
             <Col>
-              <Form.Label for="default_start_seq"> Start Seq</Form.Label>
+              <Form.Label for="default_start_seq">Default Start Seq</Form.Label>
               <Form.Control
                 type="text"
                 step="0.001"

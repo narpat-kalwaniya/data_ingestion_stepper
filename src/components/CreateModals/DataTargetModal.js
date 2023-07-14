@@ -273,8 +273,6 @@ const DataTargetModal = (props) => {
                       onChange={handleChange}
                     />
                   </Col>
-                </Row>
-                <Row className="mb-4">
                   <Col>
                     <Form.Label>Connection Type</Form.Label>
 
@@ -307,8 +305,6 @@ const DataTargetModal = (props) => {
                       onChange={handleChange}
                     />
                   </Col>
-                </Row>
-                <Row className="mb-4">
                   <Col>
                     <Form.Label>Environment</Form.Label>
 

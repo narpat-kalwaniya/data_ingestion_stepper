@@ -134,7 +134,8 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
           <Row className="mb-4">
             <Col md={4}>
               <Form.Label>
-                Target Database <span className="text-danger">*</span>
+                Target Database
+                {/* <span className="text-danger">*</span> */}
               </Form.Label>
               <p>{formData.tableData[0]?.target_database}</p>
 
