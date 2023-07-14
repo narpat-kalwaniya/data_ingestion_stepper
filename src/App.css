@@ -50,7 +50,7 @@ p {
 .horizontal-line-1 {
   position: relative;
   margin: auto;
-  top: 10px;
+  top: -5px;
   left: 0;
   right: 0;
   height: 2px;
@@ -108,26 +108,30 @@ p {
   /* Spacing between options */
   /* Example: Add margin-right */
   margin-right: 20px;
-  background-color: #FCF5EF;
+  background-color: #fcf5ef;
   padding: 5px 20px 5px 40px;
   border-radius: 20px;
 }
 
 .key {
   margin-right: 40px;
-   width: 250px;
+  width: 250px;
+  color: "#4F4F4F" !important;
 }
 
 .colon {
-  margin-right : 20px;
-  margin-left : 40px;
+  margin-right: 20px;
+  margin-left: 40px;
+  color: "#4F4F4F" !important;
 }
 
 .value {
-  margin-left : 10px;
+  margin-left: 10px;
+  color: "#4F4F4F" !important;
 }
 
-td, th {
+td,
+th {
   vertical-align: middle;
 }
 thead {
@@ -136,7 +140,7 @@ thead {
 
 .table {
   border: 1px solid #dee2e6; /* Outer border color */
-width: 100%;
+  width: 100%;
 }
 
 .table-container {
@@ -308,19 +312,10 @@ width: 100%;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
