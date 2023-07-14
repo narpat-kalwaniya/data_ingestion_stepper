@@ -13,7 +13,7 @@ import {
 import "../App.css";
 import { DataContext } from "./DataContext";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import Select from "react-select";
+import { useForm } from "react-hook-form";
 import SuggestionPopUpBox from "./SuggestionPopUpBox";
 import "./SuggestPopUpBox.css";
 
@@ -175,8 +175,6 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     formData.DefineSourceExtractCriteria.source_entity_type === "incremental" &&
     formData.DefineSourceExtractCriteria.incremental_by === "Date";
 
-  console.log("form data in source", formData);
-
   return (
     <Card.Body className="custom-card-body">
       <div className="text-left">
@@ -265,6 +263,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
             <Col xs={4}>
               <Form.Label>Incremental by</Form.Label>
               <Form.Select
+                isInvalid={errors5.incremental_by}
                 aria-label=""
                 disabled={!isIncrementalSelected}
                 onChange={incrementalByHandler}
@@ -276,6 +275,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 <option value="Date">Date</option>
                 <option value="Sequence">Sequence</option>
               </Form.Select>
+              {errors5.incremental_by && (
+                <div className="error">{errors5.incremental_by}</div>
+              )}
             </Col>
             {isIncrementalSelected && (
               <Col>
@@ -288,6 +290,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               /> */}
                 <Form.Select
                   multiple
+                  isInvalid={errors5.source_incremental_column}
                   onChange={handleSelect}
                   disabled={!isIncrementalSelected}
                   value={
@@ -303,6 +306,12 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                     </option>
                   ))}
                 </Form.Select>
+                {errors5.source_incremental_column && (
+                  <div className="error">
+                    {errors5.source_incremental_column}
+                  </div>
+                )}
+
                 <div className="mt-2">
                   {formData.DefineSourceExtractCriteria.source_incremental_column.map(
                     (value) => (
@@ -335,6 +344,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               </Form.Label>
               <Form.Control
                 // type="text"
+                isInvalid={errors5.incremental_start_time}
                 type="datetime-local"
                 step="0.001"
                 placeholder=""
@@ -350,11 +360,15 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 }
                 onChange={changeHandler}
               />
+              {errors5.incremental_start_time && (
+                <div className="error">{errors5.incremental_start_time}</div>
+              )}
             </Col>
             <Col md={4}>
               <Form.Label for="incremental_start_time">End Datetime</Form.Label>
               <Form.Control
                 // type="text"
+                isInvalid={errors5.incremental_end_time}
                 type="datetime-local"
                 placeholder=""
                 className="custom-select custom-style"
@@ -370,11 +384,15 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 }
                 onChange={changeHandler}
               />
+              {errors5.incremental_end_time && (
+                <div className="error">{errors5.incremental_end_time}</div>
+              )}
             </Col>
             <Col md={4}>
               <Form.Label for="default_start_date">Start Date</Form.Label>
               <Form.Control
                 // type="text"
+                isInvalid={errors5.default_start_date}
                 placeholder=""
                 type="datetime-local"
                 step="0.001"
@@ -388,6 +406,9 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.default_start_date}
               />
+              {errors5.default_start_date && (
+                <div className="error">{errors5.default_start_date}</div>
+              )}
             </Col>
           </Row>
           <Row className="mb-4">
@@ -398,6 +419,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
               </Form.Label>
               <Form.Control
                 type="text"
+                isInvalid={errors5.incremental_start_sequence}
                 step="0.001"
                 placeholder=""
                 className="custom-select custom-style"
@@ -414,12 +436,17 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 }
                 onChange={changeHandler}
               />
+              {errors5.incremental_start_sequence && (
+                <div className="error">
+                  {errors5.incremental_start_sequence}
+                </div>
+              )}
             </Col>
             <Col>
               <Form.Label for="incremental_end_sequence">End Seq</Form.Label>
               <Form.Control
                 type="text"
-                step="0.001"
+                isInvalid={errors5.incremental_end_sequence}
                 placeholder=""
                 className="custom-select custom-style"
                 disabled={
@@ -434,12 +461,15 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                   formData.DefineSourceExtractCriteria.incremental_end_sequence
                 }
               />
+              {errors5.incremental_end_sequence && (
+                <div className="error">{errors5.incremental_end_sequence}</div>
+              )}
             </Col>
             <Col>
               <Form.Label for="default_start_seq"> Start Seq</Form.Label>
               <Form.Control
                 type="text"
-                step="0.001"
+                isInvalid={errors5.default_start_seq}
                 placeholder=""
                 className="custom-select custom-style"
                 disabled={
@@ -452,12 +482,18 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
                 onChange={changeHandler}
                 value={formData.DefineSourceExtractCriteria.default_start_seq}
               />
+              {errors5.default_start_seq && (
+                <div className="error">{errors5.default_start_seq}</div>
+              )}
             </Col>
           </Row>
           <Row className="mb-3">
             <Form.Label>
               Filter to be applied
-              <SuggestionPopUpBox title={"test title"}>
+              <SuggestionPopUpBox
+                title={`Apply the additional filter for the ingestion in Source SQL languange without the "WHERE" clause and thesemicolon.
+                  E.g. Provide only "id < 5" in the filter for the query "SELECT * FROM table WHERE id < 5;"`}
+              >
                 <AiOutlineExclamationCircle className="suggetionPopupIconstyle" />
               </SuggestionPopUpBox>
             </Form.Label>

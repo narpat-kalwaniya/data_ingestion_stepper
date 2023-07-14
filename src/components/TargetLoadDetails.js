@@ -14,8 +14,8 @@ import { DataContext } from "./DataContext";
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
-  console.log("formData==>", formData);
-  console.log("error", errors6);
+  // console.log("formData==>", formData);
+  // console.log("error", errors6);
   const [checked, setChecked] = useState(
     formData.targetLoadDetails.is_mantain_a_copy_in_datalake
   );
@@ -144,7 +144,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                   fontSize: "13px",
                   color: "rgb(141 139 139);",
                   fontWeight: "100",
-                  border: "1px solid #4F4F4F",
+                  border: "1px solid #ced4da",
                 }}
                 value={formData.tableData[0]?.target_database}
                 disabled={true}
@@ -163,6 +163,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
               </Form.Label>
               <Form.Select
                 required
+                isInvalid={errors6.selectedTableSchema}
                 className="custom-select custom-style"
                 value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
@@ -171,7 +172,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                   fontSize: "13px",
                   color: "rgb(141 139 139);",
                   fontWeight: "100",
-                  border: "1px solid #4F4F4F",
+                  border: "1px solid #ced4da",
                 }}
               >
                 <option value="">-- Select --</option>{" "}
@@ -180,19 +181,19 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                     {item}
                   </option>
                 ))}
-                {errors6.target_schemas && (
-                  <div className="error">{errors6.target_schemas}</div>
-                )}
+                
               </Form.Select>
+              {errors6.selectedTableSchema && (
+                  <div className="error">{errors6.selectedTableSchema}</div>
+                )}
             </Col>
 
             <Col md={4}>
               <Form.Label>
                 Target Entity Name <span className="text-danger">*</span>
               </Form.Label>
-
               <Form.Control
-                // required
+                required
                 type="text"
                 className="custom-select custom-style"
                 value={formData.tableData[0]?.target_table}
@@ -204,13 +205,14 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                   fontSize: "13px",
                   color: "rgb(141 139 139);",
                   fontWeight: "100",
-                  border: "1px solid #4F4F4F",
+                  border: "1px solid #ced4da",
                 }}
               />
               {errors6.target_table && (
                 <div className="error">{errors6.target_table}</div>
               )}
             </Col>
+            
           </Row>
           <Row className="mb-4">
             <Col xs="auto">
