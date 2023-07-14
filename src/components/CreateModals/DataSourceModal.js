@@ -321,13 +321,25 @@ const DataSourceModal = (props) => {
                   <Col>
                     <Form.Label>Environment</Form.Label>
 
-                    <Form.Control
+                    {/* <Form.Control
                       type="text"
                       className="custom-select custom-style"
                       name="connection_env"
                       value={formData.connection_env}
                       onChange={handleChange}
-                    />
+                    /> */}
+                    <Form.Select
+                      as="select"
+                      className="custom-select custom-style"
+                      name="connection_env"
+                      value={formData.connection_env}
+                      onChange={handleChange}
+                    >
+                      <option>{""}</option>
+                      <option>DEV</option>
+                      <option>STAGE</option>
+                      <option>PRODUCTION</option>
+                    </Form.Select>
                   </Col>
                 </Row>
                 <Row className="mb-4">
