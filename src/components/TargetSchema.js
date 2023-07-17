@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Table, Form } from "react-bootstrap";
 import { DataContext } from "./DataContext";
+import AceEditor from "react-ace";
+
+// Import the SQL mode for Ace Editor (for SQL syntax highlighting)
+import "ace-builds/src-noconflict/mode-sql";
+
+// Import the GitHub theme for Ace Editor (or any other theme you prefer)
+import "ace-builds/src-noconflict/theme-github";
 
 const headers = [
   "",
@@ -104,7 +111,7 @@ const TbData = ({ formData, updateFormData }) => {
     updateIngestionData(updatedData);
   };
 
-  const transformLogicHandler = (value, index) => {
+  const transformLogicHandler = (index, value) => {
     const updatedTableData = [...formData.tableData];
     updatedTableData[index].transformation_logic = value;
     // setTableData(updatedTableData);
@@ -123,6 +130,13 @@ const TbData = ({ formData, updateFormData }) => {
     };
     updateIngestionData(updatedData);
   };
+
+  // const handleQueryChange = (id, value) => {
+  //   console.log("logic", value);
+  //   // const updatedTableData = tableData.map((row) =>
+  //   //   row.id === id ? { ...row, query: value } : row
+  //   // );
+  // };
 
   const addRow = () => {
     const newRow = {
@@ -293,11 +307,18 @@ const TbData = ({ formData, updateFormData }) => {
             />
           </td>
           <td style={{ width: "150px" }}>
-            <Form.Control
-              type="text"
+            <AceEditor
+              mode="sql" // Set the syntax highlighting mode to SQL
+              theme="tomorrow" // Set the editor theme (e.g., 'github', 'monokai', 'dracula', etc.)
+              // name={`query-${row.id}`}
               value={column.transformation_logic}
-              onChange={(e) => transformLogicHandler(e.target.value, index)}
-              className="custom-select custom-style"
+              onChange={(value) => transformLogicHandler(index, value)}
+              width="100%"
+              height="50px"
+              // showPrintMargin={false}
+              // showGutter={true}
+              // highlightActiveLine={true}
+              editorProps={{ $blockScrolling: true }}
             />
           </td>
           <td>
