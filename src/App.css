@@ -310,6 +310,13 @@ thead {
   height: 50px;
   animation: spin 1s linear infinite;
 }
+div, th, td, tr {
+  font-family: "Poppins" !important;
+}
+
+th, thead {
+  background-color: "rgb(243, 243, 243)" !important;
+}
 
 @keyframes spin {
   0% {
