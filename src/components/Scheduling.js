@@ -563,7 +563,7 @@ const Scheduling = () => {
                           );
                           const data = await response.json();
                           tasksTemp[index].arguments = JSON.stringify(data);
-                          settasks(tasksTemp);
+                          settasks([...tasksTemp ]);
                         }}
                       >
                         <option value={null}></option>
