@@ -27,7 +27,7 @@ const items = [
   {
     label: "Validation",
     key: "validation",
-  }
+  },
 ];
 
 const Navigation = () => {
@@ -35,7 +35,6 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const onClick = (e) => {
-    console.log("Navigation clicked on:", e);
     setCurrent(e.key);
     switch (e.key) {
       case "users":

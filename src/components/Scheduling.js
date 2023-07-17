@@ -136,7 +136,6 @@ const Scheduling = () => {
         );
         const data = await response.json();
         setModuleName(data);
-        debugger;
       } catch (error) {
         console.error("Error fetching module name:", error);
       }
@@ -557,7 +556,7 @@ const Scheduling = () => {
 
                           let tasksTemp = JSON.parse(JSON.stringify(tasks));
                           tasksTemp[index].module_name = e.target.value;
-                          debugger;
+
                           settasks(tasksTemp);
                           const response = await fetch(
                             `http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/parameters/${e.target.value}`

@@ -177,11 +177,10 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                     {item}
                   </option>
                 ))}
-                
               </Form.Select>
               {errors6.selectedTableSchema && (
-                  <div className="error">{errors6.selectedTableSchema}</div>
-                )}
+                <div className="error">{errors6.selectedTableSchema}</div>
+              )}
             </Col>
 
             <Col md={4}>
@@ -208,7 +207,6 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 <div className="error">{errors6.target_table}</div>
               )}
             </Col>
-            
           </Row>
           <Row className="mb-4">
             <Col xs="auto">

@@ -48,7 +48,7 @@ function AddPipeline() {
     target_load_type: "",
     selectedTableSchema: "",
     target_table: "",
-    target_database:"",
+    target_database: "",
   });
 
   useEffect(() => {
@@ -121,10 +121,6 @@ function AddPipeline() {
     };
     fetchData();
   }, [step === 2]);
-
-  useEffect(() => {
-    validateInputs5();
-  }, [JSON.stringify(formData.DefineSourceExtractCriteria)]);
 
   const createNewPipelineHandler = () => {
     setStep(1);
@@ -211,7 +207,6 @@ function AddPipeline() {
       }
     } else {
       {
-        console.log("hello");
         newErrors2.data_source_type = "This field is required";
       }
     }
@@ -222,9 +217,12 @@ function AddPipeline() {
   };
 
   const validateInputs5 = () => {
-    const isIncrementalSelected = formData.DefineSourceExtractCriteria.source_entity_type === "incremental";
-    const isDate = formData.DefineSourceExtractCriteria.incremental_by === "Date";
-    const isSequence = formData.DefineSourceExtractCriteria.incremental_by === "Sequence";
+    const isIncrementalSelected =
+      formData.DefineSourceExtractCriteria.source_entity_type === "incremental";
+    const isDate =
+      formData.DefineSourceExtractCriteria.incremental_by === "Date";
+    const isSequence =
+      formData.DefineSourceExtractCriteria.incremental_by === "Sequence";
 
     const newErrors5 = {};
 
@@ -235,55 +233,58 @@ function AddPipeline() {
       ) {
         newErrors5.incremental_by = "This field is required";
       }
-  
+
       if (
         !formData.DefineSourceExtractCriteria.source_incremental_column ||
         !formData.DefineSourceExtractCriteria.source_incremental_column?.length
       ) {
         newErrors5.source_incremental_column = "This field is required";
       }
-  
+
       if (
         (!formData.DefineSourceExtractCriteria.incremental_start_time ||
-        !formData.DefineSourceExtractCriteria.incremental_start_time === "")
-        && isDate
+          !formData.DefineSourceExtractCriteria.incremental_start_time ===
+            "") &&
+        isDate
       ) {
         newErrors5.incremental_start_time = "This field is required";
       }
-  
+
       if (
         (!formData.DefineSourceExtractCriteria.incremental_end_time ||
-        !formData.DefineSourceExtractCriteria.incremental_end_time === "")
-        && isDate
+          !formData.DefineSourceExtractCriteria.incremental_end_time === "") &&
+        isDate
       ) {
         newErrors5.incremental_end_time = "This field is required";
       }
-  
+
       if (
         (!formData.DefineSourceExtractCriteria.default_start_date ||
-        !formData.DefineSourceExtractCriteria.default_start_date === "")
-        && isDate
+          !formData.DefineSourceExtractCriteria.default_start_date === "") &&
+        isDate
       ) {
         newErrors5.default_start_date = "This field is required";
       }
       if (
         (!formData.DefineSourceExtractCriteria.incremental_start_sequence ||
-        !formData.DefineSourceExtractCriteria.incremental_start_sequence === "")
-        && isSequence
+          !formData.DefineSourceExtractCriteria.incremental_start_sequence ===
+            "") &&
+        isSequence
       ) {
         newErrors5.incremental_start_sequence = "This field is required";
       }
       if (
         (!formData.DefineSourceExtractCriteria.incremental_end_sequence ||
-        !formData.DefineSourceExtractCriteria.incremental_end_sequence === "")
-        && isSequence
+          !formData.DefineSourceExtractCriteria.incremental_end_sequence ===
+            "") &&
+        isSequence
       ) {
         newErrors5.incremental_end_sequence = "This field is required";
       }
       if (
         (!formData.DefineSourceExtractCriteria.default_start_seq ||
-        !formData.DefineSourceExtractCriteria.default_start_seq === "")
-        && isSequence
+          !formData.DefineSourceExtractCriteria.default_start_seq === "") &&
+        isSequence
       ) {
         newErrors5.default_start_seq = "This field is required";
       }
@@ -295,8 +296,7 @@ function AddPipeline() {
     ) {
       newErrors5.source_entity_type = "This field is required";
     }
-    
-    
+
     setErrors5(newErrors5);
 
     return Object.keys(newErrors5).length === 0;
@@ -324,26 +324,26 @@ function AddPipeline() {
     ) {
       newErrors6.selectedTableSchema = "This field is required";
     }
-    
+
     if (
       !formData.tableData[0]?.target_table ||
       formData.tableData[0]?.target_table === ""
     ) {
       newErrors6.target_table = "This field is required";
     }
- 
+
     if (
       !formData.tableData[0]?.target_database ||
       formData.tableData[0]?.target_database === ""
     ) {
       newErrors6.target_database = "This field is required";
     }
- 
+
     setErrors6(newErrors6);
 
     return Object.keys(newErrors6).length === 0;
   };
-// console.log(formData.tableData[0]?.selectedTableSchema)
+
   const totalPagesCount = 8;
 
   const previousHandler = () => {
@@ -356,7 +356,6 @@ function AddPipeline() {
   // };
 
   const nextHandler = () => {
-    debugger;
     setIsDraftSaved(false);
     if (step === 1) {
       if (validateInputs()) {
@@ -385,7 +384,7 @@ function AddPipeline() {
     } else {
       setStep((step) => step + 1);
     }
-    console.log("Current Step:", step);
+
     setFormData({ ...formData, current_step: step + 1 });
   };
 
@@ -429,8 +428,7 @@ function AddPipeline() {
 
       if (response.ok) {
         // Handle successful response
-        console.log("draft sent successfully!");
-        console.log("draft sending", JSON.stringify(formData));
+
         setIsDraftSaved(true);
         setIsLoading(false);
         // handleCloseModalApp();
