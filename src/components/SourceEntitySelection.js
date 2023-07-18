@@ -5,7 +5,7 @@ import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-sql";
 import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/theme-tomorrow";
+import "ace-builds/src-noconflict/theme-xcode";
 
 const SourceEntitySelection = ({
   step,
@@ -407,8 +407,9 @@ const SourceEntitySelection = ({
                 /> */}
                 <AceEditor
                   mode="sql"
-                  theme="tomorrow"
+                  theme="xcode"
                   name="sql-editor"
+                  fontSize={16}
                   editorProps={{ $blockScrolling: true }}
                   style={{ width: "100%", height: "100px" }}
                   value={formData.sourceEntity.query || ""}

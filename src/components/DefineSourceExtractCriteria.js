@@ -9,8 +9,8 @@ import SuggestionPopUpBox from "./SuggestionPopUpBox";
 import "./SuggestPopUpBox.css";
 
 import "ace-builds/src-noconflict/mode-sql";
-import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/theme-tomorrow";
+import "ace-builds/src-noconflict/theme-xcode";
+// import "ace-builds/src-noconflict/theme-terminal";
 
 const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -597,7 +597,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
             <Col>
               <AceEditor
                 mode="sql"
-                theme="tomorrow"
+                theme="xcode"
                 editorProps={{ $blockScrolling: true }}
                 style={{ width: "100%", height: "50px" }}
                 value={formData.DefineSourceExtractCriteria.filter}
