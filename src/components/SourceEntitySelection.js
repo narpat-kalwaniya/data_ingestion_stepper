@@ -319,10 +319,6 @@ const SourceEntitySelection = ({
 
   // console.log("source entity ingestion data", ingestionData);
 
- 
-
-
-
   return (
     <Card.Body className="custom-card-body">
       <div className="text-left">
@@ -409,7 +405,7 @@ const SourceEntitySelection = ({
                   mode="sql"
                   theme="xcode"
                   name="sql-editor"
-                  fontSize={16}
+                  fontSize="12px"
                   editorProps={{ $blockScrolling: true }}
                   style={{ width: "100%", height: "100px" }}
                   value={formData.sourceEntity.query || ""}
