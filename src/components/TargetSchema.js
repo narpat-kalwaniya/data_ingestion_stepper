@@ -309,7 +309,7 @@ const TbData = ({ formData, updateFormData }) => {
           <td style={{ width: "150px" }}>
             <AceEditor
               mode="sql" // Set the syntax highlighting mode to SQL
-              theme="tomorrow" // Set the editor theme (e.g., 'github', 'monokai', 'dracula', etc.)
+              theme="xcode" // Set the editor theme (e.g., 'github', 'monokai', 'dracula', etc.)
               // name={`query-${row.id}`}
               value={column.transformation_logic}
               onChange={(value) => transformLogicHandler(index, value)}
