@@ -101,6 +101,10 @@ function AddPipeline() {
             const updatedFormData = {
               ...formData,
               tableData: responseData,
+              targetLoadDetails: {
+                ...formData.targetLoadDetails,
+                target_entity_name: responseData[0].target_entity_name,
+              },
             };
             updateFormData(updatedFormData);
             // setFormData(updatedFormData);
