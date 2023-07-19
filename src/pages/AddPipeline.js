@@ -18,6 +18,8 @@ function AddPipeline() {
   const { updateIngestionData } = useContext(DataContext);
   const [isDraftSaved, setIsDraftSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [callRevalidationfunction, setcallRevalidationfunction] =
+    useState(false);
 
   const { formData, setFormData } = useContext(formContext);
   const { step, setStep } = useContext(stepContext);
@@ -223,9 +225,7 @@ function AddPipeline() {
       formData.DefineSourceExtractCriteria.incremental_by === "Date";
     const isSequence =
       formData.DefineSourceExtractCriteria.incremental_by === "Sequence";
-
     const newErrors5 = {};
-
     if (isIncrementalSelected) {
       if (
         !formData.DefineSourceExtractCriteria.incremental_by ||
@@ -233,14 +233,12 @@ function AddPipeline() {
       ) {
         newErrors5.incremental_by = "This field is required";
       }
-
       if (
         !formData.DefineSourceExtractCriteria.source_incremental_column ||
         !formData.DefineSourceExtractCriteria.source_incremental_column?.length
       ) {
         newErrors5.source_incremental_column = "This field is required";
       }
-
       if (
         (!formData.DefineSourceExtractCriteria.incremental_start_time ||
           !formData.DefineSourceExtractCriteria.incremental_start_time ===
@@ -249,7 +247,6 @@ function AddPipeline() {
       ) {
         newErrors5.incremental_start_time = "This field is required";
       }
-
       if (
         (!formData.DefineSourceExtractCriteria.incremental_end_time ||
           !formData.DefineSourceExtractCriteria.incremental_end_time === "") &&
@@ -257,7 +254,6 @@ function AddPipeline() {
       ) {
         newErrors5.incremental_end_time = "This field is required";
       }
-
       if (
         (!formData.DefineSourceExtractCriteria.default_start_date ||
           !formData.DefineSourceExtractCriteria.default_start_date === "") &&
@@ -290,15 +286,13 @@ function AddPipeline() {
       }
     }
 
-    if (
-      !formData.DefineSourceExtractCriteria.source_entity_type ||
-      !formData.DefineSourceExtractCriteria.source_entity_type === ""
-    ) {
-      newErrors5.source_entity_type = "This field is required";
-    }
-
+    // if (
+    //   !formData.DefineSourceExtractCriteria.source_entity_type ||
+    //   !formData.DefineSourceExtractCriteria.source_entity_type === ""
+    // ) {
+    //   newErrors5.source_entity_type = "This field is required";
+    // }
     setErrors5(newErrors5);
-
     return Object.keys(newErrors5).length === 0;
   };
 
@@ -442,12 +436,35 @@ function AddPipeline() {
     }
   };
 
-  const updateFormData = (data) => {
+  const updateFormData = (data, reValidate) => {
     setFormData((prevData) => ({
       ...prevData,
       ...data,
     }));
+    if (reValidate) {
+      setcallRevalidationfunction(reValidate);
+    }
   };
+
+  useEffect(() => {
+    if (callRevalidationfunction) {
+      if (callRevalidationfunction == 5) {
+        validateInputs5();
+      }
+      if (callRevalidationfunction == 1) {
+        validateInputs();
+      }
+      if (callRevalidationfunction == 2) {
+        validateInputs2();
+      }
+      if (callRevalidationfunction == 6) {
+        validateInputs6();
+      }
+      setTimeout(() => {
+        setcallRevalidationfunction(0);
+      });
+    }
+  }, [callRevalidationfunction, callRevalidationfunction]);
 
   const BodyRef = useRef(null);
 

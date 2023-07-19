@@ -9,10 +9,10 @@ import Button from "react-bootstrap/Button";
 import { Trash } from "react-bootstrap-icons";
 import "./Scheduling.css";
 import { Stack } from "react-bootstrap";
-import { Snackbar } from "@mui/material";
 import SchedulingPopupPages from "./SchedulingPopupPages";
 import "./SchedulingPopupPages.css";
 import Select from "react-select";
+import Modal from "react-bootstrap/Modal";
 
 const Scheduling = () => {
   const [field, setField] = useState([]);
@@ -24,11 +24,11 @@ const Scheduling = () => {
   const [togggleState, settogggleState] = useState(false);
   const [tasks, settasks] = useState([]);
 
-  const [snackBar, setSnackBar] = React.useState({
-    open: false,
-    vertical: "bottom",
-    horizontal: "center",
-  });
+  // const [snackBar, setSnackBar] = React.useState({
+  //   open: false,
+  //   vertical: "bottom",
+  //   horizontal: "center",
+  // });
   const {
     register,
     handleSubmit,
@@ -39,6 +39,11 @@ const Scheduling = () => {
   } = useForm({
     defaultValues: {},
   });
+
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
   const scheduleType = watch("schedule_type");
   // const tasks = watch("tasks");
   const parentDagId = watch("parent_dag_id");
@@ -235,8 +240,12 @@ const Scheduling = () => {
         throw new Error(error);
       })
       .then((result) => {
-        setSnackBar({ ...snackBar, open: true });
-        setErrorMessage("");
+        if (result?.status == 200 || result?.status == 201) {
+          handleShowModal();
+          setErrorMessage("");
+        } else {
+          setErrorMessage(result?.message || result?.[0]?.message);
+        }
       })
       .catch((err) => {
         setErrorMessage(
@@ -248,7 +257,8 @@ const Scheduling = () => {
     register("schedule_type");
 
   const handleClose = () => {
-    setSnackBar({ ...snackBar, open: false });
+    window.location.href = "/home";
+    handleCloseModal();
   };
 
   const handleCloseSchedulingModal = () => {
@@ -256,7 +266,7 @@ const Scheduling = () => {
   };
   const handleShowSchedulingModal = () => setShow(true);
 
-  const { vertical, horizontal, open } = snackBar;
+  // const { vertical, horizontal, open } = snackBar;
 
   const handleDataChange = (selectedItems) => {
     const diInject = moduleName.find(
@@ -291,13 +301,31 @@ const Scheduling = () => {
 
   return (
     <>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
         autoHideDuration={5000}
         onClose={handleClose}
         message="Yours Data Fill Successfully"
-      />
+      /> */}
+
+      <Modal
+        show={showModal}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        {/* <Modal.Header>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header> */}
+        <Modal.Body>Your Scheduling is configure Successfully.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Go To Home
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="container JobFormContainer">
         <Form onSubmit={handleSubmit(onSubmitForm)}>
           {/* Form fields */}
@@ -563,7 +591,7 @@ const Scheduling = () => {
                           );
                           const data = await response.json();
                           tasksTemp[index].arguments = JSON.stringify(data);
-                          settasks([...tasksTemp ]);
+                          settasks([...tasksTemp]);
                         }}
                       >
                         <option value={null}></option>

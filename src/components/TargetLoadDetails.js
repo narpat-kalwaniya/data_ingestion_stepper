@@ -30,7 +30,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
         [event.target.name]: event.target.value,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 6);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.target_load_details = {
@@ -47,7 +47,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
       ...(_fromData.tableData[index] || {}),
       [event.target.name]: event.target.value,
     };
-    updateFormData(_fromData);
+    updateFormData(_fromData, 6);
   };
 
   const optionChangeHandler = (event) => {
@@ -59,7 +59,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
         ["target_load_type"]: event.target.value,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 6);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.target_load_details = {
@@ -81,7 +81,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
         },
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 6);
     const updatedData = { ...ingestionData[0] };
     updatedData.target_load_details = {
       ...updatedData.target_load_details,
@@ -102,7 +102,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
         },
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 6);
   };
 
   const chechBoxHandler = (e) => {
@@ -114,7 +114,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
         [e.target.name]: e.target.checked,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 6);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.target_load_details = {

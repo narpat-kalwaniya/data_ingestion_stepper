@@ -57,7 +57,7 @@ const SourceEntitySelection = ({
       ...formData,
       sourceEntity: updatedSourceEntity,
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 2);
 
     const updatedData = {
       data_source_type: value,
@@ -78,7 +78,7 @@ const SourceEntitySelection = ({
       ...formData,
       sourceEntity: updatedSourceEntity,
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 2);
 
     const updatedData = {
       db_name: value,
@@ -98,7 +98,7 @@ const SourceEntitySelection = ({
       ...formData,
       sourceEntity: updatedSourceEntity,
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 2);
     const updatedData = {
       schema_name: value,
     };
@@ -116,7 +116,7 @@ const SourceEntitySelection = ({
       ...formData,
       sourceEntity: updatedSourceEntity,
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 2);
 
     const updatedData = {
       table_name: value,
@@ -134,7 +134,7 @@ const SourceEntitySelection = ({
       ...formData,
       sourceEntity: updatedSourceEntity,
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 2);
 
     const updatedData = {
       query: newQuery,
@@ -198,7 +198,7 @@ const SourceEntitySelection = ({
         ...formData,
         sourceEntity: updatedSourceEntity,
       };
-      updateFormData(updatedFormData);
+      updateFormData(updatedFormData, 2);
       const updatedData = {
         bucket_name: value,
       };
@@ -213,7 +213,7 @@ const SourceEntitySelection = ({
         ...formData,
         sourceEntity: updatedSourceEntity,
       };
-      updateFormData(updatedFormData);
+      updateFormData(updatedFormData, 2);
       const updatedData = {
         full_file_name: value,
       };
@@ -318,10 +318,6 @@ const SourceEntitySelection = ({
   }, [dataSourceType]);
 
   // console.log("source entity ingestion data", ingestionData);
-
- 
-
-
 
   return (
     <Card.Body className="custom-card-body">

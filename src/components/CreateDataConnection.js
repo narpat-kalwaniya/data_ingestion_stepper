@@ -84,7 +84,7 @@ const CreateDataConnection = ({
         connection_id: selectedConnectionId,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 1);
 
     const updatedData = { source_connection_id: selectedConnectionId };
     updateIngestionData(updatedData);
@@ -107,7 +107,7 @@ const CreateDataConnection = ({
         dataTarget: selectedConnectionName,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 1);
 
     const updatedData = {
       target_connection_id: selectedConnectionId,
@@ -132,7 +132,7 @@ const CreateDataConnection = ({
         application: selectedApplicationName,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 1);
 
     const updatedData = {
       app_id: selectedConnectionId,

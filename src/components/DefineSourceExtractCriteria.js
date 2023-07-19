@@ -48,7 +48,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         [e.target.name]: e.target.checked,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -67,7 +67,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         [e.target.name]: e.target.value,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
     console.log("selected pageData", pageData);
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -86,7 +86,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         filter: code,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
     console.log("selected pageData", pageData);
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -106,7 +106,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         [e.target.name]: e.target.value,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -126,7 +126,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         [e.target.name]: e.target.value,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -149,7 +149,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         order_by: selectedLabels,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -170,7 +170,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
         source_incremental_column: selectedLabels,
       },
     };
-    updateFormData(updatedFormData);
+    updateFormData(updatedFormData, 5);
 
     const updatedData = { ...ingestionData[0] };
     updatedData.source_extract_criteria = {
@@ -191,7 +191,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
     //       [e.target.name]: [...selectedValues, selectedOption],
     //     },
     //   };
-    //   updateFormData(updatedFormData);
+    //   updateFormData(updatedFormData,5);
 
     //   const updatedData = { ...ingestionData[0] };
     //   updatedData.source_extract_criteria = {
@@ -216,7 +216,7 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   //       source_incremental_column: selectedValues.filter((v) => v !== value),
   //     },
   //   };
-  //   updateFormData(updatedFormData);
+  //   updateFormData(updatedFormData,5);
 
   //   const updatedData = { ...ingestionData[0] };
   //   updatedData.source_extract_criteria = {
@@ -231,8 +231,6 @@ const DefineSourceExtractCriteria = ({ formData, updateFormData, errors5 }) => {
   const isDateSelected =
     formData.DefineSourceExtractCriteria.source_entity_type === "incremental" &&
     formData.DefineSourceExtractCriteria.incremental_by === "Date";
-
-  console.log("form data in source", formData);
 
   function copiesOrderBy(arr, key, suffix1, suffix2) {
     return arr.flatMap((obj) => [obj[key] + suffix1, obj[key] + suffix2]);
