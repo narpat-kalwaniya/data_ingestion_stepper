@@ -13,7 +13,7 @@ import "./SearchNavbarButton.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#CACACA",
+    backgroundColor: "rgb(243, 243, 243)",
     fontSize: "12px",
     letterSpacing: "0px",
     color: "#4F4F4F",

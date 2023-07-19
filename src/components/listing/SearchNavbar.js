@@ -19,6 +19,7 @@ import ButtonPages from "../buttons/ButtonPages";
 import "./SearchNavbarButton.css";
 import "../../styles/main.css";
 import AddIcon from "@mui/icons-material/Add";
+import { Upload } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import Drafts from "../Drafts";
 import { formContext } from "../formContext";
@@ -298,13 +299,21 @@ export default function ListingPage() {
                       </sup>
                     )}
                   </div>
-                  <Button className="searchNavbarBtnStyleUpload">
-                    {" "}
-                    Upload
-                  </Button>
+                  <button
+                    className="btn-c"
+                    style={{
+                      paddingLeft: "8px",
+                      paddingRight: "8px",
+                      color: "#F7901D",
+                      borderColor: "#F7901D",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <Upload style={{ marginRight: "4px" }} /> Upload
+                  </button>
                   <button
                     className="btn-s"
-                    style={{ paddingLeft: "10px", paddingRight: "10px" }}
+                    style={{ paddingLeft: "8px", paddingRight: "8px" }}
                     onClick={() => {
                       handleClickOpen(true);
                     }}

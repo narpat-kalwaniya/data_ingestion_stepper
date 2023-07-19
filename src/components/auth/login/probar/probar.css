@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.vertical-progress-bar {
+  transform: rotate(-90deg);
+  height: 300px; /* Adjust the height as per your requirement */
+  background-color: #f1f1f1; /* Set the background color of the progress bar */
+  position: relative;
+  padding: 0 15px;
+  border-radius: 5px;
+}
+
+.vertical-progress-bar .progress-bar {
+  background-color: #007bff; /* Set the color of the progress segments */
+  border-radius: 0;
+  height: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.vertical-progress-bar .progress-bar:first-child {
+  margin-top: 10px;
+}
+
+.vertical-progress-bar .progress-bar:last-child {
+  margin-bottom: 0;
+}
+
+.vertical-progress-bar .progress-bar::before {
+  content: '';
+  position: absolute;
+  top: 10px; /* Adjust the vertical position of the station marker */
+  left: -7.5px; /* Adjust the horizontal position of the station marker */
+  width: 15px;
+  height: 15px;
+  background-color: #007bff; /* Set the color of the station marker */
+  border-radius: 50%;
+}
+
+.vertical-progress-bar .progress-bar:last-child::before {
+  right: -7.5px; /* Adjust the horizontal position of the last station marker */
+  left: auto;
+}

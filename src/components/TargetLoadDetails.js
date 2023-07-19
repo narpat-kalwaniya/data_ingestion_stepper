@@ -40,7 +40,8 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
     updateIngestionData(updatedData);
   };
 
-  const changeTableHandler = (event, index) => {
+  const targetSchemaHandler = (event, index) => {
+    console.log(event.target.value);
     const _fromData = { ...formData };
     // console.log(_fromData.tableData, event.target.name, event.target.value);
     _fromData.tableData[index] = {
@@ -48,6 +49,65 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
       [event.target.name]: event.target.value,
     };
     updateFormData(_fromData, 6);
+
+    const updatedSchema =
+      formData.tableData[0]?.target_entity_name.split(".")[0] +
+      "." +
+      event.target.value +
+      "." +
+      formData.targetLoadDetails.target_entity_name.split(".")[2];
+
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        ["target_entity_name"]: updatedSchema,
+      },
+    };
+    updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.target_load_details = {
+      ...updatedData.target_load_details,
+      ["target_entity_name"]: updatedSchema,
+    };
+    updateIngestionData(updatedData);
+    console.log(formData);
+  };
+
+  const targetTableHandler = (event, index) => {
+    const _fromData = { ...formData };
+    // console.log(_fromData.tableData, event.target.name, event.target.value);
+    _fromData.tableData[index] = {
+      ...(_fromData.tableData[index] || {}),
+      [event.target.name]: event.target.value,
+    };
+    updateFormData(_fromData);
+
+    const updatedtarget =
+      formData.targetLoadDetails.target_entity_name
+        .split(".")
+        .slice(0, 2)
+        .join(".") +
+      "." +
+      event.target.value;
+
+    const updatedFormData = {
+      ...formData,
+      targetLoadDetails: {
+        ...formData.targetLoadDetails,
+        ["target_entity_name"]: updatedtarget,
+      },
+    };
+    updateFormData(updatedFormData);
+
+    const updatedData = { ...ingestionData[0] };
+    updatedData.target_load_details = {
+      ...updatedData.target_load_details,
+      ["target_entity_name"]: updatedtarget,
+    };
+    updateIngestionData(updatedData);
+    console.log(formData);
   };
 
   const optionChangeHandler = (event) => {
@@ -137,7 +197,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 Target Database
                 {/* <span className="text-danger">*</span> */}
               </Form.Label>
-              <p>{formData.tableData[0]?.target_database}</p>
+              <p>{formData.tableData[0]?.target_entity_name.split(".")[0]}</p>
 
               {/* <Form.Control
                 type="text"
@@ -163,13 +223,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 className="custom-select custom-style"
                 value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
-                onChange={(e) => changeTableHandler(e, 0)}
-                style={{
-                  fontSize: "13px",
-                  color: "rgb(141 139 139);",
-                  fontWeight: "100",
-                  border: "1px solid #ced4da",
-                }}
+                onChange={(e) => targetSchemaHandler(e, 0)}
               >
                 <option value="">-- Select --</option>{" "}
                 {formData.tableData?.[0]?.target_schemas?.map((item, index) => (
@@ -185,7 +239,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
 
             <Col md={4}>
               <Form.Label>
-                Target Entity Name <span className="text-danger">*</span>
+                Target Table Name <span className="text-danger">*</span>
               </Form.Label>
               <Form.Control
                 required
@@ -194,14 +248,8 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 value={formData.tableData[0]?.target_table}
                 disabled={false}
                 name="target_table"
-                onChange={(e) => changeTableHandler(e, 0)}
+                onChange={(e) => targetTableHandler(e, 0)}
                 isInvalid={errors6.target_table}
-                style={{
-                  fontSize: "13px",
-                  color: "rgb(141 139 139);",
-                  fontWeight: "100",
-                  border: "1px solid #ced4da",
-                }}
               />
               {errors6.target_table && (
                 <div className="error">{errors6.target_table}</div>
