@@ -8,6 +8,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Trash } from "react-bootstrap-icons";
 import "./Scheduling.css";
+import "../styles/main.css";
 import { Stack } from "react-bootstrap";
 import SchedulingPopupPages from "./SchedulingPopupPages";
 import "./SchedulingPopupPages.css";
@@ -320,9 +321,9 @@ const Scheduling = () => {
         </Modal.Header> */}
         <Modal.Body>Your Scheduling is configure Successfully.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Go To Home
-          </Button>
+          <button variant="primary" onClick={handleClose} className="btn-c">
+            Close
+          </button>
         </Modal.Footer>
       </Modal>
 
