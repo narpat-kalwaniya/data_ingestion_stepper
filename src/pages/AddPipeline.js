@@ -512,6 +512,7 @@ function AddPipeline() {
           {!isSubmitted ? (
             <SectionMenu
               step={step}
+              setStep={setStep}
               isReview={isReview}
               setIsReview={setIsReview}
             />
