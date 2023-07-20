@@ -31,6 +31,13 @@ const SectionMenu = (props) => {
   const reviewHandler = () => {
     props.setIsReview(!props.isReview);
   };
+
+  const stepChangeHandler = (index) => {
+    console.log("section clicked", index);
+    if (index <= props.step - 1) {
+      props.setStep(index);
+    }
+  };
   return (
     <div style={{ width: "250px" }}>
       <Col>
@@ -80,7 +87,12 @@ const SectionMenu = (props) => {
                     />
                   )} */}
                 </div>
-                {item}
+                <span
+                  onClick={(e) => stepChangeHandler(index + 1)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {item}
+                </span>
               </div>
             </ListGroup.Item>
           ))}
