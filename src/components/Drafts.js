@@ -21,7 +21,7 @@ function Drafts(props) {
   const rowClickHandler = (row) => {
     props.setFormData(row);
     props.setOpen(true);
-    // props.setStep(row.current_step);
+    props.setStep(row.current_step);
     console.log(props.formData);
   };
 
