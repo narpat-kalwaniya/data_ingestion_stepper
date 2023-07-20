@@ -329,7 +329,7 @@ th, thead {
 }
 
 .react-tagsinput--focused {
-  border-color: "#18749C";
+  border-color: rgb(53, 143, 182);
 }
 
 .react-tagsinput-tag {
