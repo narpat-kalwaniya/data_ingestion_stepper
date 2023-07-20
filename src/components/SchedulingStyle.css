@@ -1,0 +1,33 @@
+.searchNavbarBtnStyleUpload {
+    /* background-color: #F7901D !important; */
+letter-spacing: 0px;
+color: #EA943D !important;
+opacity: 1 !important;
+border: 1px solid #EA943D !important;
+border-radius: 4px !important;
+font-size: 14px !important;
+text-transform: none !important;
+}
+.searchNavbarBtnStyleAdd {
+    background-color: #F7901D !important;
+    color: white !important; 
+    font-size: 14px !important;
+    text-transform: none !important;
+}
+.AddOutlinedIcon {
+    font-size: medium !important;
+    /* color: #F3F3F3 !important; */
+
+    opacity: 1 !important;
+}
+.listOfPipelineNavbar {
+    background-color: #E0E0E0 !important;
+}
+.viewBtnStyle:hover {
+color: #18749C !important;
+cursor: pointer !important;
+
+}
+.searchInputStyle {
+    width: 50% !important;
+}

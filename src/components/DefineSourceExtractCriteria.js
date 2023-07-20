@@ -472,7 +472,7 @@ const DefineSourceExtractCriteria = ({
                 )}
             </Col>
             <Col md={4}>
-              <Form.Label for="incremental_start_time">End Datetime</Form.Label>
+              <Form.Label for="incremental_end_time">End Datetime</Form.Label>
               <Form.Control
                 // type="text"
                 isInvalid={
@@ -483,6 +483,9 @@ const DefineSourceExtractCriteria = ({
                 className="custom-select custom-style"
                 name="incremental_end_time"
                 step="0.001"
+                min={
+                  formData.DefineSourceExtractCriteria.incremental_start_time
+                }
                 id="incremental_end_time"
                 value={
                   formData.DefineSourceExtractCriteria.incremental_end_time

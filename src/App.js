@@ -11,6 +11,7 @@ import ListingPage from "./components/listing/SearchNavbar";
 import NotFound from "./components/notFound/NotFound";
 import { formContext } from "./components/formContext";
 import { stepContext } from "./components/stepContext";
+import SchedulingPipeline from "./components/SchedulingPipeline";
 
 function App() {
   const [user, setUser] = useState();
@@ -106,6 +107,10 @@ function App() {
                 <Route
                   path="/scheduling/configuration"
                   element={<Scheduling />}
+                />
+                <Route
+                  path="/scheduling/edit"
+                  element={<SchedulingPipeline />}
                 />
               </Route>
               <Route path="*" element={<NotFound />} />
