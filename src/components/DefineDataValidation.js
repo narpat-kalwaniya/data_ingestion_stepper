@@ -323,50 +323,52 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                   </React.Fragment>
                 ))}
             </td>
-            <td>
+            <td style={{ paddingTop: "19px" }}>
               <div className="d-flex justify-content-between align-items-center">
-                {Array(inputCounts[rowIndex])
-                  .fill()
-                  .map((_, inputIndex) => (
-                    <React.Fragment key={`${rowIndex}-${inputIndex}`}>
-                      <Form.Group>
-                        <TagsInput
-                          value={
+                <div>
+                  {Array(inputCounts[rowIndex])
+                    .fill()
+                    .map((_, inputIndex) => (
+                      <React.Fragment key={`${rowIndex}-${inputIndex}`}>
+                        <Form.Group>
+                          <TagsInput
+                            value={
+                              (tagValues[rowIndex] &&
+                                tagValues[rowIndex][inputIndex]) ||
+                              []
+                            }
+                            onChange={(tags) =>
+                              handleTagChange(tags, rowIndex, inputIndex)
+                            }
+                            validationRegex={/^.*$/}
+                            validationError="Please enter valid tags"
+                            tagProps={{ className: "react-tagsinput-tag info" }}
+                            inputProps={{ placeholder: " " }}
+                          />
+                          {!validateTagCount(
                             (tagValues[rowIndex] &&
                               tagValues[rowIndex][inputIndex]) ||
-                            []
-                          }
-                          onChange={(tags) =>
-                            handleTagChange(tags, rowIndex, inputIndex)
-                          }
-                          validationRegex={/^.*$/}
-                          validationError="Please enter valid tags"
-                          tagProps={{ className: "react-tagsinput-tag info" }}
-                          inputProps={{ placeholder: " " }}
-                        />
-                        {!validateTagCount(
-                          (tagValues[rowIndex] &&
-                            tagValues[rowIndex][inputIndex]) ||
-                            []
-                        ) && (
-                          <Form.Text className="text-danger">
-                            Please select fewer than 3 values
-                          </Form.Text>
-                        )}
-                      </Form.Group>
-                      <br /> {/* Add spacing between the fields */}
-                    </React.Fragment>
-                  ))}
-
-                <HiOutlinePlus
-                  style={{
-                    height: "15px",
-                    width: "15px",
-                    color: "white",
-                    backgroundColor: "#4F4F4F",
-                  }}
-                  onClick={() => handleAddInput(rowIndex)}
-                />
+                              []
+                          ) && (
+                            <Form.Text className="text-danger">
+                              Please select fewer than 3 values
+                            </Form.Text>
+                          )}
+                        </Form.Group>
+                        <br /> {/* Add spacing between the fields */}
+                      </React.Fragment>
+                    ))}
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      paddingTop: "10px",
+                      color: "#18749C",
+                    }}
+                    onClick={() => handleAddInput(rowIndex)}
+                  >
+                    + Add Rule
+                  </span>
+                </div>
               </div>
             </td>
 
