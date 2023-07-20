@@ -82,6 +82,7 @@ function AddPipeline() {
     };
 
     const fetchData = async () => {
+      // setIsLoading(true);
       try {
         const response = await fetch(
           "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
@@ -117,6 +118,7 @@ function AddPipeline() {
               ],
             };
             updateIngestionData(updatedData);
+            setIsLoading(false);
           }
         } else {
           console.error("Error:", response.status);
@@ -125,6 +127,7 @@ function AddPipeline() {
         console.error("Error:", error);
       }
     };
+
     fetchData();
   }, [step === 2]);
 
@@ -558,6 +561,7 @@ function AddPipeline() {
                           setIsReview={setIsReview}
                           isLoading={isLoading}
                           setIsLoading={setIsLoading}
+                          setIsDraftSaved={setIsDraftSaved}
                         />
                       </Card.Body>
                     </Container>
