@@ -20,6 +20,7 @@ function AddPipeline() {
   const [isLoading, setIsLoading] = useState(false);
   const [callRevalidationfunction, setcallRevalidationfunction] =
     useState(false);
+  const [currentlySubmittedForm, setcurrentlySubmittedForm] = useState(0);
 
   const { formData, setFormData } = useContext(formContext);
   const { step, setStep } = useContext(stepContext);
@@ -355,6 +356,7 @@ function AddPipeline() {
 
   const nextHandler = () => {
     setIsDraftSaved(false);
+    setcurrentlySubmittedForm(step);
     if (step === 1) {
       if (validateInputs()) {
         setStep((step) => step + 1);
@@ -558,6 +560,7 @@ function AddPipeline() {
                           setIsReview={setIsReview}
                           isLoading={isLoading}
                           setIsLoading={setIsLoading}
+                          currentlySubmittedForm={currentlySubmittedForm}
                         />
                       </Card.Body>
                     </Container>

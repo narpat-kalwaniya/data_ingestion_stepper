@@ -23,6 +23,7 @@ const CreateDataConnection = ({
   step,
   errors,
   setisVisibleOption,
+  currentlySubmittedForm,
 }) => {
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -194,7 +195,7 @@ const CreateDataConnection = ({
                   <Form.Select
                     onChange={handleSelection}
                     value={formData.CreateDataConnection.dataSource}
-                    isInvalid={errors.dataSource}
+                    isInvalid={currentlySubmittedForm == 1 && errors.dataSource}
                     required
                     // className="dropdown-item"
                     style={{
@@ -214,7 +215,7 @@ const CreateDataConnection = ({
                       </option>
                     ))}
                   </Form.Select>
-                  {errors.dataSource && (
+                  {currentlySubmittedForm == 1 && errors.dataSource && (
                     <div className="error">{errors.dataSource}</div>
                   )}
                 </Col>
@@ -241,7 +242,7 @@ const CreateDataConnection = ({
                   <Form.Select
                     onChange={handleTargetSelection}
                     value={formData.CreateDataConnection.dataTarget}
-                    isInvalid={errors.dataTarget}
+                    isInvalid={currentlySubmittedForm == 1 && errors.dataTarget}
                     required
                     style={{
                       fontSize: "13px",
@@ -260,7 +261,7 @@ const CreateDataConnection = ({
                       </option>
                     ))}
                   </Form.Select>
-                  {errors.dataTarget && (
+                  {currentlySubmittedForm == 1 && errors.dataTarget && (
                     <div className="error">{errors.dataTarget}</div>
                   )}
                 </Col>
@@ -290,7 +291,9 @@ const CreateDataConnection = ({
                   <Form.Select
                     onChange={handleApplicationSelection}
                     value={formData.CreateDataConnection.application}
-                    isInvalid={errors.application}
+                    isInvalid={
+                      currentlySubmittedForm == 1 && errors.application
+                    }
                     required
                     style={{
                       fontSize: "13px",
@@ -309,7 +312,7 @@ const CreateDataConnection = ({
                       </option>
                     ))}
                   </Form.Select>
-                  {errors.application && (
+                  {currentlySubmittedForm == 1 && errors.application && (
                     <div className="error">{errors.application}</div>
                   )}
                 </Col>

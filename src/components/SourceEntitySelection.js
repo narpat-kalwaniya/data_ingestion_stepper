@@ -13,6 +13,7 @@ const SourceEntitySelection = ({
   updateFormData,
   errors2,
   isVisibleOption,
+  currentlySubmittedForm,
 }) => {
   const [dataSourceType, setDataSourceType] = useState(
     formData.sourceEntity.data_source_type
@@ -379,7 +380,7 @@ const SourceEntitySelection = ({
                 />
               </div>
 
-              {errors2.data_source_type && (
+              {currentlySubmittedForm == 2 && errors2.data_source_type && (
                 <div className="error">{errors2.data_source_type}</div>
               )}
             </Col>
@@ -411,7 +412,9 @@ const SourceEntitySelection = ({
                   value={formData.sourceEntity.query || ""}
                   onChange={queryChangeHandler}
                 />
-                {errors2.query && <div className="error">{errors2.query}</div>}
+                {currentlySubmittedForm == 2 && errors2.query && (
+                  <div className="error">{errors2.query}</div>
+                )}
               </div>
             </Row>
           )}
@@ -427,7 +430,7 @@ const SourceEntitySelection = ({
                   onChange={handleDatabaseChange}
                   // disabled={dataSourceType !== "RDBMS-TABLE"}
                   disabled={disableElement.db_name}
-                  isInvalid={errors2.db_name}
+                  isInvalid={currentlySubmittedForm == 2 && errors2.db_name}
                   className="custom-select custom-style"
                 >
                   <option value="">Select Database</option>
@@ -437,7 +440,7 @@ const SourceEntitySelection = ({
                     </option>
                   ))}
                 </Form.Select>
-                {errors2.db_name && (
+                {currentlySubmittedForm == 2 && errors2.db_name && (
                   <div className="error">{errors2.db_name}</div>
                 )}
               </div>
@@ -454,7 +457,7 @@ const SourceEntitySelection = ({
                   //   dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
                   // }
                   disabled={disableElement.schema_name || !selectedDatabase}
-                  isInvalid={errors2.schema_name}
+                  isInvalid={currentlySubmittedForm == 2 && errors2.schema_name}
                   className="custom-select custom-style"
                 >
                   <option value="">Select Schema</option>
@@ -464,7 +467,7 @@ const SourceEntitySelection = ({
                     </option>
                   ))}
                 </Form.Select>
-                {errors2.schema_name && (
+                {currentlySubmittedForm == 2 && errors2.schema_name && (
                   <div className="error">{errors2.schema_name}</div>
                 )}
               </div>
@@ -483,7 +486,7 @@ const SourceEntitySelection = ({
                   //   !selectedSchema
                   // }
                   disabled={disableElement.table_name || !selectedSchema}
-                  isInvalid={errors2.table_name}
+                  isInvalid={currentlySubmittedForm == 2 && errors2.table_name}
                   className="custom-select custom-style"
                 >
                   <option value="">Select Table</option>
@@ -493,7 +496,7 @@ const SourceEntitySelection = ({
                     </option>
                   ))}
                 </Form.Select>
-                {errors2.table_name && (
+                {currentlySubmittedForm == 2 && errors2.table_name && (
                   <div className="error">{errors2.table_name}</div>
                 )}
               </div>
@@ -513,9 +516,9 @@ const SourceEntitySelection = ({
                   value={formData.sourceEntity.bucket_name}
                   // disabled={dataSourceType !== "Flat File"}
                   disabled={disableElement.bucket_name}
-                  isInvalid={errors2.bucket_name}
+                  isInvalid={currentlySubmittedForm == 2 && errors2.bucket_name}
                 />
-                {errors2.bucket_name && (
+                {currentlySubmittedForm == 2 && errors2.bucket_name && (
                   <div className="error">{errors2.bucket_name}</div>
                 )}
               </div>
@@ -533,9 +536,11 @@ const SourceEntitySelection = ({
                   value={formData.sourceEntity.full_file_name}
                   // disabled={dataSourceType !== "Flat File"}
                   disabled={disableElement.full_file_name}
-                  isInvalid={errors2.full_file_name}
+                  isInvalid={
+                    currentlySubmittedForm == 2 && errors2.full_file_name
+                  }
                 />
-                {errors2.full_file_name && (
+                {currentlySubmittedForm == 2 && errors2.full_file_name && (
                   <div className="error">{errors2.full_file_name}</div>
                 )}
               </div>

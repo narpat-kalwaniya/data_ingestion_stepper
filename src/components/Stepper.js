@@ -21,6 +21,7 @@ const Stepper = ({
   errors5,
   errors6,
   updateTargetLoad,
+  currentlySubmittedForm,
 }) => {
   const [isVisibleOption, setisVisibleOption] = useState(true);
 
@@ -33,6 +34,7 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
           errors={errors}
         />
       ) : step === 2 ? (
@@ -41,6 +43,7 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
           errors2={errors2}
         />
       ) : step === 3 ? (
@@ -48,6 +51,7 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
           updateTableData={updateTableData}
         />
       ) : step === 4 ? (
@@ -55,12 +59,14 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
         />
       ) : step === 5 ? (
         <DefineSourceExtractCriteria
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
           errors5={errors5}
         />
       ) : step === 6 ? (
@@ -68,6 +74,7 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
           errors6={errors6}
         />
       ) : step === 7 ? (
@@ -75,18 +82,21 @@ const Stepper = ({
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
         />
       ) : step === 8 ? (
         <GatherMetaData
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
         />
       ) : step === 9 ? (
         <Scheduling
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          currentlySubmittedForm={currentlySubmittedForm}
         />
       ) : null}
     </div>

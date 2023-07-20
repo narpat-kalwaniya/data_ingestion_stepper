@@ -13,7 +13,12 @@ import { DataContext } from "./DataContext";
 
 import "./TargetLoadDetails.css";
 
-const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
+const TargetLoadDetails = ({
+  formData,
+  updateFormData,
+  errors6,
+  currentlySubmittedForm,
+}) => {
   // console.log("formData==>", formData);
   // console.log("error", errors6);
   const [checked, setChecked] = useState(
@@ -208,7 +213,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 onChange={(e) => changeTableHandler(e, 0)}
                 isInvalid={errors6.target_database}
               /> */}
-              {errors6.target_database && (
+              {currentlySubmittedForm == 6 && errors6.target_database && (
                 <div className="error">{errors6.target_database}</div>
               )}
             </Col>
@@ -219,7 +224,9 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
               </Form.Label>
               <Form.Select
                 required
-                isInvalid={errors6.selectedTableSchema}
+                isInvalid={
+                  currentlySubmittedForm == 6 && errors6.selectedTableSchema
+                }
                 className="custom-select custom-style"
                 value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
@@ -232,7 +239,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                   </option>
                 ))}
               </Form.Select>
-              {errors6.selectedTableSchema && (
+              {currentlySubmittedForm == 6 && errors6.selectedTableSchema && (
                 <div className="error">{errors6.selectedTableSchema}</div>
               )}
             </Col>
@@ -249,9 +256,9 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                 disabled={false}
                 name="target_table"
                 onChange={(e) => targetTableHandler(e, 0)}
-                isInvalid={errors6.target_table}
+                isInvalid={currentlySubmittedForm == 6 && errors6.target_table}
               />
-              {errors6.target_table && (
+              {currentlySubmittedForm == 6 && errors6.target_table && (
                 <div className="error">{errors6.target_table}</div>
               )}
             </Col>
@@ -324,7 +331,7 @@ const TargetLoadDetails = ({ formData, updateFormData, errors6 }) => {
                   style={{ marginRight: "25px" }}
                 ></Form.Check>
               </div>
-              {errors6.target_load_type && (
+              {currentlySubmittedForm == 6 && errors6.target_load_type && (
                 <div className="error">{errors6.target_load_type}</div>
               )}
             </Col>
