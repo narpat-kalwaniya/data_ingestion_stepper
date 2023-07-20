@@ -2,6 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { Table, Form } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 import AceEditor from "react-ace";
+import { Add } from "react-bootstrap-icons";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "../styles/main.css";
+//
 
 // Import the SQL mode for Ace Editor (for SQL syntax highlighting)
 import "ace-builds/src-noconflict/mode-sql";
@@ -19,7 +24,7 @@ const headers = [
   "Transformation Logic",
 ];
 
-const TbData = ({ formData, updateFormData }) => {
+const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
   const { ingestionData, updateIngestionData } = useContext(DataContext);
   // const [tableData, setTableData] = useState([...formData.tableData]);
   const [showInputBoxes, setShowInputBoxes] = useState(false);
@@ -198,6 +203,7 @@ const TbData = ({ formData, updateFormData }) => {
       tableData: updatedTableData,
     };
     updateFormData(updatedFormData);
+    setIsDraftSaved(false);
   };
 
   console.log("target ingestion", ingestionData[0].attributes);
@@ -230,11 +236,15 @@ const TbData = ({ formData, updateFormData }) => {
   console.log("table data", formData.tableData);
   return (
     <tbody style={{ fontSize: "12px" }}>
-      <tr>
-        <td colSpan="7" style={{ textAlign: "right" }}>
-          <button onClick={addRow}>Add Row</button>
-        </td>
-      </tr>
+      <td colSpan="7" style={{ textAlign: "right" }}>
+        <span
+          onClick={addRow}
+          style={{ cursor: "pointer", paddingTop: "10px", color: "#18749C" }}
+        >
+          + Add Column
+        </span>
+      </td>
+
       {formData.tableData.map((column, index) => (
         <tr
           key={index}
@@ -315,16 +325,35 @@ const TbData = ({ formData, updateFormData }) => {
               onChange={(value) => transformLogicHandler(index, value)}
               width="100%"
               height="50px"
-              // showPrintMargin={false}
-              // showGutter={true}
+              showPrintMargin={false}
+              showGutter={false}
+              cursorStart={5}
               // highlightActiveLine={true}
               editorProps={{ $blockScrolling: true }}
             />
           </td>
           <td>
             {index === newRowIndex && showInputBoxes ? (
-              <button onClick={() => deleteRow(index)}>X</button>
-            ) : null}
+              <button className="delete-btn" onClick={() => deleteRow(index)}>
+                <i className="bi bi-x-lg text-danger"></i>{" "}
+                {/* bi-x-lg is the class for the larger "x" icon */}
+              </button>
+            ) : // <span
+
+            //   style={{
+            //     position: "sticky",
+            //     cursor: "pointer",
+            //     border: "1px",
+            //     borderColor: "red",
+            //     color: "red",
+            //     padding: "5px",
+            //     borderRadius: "50%",
+            //     width: "10px",
+            //   }}
+            // >
+            //   X
+            // </span>
+            null}
           </td>
         </tr>
       ))}
@@ -337,7 +366,7 @@ const TbData = ({ formData, updateFormData }) => {
   );
 };
 
-export const TargetSchema = ({ formData, updateFormData }) => {
+export const TargetSchema = ({ formData, updateFormData, setIsDraftSaved }) => {
   return (
     <Table hover responsive>
       <thead
@@ -354,7 +383,11 @@ export const TargetSchema = ({ formData, updateFormData }) => {
           ))}
         </tr>
       </thead>
-      <TbData formData={formData} updateFormData={updateFormData} />
+      <TbData
+        formData={formData}
+        updateFormData={updateFormData}
+        setIsDraftSaved={setIsDraftSaved}
+      />
     </Table>
   );
 };

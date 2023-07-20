@@ -1,6 +1,7 @@
 .sidebar {
   min-height: 100vh;
   transition: all ease 0.5s;
+  border-right: 0.5px solid rgb(230, 227, 227);
 }
 .sidebar input[type=checkbox]:checked + div ul li span,
 .sidebar input[type=checkbox]:checked + div ul .special span {
@@ -39,7 +40,7 @@
 .sidebar input[type=checkbox]:checked + div + div .item:hover {
   background-color: rgba(0, 0, 0, 0.007) !important;
   border-left: none !important;
-  transform: scale(1.3) !important;
+  transform: scale(1.4) !important;
 }
 .sidebar input[type=checkbox]:checked + div + div .item .counter {
   width: 15px;
@@ -62,10 +63,9 @@
   border-radius: 50%;
 }
 .sidebar .navF {
-  /* border-right: 0.5px solid rgb(230, 227, 227); */
-  min-height: 100vh;
   position: sticky;
   top: 0px;
+  left: 0px;
 }
 .sidebar .navF .top {
   height: 40px;
@@ -112,6 +112,9 @@
 .sidebar .navF ul .special .side {
   color: white !important;
 }
+.sidebar .navF ul .special .governance {
+  margin-left: 0px !important;
+}
 .sidebar .navF ul .special .dis {
   color: white !important;
   display: block !important;
@@ -128,13 +131,13 @@
 .sidebar .navF ul .itemD {
   display: none;
   margin-top: 5px;
-  margin-left: 80px;
-  /* margin-left: 45px; */
+  font-size: 13px;
+  margin-left: 45px;
   cursor: pointer;
 }
 .sidebar .navF ul .itemD p:hover {
   color: #a6a8aa;
-} 
+}
 .sidebar .navF ul .itemC_dis {
   display: block;
 }

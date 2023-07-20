@@ -22,6 +22,9 @@ const Stepper = ({
   errors6,
   updateTargetLoad,
   currentlySubmittedForm,
+  setIsDraftSaved,
+  isLoading,
+  setIsLoading,
 }) => {
   const [isVisibleOption, setisVisibleOption] = useState(true);
 
@@ -53,6 +56,9 @@ const Stepper = ({
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
           updateTableData={updateTableData}
+          setIsDraftSaved={setIsDraftSaved}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       ) : step === 4 ? (
         <DefineDataValidation
@@ -60,6 +66,7 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 5 ? (
         <DefineSourceExtractCriteria
@@ -68,6 +75,7 @@ const Stepper = ({
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
           errors5={errors5}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 6 ? (
         <TargetLoadDetails
@@ -76,6 +84,7 @@ const Stepper = ({
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
           errors6={errors6}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 7 ? (
         <ApplyMasking
@@ -83,6 +92,7 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 8 ? (
         <GatherMetaData
@@ -90,6 +100,7 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 9 ? (
         <Scheduling
@@ -97,6 +108,7 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : null}
     </div>
