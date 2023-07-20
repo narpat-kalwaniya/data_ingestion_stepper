@@ -135,6 +135,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
   const [testcases, setTestcases] = useState([]);
   const [selectedTestcases, setSelectedTestcases] = useState([]);
   const [tagValues, setTagValues] = useState([]);
+  const [numberOfInput, setNumberOfInput] = useState("");
   const [inputCounts, setInputCounts] = useState(
     formData.tableData.map(() => 1)
   );
@@ -202,6 +203,27 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
         (object) => object.value
       );
       setTableData(updatedTableData);
+      console.log("test case name", selectedTestcasesForRow[0].value);
+
+      let desiredTemplate = null;
+
+      for (const item of testcases) {
+        if (item.testcase_name === selectedTestcasesForRow[0].value) {
+          desiredTemplate = item.template;
+          break;
+        }
+      }
+
+      function fixJSONString(jsonString) {
+        return jsonString.replace(
+          /(['"])?([a-zA-Z0-9_]+)(['"])?:\s?([^{},]+)?/g,
+          '"$2": "$4"'
+        );
+      }
+      const validJSONString = fixJSONString(desiredTemplate);
+      const jsonData = JSON.parse(validJSONString);
+      setNumberOfInput(jsonData.input_values);
+      console.log("template", jsonData.input_values);
 
       const updatedFormData = {
         ...formData,
@@ -247,12 +269,22 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
   };
 
   const validateTagCount = (tags) => {
-    const desiredCount = 3; // Specify the desired tag count here
+    let desiredCount;
+    if (numberOfInput === "many") {
+      desiredCount = 100;
+    } else {
+      desiredCount = parseInt(numberOfInput, 10);
+    }
+
     if (tags.length > desiredCount) {
       return false;
     }
+
     return true;
   };
+
+  const isPlural = parseInt(numberOfInput, 10) !== 1;
+  const valueOrValues = isPlural ? "values" : "value";
 
   const qualityScoreHandler = (value, index) => {
     const updatedTableData = [...tableData];
@@ -343,7 +375,10 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                             validationRegex={/^.*$/}
                             validationError="Please enter valid tags"
                             tagProps={{ className: "react-tagsinput-tag info" }}
-                            inputProps={{ placeholder: " " }}
+                            inputProps={{
+                              placeholder: " ",
+                            }}
+                            disabled={parseInt(numberOfInput, 10) === 0}
                           />
                           {!validateTagCount(
                             (tagValues[rowIndex] &&
@@ -351,7 +386,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                               []
                           ) && (
                             <Form.Text className="text-danger">
-                              Please select fewer than 3 values
+                              Please select {numberOfInput} {valueOrValues}
                             </Form.Text>
                           )}
                         </Form.Group>
