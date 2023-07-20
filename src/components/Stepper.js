@@ -21,6 +21,9 @@ const Stepper = ({
   errors5,
   errors6,
   updateTargetLoad,
+  setIsDraftSaved,
+  isLoading,
+  setIsLoading,
 }) => {
   const [isVisibleOption, setisVisibleOption] = useState(true);
 
@@ -49,12 +52,16 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           updateTableData={updateTableData}
+          setIsDraftSaved={setIsDraftSaved}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       ) : step === 4 ? (
         <DefineDataValidation
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 5 ? (
         <DefineSourceExtractCriteria
@@ -62,6 +69,7 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           errors5={errors5}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 6 ? (
         <TargetLoadDetails
@@ -69,24 +77,28 @@ const Stepper = ({
           formData={formData}
           updateFormData={updateFormData}
           errors6={errors6}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 7 ? (
         <ApplyMasking
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 8 ? (
         <GatherMetaData
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : step === 9 ? (
         <Scheduling
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          setIsDraftSaved={setIsDraftSaved}
         />
       ) : null}
     </div>

@@ -1,7 +1,9 @@
 .header {
   display: flex;
   justify-content: space-between !important;
-
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
 .header .wrapper {
   width: 100% !important;

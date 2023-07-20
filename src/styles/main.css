@@ -249,4 +249,20 @@ h5 {
 .custom-card {
   border-color: #fcfcfc;
   /* Set your desired font color */
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.delete-btn:focus {
+  outline: none;
+}
+
+/* Optional: Add hover effect to the icon */
+.delete-btn:hover .bi-x-lg {
+  transform: scale(1.1);
 }/*# sourceMappingURL=main.css.map */
