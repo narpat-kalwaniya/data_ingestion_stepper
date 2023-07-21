@@ -117,9 +117,11 @@ const Sidebar = () => {
                 className="side"
                 target="_blank"
                 rel="noopener noreferrer"
-                
               >
-                <span className="side"  style={{marginLeft: "-5px"}}> Governance</span>
+                <span className="side" style={{ marginLeft: "-5px" }}>
+                  {" "}
+                  Governance
+                </span>
               </a>
             </li>
             <div className="itemD" id="val">
@@ -191,8 +193,7 @@ const Sidebar = () => {
                     .classList.remove("itemC_dis");
                 }}
               >
-                Scheduling
-                <i class="fa-solid fa-chevron-down"></i>
+                Scheduling <i class="fa-solid fa-chevron-down"></i>
               </span>
             </div>
             <div className="itemD" id="meta">
@@ -236,13 +237,17 @@ const Sidebar = () => {
                   marginLeft: "0px",
                   textAlign: "left",
                   color: "white",
-                  marginTop: "10px"
+                  marginTop: "10px",
                 }}
               >
                 {" "}
                 <i
                   class="fa-solid fa-chevron-right"
-                  style={{ fontSize: "8px", marginRight: "4px", marginTop: "6px" }}
+                  style={{
+                    fontSize: "8px",
+                    marginRight: "4px",
+                    marginTop: "6px",
+                  }}
                 ></i>
                 <span
                   className="side"
@@ -250,7 +255,6 @@ const Sidebar = () => {
                     textDecoration: "none",
                     marginLeft: "0px",
                     textAlign: "left",
-                   
                   }}
                 >
                   Configuration

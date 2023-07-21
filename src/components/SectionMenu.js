@@ -36,6 +36,7 @@ const SectionMenu = (props) => {
     console.log("section clicked", index);
     if (index <= props.step - 1) {
       props.setStep(index);
+      props.setIsReview(false);
     }
   };
   return (

@@ -12,8 +12,10 @@ import { useNavigate } from "react-router-dom";
 // import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
+
   const navigate = useNavigate();
   const { onClose, open } = props;
+
 
   const handleClose = (e, reason) => {
     if (reason && reason == "backdropClick") return;
@@ -31,6 +33,7 @@ export default function ButtonPages(props) {
     // textAlign: "center",
     // color: theme.palette.text.secondary,
   }));
+
   let buttonNames = [
     {
       id: 1,
@@ -75,6 +78,7 @@ export default function ButtonPages(props) {
       name: "Snowflake Data Consumption Pipelines",
     },
   ];
+
   return (
     <Dialog
       // className="closeIconBox"

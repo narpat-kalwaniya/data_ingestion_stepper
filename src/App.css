@@ -369,6 +369,20 @@ th, thead {
   width: 80px;
 }
 
+.trash :hover {
+  color: firebrick;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all ease 0.2s !important;
+}
+
+.edit :hover {
+  color: #18749C;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all ease 0.2s !important;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
