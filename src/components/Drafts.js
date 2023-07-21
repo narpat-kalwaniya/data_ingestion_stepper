@@ -22,6 +22,9 @@ function Drafts(props) {
     props.setFormData(row);
     props.setOpen(true);
     props.setStep(row.current_step);
+    props.handleClose(
+      "Batch Ingestion of Relational Sources for Single Entity"
+    );
     console.log(props.formData);
   };
 
@@ -48,6 +51,7 @@ function Drafts(props) {
             key={index}
             style={{
               height: "20px",
+              cursor: "default",
             }}
             onClick={(event) => rowClickHandler(row)}
           >
@@ -56,7 +60,7 @@ function Drafts(props) {
             <td>{row.tableData[0].target_entity_name}</td>
             <td style={{ color: "red" }}>Draft</td>
             <td>
-              <Trash />
+              <Trash className="trash" />
             </td>
             {/* <td style={{ color: "blue" }}>View</td>
             <td style={{ color: "blue" }}>Edit</td>

@@ -11,7 +11,7 @@ import "./ButtonPages.css";
 // import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
-  const { onClose, open } = props;
+  const { onClose, open, buttonNames } = props;
 
   const handleClose = (e, reason) => {
     if (reason && reason == "backdropClick") return;
@@ -29,49 +29,7 @@ export default function ButtonPages(props) {
     // textAlign: "center",
     // color: theme.palette.text.secondary,
   }));
-  let buttonNames = [
-    {
-      id: 1,
-      name: "Batch Ingestion of Relational Sources for Single Entity",
-    },
-    {
-      id: 2,
-      name: "Batch Ingestion of Relational Sources for Multiple Entities",
-    },
-    {
-      id: 3,
-      name: "Upload Data From UI",
-    },
-    {
-      id: 4,
-      name: "Realtime Ingestion",
-    },
-    {
-      id: 5,
-      name: "ELT-Transformations",
-    },
-    {
-      id: 6,
-      name: "Data Quality Pipelines",
-      href: "http://ec2-54-197-121-247.compute-1.amazonaws.com:3000/",
-    },
-    {
-      id: 7,
-      name: "Data Masking Pipelines",
-    },
-    {
-      id: 8,
-      name: "Snowpark Development Notebook",
-    },
-    {
-      id: 9,
-      name: "Streamlit App Development Notebook",
-    },
-    {
-      id: 10,
-      name: "Snowflake Data Consumption Pipelines",
-    },
-  ];
+
   return (
     <Dialog
       // className="closeIconBox"

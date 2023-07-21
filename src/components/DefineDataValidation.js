@@ -396,7 +396,6 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
                   <span
                     style={{
                       cursor: "pointer",
-                      paddingTop: "10px",
                       color: "#18749C",
                     }}
                     onClick={() => handleAddInput(rowIndex)}

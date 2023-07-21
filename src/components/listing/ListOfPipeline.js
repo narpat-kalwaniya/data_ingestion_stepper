@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import { useState, useEffect } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import "./SearchNavbarButton.css";
+import { AiOutlineEdit } from "react-icons/ai";
+import { Trash } from "react-bootstrap-icons";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -74,6 +76,8 @@ export default function CustomizedTables({ searchedData }) {
     }
   };
 
+  const deletePipelineHandler = () => {};
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -84,6 +88,8 @@ export default function CustomizedTables({ searchedData }) {
             <StyledTableCell align="center">Target Entity</StyledTableCell>
             <StyledTableCell align="center">Status</StyledTableCell>
             <StyledTableCell align="center">View</StyledTableCell>
+            <StyledTableCell />
+            <StyledTableCell />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -130,6 +136,13 @@ export default function CustomizedTables({ searchedData }) {
                       console.log("Icon clicked!", row.entity_id);
                     }}
                   />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {" "}
+                  <AiOutlineEdit className="edit" />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Trash className="trash" onClick={deletePipelineHandler} />
                 </StyledTableCell>
               </StyledTableRow>
             ))}
