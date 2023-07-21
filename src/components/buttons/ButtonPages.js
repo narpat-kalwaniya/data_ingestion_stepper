@@ -8,9 +8,11 @@ import Grid from "@mui/material/Grid";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import "./ButtonPages.css";
+import { useNavigate } from "react-router-dom";
 // import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
+  const navigate = useNavigate();
   const { onClose, open } = props;
 
   const handleClose = (e, reason) => {
@@ -37,6 +39,7 @@ export default function ButtonPages(props) {
     {
       id: 2,
       name: "Batch Ingestion of Relational Sources for Multiple Entities",
+      onClick: () => navigate("/pipelines/migration"),
     },
     {
       id: 3,
@@ -109,7 +112,13 @@ export default function ButtonPages(props) {
                 <Button
                   className="buttonElements"
                   variant="contained"
-                  onClick={() => handleListItemClick(_.name)}
+                  onClick={() => {
+                    if (_.onClick) {
+                      _.onClick();
+                    } else {
+                      handleListItemClick(_.name);
+                    }
+                  }}
                 >
                   {_.name}
                 </Button>
