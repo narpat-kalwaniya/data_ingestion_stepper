@@ -288,7 +288,7 @@ const ReviewFrom = (props) => {
 
                             <AiOutlineEdit
                               onClick={editHandler1}
-                              s
+                              className="edit"
                             ></AiOutlineEdit>
                           </div>
                           {/* <div
@@ -325,7 +325,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Source Entity</p>
 
-                            <AiOutlineEdit onClick={editHandler2} />
+                            <AiOutlineEdit
+                              onClick={editHandler2}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -354,7 +357,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Target Schema</p>
 
-                            <AiOutlineEdit onClick={editHandler3} />
+                            <AiOutlineEdit
+                              onClick={editHandler3}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -418,7 +424,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Data Validation</p>
 
-                            <AiOutlineEdit onClick={editHandler4} />
+                            <AiOutlineEdit
+                              onClick={editHandler4}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -471,7 +480,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Source Extract Criteria</p>
 
-                            <AiOutlineEdit onClick={editHandler5} />
+                            <AiOutlineEdit
+                              onClick={editHandler5}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -501,7 +513,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Target Load Details</p>
 
-                            <AiOutlineEdit onClick={editHandler6} />
+                            <AiOutlineEdit
+                              onClick={editHandler6}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -518,7 +533,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Masking</p>
 
-                            <AiOutlineEdit onClick={editHandler7} />
+                            <AiOutlineEdit
+                              onClick={editHandler7}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -564,7 +582,10 @@ const ReviewFrom = (props) => {
                           >
                             <p>Meta Data</p>
 
-                            <AiOutlineEdit onClick={editHandler8} />
+                            <AiOutlineEdit
+                              onClick={editHandler8}
+                              className="edit"
+                            />
                           </div>
 
                           <div className="horizontal-line-1"></div>

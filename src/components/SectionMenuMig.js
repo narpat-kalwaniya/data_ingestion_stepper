@@ -8,36 +8,29 @@ import {
   Modal,
   ListGroup,
 } from "react-bootstrap";
-import { useState } from "react";
+
+import "../AppMig.css";
 
 const sections = [
   "Data Connection",
   "Source Entity Selection",
   "Target Schema",
-  "Data Validation",
-  "Source Extract Criteria",
-  "Target Load Details",
-  "Masking",
-  "Meta Data",
-  "Review",
+  // "Data Validation",
+  // "Source Extract Criteria",
+  // "Target Load Details",
+  // "Masking",
+  // "Meta Data",
+  // "Review",
   // "Scheduling",
   // "Review",
 ];
 
-const SectionMenu = (props) => {
+const SectionMenuMig = (props) => {
   const handleHover = () => {
     // Handle hover event
   };
   const reviewHandler = () => {
     props.setIsReview(!props.isReview);
-  };
-
-  const stepChangeHandler = (index) => {
-    console.log("section clicked", index);
-    if (index <= props.step - 1) {
-      props.setStep(index);
-      props.setIsReview(false);
-    }
   };
   return (
     <div style={{ width: "250px" }}>
@@ -47,6 +40,7 @@ const SectionMenu = (props) => {
             <ListGroup.Item
               key={index}
               style={{
+                height: "100px",
                 backgroundColor: "#FCFCFC",
                 color: index <= props.step - 1 ? "#EA943D" : "darkgray",
                 fontSize: index === props.step - 1 ? "14px" : "13px",
@@ -61,7 +55,7 @@ const SectionMenu = (props) => {
                   className="d-flex align-items-center"
                   // style={{ position: "relative" }}
                 >
-                  {index > 0 && index < 9 && (
+                  {index > 0 && index < 2 && (
                     <div
                       className="vertical-line"
                       style={{
@@ -88,12 +82,7 @@ const SectionMenu = (props) => {
                     />
                   )} */}
                 </div>
-                <span
-                  onClick={(e) => stepChangeHandler(index + 1)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {item}
-                </span>
+                {item}
               </div>
             </ListGroup.Item>
           ))}
@@ -127,4 +116,4 @@ const SectionMenu = (props) => {
   );
 };
 
-export default SectionMenu;
+export default SectionMenuMig;

@@ -11,6 +11,7 @@ import ListingPage from "./components/listing/SearchNavbar";
 import NotFound from "./components/notFound/NotFound";
 import { formContext } from "./components/formContext";
 import { stepContext } from "./components/stepContext";
+import AddPipelineMig from "./pages/AddPipelineMig";
 import SchedulingPipeline from "./components/SchedulingPipeline";
 
 function App() {
@@ -104,6 +105,10 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/pipelines" element={<ListingPage />} />
                 <Route path="/pipelines/add" element={<AddPipeline />} />
+                <Route
+                  path="/pipelines/migration"
+                  element={<AddPipelineMig />}
+                />
                 <Route
                   path="/scheduling/configuration"
                   element={<Scheduling />}

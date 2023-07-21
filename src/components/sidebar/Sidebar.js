@@ -193,8 +193,7 @@ const Sidebar = () => {
                     .classList.remove("itemC_dis");
                 }}
               >
-                Scheduling
-                <i class="fa-solid fa-chevron-down"></i>
+                Scheduling <i class="fa-solid fa-chevron-down"></i>
               </span>
             </div>
             <div className="itemD" id="meta">
