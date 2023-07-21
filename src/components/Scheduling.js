@@ -7,8 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "./SchedulingStyle.css";
 import SchedulingNavbar from "./SchedulingNavbar";
 
@@ -42,92 +43,97 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function Scheduling({ searchedData }) {
-  // const [piplineData, setPipelineData] = useState([]);
+export default function Scheduling() {
+  const [searchedSchedulingData, setSearchedSchedulingData] = useState("");
+  const [schedulingData, setschedulingData] = useState([]);
 
-  // useEffect(() => {
-  //   fetchTestcases();
-  // }, []);
+  useEffect(() => {
+    fetchSchedulingDetails();
+  }, []);
 
-  // const fetchTestcases = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/entitydetails/"
-  //     );
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setPipelineData(data);
-  //     // setSelectedTestcases(Array(formData.tableData.length).fill(""));
-  //   } catch (error) {
-  //     console.log("Error fetching test cases:", error);
-  //   }
-  // };
+  const fetchSchedulingDetails = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getjobs/"
+      );
+      const data = await response.json();
+      setschedulingData(data);
+      // setSelectedTestcases(Array(formData.tableData.length).fill(""));
+    } catch (error) {
+      console.log("Error fetching test cases:", error);
+    }
+  };
+
+  const fileterData = schedulingData.filter(
+    (item) =>
+      !searchedSchedulingData ||
+      (searchedSchedulingData &&
+        item?.job_name
+          ?.toLowerCase()
+          ?.includes(searchedSchedulingData?.toLowerCase()))
+  );
 
   return (
     <>
-      <SchedulingNavbar />
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead style={{ color: "#E0E0E0" }}>
-            <TableRow className="listOfPipelineNavbar">
-              <StyledTableCell>Module</StyledTableCell>
-              <StyledTableCell align="center">Source Entity</StyledTableCell>
-              <StyledTableCell align="center">Target Entity</StyledTableCell>
-              <StyledTableCell align="center">Status</StyledTableCell>
-              <StyledTableCell align="center">View</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/* {piplineData
-            .filter(
-              (item) =>
-                !searchedData ||
-                (searchedData &&
-                  item?.app_name
-                    ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase())) ||
-                (searchedData &&
-                  item?.source_entity_name
-                    ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase())) ||
-                (searchedData &&
-                  item?.target_connection_name
-                    ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase())) ||
-                (searchedData &&
-                  item?.source_connection_name
-                    ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase()))
-            ) */}
-            {/* .map((row) => ( */}
-            <StyledTableRow>
-              {/* key={row.name} */}
-              <StyledTableCell component="th" scope="row">
-                Data Ingestion
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {/* {row.source_entity_name} */}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {/* {row.target_entity_name} */}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {/* {row.entity_status} */}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <BorderColorSharpIcon
-                  className="viewBtnStyle"
-                  style={{ width: "15px", height: "15px" }}
-                  onClick={() => {
-                    // console.log("Icon clicked!", row.entity_id);
-                  }}
-                />
-              </StyledTableCell>
-            </StyledTableRow>
-            {/* ))} */}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <SchedulingNavbar
+        searchedSchedulingData={searchedSchedulingData}
+        setSearchedSchedulingData={setSearchedSchedulingData}
+      />
+      <div className="col-lg-10 col-md-10 m-auto">
+        <TableContainer component={Paper}>
+          <Table aria-label="customized table">
+            <TableHead style={{ color: "#E0E0E0" }}>
+              <TableRow className="listOfPipelineNavbar">
+                <StyledTableCell>Job Name</StyledTableCell>
+                <StyledTableCell align="center">
+                  Start Timestamp
+                </StyledTableCell>
+                <StyledTableCell align="center">Parent DAG ID</StyledTableCell>
+                <StyledTableCell align="center">Module Name </StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
+                <StyledTableCell align="center">Delete</StyledTableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {fileterData.map((row) => (
+                <StyledTableRow key={row.job_name}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.job_name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.start_timestamp}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.parent_dag_id}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.tasks?.[0]?.module_name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <BorderColorSharpIcon
+                      className="viewBtnStyle"
+                      style={{ width: "15px", height: "15px" }}
+                      onClick={() => {
+                        // console.log("Icon clicked!", row.entity_id);
+                      }}
+                    />
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <DeleteIcon
+                      className="viewBtnStyle"
+                      style={{ width: "15px", height: "15px" }}
+                      onClick={() => {
+                        // console.log("Icon clicked!", row.entity_id);
+                      }}
+                    />
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </>
   );
 }

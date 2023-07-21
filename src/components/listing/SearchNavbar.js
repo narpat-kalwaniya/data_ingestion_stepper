@@ -66,7 +66,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function ListingPage() {
   const navigate = useNavigate();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchedData, setsearchedData] = React.useState("");
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);

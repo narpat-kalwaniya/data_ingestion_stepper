@@ -3,14 +3,11 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import SchedulingPipeline from "./SchedulingPipeline";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,18 +48,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SchedulingNavbar() {
+function SchedulingNavbar(props) {
   const navigateRouter = useNavigate();
-  const [addSchedulingPipeline, setaddSchedulingPipeline] = useState(false);
-  // const openScheduling = () => {
-  //   setaddSchedulingPipeline(true);
-  // };
+
+  const { searchedSchedulingData, setSearchedSchedulingData } = props;
 
   return (
-    <div>
-      {addSchedulingPipeline && <SchedulingPipeline />}
-      <div className="row justify-content-center mt-5 w-100">
-        <div className="col-lg-10 col-md-10">
+    <div className="col-lg-10 col-md-10 m-auto">
+      <div className="row justify-content-center mt-5 w-100 m-0 p-0">
+        <div className="col-lg-12 col-md-12 m-0 p-0">
           <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color="transparent">
               <Toolbar>
@@ -82,10 +76,10 @@ function SchedulingNavbar() {
                   </SearchIconWrapper>
                   <StyledInputBase
                     fullWidth
-                    // value={searchedData}
-                    // onChange={(e) => {
-                    //   setsearchedData(e.target.value);
-                    // }}
+                    value={searchedSchedulingData}
+                    onChange={(e) => {
+                      setSearchedSchedulingData(e.target.value);
+                    }}
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                   />

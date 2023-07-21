@@ -42,6 +42,7 @@ const SchedulingPipeline = () => {
 
   const scheduleType = watch("schedule_type");
   const parentDagId = watch("parent_dag_id");
+  const jobName = watch("job_name");
 
   const addTask = () => {
     const newTasks = [
@@ -252,7 +253,7 @@ const SchedulingPipeline = () => {
     register("schedule_type");
 
   const handleClose = () => {
-    window.location.href = "/home";
+    window.location.href = "/scheduling/edit";
     handleCloseModal();
   };
 
@@ -310,7 +311,7 @@ const SchedulingPipeline = () => {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Body>Your Scheduling is configure Successfully.</Modal.Body>
+        <Modal.Body> The Job {jobName} is scheduled successfully.</Modal.Body>
         <Modal.Footer>
           <button variant="primary" onClick={handleClose} className="btn-c">
             Close
@@ -418,7 +419,7 @@ const SchedulingPipeline = () => {
                 isInvalid={!!errors.timezone}
                 {...register("timezone", { required: true })}
               >
-                <option value="">GMT</option>
+                <option value=""></option>
                 {timezoneOptions}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
