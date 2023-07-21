@@ -1,0 +1,16 @@
+.dropdown-container {
+  position: absolute;
+  right: 190px;
+  top: 390px;
+  z-index: 999;
+}
+
+.heading-container {
+  /* position: absolute; */
+  top: -10px;
+  /* z-index: 999; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}

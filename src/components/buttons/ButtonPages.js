@@ -8,10 +8,14 @@ import Grid from "@mui/material/Grid";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import "./ButtonPages.css";
+import { useNavigate } from "react-router-dom";
 // import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
-  const { onClose, open, buttonNames } = props;
+
+  const navigate = useNavigate();
+  const { onClose, open } = props;
+
 
   const handleClose = (e, reason) => {
     if (reason && reason == "backdropClick") return;
@@ -29,6 +33,51 @@ export default function ButtonPages(props) {
     // textAlign: "center",
     // color: theme.palette.text.secondary,
   }));
+
+  let buttonNames = [
+    {
+      id: 1,
+      name: "Batch Ingestion of Relational Sources for Single Entity",
+    },
+    {
+      id: 2,
+      name: "Batch Ingestion of Relational Sources for Multiple Entities",
+      onClick: () => navigate("/pipelines/migration"),
+    },
+    {
+      id: 3,
+      name: "Upload Data From UI",
+    },
+    {
+      id: 4,
+      name: "Realtime Ingestion",
+    },
+    {
+      id: 5,
+      name: "ELT-Transformations",
+    },
+    {
+      id: 6,
+      name: "Data Quality Pipelines",
+      href: "http://ec2-54-197-121-247.compute-1.amazonaws.com:3000/",
+    },
+    {
+      id: 7,
+      name: "Data Masking Pipelines",
+    },
+    {
+      id: 8,
+      name: "Snowpark Development Notebook",
+    },
+    {
+      id: 9,
+      name: "Streamlit App Development Notebook",
+    },
+    {
+      id: 10,
+      name: "Snowflake Data Consumption Pipelines",
+    },
+  ];
 
   return (
     <Dialog
@@ -67,7 +116,13 @@ export default function ButtonPages(props) {
                 <Button
                   className="buttonElements"
                   variant="contained"
-                  onClick={() => handleListItemClick(_.name)}
+                  onClick={() => {
+                    if (_.onClick) {
+                      _.onClick();
+                    } else {
+                      handleListItemClick(_.name);
+                    }
+                  }}
                 >
                   {_.name}
                 </Button>
