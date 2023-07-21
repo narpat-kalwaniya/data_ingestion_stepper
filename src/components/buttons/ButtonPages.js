@@ -12,10 +12,8 @@ import { useNavigate } from "react-router-dom";
 // import CloseIcon from "@mui/icons-material/Close";
 
 export default function ButtonPages(props) {
-
   const navigate = useNavigate();
   const { onClose, open } = props;
-
 
   const handleClose = (e, reason) => {
     if (reason && reason == "backdropClick") return;
@@ -41,7 +39,7 @@ export default function ButtonPages(props) {
     },
     {
       id: 2,
-      name: "Batch Ingestion of Relational Sources for Multiple Entities",
+      name: "Data Migration",
       onClick: () => navigate("/pipelines/migration"),
     },
     {
