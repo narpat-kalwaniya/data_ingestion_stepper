@@ -12,6 +12,7 @@ import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./SchedulingStyle.css";
 import SchedulingNavbar from "./SchedulingNavbar";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,6 +47,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function Scheduling() {
   const [searchedSchedulingData, setSearchedSchedulingData] = useState("");
   const [schedulingData, setschedulingData] = useState([]);
+  const navigateRouter = useNavigate();
+
+ 
 
   useEffect(() => {
     fetchSchedulingDetails();
@@ -94,7 +98,6 @@ export default function Scheduling() {
                 <StyledTableCell align="center">Delete</StyledTableCell>
               </TableRow>
             </TableHead>
-
             <TableBody>
               {fileterData.map((row) => (
                 <StyledTableRow key={row.job_name}>
@@ -115,7 +118,8 @@ export default function Scheduling() {
                       className="viewBtnStyle"
                       style={{ width: "15px", height: "15px" }}
                       onClick={() => {
-                        // console.log("Icon clicked!", row.entity_id);
+                        navigateRouter && navigateRouter("/scheduling/edit/job-name");
+                        sessionStorage.setItem('schedulingUserData', JSON.stringify(row));
                       }}
                     />
                   </StyledTableCell>

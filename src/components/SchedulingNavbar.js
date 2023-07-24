@@ -107,7 +107,7 @@ function SchedulingNavbar(props) {
                     style={{ paddingLeft: "8px", paddingRight: "8px" }}
                     // onClick={openScheduling}
                     onClick={() => {
-                      navigateRouter && navigateRouter("/scheduling/edit");
+                      navigateRouter && navigateRouter("/scheduling/pipeline");
                     }}
                   >
                     <AddIcon className="AddOutlinedIcon" />

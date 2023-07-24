@@ -75,6 +75,7 @@ function App() {
       failure_email_list: "",
     },
   });
+  const [schedulingFormData, setSchedulingFormData] = useState({});
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -114,7 +115,11 @@ function App() {
                   element={<Scheduling />}
                 />
                 <Route
-                  path="/scheduling/edit"
+                  path="/scheduling/pipeline"
+                  element={<SchedulingPipeline />}
+                />
+                <Route
+                  path="/scheduling/edit/job-name"
                   element={<SchedulingPipeline />}
                 />
               </Route>

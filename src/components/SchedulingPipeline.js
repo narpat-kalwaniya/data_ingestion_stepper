@@ -25,6 +25,22 @@ const SchedulingPipeline = () => {
   const [togggleState, settogggleState] = useState(false);
   const [tasks, settasks] = useState([]);
 
+  useEffect(() => {
+    if(sessionStorage.getItem("schedulingUserData")){
+      setTimeout(()=>{
+        const storedData = sessionStorage.getItem("schedulingUserData");
+        const userData = JSON.parse(storedData);
+        sessionStorage.removeItem("schedulingUserData");
+        debugger;
+        if(userData?.parent_dag_id) setValue("parent_dag_id" , userData?.parent_dag_id)
+        if(userData?.timezone) setValue("timezone" , userData?.timezone)
+      },2000)
+    }
+  });
+
+  const storedData = sessionStorage.getItem("schedulingUserData");
+  const userData = JSON.parse(storedData);
+
   const {
     register,
     handleSubmit,
@@ -33,7 +49,7 @@ const SchedulingPipeline = () => {
     resetField,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: userData || {},
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -43,6 +59,7 @@ const SchedulingPipeline = () => {
   const scheduleType = watch("schedule_type");
   const parentDagId = watch("parent_dag_id");
   const jobName = watch("job_name");
+  const startStamp = watch("start_timestamp");
 
   const addTask = () => {
     const newTasks = [
@@ -253,7 +270,7 @@ const SchedulingPipeline = () => {
     register("schedule_type");
 
   const handleClose = () => {
-    window.location.href = "/scheduling/edit";
+    window.location.href = "/scheduling/pipeline";
     handleCloseModal();
   };
 
@@ -364,6 +381,7 @@ const SchedulingPipeline = () => {
               <Form.Control
                 className="jobFormItem"
                 size="sm"
+                value={startStamp}
                 id="start_timestamp"
                 name="start_timestamp"
                 isInvalid={!!errors.start_timestamp}
@@ -383,6 +401,7 @@ const SchedulingPipeline = () => {
               <Form.Control
                 className="jobFormItem"
                 size="sm"
+                min={startStamp}
                 id="end_timestamp"
                 name="end_timestamp"
                 {...register("end_timestamp")}
