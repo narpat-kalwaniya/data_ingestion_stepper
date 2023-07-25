@@ -715,7 +715,7 @@ const SourceEntitySelectionMig = ({
                   isInvalid={errors2.db_name}
                   className="custom-select custom-style"
                 >
-                  <option value="">datacopy</option>
+                  <option value="">Select Database</option>
                   {databases.map((database) => (
                     <option key={database} value={database}>
                       {database}
