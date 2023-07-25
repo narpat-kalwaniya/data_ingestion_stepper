@@ -239,7 +239,9 @@ const TargetLoadDetails = ({
                 onChange={(e) => targetSchemaHandler(e, 0)}
               >
                 <option value="">-- Select --</option>{" "}
-                {formData.tableData?.[0]?.target_schemas?.map((item, index) => (
+                {formData.tableData?.[
+                  formData.tableData.length - 1
+                ]?.target_schemas?.map((item, index) => (
                   <option key={index} value={item}>
                     {item}
                   </option>
@@ -258,7 +260,11 @@ const TargetLoadDetails = ({
                 required
                 type="text"
                 className="custom-select custom-style"
-                value={formData.tableData[0]?.target_table}
+                value={
+                  formData.tableData[
+                    formData.tableData.length - 1
+                  ]?.target_table.split(".")[0]
+                }
                 disabled={false}
                 name="target_table"
                 onChange={(e) => targetTableHandler(e, 0)}
