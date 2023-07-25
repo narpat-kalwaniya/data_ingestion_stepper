@@ -218,7 +218,7 @@ const TargetLoadDetails = ({
                 value={formData.tableData[0]?.target_database}
                 disabled={true}
                 name="target_database"
-                onChange={(e) => changeTableHandler(e, 0)}
+                onChange={(e) => changeTableHandler(e, formData.tableData.length - 1)}
                 isInvalid={errors6.target_database}
               /> */}
               {currentlySubmittedForm == 6 && errors6.target_database && (
@@ -238,7 +238,9 @@ const TargetLoadDetails = ({
                 className="custom-select custom-style"
                 value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
-                onChange={(e) => targetSchemaHandler(e, 0)}
+                onChange={(e) =>
+                  targetSchemaHandler(e, formData.tableData.length - 1)
+                }
               >
                 <option value="">-- Select --</option>{" "}
                 {formData.tableData?.[
@@ -269,7 +271,9 @@ const TargetLoadDetails = ({
                 }
                 disabled={false}
                 name="target_table"
-                onChange={(e) => targetTableHandler(e, 0)}
+                onChange={(e) =>
+                  targetTableHandler(e, formData.tableData.length - 1)
+                }
                 isInvalid={currentlySubmittedForm == 6 && errors6.target_table}
               />
               {currentlySubmittedForm == 6 && errors6.target_table && (
