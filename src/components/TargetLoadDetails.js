@@ -239,7 +239,7 @@ const TargetLoadDetails = ({
                 value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
                 onChange={(e) =>
-                  targetSchemaHandler(e, formData.tableData.length - 1)
+                  targetSchemaHandler(e, 0)
                 }
               >
                 <option value="">-- Select --</option>{" "}
