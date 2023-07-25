@@ -409,6 +409,7 @@ import React, { useState, useEffect, useContext, Children } from "react";
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 import MultiSelect from "multiselect-react-dropdown";
+import "./Migration/AppMig.css";
 
 const SourceEntitySelectionMig = ({
   step,

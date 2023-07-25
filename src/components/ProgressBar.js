@@ -93,7 +93,6 @@
 import React from "react";
 import ReactSlider from "react-slider";
 import "./ProgressBar.css";
-
 const Slider = ({ onChange, currentIndex }) => {
   return (
     <ReactSlider

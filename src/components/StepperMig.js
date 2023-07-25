@@ -10,6 +10,7 @@ import { DataProvider } from "./DataContext";
 import Success from "./Success";
 import SourceEntitySelectionMig from "./SourceEntitySelectionMig";
 import CreateDataConnectionMig from "./CreateDataConnectionMig";
+import "./Migration/AppMig.css";
 
 const StepperMig = ({
   step,

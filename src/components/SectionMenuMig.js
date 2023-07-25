@@ -9,7 +9,7 @@ import {
   ListGroup,
 } from "react-bootstrap";
 
-import "../AppMig.css";
+import "./Migration/AppMig.css";
 
 const sections = [
   "Data Connection",
@@ -57,7 +57,7 @@ const SectionMenuMig = (props) => {
                 >
                   {index > 0 && index < 2 && (
                     <div
-                      className="vertical-line"
+                      className="mig-vertical-line"
                       style={{
                         backgroundColor:
                           index <= props.step - 1 ? "#EA943D" : "darkgray",

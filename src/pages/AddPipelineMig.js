@@ -27,7 +27,7 @@ function AddPipelineMig() {
     sourceEntity: {
       data_source_type: "",
       query: null,
-      db_name: "datacopy",
+      db_name: "",
       schema_name: "",
       table_name: [],
       bucket_name: null,
