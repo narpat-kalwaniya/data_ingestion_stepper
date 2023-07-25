@@ -57,6 +57,7 @@ const rows = [
 
 export default function CustomizedTables({ searchedData }) {
   const [piplineData, setPipelineData] = useState([]);
+  const [selectedEntityIds, setSelectedEntityIds] = useState([]);
 
   useEffect(() => {
     fetchTestcases();
@@ -76,8 +77,19 @@ export default function CustomizedTables({ searchedData }) {
     }
   };
 
-  const deletePipelineHandler = () => {};
+  const deletePipelineHandler = (index) => {
+    const newData = [...piplineData];
+    newData[index].deleted = !newData[index].deleted;
+    setPipelineData(newData);
 
+    const selectedId = newData[index].entity_id;
+    setSelectedEntityIds((prevIds) =>
+      prevIds.includes(selectedId)
+        ? prevIds.filter((id) => id !== selectedId)
+        : [...prevIds, selectedId]
+    );
+  };
+  console.log(selectedEntityIds);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -114,8 +126,13 @@ export default function CustomizedTables({ searchedData }) {
                     ?.toLowerCase()
                     ?.includes(searchedData?.toLowerCase()))
             )
-            .map((row) => (
-              <StyledTableRow key={row.name}>
+            .map((row, index) => (
+              <StyledTableRow
+                key={row.name}
+                style={{
+                  textDecoration: row.deleted ? "line-through" : "none",
+                }}
+              >
                 <StyledTableCell component="th" scope="row">
                   Data Ingestion
                 </StyledTableCell>
@@ -142,7 +159,10 @@ export default function CustomizedTables({ searchedData }) {
                   <AiOutlineEdit className="edit" />
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Trash className="trash" onClick={deletePipelineHandler} />
+                  <Trash
+                    className="trash"
+                    onClick={() => deletePipelineHandler(index)}
+                  />
                 </StyledTableCell>
               </StyledTableRow>
             ))}

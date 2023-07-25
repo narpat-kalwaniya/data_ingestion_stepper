@@ -202,7 +202,13 @@ const TargetLoadDetails = ({
                 Target Database
                 {/* <span className="text-danger">*</span> */}
               </Form.Label>
-              <p>{formData.tableData[0]?.target_entity_name.split(".")[0]}</p>
+              <p>
+                {
+                  formData.tableData[
+                    formData.tableData.length - 1
+                  ]?.target_entity_name.split(".")[0]
+                }
+              </p>
 
               {/* <Form.Control
                 type="text"
