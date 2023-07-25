@@ -56,7 +56,9 @@ const TargetLoadDetails = ({
     updateFormData(_fromData, 6);
 
     const updatedSchema =
-      formData.tableData[0]?.target_entity_name.split(".")[0] +
+      formData.tableData[
+        formData.tableData.length - 1
+      ]?.target_entity_name.split(".")[0] +
       "." +
       event.target.value +
       "." +
