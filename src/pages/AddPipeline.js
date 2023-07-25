@@ -294,12 +294,12 @@ function AddPipeline() {
       }
     }
 
-    // if (
-    //   !formData.DefineSourceExtractCriteria.source_entity_type ||
-    //   !formData.DefineSourceExtractCriteria.source_entity_type === ""
-    // ) {
-    //   newErrors5.source_entity_type = "This field is required";
-    // }
+    if (
+      !formData.DefineSourceExtractCriteria.source_entity_type ||
+      !formData.DefineSourceExtractCriteria.source_entity_type === ""
+    ) {
+      newErrors5.source_entity_type = "This field is required";
+    }
     setErrors5(newErrors5);
     return Object.keys(newErrors5).length === 0;
   };

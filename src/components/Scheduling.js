@@ -49,8 +49,6 @@ export default function Scheduling() {
   const [schedulingData, setschedulingData] = useState([]);
   const navigateRouter = useNavigate();
 
- 
-
   useEffect(() => {
     fetchSchedulingDetails();
   }, []);
@@ -118,8 +116,12 @@ export default function Scheduling() {
                       className="viewBtnStyle"
                       style={{ width: "15px", height: "15px" }}
                       onClick={() => {
-                        navigateRouter && navigateRouter("/scheduling/edit/job-name");
-                        sessionStorage.setItem('schedulingUserData', JSON.stringify(row));
+                        navigateRouter &&
+                          navigateRouter("/scheduling/edit/job-name");
+                        sessionStorage.setItem(
+                          "schedulingUserData",
+                          JSON.stringify(row)
+                        );
                       }}
                     />
                   </StyledTableCell>

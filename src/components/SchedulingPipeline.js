@@ -26,15 +26,27 @@ const SchedulingPipeline = () => {
   const [tasks, settasks] = useState([]);
 
   useEffect(() => {
-    if(sessionStorage.getItem("schedulingUserData")){
+    if(sessionStorage.getItem("schedulingUserData")){   
       setTimeout(()=>{
         const storedData = sessionStorage.getItem("schedulingUserData");
         const userData = JSON.parse(storedData);
         sessionStorage.removeItem("schedulingUserData");
-        debugger;
         if(userData?.parent_dag_id) setValue("parent_dag_id" , userData?.parent_dag_id)
         if(userData?.timezone) setValue("timezone" , userData?.timezone)
-      },2000)
+        if(userData?.tasks){
+          userData.tasks = userData?.tasks.map((item) => {
+            item.arguments = JSON.stringify(item.arguments) 
+            item.dependency = item.dependency.map((item)=>{
+              return {
+                label: item,
+                value: item,
+              }
+            })
+            return item
+         })
+          settasks(userData?.tasks)
+        }
+      },1500)
     }
   });
 
@@ -74,17 +86,6 @@ const SchedulingPipeline = () => {
     settasks(newTasks);
   };
 
-  /*
-        const removeTask = (index) => {
-            const filteredTasks = [...tasks];
-            filteredTasks.splice(index, 1);
-            setTasks(filteredTasks);
-        };
-
-            const removeTask = (index) => {
-                setTasks(tasks.filter((task, i) => i !== index));
-            };
-        */
 
   const removeTask = (index) => {
     if (tasks.length > 1) {
@@ -200,21 +201,7 @@ const SchedulingPipeline = () => {
       });
       return item;
     });
-    //   .map((task) => ({
-    //   ...task,
-    //   // arguments: task.arguments,
-    //   arguments:
-    //     typeof task.arguments === "string"
-    //       ? JSON.parse(task.arguments || "{}")
-    //       : task.arguments,
-    //   dependency:
-    //     task.dependency == [] ? delete task.dependency : task.dependency,
-    //   dependency: task.dependency === task.dependency,
-    //   dependency:
-    //     typeof task.dependency === "string"
-    //       ? task.dependency.split(",").map((item) => item.trim())
-    //       : task.dependency,
-    // }));
+
     if (!data["parent_dag_id"]) {
       delete data["parent_dag_id"];
     }
@@ -279,7 +266,7 @@ const SchedulingPipeline = () => {
   };
   const handleShowSchedulingModal = () => setShow(true);
 
-  // const { vertical, horizontal, open } = snackBar;
+ 
 
   const handleDataChange = (selectedItems) => {
     const diInject = moduleName.find(
@@ -297,30 +284,11 @@ const SchedulingPipeline = () => {
     settasks(newTasks);
   };
 
-  // const deleteRow = (currenttask)=> {
-  //   let tempTasks = JSON.parse(JSON.stringify(tasks));
-  //
-  //   tempTasks = tempTasks.map((task)=>{
-  //     if(task.dependency.includes(currenttask.task_name)){
-  //       task.dependency = task.dependency.filter((item)=>{
-  //         return item != currenttask.task_name
-  //       })
-  //     }
-  //     return task
-  //   })
-  //
-  //   setValue('tasks', tempTasks)
-  // }
+
 
   return (
     <>
-      {/* <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        message="Yours Data Fill Successfully"
-      /> */}
+    
 
       <Modal
         show={showModal}
@@ -639,29 +607,6 @@ const SchedulingPipeline = () => {
                       />
                     </td>
                     <td>
-                      {/* <Form.Control
-                         as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}
-                        className="jobFormItem"
-                        size="sm"
-                        placeholder="Enter Dependency..."
-                        id={`tasks[${index}].dependency`}
-                        name={`tasks[${index}].dependency`}
-                        {...register(`tasks[${index}].dependency`)}
-                      >
-                      {tasks.map(
-                          (popUpBoxTaskName, popUpBoxTaskNameIndex) => {
-                            return (
-                              <option
-                                key={popUpBoxTaskNameIndex}
-                                value={popUpBoxTaskName.task_name}
-                              >
-                                {popUpBoxTaskName.task_name}
-                              </option>
-                            );
-                          }
-                        )}
-                      </Form.Control> */}
-
                       <Select
                         isMulti
                         placeholder="Enter Dependency..."
@@ -686,38 +631,7 @@ const SchedulingPipeline = () => {
                           settogggleState(!togggleState);
                         }}
                       />
-                      {/* <Form.Select
-                        style={{ height: "30px" }}
-                        aria-label="Default select example"
-                        // size="sm"
-                        placeholder="Enter Dependency..."
-                        id={`tasks[${index}].dependency`}
-                        name={`tasks[${index}].dependency`}
-                        onChange={(e) => {
-                          let value = e.target.value;
-                          let currentvalue = task.dependency;
-                          currentvalue.push(value);
-                          onChangeDependency(e);
-                          setValue(`tasks[${index}].dependency`, currentvalue);
-                        }}
-                        {...otherDependencyFields}
-                        multiple
-                      >
-                        {tasks.map(
-                          (popUpBoxTaskName, popUpBoxTaskNameIndex) => {
-                            if (popUpBoxTaskNameIndex != index)
-                              return (
-                                <option
-                                  key={popUpBoxTaskNameIndex}
-                                  value={popUpBoxTaskName.task_name}
-                                >
-                                  {popUpBoxTaskName.task_name}
-                                </option>
-                              );
-                            else return null;
-                          }
-                        )}
-                      </Form.Select> */}
+                    
                     </td>
                     <td>
                       <Button
