@@ -334,12 +334,12 @@ function AddPipeline() {
       newErrors6.target_table = "This field is required";
     }
 
-    if (
-      !formData.tableData[0]?.target_database ||
-      formData.tableData[0]?.target_database === ""
-    ) {
-      newErrors6.target_database = "This field is required";
-    }
+    // if (
+    //   !formData.tableData[0]?.target_database ||
+    //   formData.tableData[0]?.target_database === ""
+    // ) {
+    //   newErrors6.target_database = "This field is required";
+    // }
 
     setErrors6(newErrors6);
 
