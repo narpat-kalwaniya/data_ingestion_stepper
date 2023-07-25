@@ -310,11 +310,15 @@ thead {
   height: 50px;
   animation: spin 1s linear infinite;
 }
-div, th, td, tr {
+div,
+th,
+td,
+tr {
   font-family: "Poppins" !important;
 }
 
-th, thead {
+th,
+thead {
   background-color: "rgb(243, 243, 243)" !important;
 }
 
@@ -377,7 +381,7 @@ th, thead {
 }
 
 .edit :hover {
-  color: #18749C;
+  color: #18749c;
   cursor: pointer;
   transform: scale(1.1);
   transition: all ease 0.2s !important;

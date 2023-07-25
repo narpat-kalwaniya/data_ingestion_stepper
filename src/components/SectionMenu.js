@@ -9,6 +9,7 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import { useState } from "react";
+import "../App.css";
 
 const sections = [
   "Data Connection",

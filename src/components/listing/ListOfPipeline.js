@@ -13,6 +13,7 @@ import "./SearchNavbarButton.css";
 import { AiOutlineEdit } from "react-icons/ai";
 import { Trash } from "react-bootstrap-icons";
 import ConfirmationModal from "../CreateModals/ConfirmationModal";
+import "../../App.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

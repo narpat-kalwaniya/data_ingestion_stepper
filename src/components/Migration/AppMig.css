@@ -174,7 +174,7 @@ thead {
   margin-bottom: 12px; /* Adjust as needed */
 }
 
-.vertical-line {
+.mig-vertical-line {
   width: 2px;
   background-color: darkgray;
   position: absolute;
