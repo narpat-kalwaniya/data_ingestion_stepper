@@ -14,8 +14,10 @@ import SchedulingPopupPages from "./SchedulingPopupPages";
 import "./SchedulingPopupPages.css";
 import Select from "react-select";
 import Modal from "react-bootstrap/Modal";
+import { useLocation } from "react-router-dom";
 
 const SchedulingPipeline = () => {
+  const location = useLocation();
   const [field, setField] = useState([]);
   const [show, setShow] = useState(false);
   const [dagName, setDagName] = useState([]);
@@ -25,28 +27,45 @@ const SchedulingPipeline = () => {
   const [togggleState, settogggleState] = useState(false);
   const [tasks, settasks] = useState([]);
 
+  const isPathCheck = () => {
+    if (location.pathname === "/scheduling/edit/job-name") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   useEffect(() => {
-    if(sessionStorage.getItem("schedulingUserData")){   
-      setTimeout(()=>{
+    if (sessionStorage.getItem("schedulingUserData")) {
+      setTimeout(() => {
         const storedData = sessionStorage.getItem("schedulingUserData");
         const userData = JSON.parse(storedData);
         sessionStorage.removeItem("schedulingUserData");
-        if(userData?.parent_dag_id) setValue("parent_dag_id" , userData?.parent_dag_id)
-        if(userData?.timezone) setValue("timezone" , userData?.timezone)
-        if(userData?.tasks){
-          userData.tasks = userData?.tasks.map((item) => {
-            item.arguments = JSON.stringify(item.arguments) 
-            item.dependency = item.dependency.map((item)=>{
-              return {
-                label: item,
-                value: item,
-              }
-            })
-            return item
-         })
-          settasks(userData?.tasks)
+        if (userData?.parent_dag_id)
+          setValue("parent_dag_id", userData?.parent_dag_id);
+        if (userData?.timezone) setValue("timezone", userData?.timezone);
+        if (userData?.schedule_value)
+          setValue(
+            "schedule_value",
+            typeof userData.schedule_value === "object"
+              ? JSON.stringify(userData.schedule_value)
+              : userData.schedule_value
+          );
+        if (userData?.tasks) {
+          userData.tasks = userData?.tasks?.map?.((item) => {
+            item.arguments = JSON.stringify(item.arguments);
+            item.dependency =
+              item?.dependency?.map?.((item) => {
+                return {
+                  label: item,
+                  value: item,
+                };
+              }) || [];
+            return item;
+          });
+          settasks(userData?.tasks);
         }
-      },1500)
+      }, 1500);
     }
   });
 
@@ -85,7 +104,6 @@ const SchedulingPipeline = () => {
     ];
     settasks(newTasks);
   };
-
 
   const removeTask = (index) => {
     if (tasks.length > 1) {
@@ -215,8 +233,8 @@ const SchedulingPipeline = () => {
     };
 
     if (data.schedule_type === "delta_values") {
-      updatedFormData.schedule_value = JSON.parse(
-        updatedFormData.schedule_value
+      JSON.parse(
+        (updatedFormData.schedule_value = updatedFormData.schedule_value)
       );
     }
 
@@ -266,8 +284,6 @@ const SchedulingPipeline = () => {
   };
   const handleShowSchedulingModal = () => setShow(true);
 
- 
-
   const handleDataChange = (selectedItems) => {
     const diInject = moduleName.find(
       (moduleName) => moduleName === "di_ingest"
@@ -284,12 +300,21 @@ const SchedulingPipeline = () => {
     settasks(newTasks);
   };
 
-
+  const checkIfValidJson = (inputData) => {
+    if (inputData) {
+      try {
+        let parsedata = JSON.parse(inputData);
+        return false;
+      } catch (e) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  };
 
   return (
     <>
-    
-
       <Modal
         show={showModal}
         onHide={handleClose}
@@ -313,6 +338,7 @@ const SchedulingPipeline = () => {
             </Form.Label>
             <Col sm="4">
               <Form.Control
+                disabled={isPathCheck()}
                 className="jobFormItem"
                 size="sm"
                 id="job_name"
@@ -591,7 +617,10 @@ const SchedulingPipeline = () => {
                         placeholder="Enter Arguments..."
                         id={`tasks[${index}].arguments`}
                         name={`tasks[${index}].arguments`}
-                        isInvalid={!!errors?.tasks?.[index]?.arguments}
+                        isInvalid={
+                          !!errors?.tasks?.[index]?.arguments ||
+                          checkIfValidJson(task.arguments)
+                        }
                         value={task.arguments}
                         onChange={async (e) => {
                           let tasksTemp = JSON.parse(JSON.stringify(tasks));
@@ -606,6 +635,7 @@ const SchedulingPipeline = () => {
                         // })}
                       />
                     </td>
+
                     <td>
                       <Select
                         isMulti
@@ -631,7 +661,6 @@ const SchedulingPipeline = () => {
                           settogggleState(!togggleState);
                         }}
                       />
-                    
                     </td>
                     <td>
                       <Button
