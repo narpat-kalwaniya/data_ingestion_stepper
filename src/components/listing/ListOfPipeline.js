@@ -178,6 +178,11 @@ export default function CustomizedTables({ searchedData }) {
     }
   }, [piplineData, statusFilter]);
 
+  const handleActiveButtonClick = (entityId) => {
+    console.log("Inactive Button clicked for entity id:", entityId);
+    // Implement the functionality for the inactive button here.
+  };
+
   console.log(selectedEntityId);
 
   const TableHeaderContainer = styled(TableHead)(({ theme }) => ({
@@ -260,10 +265,18 @@ export default function CustomizedTables({ searchedData }) {
                   <AiOutlineEdit className="edit" />
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Trash
-                    className="trash"
-                    onClick={() => deletePipelineHandler(row.entity_id)}
-                  />
+                  {row.entity_status === "Inactive" ? (
+                    <button
+                      onClick={() => handleActiveButtonClick(row.entity_id)}
+                    >
+                      Active
+                    </button>
+                  ) : (
+                    <Trash
+                      className="trash"
+                      onClick={() => deletePipelineHandler(row.entity_id)}
+                    />
+                  )}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
