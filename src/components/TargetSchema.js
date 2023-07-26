@@ -146,7 +146,7 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
   const addRow = () => {
     const newRow = {
       column_name: "",
-      data_type: "",
+      data_type: "NA",
       target_datatype: "",
       is_target_primary_key: false,
       is_business_key: false,
@@ -274,16 +274,15 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
             )}
           </td>
           <td>
-            {index === newRowIndex && showInputBoxes ? (
-              <Form.Control
-                type="text"
-                value={column.data_type}
-                onChange={(event) => handleDataTypeChange(event, index)}
-                className="custom-select custom-style"
-              />
-            ) : (
-              column.data_type
-            )}
+            {index === newRowIndex && showInputBoxes
+              ? // <Form.Control
+                //   type="text"
+                //   value={column.data_type}
+                //   onChange={(event) => handleDataTypeChange(event, index)}
+                //   className="custom-select custom-style"
+                // />
+                column.data_type
+              : column.data_type}
           </td>
           <td style={{ width: "150px" }}>
             <Form.Select
