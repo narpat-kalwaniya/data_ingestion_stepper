@@ -156,6 +156,7 @@ const ReviewFrom = (props) => {
   console.log("form data final", props.formData);
 
   const renderTable = (data) => {
+    console.log("data", data);
     return (
       <Table responsive>
         {/* <thead>
@@ -196,7 +197,7 @@ const ReviewFrom = (props) => {
       }
     });
   };
-  console.log("rule", props.formData.tableData[0].validation_rules);
+  // console.log("rule", props.formData.tableData[0].validation_rules);
   console.log("final ingestion data", ingestionData);
 
   const cardBodyRef = useRef(null);
@@ -276,7 +277,7 @@ const ReviewFrom = (props) => {
                   <Row>
                     <Col>
                       <div>
-                        <div c>
+                        <div>
                           <div
                             className="d-flex justify-content-between float-right"
                             style={{
@@ -303,7 +304,10 @@ const ReviewFrom = (props) => {
                         </div>
 
                         <Card.Body
-                        // style={{ justifyItems: "center", alignItems: "center" }}
+                          style={{
+                            justifyItems: "center",
+                            alignItems: "center",
+                          }}
                         >
                           {Object.entries(
                             props.formData.CreateDataConnection
@@ -523,7 +527,7 @@ const ReviewFrom = (props) => {
                         </div>
                         <Card.Body>
                           <div>
-                            {renderObject(props.formData.targetLoadDetails)}
+                            {/* {renderObject(props.formData.targetLoadDetails)} */}
                           </div>
                         </Card.Body>
                         <div className="block">

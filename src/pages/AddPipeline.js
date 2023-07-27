@@ -11,8 +11,7 @@ import { FaCheck } from "react-icons/fa";
 import { formContext } from "../components/formContext";
 import { stepContext } from "../components/stepContext";
 
-function AddPipeline() {
-  const [isReview, setIsReview] = useState(false);
+function AddPipeline(props) {
   const [showModal, setShowModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { updateIngestionData } = useContext(DataContext);
@@ -134,7 +133,7 @@ function AddPipeline() {
 
   const createNewPipelineHandler = () => {
     setStep(1);
-    setIsReview(false);
+    props.setIsReview(false);
   };
 
   // Input validation-1
@@ -349,7 +348,7 @@ function AddPipeline() {
   const totalPagesCount = 8;
 
   const previousHandler = () => {
-    setIsReview(false);
+    props.setIsReview(false);
     setStep((step) => step - 1);
   };
 
@@ -393,7 +392,7 @@ function AddPipeline() {
 
   const closeHandler = () => {
     setShowModal(true);
-    setIsReview(false);
+    props.setIsReview(false);
     setStep((step) => 1);
     setShowModal(false);
     // const clearedObject = Object.keys(formData).reduce(
@@ -411,7 +410,7 @@ function AddPipeline() {
   };
 
   const reviewHandler = () => {
-    setIsReview(true);
+    props.setIsReview(true);
     setStep((step) => step + 1);
   };
   // const showDraftsHandler = () => { };
@@ -515,17 +514,17 @@ function AddPipeline() {
             <SectionMenu
               step={step}
               setStep={setStep}
-              isReview={isReview}
-              setIsReview={setIsReview}
+              isReview={props.isReview}
+              setIsReview={props.setIsReview}
             />
           ) : null}
           <Col>
-            {isReview ? (
+            {props.isReview ? (
               <ReviewForm
                 step={step}
                 setStep={setStep}
-                isReview={isReview}
-                setIsReview={setIsReview}
+                isReview={props.isReview}
+                setIsReview={props.setIsReview}
                 cancel={closeHandler}
                 formData={formData}
                 isSubmitted={isSubmitted}
@@ -560,8 +559,8 @@ function AddPipeline() {
                           errors2={errors2}
                           errors5={errors5}
                           errors6={errors6}
-                          isReview={isReview}
-                          setIsReview={setIsReview}
+                          isReview={props.isReview}
+                          setIsReview={props.setIsReview}
                           isLoading={isLoading}
                           setIsLoading={setIsLoading}
                           currentlySubmittedForm={currentlySubmittedForm}

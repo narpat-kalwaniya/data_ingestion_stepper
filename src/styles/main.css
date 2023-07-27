@@ -234,7 +234,7 @@ h5 {
 }
 
 .card-body.custom-card-body {
-  color: #4f4f4f; /* Set your desired font color */
+  color: #4f4f4f !important; 
   font-size: "14px" !important;
 }
 
