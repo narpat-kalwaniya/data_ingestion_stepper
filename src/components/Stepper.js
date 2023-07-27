@@ -25,6 +25,8 @@ const Stepper = ({
   setIsDraftSaved,
   isLoading,
   setIsLoading,
+  isTableLoad,
+  setIsTableLoad,
 }) => {
   const [isVisibleOption, setisVisibleOption] = useState(true);
 
@@ -59,6 +61,8 @@ const Stepper = ({
           setIsDraftSaved={setIsDraftSaved}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
+          isTableLoad={isTableLoad}
+          setIsTableLoad={setIsTableLoad}
         />
       ) : step === 4 ? (
         <DefineDataValidation

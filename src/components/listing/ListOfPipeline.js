@@ -218,8 +218,13 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="center" onClick={handleStatusSort}>
               Status
             </StyledTableCell>
-            <StyledTableCell align="center">View</StyledTableCell>
-            <StyledTableCell />
+            <StyledTableCell align="center"></StyledTableCell>
+            <StyledTableCell
+              style={{ paddingLeft: "0px", paddingRight: "0px" }}
+            >
+              {" "}
+              Actions{" "}
+            </StyledTableCell>
             <StyledTableCell />
           </TableRow>
         </TableHeaderContainer>
@@ -282,11 +287,16 @@ export default function CustomizedTables(props) {
                 </StyledTableCell>
                 <StyledTableCell>
                   {row.entity_status === "Inactive" ? (
-                    <button
+                    <span
                       onClick={() => handleActiveButtonClick(row.entity_id)}
+                      style={{
+                        cursor: "pointer",
+                        paddingTop: "10px",
+                        color: "#18749C",
+                      }}
                     >
-                      Active
-                    </button>
+                      Activate
+                    </span>
                   ) : (
                     <Trash
                       className="trash"
