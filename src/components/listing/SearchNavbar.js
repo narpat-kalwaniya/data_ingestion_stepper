@@ -64,7 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function ListingPage() {
+export default function ListingPage(props) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchedData, setsearchedData] = React.useState("");
@@ -264,7 +264,15 @@ export default function ListingPage() {
                   noWrap
                   component="div"
                   sx={{
-                    display: { xs: "none", sm: "block", color: "#F7901D" },
+                    display: {
+                      xs: "none",
+                      sm: "block",
+                      color: "#F7901D",
+                      cursor: "pointer",
+                    },
+                  }}
+                  onClick={() => {
+                    setIsShowDrafts(false);
                   }}
                 >
                   All Pipelines
@@ -385,7 +393,17 @@ export default function ListingPage() {
               handleClose={handleClose}
             />
           ) : (
-            <CustomizedTables searchedData={searchedData} />
+            <CustomizedTables
+              searchedData={searchedData}
+              formData={formData}
+              setFormData={setFormData}
+              setOpen={setOpen}
+              handleClose={handleClose}
+              isReview={props.isReview}
+              setIsReview={props.setIsReview}
+              step={step}
+              setStep={setStep}
+            />
           )}
         </div>
       </div>

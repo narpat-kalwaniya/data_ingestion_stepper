@@ -17,7 +17,9 @@ import SchedulingPipeline from "./components/SchedulingPipeline";
 function App() {
   const [user, setUser] = useState();
   const [loading, setloading] = useState(true);
+  const [isTableLoad, setIsTableLoad] = useState(true);
   const [step, setStep] = useState(1);
+  const [isReview, setIsReview] = useState(false);
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: "",
@@ -104,8 +106,26 @@ function App() {
               >
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/pipelines" element={<ListingPage />} />
-                <Route path="/pipelines/add" element={<AddPipeline />} />
+                <Route
+                  path="/pipelines"
+                  element={
+                    <ListingPage
+                      isReview={isReview}
+                      setIsReview={setIsReview}
+                    />
+                  }
+                />
+                <Route
+                  path="/pipelines/add"
+                  element={
+                    <AddPipeline
+                      isReview={isReview}
+                      setIsReview={setIsReview}
+                      setIsTableLoad={setIsTableLoad}
+                      isTableLoad={isTableLoad}
+                    />
+                  }
+                />
                 <Route
                   path="/pipelines/migration"
                   element={<AddPipelineMig />}

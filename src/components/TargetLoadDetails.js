@@ -236,11 +236,9 @@ const TargetLoadDetails = ({
                   currentlySubmittedForm == 6 && errors6.selectedTableSchema
                 }
                 className="custom-select custom-style"
-                value={formData.tableData[0]?.selectedTableSchema}
+                value={formData.tableData[0]?.target_entity_name.split(".")[1]}
                 name="selectedTableSchema"
-                onChange={(e) =>
-                  targetSchemaHandler(e, 0)
-                }
+                onChange={(e) => targetSchemaHandler(e, 0)}
               >
                 <option value="">-- Select --</option>{" "}
                 {formData.tableData?.[

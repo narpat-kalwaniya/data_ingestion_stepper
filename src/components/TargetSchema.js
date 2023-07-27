@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Table, Form } from "react-bootstrap";
+import { Table, Form, ProgressBar } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 import AceEditor from "react-ace";
 import { Add } from "react-bootstrap-icons";
@@ -146,7 +146,7 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
   const addRow = () => {
     const newRow = {
       column_name: "",
-      data_type: "",
+      data_type: "NA",
       target_datatype: "",
       is_target_primary_key: false,
       is_business_key: false,
@@ -274,16 +274,15 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
             )}
           </td>
           <td>
-            {index === newRowIndex && showInputBoxes ? (
-              <Form.Control
-                type="text"
-                value={column.data_type}
-                onChange={(event) => handleDataTypeChange(event, index)}
-                className="custom-select custom-style"
-              />
-            ) : (
-              column.data_type
-            )}
+            {index === newRowIndex && showInputBoxes
+              ? // <Form.Control
+                //   type="text"
+                //   value={column.data_type}
+                //   onChange={(event) => handleDataTypeChange(event, index)}
+                //   className="custom-select custom-style"
+                // />
+                column.data_type
+              : column.data_type}
           </td>
           <td style={{ width: "150px" }}>
             <Form.Select
@@ -366,28 +365,42 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
   );
 };
 
-export const TargetSchema = ({ formData, updateFormData, setIsDraftSaved }) => {
+export const TargetSchema = ({
+  formData,
+  updateFormData,
+  setIsDraftSaved,
+  isTableLoad,
+  setIsTableLoad,
+}) => {
+  console.log("tableLoad", isTableLoad);
   return (
-    <Table hover responsive>
-      <thead
-        style={{
-          backgroundColor: "#F3F3F3",
-          fontSize: "12px",
-          height: "50px",
-          alignItems: "center",
-        }}
-      >
-        <tr>
-          {headers.map((name, index) => (
-            <th key={index}>{name}</th>
-          ))}
-        </tr>
-      </thead>
-      <TbData
-        formData={formData}
-        updateFormData={updateFormData}
-        setIsDraftSaved={setIsDraftSaved}
-      />
-    </Table>
+    <div>
+      <Table hover responsive>
+        <thead
+          style={{
+            backgroundColor: "#F3F3F3",
+            fontSize: "12px",
+            height: "50px",
+            alignItems: "center",
+          }}
+        >
+          <tr>
+            {headers.map((name, index) => (
+              <th key={index}>{name}</th>
+            ))}
+          </tr>
+        </thead>
+        <TbData
+          formData={formData}
+          updateFormData={updateFormData}
+          setIsDraftSaved={setIsDraftSaved}
+        />
+      </Table>
+      {isTableLoad && (
+        <div style={{ width: "100%" }}>
+          <ProgressBar animated now={100} label="Loading..." />
+        </div>
+      )}
+    </div>
   );
 };
