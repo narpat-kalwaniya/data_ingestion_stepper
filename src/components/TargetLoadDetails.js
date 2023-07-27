@@ -439,8 +439,7 @@ const TargetLoadDetails = ({
                     value={formData.targetLoadDetails.datalake_connection}
                   >
                     <option>{""}</option>
-                    <option>Connection1</option>
-                    <option>Connection2</option>
+                    <option>datacopy-s3</option>
                   </Form.Select>
                 </Col>
                 <Col>
