@@ -150,6 +150,7 @@ export default function CustomizedTables(props) {
     );
     console.log("row", row);
     console.log(props.formData);
+    props.setStep(10);
   };
 
   const handleCloseModal = () => {
