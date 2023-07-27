@@ -57,7 +57,7 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function CustomizedTables({ searchedData }) {
+export default function CustomizedTables(props) {
   const [piplineData, setPipelineData] = useState([]);
   const [selectedEntityId, setSelectedEntityId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +71,7 @@ export default function CustomizedTables({ searchedData }) {
   const fetchTestcases = async () => {
     try {
       const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/entitydetails/"
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/pipelinedetails/"
       );
       const data = await response.json();
       console.log(data);
@@ -137,6 +137,19 @@ export default function CustomizedTables({ searchedData }) {
     // Close the modal
     setIsLoading(false);
     setIsModalOpen(false);
+  };
+
+  const editPipelineHandler = (row) => {
+    props.setFormData(row);
+    props.setIsReview(true);
+
+    props.setOpen(true);
+    // props.setStep(row.current_step);
+    props.handleClose(
+      "Batch Ingestion of Relational Sources for Single Entity"
+    );
+    console.log("row", row);
+    console.log(props.formData);
   };
 
   const handleCloseModal = () => {
@@ -209,23 +222,23 @@ export default function CustomizedTables({ searchedData }) {
           {filteredPiplineData
             .filter(
               (item) =>
-                !searchedData ||
-                (searchedData &&
+                !props.searchedData ||
+                (props.searchedData &&
                   item?.app_name
                     ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase())) ||
-                (searchedData &&
+                    ?.includes(props.searchedData?.toLowerCase())) ||
+                (props.searchedData &&
                   item?.source_entity_name
                     ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase())) ||
-                (searchedData &&
+                    ?.includes(props.searchedData?.toLowerCase())) ||
+                (props.searchedData &&
                   item?.target_connection_name
                     ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase())) ||
-                (searchedData &&
+                    ?.includes(props.searchedData?.toLowerCase())) ||
+                (props.searchedData &&
                   item?.source_connection_name
                     ?.toLowerCase()
-                    ?.includes(searchedData?.toLowerCase()))
+                    ?.includes(props.searchedData?.toLowerCase()))
             )
             .map((row) => (
               <StyledTableRow
@@ -238,10 +251,10 @@ export default function CustomizedTables({ searchedData }) {
                   Data Ingestion
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.source_entity_name}
+                  {row.sourceEntity.source_entity_name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.target_entity_name}
+                  {row.targetLoadDetails.target_entity_name}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {row.entity_status}
@@ -257,7 +270,10 @@ export default function CustomizedTables({ searchedData }) {
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {" "}
-                  <AiOutlineEdit className="edit" />
+                  <AiOutlineEdit
+                    className="edit"
+                    onClick={() => editPipelineHandler(row)}
+                  />
                 </StyledTableCell>
                 <StyledTableCell>
                   <Trash
