@@ -17,6 +17,7 @@ import SchedulingPipeline from "./components/SchedulingPipeline";
 function App() {
   const [user, setUser] = useState();
   const [loading, setloading] = useState(true);
+  const [isTableLoad, setIsTableLoad] = useState(true);
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [formData, setFormData] = useState({
@@ -120,6 +121,8 @@ function App() {
                     <AddPipeline
                       isReview={isReview}
                       setIsReview={setIsReview}
+                      setIsTableLoad={setIsTableLoad}
+                      isTableLoad={isTableLoad}
                     />
                   }
                 />

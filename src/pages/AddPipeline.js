@@ -119,6 +119,7 @@ function AddPipeline(props) {
             };
             updateIngestionData(updatedData);
             setIsLoading(false);
+            props.setIsTableLoad(false);
           }
         } else {
           console.error("Error:", response.status);
@@ -433,6 +434,7 @@ function AddPipeline(props) {
 
         setIsDraftSaved(true);
         setIsLoading(false);
+
         // handleCloseModalApp();
       } else {
         // Handle error response
@@ -565,6 +567,8 @@ function AddPipeline(props) {
                           setIsLoading={setIsLoading}
                           currentlySubmittedForm={currentlySubmittedForm}
                           setIsDraftSaved={setIsDraftSaved}
+                          isTableLoad={props.isTableLoad}
+                          setIsTableLoad={props.setIsTableLoad}
                         />
                       </Card.Body>
                     </Container>
