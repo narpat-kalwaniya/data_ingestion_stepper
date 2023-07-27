@@ -401,6 +401,8 @@ export default function ListingPage(props) {
               handleClose={handleClose}
               isReview={props.isReview}
               setIsReview={props.setIsReview}
+              step={step}
+              setStep={setStep}
             />
           )}
         </div>
