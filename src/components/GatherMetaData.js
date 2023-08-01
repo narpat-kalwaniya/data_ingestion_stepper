@@ -6,7 +6,7 @@ import { DataContext } from "./DataContext";
 import Scheduling from "./Scheduling";
 import "./GatherMetaData.css";
 
-const GatherMetaData = ({ formData, updateFormData }) => {
+const GatherMetaData = ({ formData, updateFormData, errorEmail8 }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
 
@@ -95,6 +95,9 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                   value={formData.GatherMetaData.email}
                   onChange={changeHandler}
                 ></Form.Control>
+                {errorEmail8?.email && (
+                  <div className="error">{errorEmail8?.email}</div>
+                )}
               </Col>
             </Col>
           </Row>
@@ -108,6 +111,9 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                 value={formData.GatherMetaData.success_email_list}
                 onChange={changeHandler}
               ></Form.Control>
+              {errorEmail8?.success_email_list && (
+                <div className="error">{errorEmail8?.success_email_list}</div>
+              )}
             </Col>
           </Row>
           <Row className="mb-4">
@@ -120,6 +126,9 @@ const GatherMetaData = ({ formData, updateFormData }) => {
                 value={formData.GatherMetaData.failure_email_list}
                 onChange={changeHandler}
               ></Form.Control>
+              {errorEmail8?.failure_email_list && (
+                <div className="error">{errorEmail8?.failure_email_list}</div>
+              )}
             </Col>
           </Row>
           <hr className="line-separator" /> {/* Line for separation */}

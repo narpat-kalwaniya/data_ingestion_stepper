@@ -20,6 +20,7 @@ const Stepper = ({
   errors2,
   errors5,
   errors6,
+  errorEmail8,
   updateTargetLoad,
   currentlySubmittedForm,
   setIsDraftSaved,
@@ -102,6 +103,7 @@ const Stepper = ({
         <GatherMetaData
           step={step}
           formData={formData}
+          errorEmail8={errorEmail8}
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
           setIsDraftSaved={setIsDraftSaved}

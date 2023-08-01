@@ -53,6 +53,12 @@ function AddPipeline(props) {
     target_database: "",
   });
 
+  const [errorEmail8, setErrorEmail8] = useState({
+    email: "",
+    success_email_list: "",
+    failure_email_list: "",
+  });
+
   useEffect(() => {
     // Check if selected key is false
     const updatedTableData = formData.tableData.filter(
@@ -411,9 +417,51 @@ function AddPipeline(props) {
   };
 
   const reviewHandler = () => {
-    props.setIsReview(true);
-    setStep((step) => step + 1);
+    let validationSuccess = errorEmailHandler();
+    if (validationSuccess) {
+      props.setIsReview(true);
+      setStep((step) => step + 1);
+    }
   };
+
+  const errorEmailHandler = () => {
+    const newEmailError = {};
+    const emailRegx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (
+      formData.GatherMetaData.email &&
+      !emailRegx.test(formData.GatherMetaData.email)
+    ) {
+      newEmailError.email = "This is not valid email format";
+      setErrorEmail8(newEmailError);
+      return false;
+    } else {
+      newEmailError.email = "";
+    }
+    if (
+      formData.GatherMetaData.success_email_list &&
+      !emailRegx.test(formData.GatherMetaData.success_email_list)
+    ) {
+      newEmailError.success_email_list = "This is not valid email format";
+      setErrorEmail8(newEmailError);
+      return false;
+    } else {
+      newEmailError.success_email_list = "";
+    }
+
+    if (
+      formData.GatherMetaData.failure_email_list &&
+      !emailRegx.test(formData.GatherMetaData.failure_email_list)
+    ) {
+      newEmailError.failure_email_list = "This is not valid email format";
+      setErrorEmail8(newEmailError);
+      return false;
+    } else {
+      newEmailError.failure_email_list = "";
+    }
+    setErrorEmail8(newEmailError);
+    return true;
+  };
+
   // const showDraftsHandler = () => { };
   const saveDraftsHandler = async () => {
     setIsLoading(true);
@@ -561,6 +609,7 @@ function AddPipeline(props) {
                           errors2={errors2}
                           errors5={errors5}
                           errors6={errors6}
+                          errorEmail8={errorEmail8}
                           isReview={props.isReview}
                           setIsReview={props.setIsReview}
                           isLoading={isLoading}
