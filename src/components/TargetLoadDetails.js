@@ -26,6 +26,27 @@ const TargetLoadDetails = ({
   );
   const [selectedOption, setSelectedOption] = useState("");
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+  const [connections, setConnections] = useState([]);
+
+  useEffect(() => {
+    const fetchConnections = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/conndetails/"
+        );
+        const data = await response.json();
+        setConnections(data);
+      } catch (error) {
+        console.error("Error fetching connections:", error);
+      }
+    };
+
+    fetchConnections();
+  }, []);
+
+  const filteredFlatConnections = connections.filter(
+    (connection) => connection.datasource_type === "flatfile"
+  );
 
   const changeHandler = (event) => {
     const updatedFormData = {
@@ -191,7 +212,7 @@ const TargetLoadDetails = ({
     updateIngestionData(updatedData);
   };
 
-  // console.log("target formdata", formData);
+  // console.log("data source type", formData.sourceEntity.data_source_type);
   // console.log("target load ingestion data", ingestionData);
 
   return (
@@ -236,7 +257,7 @@ const TargetLoadDetails = ({
                   currentlySubmittedForm == 6 && errors6.selectedTableSchema
                 }
                 className="custom-select custom-style"
-                value={formData.tableData[0]?.target_entity_name.split(".")[1]}
+                value={formData.tableData[0]?.selectedTableSchema}
                 name="selectedTableSchema"
                 onChange={(e) => targetSchemaHandler(e, 0)}
               >
@@ -438,9 +459,24 @@ const TargetLoadDetails = ({
                     onChange={changeHandler}
                     value={formData.targetLoadDetails.datalake_connection}
                   >
-                    <option>{""}</option>
-                    <option>Connection1</option>
-                    <option>Connection2</option>
+                    {/* <option>{""}</option>
+                    <option>datacopy-s3</option> */}
+                    <option value="">-- Select --</option>
+                    {""}
+                    {formData.sourceEntity.data_source_type === "Flat File" ? (
+                      filteredFlatConnections.map((connection) => (
+                        <option
+                          key={connection.connection_id}
+                          value={connection.connection_name}
+                        >
+                          {connection.connection_name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="" disabled>
+                        No options available
+                      </option>
+                    )}
                   </Form.Select>
                 </Col>
                 <Col>
