@@ -573,11 +573,20 @@ const SourceEntitySelectionMig = ({
   //   setSelectedOptions(selectedList);
   // };
 
-  const handleOptionSelect = (selectedList) => {
-    setSelectedOptions(selectedList);
-    const valueList = selectedList.map((option) => option.value);
-    console.log("selected table list", valueList);
-
+  const handleOptionSelect = (selectedList, removedItem) => {
+    let valueList = selectedList.map((option) => option.value);
+    if (removedItem?.value == "Select All") {
+      valueList = [];
+      setSelectedOptions([]);
+    } else {
+      if (valueList.includes("Select All")) {
+        let myValues = JSON.parse(JSON.stringify(tableOptions));
+        valueList = myValues.map((option) => option.value);
+        setSelectedOptions(myValues);
+      } else {
+        setSelectedOptions(selectedList);
+      }
+    }
     const updatedSourceEntity = {
       ...formData.sourceEntity,
       table_name: valueList,
@@ -835,12 +844,12 @@ const SourceEntitySelectionMig = ({
                   Table Name <span className="text-danger">*</span>
                 </Form.Label>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <input
+                  {/* <input
                     type="checkbox"
                     checked={selectAll}
                     onChange={handleCheckboxToggle}
                     style={{ marginRight: "8px" }}
-                  />
+                  /> */}
                   <MultiSelect
                     options={tableOptions}
                     selectedValues={formData.sourceEntity.table_name.map(
@@ -852,8 +861,8 @@ const SourceEntitySelectionMig = ({
                     onSelect={(selectedList) => {
                       handleOptionSelect(selectedList);
                     }}
-                    onRemove={(selectedList) => {
-                      handleOptionSelect(selectedList);
+                    onRemove={(selectedList, removedItem) => {
+                      handleOptionSelect(selectedList, removedItem);
                     }}
                     showArrow={true}
                     showCheckbox={true}
