@@ -17,6 +17,7 @@ import safeStringify from "json-stringify-safe";
 
 // import "bootstrap/dist/css/bootstrap.css";
 import "../styles/main.css";
+import Backend_url from "../config";
 
 const ReviewFrom = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -137,16 +138,13 @@ const ReviewFrom = (props) => {
   const sendData = async () => {
     props.setIsLoading(true);
     try {
-      const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingestprocess/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: safeStringify(props.formData),
-        }
-      );
+      const response = await fetch(`${Backend_url}/ingestprocess/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: safeStringify(props.formData),
+      });
 
       if (!response.ok) {
         throw new Error("Error sending data");

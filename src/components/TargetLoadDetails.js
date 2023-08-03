@@ -10,7 +10,7 @@ import {
   ToggleButton,
 } from "react-bootstrap";
 import { DataContext } from "./DataContext";
-
+import Backend_url from "../config";
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({
@@ -31,9 +31,7 @@ const TargetLoadDetails = ({
   useEffect(() => {
     const fetchConnections = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/conndetails/"
-        );
+        const response = await fetch(`${Backend_url}/conndetails/`);
         const data = await response.json();
         setConnections(data);
       } catch (error) {

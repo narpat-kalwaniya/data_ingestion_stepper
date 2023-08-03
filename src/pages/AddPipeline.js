@@ -10,6 +10,7 @@ import "../styles/main.css";
 import { FaCheck } from "react-icons/fa";
 import { formContext } from "../components/formContext";
 import { stepContext } from "../components/stepContext";
+import Backend_url from "../config";
 
 function AddPipeline(props) {
   const [showModal, setShowModal] = useState(false);
@@ -53,7 +54,6 @@ function AddPipeline(props) {
     target_database: "",
   });
 
-
   // useEffect(() => {
   //   // Check if selected key is false
   //   const updatedTableData = formData.tableData.filter(
@@ -71,7 +71,6 @@ function AddPipeline(props) {
     success_email_list: "",
     failure_email_list: "",
   });
-
 
   //   updateFormData(updatedFormData);
   // }, [step > 3]);
@@ -92,16 +91,13 @@ function AddPipeline(props) {
     const fetchData = async () => {
       // setIsLoading(true);
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-          }
-        );
+        const response = await fetch(`${Backend_url}/getcolumns/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
 
         if (response.ok) {
           const responseData = await response.json();
@@ -469,21 +465,17 @@ function AddPipeline(props) {
     updateIngestionData(formData);
   }, [props.isReview]);
 
-
   // const showDraftsHandler = () => { };
   const saveDraftsHandler = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/draftentity/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${Backend_url}/draftentity/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         // Handle successful response

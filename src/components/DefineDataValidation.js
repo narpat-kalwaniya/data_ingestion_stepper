@@ -122,6 +122,7 @@ import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
 import { DataContext } from "./DataContext";
 import { HiOutlinePlus } from "react-icons/hi";
+import Backend_url from "../config";
 
 const headers = [
   "Column Name",
@@ -172,9 +173,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
 
   const fetchTestcases = async () => {
     try {
-      const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/testcasemaster/"
-      );
+      const response = await fetch(`${Backend_url}/testcasemaster/`);
       const data = await response.json();
       setTestcases(data);
       // setSelectedTestcases(Array(formData.tableData.length).fill([]));

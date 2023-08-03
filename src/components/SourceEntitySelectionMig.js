@@ -411,6 +411,7 @@ import { DataContext } from "./DataContext";
 import MultiSelect from "multiselect-react-dropdown";
 // import { MultiSelect } from "react-multi-select-component";
 import "./Migration/AppMig.css";
+import Backend_url from "../config";
 
 const SourceEntitySelectionMig = ({
   step,
@@ -647,7 +648,7 @@ const SourceEntitySelectionMig = ({
     try {
       // Perform API call or fetch data from the data source
       const response = await fetch(
-        `http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getschematable/${connectionId}`
+        `${Backend_url}/getschematable/${connectionId}`
       );
       const data = await response.json();
 

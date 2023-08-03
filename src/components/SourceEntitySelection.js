@@ -6,7 +6,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-sql";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
-
+import Backend_url from "../config";
 const SourceEntitySelection = ({
   step,
   formData,
@@ -230,7 +230,7 @@ const SourceEntitySelection = ({
     try {
       // Perform API call or fetch data from the data source
       const response = await fetch(
-        `http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getschematable/${connectionId}`
+        `${Backend_url}/getschematable/${connectionId}`
       );
       const data = await response.json();
 

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Table, Form, Input, Col, Row, FormCheck } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 import Select from "react-select";
+import Backend_url from "../config";
 
 const headers = [
   // "Policy Name",
@@ -47,9 +48,7 @@ const ApplyMasking = ({ formData, updateFormData }) => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/maskmasterdata/"
-        );
+        const response = await fetch(`${Backend_url}/maskmasterdata/`);
         const data = await response.json();
         setMasking(data);
       } catch (error) {
