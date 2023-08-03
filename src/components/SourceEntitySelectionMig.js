@@ -409,6 +409,7 @@ import React, { useState, useEffect, useContext, Children } from "react";
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { DataContext } from "./DataContext";
 import MultiSelect from "multiselect-react-dropdown";
+// import { MultiSelect } from "react-multi-select-component";
 import "./Migration/AppMig.css";
 
 const SourceEntitySelectionMig = ({
@@ -447,6 +448,7 @@ const SourceEntitySelectionMig = ({
   const { ingestionData, updateIngestionData } = useContext(DataContext);
   const [updatedQuery, setUpdatedQuery] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   const selectChangeHandler = (event) => {
     const { value } = event.target;
@@ -507,11 +509,84 @@ const SourceEntitySelectionMig = ({
     updateIngestionData(updatedData);
   };
 
-  const handleOptionSelect = (selectedList) => {
-    setSelectedOptions(selectedList);
-    const valueList = selectedList.map((option) => option.value);
-    console.log("selected table list", valueList);
+  const handleCheckboxToggle = () => {
+    setSelectAll((prev) => !prev);
 
+    // If "Select All" is checked, select all options
+    if (!selectAll) {
+      handleOptionSelect(tableOptions.slice(1)); // Excluding the "Select All" option
+    } else {
+      // If "Select All" is unchecked, deselect all options
+      handleOptionSelect([]);
+    }
+  };
+
+  // useEffect(() => {
+  //   // When the "Select All" checkbox is toggled, update the selected options accordingly
+  //   if (selectAll) {
+  //     setSelectedOptions(tableOptions.slice(1).map((option) => option.value));
+  //   } else {
+  //     setSelectedOptions([]);
+  //   }
+  // }, [selectAll]);
+
+  // const handleCheckboxToggle = () => {
+  //   setSelectAll(!selectAll);
+  // };
+
+  // const handleOptionSelect = (selectedList) => {
+  //   // Check if "Select All" is present in the selected options
+  //   const selectAllOption = selectedList.find(
+  //     (option) => option.value === "Select All"
+  //   );
+
+  //   if (selectAllOption) {
+  //     // If "Select All" is selected, set "Select All" state to true
+  //     setSelectAll(true);
+  //     // Remove the "Select All" option from the selected options
+  //     selectedList = selectedList.filter(
+  //       (option) => option.value !== "Select All"
+  //     );
+  //   } else {
+  //     // If "Select All" is not selected, update the "Select All" state based on the number of selected options
+  //     setSelectAll(selectedList.length === tableOptions.length - 1);
+  //   }
+
+  //   // Update the form data and ingestion data with selected options
+  //   const valueList = selectedList.map((option) => option.value);
+  //   const updatedSourceEntity = {
+  //     ...formData.sourceEntity,
+  //     table_name: valueList,
+  //   };
+  //   const updatedFormData = {
+  //     ...formData,
+  //     sourceEntity: updatedSourceEntity,
+  //   };
+  //   updateFormData(updatedFormData);
+
+  //   const updatedData = {
+  //     table_name: valueList,
+  //   };
+  //   updateIngestionData(updatedData);
+
+  //   // Update the selected options state
+  //   setSelectedOptions(selectedList);
+  // };
+
+  const handleOptionSelect = (selectedList, removedItem) => {
+    let valueList = selectedList.map((option) => option.value);
+    if (removedItem?.value == "Select All") {
+      valueList = [];
+      setSelectedOptions([]);
+    } else {
+      if (valueList.includes("Select All")) {
+        let myValues = JSON.parse(JSON.stringify(tableOptions));
+        valueList = myValues.map((option) => option.value);
+        setSelectedOptions(myValues);
+      } else {
+        setSelectedOptions(selectedList);
+      }
+    }
     const updatedSourceEntity = {
       ...formData.sourceEntity,
       table_name: valueList,
@@ -662,6 +737,15 @@ const SourceEntitySelectionMig = ({
 
   console.log("source entity ingestion data", ingestionData);
 
+  const allOption = {
+    key: "Select All",
+    value: "Select All",
+  };
+  const tableOptions = [
+    allOption,
+    ...tables.map((table) => ({ key: table, value: table })),
+  ];
+
   return (
     <Card.Body className="custom-card-body">
       <div className="text-left">
@@ -759,29 +843,42 @@ const SourceEntitySelectionMig = ({
                 <Form.Label>
                   Table Name <span className="text-danger">*</span>
                 </Form.Label>
-                <MultiSelect
-                  options={tables.map((table) => ({
-                    key: table,
-                    value: table,
-                  }))}
-                  selectedValues={formData.sourceEntity.table_name.map(
-                    (option) => ({
-                      key: option,
-                      value: option,
-                    })
-                  )}
-                  onSelect={handleOptionSelect}
-                  onRemove={handleOptionSelect}
-                  showArrow={true}
-                  showCheckbox={true}
-                  displayValue="key"
-                  closeOnSelect={false}
-                  closeIcon="cancel"
-                  isInvalid={errors2.table_name}
-                />
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {/* <input
+                    type="checkbox"
+                    checked={selectAll}
+                    onChange={handleCheckboxToggle}
+                    style={{ marginRight: "8px" }}
+                  /> */}
+                  <MultiSelect
+                    options={tableOptions}
+                    selectedValues={formData.sourceEntity.table_name.map(
+                      (option) => ({
+                        key: option,
+                        value: option,
+                      })
+                    )}
+                    onSelect={(selectedList) => {
+                      handleOptionSelect(selectedList);
+                    }}
+                    onRemove={(selectedList, removedItem) => {
+                      handleOptionSelect(selectedList, removedItem);
+                    }}
+                    showArrow={true}
+                    showCheckbox={true}
+                    displayValue="key"
+                    closeOnSelect={false}
+                    closeIcon="cancel"
+                    isInvalid={errors2.table_name}
+                  />
+                </div>
+
                 {errors2.table_name && (
                   <div className="error">{errors2.table_name}</div>
                 )}
+                {/* <button type="button" onClick={handleSelectAllToggle}>
+                  {selectAllOptions ? "Deselect All" : "Select All"}
+                </button> */}
               </div>
             </Col>
           </Row>

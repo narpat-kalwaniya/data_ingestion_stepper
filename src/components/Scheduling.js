@@ -13,6 +13,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "./SchedulingStyle.css";
 import SchedulingNavbar from "./SchedulingNavbar";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -47,6 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function Scheduling() {
   const [searchedSchedulingData, setSearchedSchedulingData] = useState("");
   const [schedulingData, setschedulingData] = useState([]);
+  const [deletetionDagNAme, setdeletetionDagNAme] = useState([]);
   const navigateRouter = useNavigate();
 
   useEffect(() => {
@@ -60,7 +63,6 @@ export default function Scheduling() {
       );
       const data = await response.json();
       setschedulingData(data);
-      // setSelectedTestcases(Array(formData.tableData.length).fill(""));
     } catch (error) {
       console.log("Error fetching test cases:", error);
     }
@@ -75,12 +77,42 @@ export default function Scheduling() {
           ?.includes(searchedSchedulingData?.toLowerCase()))
   );
 
+  const [showDelete, setShowDelete] = useState(false);
+  const deleteHandleClose = () => setShowDelete(false);
+  const deleteHandleShow = () => setShowDelete(true);
+
   return (
     <>
       <SchedulingNavbar
         searchedSchedulingData={searchedSchedulingData}
         setSearchedSchedulingData={setSearchedSchedulingData}
       />
+
+      <Modal show={showDelete} onHide={deleteHandleClose}>
+        <Modal.Body>Are you sure you want to delete this job ?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={deleteHandleClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={async () => {
+              deleteHandleClose();
+              const response = await fetch(
+                `http://ec2-54-197-121-247.compute-1.amazonaws.com:27022/api/v1/job/deactivate/${deletetionDagNAme}`,
+                {
+                  method: "PUT",
+                }
+              );
+              // console.log(response);
+              fetchSchedulingDetails();
+            }}
+          >
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="col-lg-10 col-md-10 m-auto">
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
@@ -92,6 +124,7 @@ export default function Scheduling() {
                 </StyledTableCell>
                 <StyledTableCell align="center">Parent DAG ID</StyledTableCell>
                 <StyledTableCell align="center">Module Name </StyledTableCell>
+                <StyledTableCell align="center">Status </StyledTableCell>
                 <StyledTableCell align="center">Edit</StyledTableCell>
                 <StyledTableCell align="center">Delete</StyledTableCell>
               </TableRow>
@@ -112,6 +145,9 @@ export default function Scheduling() {
                     {row.tasks?.[0]?.module_name}
                   </StyledTableCell>
                   <StyledTableCell align="center">
+                    {row.is_active != "false" ? "Active" : "Inactive"}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
                     <BorderColorSharpIcon
                       className="viewBtnStyle"
                       style={{ width: "15px", height: "15px" }}
@@ -130,7 +166,8 @@ export default function Scheduling() {
                       className="viewBtnStyle"
                       style={{ width: "15px", height: "15px" }}
                       onClick={() => {
-                        // console.log("Icon clicked!", row.entity_id);
+                        deleteHandleShow();
+                        setdeletetionDagNAme(row.job_name);
                       }}
                     />
                   </StyledTableCell>

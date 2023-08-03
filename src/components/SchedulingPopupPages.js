@@ -180,25 +180,6 @@ export default function SchedulingPopupPages(props) {
             ""
           )}
         </Modal.Body>
-        {/* <Modal.Footer>
-          <Button
-            className="jobFormBtn"
-            variant="secondary"
-            onClick={props.onHide}
-          >
-            Close
-          </Button>
-          <Button
-            className="jobFormBtn"
-            variant="primary"
-            onClick={() => {
-              props.onHide();
-              handleSave();
-            }}
-          >
-            Save
-          </Button>
-        </Modal.Footer> */}
       </Form>
     </Modal>
   );

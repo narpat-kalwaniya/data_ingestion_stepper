@@ -383,6 +383,7 @@ const SchedulingPipeline = () => {
                   required: true,
                 })}
                 type="datetime-local"
+                step="any"
               />
               <Form.Control.Feedback type="invalid">
                 Please provide a valid start timestamp.
@@ -396,6 +397,7 @@ const SchedulingPipeline = () => {
                 className="jobFormItem"
                 size="sm"
                 min={startStamp}
+                step="any"
                 id="end_timestamp"
                 name="end_timestamp"
                 {...register("end_timestamp")}
