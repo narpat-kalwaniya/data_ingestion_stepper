@@ -140,6 +140,9 @@ export default function CustomizedTables(props) {
   };
 
   const editPipelineHandler = (row) => {
+    console.log("row", row);
+    console.log("formData", props.formData);
+    // props.formData.CreateDataConnection = row.CreateDataConnection;
     props.setFormData(row);
     props.setIsReview(true);
 
@@ -148,8 +151,8 @@ export default function CustomizedTables(props) {
     props.handleClose(
       "Batch Ingestion of Relational Sources for Single Entity"
     );
-    console.log("row", row);
-    console.log(props.formData);
+
+    console.log("formdata", props.formData);
     props.setStep(10);
   };
 

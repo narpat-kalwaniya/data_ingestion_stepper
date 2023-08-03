@@ -88,7 +88,7 @@ const CreateDataConnection = ({
     updateFormData(updatedFormData, 1);
 
     const updatedData = { source_connection_id: selectedConnectionId };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleTargetSelection = (event) => {
@@ -113,7 +113,7 @@ const CreateDataConnection = ({
     const updatedData = {
       target_connection_id: selectedConnectionId,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleApplicationSelection = (event) => {
@@ -138,7 +138,7 @@ const CreateDataConnection = ({
     const updatedData = {
       app_id: selectedConnectionId,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const filteredSourceConnections = connections.filter(

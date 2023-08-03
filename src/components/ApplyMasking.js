@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Table, Form, Input, Col, Row, FormCheck } from "react-bootstrap";
-import TableData from "./TableData";
 import { DataContext } from "./DataContext";
 import Select from "react-select";
 

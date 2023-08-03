@@ -53,20 +53,20 @@ function AddPipeline(props) {
     target_database: "",
   });
 
-  useEffect(() => {
-    // Check if selected key is false
-    const updatedTableData = formData.tableData.filter(
-      (row) => row.selected !== false
-    );
+  // useEffect(() => {
+  //   // Check if selected key is false
+  //   const updatedTableData = formData.tableData.filter(
+  //     (row) => row.selected !== false
+  //   );
 
-    // Update formData with the modified tableData
-    const updatedFormData = {
-      ...formData,
-      tableData: updatedTableData,
-    };
+  //   // Update formData with the modified tableData
+  //   const updatedFormData = {
+  //     ...formData,
+  //     tableData: updatedTableData,
+  //   };
 
-    updateFormData(updatedFormData);
-  }, [step === 3]);
+  //   updateFormData(updatedFormData);
+  // }, [step > 3]);
 
   useEffect(() => {
     const requestData = {
@@ -414,6 +414,12 @@ function AddPipeline(props) {
     props.setIsReview(true);
     setStep((step) => step + 1);
   };
+
+  useEffect(() => {
+    console.log("updation", "succeeded");
+    updateIngestionData(formData);
+  }, [props.isReview]);
+
   // const showDraftsHandler = () => { };
   const saveDraftsHandler = async () => {
     setIsLoading(true);
@@ -529,6 +535,7 @@ function AddPipeline(props) {
                 setIsReview={props.setIsReview}
                 cancel={closeHandler}
                 formData={formData}
+                setFormData={setFormData}
                 isSubmitted={isSubmitted}
                 setIsSubmitted={setIsSubmitted}
                 isLoading={isLoading}

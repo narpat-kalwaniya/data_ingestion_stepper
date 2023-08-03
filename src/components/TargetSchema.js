@@ -15,7 +15,6 @@ import "ace-builds/src-noconflict/mode-sql";
 import "ace-builds/src-noconflict/theme-github";
 
 const headers = [
-  "",
   "Column Name",
   "Source Data Type",
   "Target Data Type",
@@ -72,7 +71,7 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
         updatedTableData, // Add new attribute object
       ],
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
   // console.log(pageData);
 
@@ -93,7 +92,7 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
         updatedTableData, // Add new attribute object
       ],
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
   // console.log(formData);
   const businessKeyHandler = (checked, index) => {
@@ -113,7 +112,7 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
         updatedTableData, // Add new attribute object
       ],
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const transformLogicHandler = (index, value) => {
@@ -133,7 +132,7 @@ const TbData = ({ formData, updateFormData, setIsDraftSaved }) => {
         updatedTableData, // Add new attribute object
       ],
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   // const handleQueryChange = (id, value) => {
@@ -373,6 +372,20 @@ export const TargetSchema = ({
   setIsTableLoad,
 }) => {
   console.log("tableLoad", isTableLoad);
+  const [isSelectedAll, setIsSelectedAll] = useState(true);
+
+  const areAllSelected = formData.tableData.every(
+    (obj) => obj["selected"] === true
+  );
+
+  console.log("areAllSelected", areAllSelected);
+
+  const selectAllHandler = () => {
+    setIsSelectedAll(!isSelectedAll);
+    formData.tableData.forEach((obj) =>
+      Object.assign(obj, { selected: isSelectedAll })
+    );
+  };
   return (
     <div>
       <Table hover responsive>
@@ -385,6 +398,15 @@ export const TargetSchema = ({
           }}
         >
           <tr>
+            <td style={{ textAlign: "left" }}>
+              <Form.Check
+                type="checkbox"
+                checked={areAllSelected}
+                onChange={(e) => {
+                  selectAllHandler(e.target.checked);
+                }}
+              />
+            </td>
             {headers.map((name, index) => (
               <th key={index}>{name}</th>
             ))}

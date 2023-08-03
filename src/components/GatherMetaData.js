@@ -24,7 +24,7 @@ const GatherMetaData = ({ formData, updateFormData }) => {
       ...updatedData.additional_metadata,
       [e.target.name]: e.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const addHandler = () => {

@@ -63,7 +63,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       data_source_type: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleDatabaseChange = (event) => {
@@ -84,7 +84,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       db_name: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleSchemaChange = (event) => {
@@ -103,7 +103,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       schema_name: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleTableChange = (event) => {
@@ -122,7 +122,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       table_name: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const queryChangeHandler = (newQuery) => {
@@ -140,7 +140,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       query: newQuery,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   // const queryChangeHandler = (event) => {
@@ -203,7 +203,7 @@ const SourceEntitySelection = ({
       const updatedData = {
         bucket_name: value,
       };
-      updateIngestionData(updatedData);
+      // updateIngestionData(updatedData);
     } else if (name === "FullFileName") {
       setFullFileName(value);
       const updatedSourceEntity = {
@@ -218,7 +218,7 @@ const SourceEntitySelection = ({
       const updatedData = {
         full_file_name: value,
       };
-      updateIngestionData(updatedData);
+      // updateIngestionData(updatedData);
     }
   };
 

@@ -235,7 +235,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
           updatedTableData, // Add new attribute object
         ],
       };
-      updateIngestionData(updatedData);
+      // updateIngestionData(updatedData);
 
       return updatedSelectedTestcases;
     });
@@ -263,7 +263,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
           updatedTableData, // Add new attribute object
         ],
       };
-      updateIngestionData(updatedData);
+      // updateIngestionData(updatedData);
       return updatedTagValues;
     });
   };
@@ -301,7 +301,7 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
         updatedTableData, // Add new attribute object
       ],
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   return (
@@ -321,103 +321,107 @@ export const DefineDataValidation = ({ formData, updateFormData }) => {
         </tr>
       </thead>
       <tbody style={{ fontSize: "12px" }}>
-        {formData.tableData.map((column, rowIndex) => (
-          <tr key={rowIndex}>
-            <td>{column.column_name}</td>
-            <td>{column.target_datatype}</td>
-            <td>
-              {Array(inputCounts[rowIndex])
-                .fill()
-                .map((_, inputIndex) => (
-                  <React.Fragment key={`${rowIndex}-${inputIndex}`}>
-                    <Select
-                      value={
-                        selectedTestcases[rowIndex] &&
-                        selectedTestcases[rowIndex][inputIndex]
-                      }
-                      // value={
-                      //   formData.tableData[rowIndex].validation_rules[
-                      //     inputIndex
-                      //   ]
-                      // }
-                      onChange={(option) =>
-                        handleTestcaseChange(option, rowIndex, inputIndex)
-                      }
-                      options={testcases.map((testcase) => ({
-                        value: testcase.testcase_name,
-                        label: testcase.testcase_name_alias,
-                      }))}
-                      placeholder="Select Test Case"
-                      isSearchable
-                      className="custom-select custom-style"
-                    />
-                    <br /> {/* Add spacing between the fields */}
-                  </React.Fragment>
-                ))}
-            </td>
-            <td style={{ paddingTop: "19px" }}>
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  {Array(inputCounts[rowIndex])
-                    .fill()
-                    .map((_, inputIndex) => (
-                      <React.Fragment key={`${rowIndex}-${inputIndex}`}>
-                        <Form.Group>
-                          <TagsInput
-                            value={
+        {formData.tableData
+          .filter((row) => row.selected !== false)
+          .map((column, rowIndex) => (
+            <tr key={rowIndex}>
+              <td>{column.column_name}</td>
+              <td>{column.target_datatype}</td>
+              <td>
+                {Array(inputCounts[rowIndex])
+                  .fill()
+                  .map((_, inputIndex) => (
+                    <React.Fragment key={`${rowIndex}-${inputIndex}`}>
+                      <Select
+                        value={
+                          selectedTestcases[rowIndex] &&
+                          selectedTestcases[rowIndex][inputIndex]
+                        }
+                        // value={
+                        //   formData.tableData[rowIndex].validation_rules[
+                        //     inputIndex
+                        //   ]
+                        // }
+                        onChange={(option) =>
+                          handleTestcaseChange(option, rowIndex, inputIndex)
+                        }
+                        options={testcases.map((testcase) => ({
+                          value: testcase.testcase_name,
+                          label: testcase.testcase_name_alias,
+                        }))}
+                        placeholder="Select Test Case"
+                        isSearchable
+                        className="custom-select custom-style"
+                      />
+                      <br /> {/* Add spacing between the fields */}
+                    </React.Fragment>
+                  ))}
+              </td>
+              <td style={{ paddingTop: "19px" }}>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div>
+                    {Array(inputCounts[rowIndex])
+                      .fill()
+                      .map((_, inputIndex) => (
+                        <React.Fragment key={`${rowIndex}-${inputIndex}`}>
+                          <Form.Group>
+                            <TagsInput
+                              value={
+                                (tagValues[rowIndex] &&
+                                  tagValues[rowIndex][inputIndex]) ||
+                                []
+                              }
+                              onChange={(tags) =>
+                                handleTagChange(tags, rowIndex, inputIndex)
+                              }
+                              validationRegex={/^.*$/}
+                              validationError="Please enter valid tags"
+                              tagProps={{
+                                className: "react-tagsinput-tag info",
+                              }}
+                              inputProps={{
+                                placeholder: " ",
+                              }}
+                              disabled={parseInt(numberOfInput, 10) === 0}
+                            />
+                            {!validateTagCount(
                               (tagValues[rowIndex] &&
                                 tagValues[rowIndex][inputIndex]) ||
-                              []
-                            }
-                            onChange={(tags) =>
-                              handleTagChange(tags, rowIndex, inputIndex)
-                            }
-                            validationRegex={/^.*$/}
-                            validationError="Please enter valid tags"
-                            tagProps={{ className: "react-tagsinput-tag info" }}
-                            inputProps={{
-                              placeholder: " ",
-                            }}
-                            disabled={parseInt(numberOfInput, 10) === 0}
-                          />
-                          {!validateTagCount(
-                            (tagValues[rowIndex] &&
-                              tagValues[rowIndex][inputIndex]) ||
-                              []
-                          ) && (
-                            <Form.Text className="text-danger">
-                              Please select {numberOfInput} {valueOrValues}
-                            </Form.Text>
-                          )}
-                        </Form.Group>
-                        <br /> {/* Add spacing between the fields */}
-                      </React.Fragment>
-                    ))}
-                  <span
-                    style={{
-                      cursor: "pointer",
-                      color: "#18749C",
-                    }}
-                    onClick={() => handleAddInput(rowIndex)}
-                  >
-                    + Add Rule
-                  </span>
+                                []
+                            ) && (
+                              <Form.Text className="text-danger">
+                                Please select {numberOfInput} {valueOrValues}
+                              </Form.Text>
+                            )}
+                          </Form.Group>
+                          <br /> {/* Add spacing between the fields */}
+                        </React.Fragment>
+                      ))}
+                    <span
+                      style={{
+                        cursor: "pointer",
+                        color: "#18749C",
+                      }}
+                      onClick={() => handleAddInput(rowIndex)}
+                    >
+                      + Add Rule
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </td>
+              </td>
 
-            <td>
-              <FormControl
-                type="text"
-                onChange={(e) => {
-                  qualityScoreHandler(e.target.value, rowIndex);
-                }}
-                className="custom-select custom-style"
-                value={column.quality_score}
-              />
-            </td>
-          </tr>
-        ))}
+              <td>
+                <FormControl
+                  type="text"
+                  onChange={(e) => {
+                    qualityScoreHandler(e.target.value, rowIndex);
+                  }}
+                  className="custom-select custom-style"
+                  value={column.quality_score}
+                />
+              </td>
+            </tr>
+          ))}
       </tbody>
     </Table>
   );
