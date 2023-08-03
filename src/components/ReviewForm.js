@@ -86,26 +86,38 @@ const ReviewFrom = (props) => {
     const isChecked = event.target.checked;
     if (isChecked) {
       // Execute the pipeline now
-      const updatedData = {
-        run_now: true,
-      };
-      updateIngestionData(updatedData);
+      // const updatedData = {
+      //   run_now: true,
+      // };
+      // updateIngestionData(updatedData);
+      props.setFormData({
+        ...props.formData,
+        PipelineDetails: { run_now: true },
+      });
     } else {
       // Checkbox is unchecked
-      const updatedData = {
-        run_now: false,
-      };
-      updateIngestionData(updatedData);
+      // const updatedData = {
+      //   run_now: false,
+      // };
+      // updateIngestionData(updatedData);
+      props.setFormData({
+        ...props.formData,
+        PipelineDetails: { run_now: false },
+      });
     }
     setIsExecuteNow(!isExecuteNow);
     console.log("final ingestion data checkbox", ingestionData);
   };
 
   const pipelineNameHandler = (e) => {
-    const updatedData = {
-      pipeline_name: e.target.value,
-    };
-    updateIngestionData(updatedData);
+    props.setFormData({
+      ...props.formData,
+      PipelineDetails: { pipeline_name: e.target.value },
+    });
+    // const updatedData = {
+    //   pipeline_name: e.target.value,
+    // };
+    // updateIngestionData(updatedData);
   };
 
   const submitHandler = async (event) => {
@@ -126,13 +138,13 @@ const ReviewFrom = (props) => {
     props.setIsLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingeststore/",
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/ingestprocess/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: safeStringify(ingestionData[0]),
+          body: safeStringify(props.formData),
         }
       );
 
@@ -152,7 +164,7 @@ const ReviewFrom = (props) => {
   };
 
   // console.log("final ingestion data", safeStringify(ingestionData[0]));
-  console.log("final ingestion data without stringy", ingestionData);
+  // console.log("final ingestion data without stringy", ingestionData);
   console.log("form data final", props.formData);
 
   const renderTable = (data) => {
@@ -396,6 +408,16 @@ const ReviewFrom = (props) => {
                                     height: "20px",
                                   }}
                                 >
+                                  <td>
+                                    <Form.Check
+                                      type="checkbox"
+                                      checked={obj.selected}
+                                      // onChange={(e) => {
+                                      //   handleCheck(e.target.checked, index);
+                                      // }}
+                                      disabled={true}
+                                    />
+                                  </td>
                                   <td>{obj.column_name}</td>{" "}
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>{obj.data_type}</td>{" "}
@@ -458,6 +480,16 @@ const ReviewFrom = (props) => {
                             <tbody style={{ fontSize: "12px" }}>
                               {props.formData.tableData.map((obj, index) => (
                                 <tr key={index}>
+                                  <td>
+                                    <Form.Check
+                                      type="checkbox"
+                                      checked={obj.selected}
+                                      // onChange={(e) => {
+                                      //   handleCheck(e.target.checked, index);
+                                      // }}
+                                      disabled={true}
+                                    />
+                                  </td>
                                   <td>{obj.column_name}</td>{" "}
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>{obj.data_type}</td>{" "}
@@ -564,6 +596,16 @@ const ReviewFrom = (props) => {
                             <tbody style={{ fontSize: "12px" }}>
                               {props.formData.tableData.map((obj, index) => (
                                 <tr key={index}>
+                                  <td>
+                                    <Form.Check
+                                      type="checkbox"
+                                      checked={obj.selected}
+                                      // onChange={(e) => {
+                                      //   handleCheck(e.target.checked, index);
+                                      // }}
+                                      disabled={true}
+                                    />
+                                  </td>
                                   <td>{obj.column_name}</td>{" "}
                                   {/* Replace 'key' with the actual key from the object */}
                                   <td>

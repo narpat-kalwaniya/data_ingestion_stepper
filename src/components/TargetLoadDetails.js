@@ -63,7 +63,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       [event.target.name]: event.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const targetSchemaHandler = (event, index) => {
@@ -99,7 +99,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["target_entity_name"]: updatedSchema,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
     console.log(formData);
   };
 
@@ -134,7 +134,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["target_entity_name"]: updatedtarget,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
     console.log(formData);
   };
 
@@ -154,7 +154,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["target_load_type"]: event.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const alertHandler1 = (event) => {
@@ -175,7 +175,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["data_quality_monitor_" + event.target.name]: event.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const alertHandler2 = (event) => {
@@ -209,7 +209,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       [e.target.name]: e.target.checked,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   // console.log("data source type", formData.sourceEntity.data_source_type);
