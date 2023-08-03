@@ -392,6 +392,7 @@ const ReviewFrom = (props) => {
                               }}
                             >
                               <tr>
+                                <th />
                                 <th>Column Name</th>
                                 <th>Source Datatype</th>
                                 <th>Target Datatype</th>
@@ -469,6 +470,7 @@ const ReviewFrom = (props) => {
                               }}
                             >
                               <tr>
+                                <th />
                                 <th>Column Name</th>
                                 <th>Source Datatype</th>
                                 <th>Target Datatype</th>
@@ -588,6 +590,7 @@ const ReviewFrom = (props) => {
                               }}
                             >
                               <tr>
+                                <th />
                                 <th>Column Name</th>
                                 <th>Mask/Tokenize</th>
                                 <th>Masking Logic</th>
