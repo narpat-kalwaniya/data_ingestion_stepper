@@ -370,8 +370,11 @@ export const TargetSchema = ({
   setIsDraftSaved,
   isTableLoad,
   setIsTableLoad,
+  isUpdate,
+  setIsUpdate,
 }) => {
   console.log("tableLoad", isTableLoad);
+  console.log("isUpdate", isUpdate);
   const [isSelectedAll, setIsSelectedAll] = useState(true);
 
   const areAllSelected = formData.tableData.every(
@@ -418,9 +421,28 @@ export const TargetSchema = ({
           setIsDraftSaved={setIsDraftSaved}
         />
       </Table>
-      {isTableLoad && (
-        <div style={{ width: "100%" }}>
-          <ProgressBar animated now={100} label="Loading..." />
+      {isTableLoad && !isUpdate && (
+        <div
+          style={{
+            display: "flex",
+            position: "relative",
+            alignItems: "center",
+            width: "200px",
+            margin: "auto",
+          }}
+        >
+          <ProgressBar
+            animated
+            now={100}
+            label="Loading..."
+            style={{
+              display: "flex",
+              position: "relative",
+              alignItems: "center",
+              width: "200px",
+              margin: "auto",
+            }}
+          />
         </div>
       )}
     </div>

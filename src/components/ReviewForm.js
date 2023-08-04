@@ -93,7 +93,10 @@ const ReviewFrom = (props) => {
       // updateIngestionData(updatedData);
       props.setFormData({
         ...props.formData,
-        PipelineDetails: { run_now: true },
+        PipelineDetails: {
+          ...props.formData.PipelineDetails,
+          run_now: true,
+        },
       });
     } else {
       // Checkbox is unchecked
@@ -103,7 +106,10 @@ const ReviewFrom = (props) => {
       // updateIngestionData(updatedData);
       props.setFormData({
         ...props.formData,
-        PipelineDetails: { run_now: false },
+        PipelineDetails: {
+          ...props.formData.PipelineDetails,
+          run_now: false,
+        },
       });
     }
     setIsExecuteNow(!isExecuteNow);
@@ -113,7 +119,10 @@ const ReviewFrom = (props) => {
   const pipelineNameHandler = (e) => {
     props.setFormData({
       ...props.formData,
-      PipelineDetails: { pipeline_name: e.target.value },
+      PipelineDetails: {
+        ...props.formData.PipelineDetails,
+        pipeline_name: e.target.value,
+      },
     });
     // const updatedData = {
     //   pipeline_name: e.target.value,

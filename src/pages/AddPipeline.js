@@ -74,67 +74,70 @@ function AddPipeline(props) {
 
   //   updateFormData(updatedFormData);
   // }, [step > 3]);
-
+  console.log("isupdate", props.isUpdate);
   useEffect(() => {
-    const requestData = {
-      data_source_type: formData.sourceEntity.data_source_type,
-      query: formData.sourceEntity.query,
-      db_name: formData.sourceEntity.db_name,
-      schema_name: formData.sourceEntity.schema_name,
-      table_name: formData.sourceEntity.table_name,
-      bucket_name: formData.sourceEntity.bucket_name,
-      full_file_name: formData.sourceEntity.full_file_name,
-      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
-      connection_id: formData.sourceEntity.connection_id,
-    };
+    if (step === 3 && !props.isUpdate) {
+      console.log("isupdate in useeffect", props.isUpdate);
+      const requestData = {
+        data_source_type: formData.sourceEntity.data_source_type,
+        query: formData.sourceEntity.query,
+        db_name: formData.sourceEntity.db_name,
+        schema_name: formData.sourceEntity.schema_name,
+        table_name: formData.sourceEntity.table_name,
+        bucket_name: formData.sourceEntity.bucket_name,
+        full_file_name: formData.sourceEntity.full_file_name,
+        source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
+        connection_id: formData.sourceEntity.connection_id,
+      };
 
-    const fetchData = async () => {
-      // setIsLoading(true);
-      try {
-        const response = await fetch(`${Backend_url}/getcolumns/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
+      const fetchData = async () => {
+        // setIsLoading(true);
+        try {
+          const response = await fetch(`${Backend_url}/getcolumns/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+          });
 
-        if (response.ok) {
-          const responseData = await response.json();
-          if (Array.isArray(responseData) && responseData[1] !== 400) {
-            responseData.forEach((object) => {});
-            // setTableData(responseData);
+          if (response.ok) {
+            const responseData = await response.json();
+            if (Array.isArray(responseData) && responseData[1] !== 400) {
+              responseData.forEach((object) => {});
+              // setTableData(responseData);
 
-            const updatedFormData = {
-              ...formData,
-              tableData: responseData,
-              targetLoadDetails: {
-                ...formData.targetLoadDetails,
-                target_entity_name: responseData[0].target_entity_name,
-              },
-            };
-            updateFormData(updatedFormData);
-            // setFormData(updatedFormData);
+              const updatedFormData = {
+                ...formData,
+                tableData: responseData,
+                targetLoadDetails: {
+                  ...formData.targetLoadDetails,
+                  target_entity_name: responseData[0].target_entity_name,
+                },
+              };
+              updateFormData(updatedFormData);
+              // setFormData(updatedFormData);
 
-            const updatedData = {
-              attributes: [
-                responseData, // Add new attribute object
-              ],
-            };
-            updateIngestionData(updatedData);
-            setIsLoading(false);
-            props.setIsTableLoad(false);
+              const updatedData = {
+                attributes: [
+                  responseData, // Add new attribute object
+                ],
+              };
+              updateIngestionData(updatedData);
+              setIsLoading(false);
+              props.setIsTableLoad(false);
+            }
+          } else {
+            console.error("Error:", response.status);
           }
-        } else {
-          console.error("Error:", response.status);
+        } catch (error) {
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+      };
 
-    fetchData();
-  }, [step === 2]);
+      fetchData();
+    }
+  }, [step === 3, !props.isUpdate]);
 
   const createNewPipelineHandler = () => {
     setStep(1);
@@ -392,6 +395,10 @@ function AddPipeline(props) {
       setStep((step) => step + 1);
     }
 
+    if (step === 4) {
+      props.setIsUpdate(true);
+    }
+
     setFormData({ ...formData, current_step: step + 1 });
   };
 
@@ -619,6 +626,8 @@ function AddPipeline(props) {
                           setIsDraftSaved={setIsDraftSaved}
                           isTableLoad={props.isTableLoad}
                           setIsTableLoad={props.setIsTableLoad}
+                          isUpdate={props.isUpdate}
+                          setIsUpdate={props.setIsUpdate}
                         />
                       </Card.Body>
                     </Container>

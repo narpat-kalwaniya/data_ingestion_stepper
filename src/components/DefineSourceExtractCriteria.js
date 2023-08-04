@@ -270,7 +270,7 @@ const DefineSourceExtractCriteria = ({
               <div className="radio-group">
                 <Col>
                   <Form.Label>
-                    Target Load Type <span className="text-danger">*</span>
+                    Source Extract Method <span className="text-danger">*</span>
                   </Form.Label>
                 </Col>
                 <Form.Check

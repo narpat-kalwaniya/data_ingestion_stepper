@@ -20,6 +20,7 @@ function App() {
   const [isTableLoad, setIsTableLoad] = useState(true);
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: null,
@@ -117,6 +118,8 @@ function App() {
                     <ListingPage
                       isReview={isReview}
                       setIsReview={setIsReview}
+                      isUpdate={isUpdate}
+                      setIsUpdate={setIsUpdate}
                     />
                   }
                 />
@@ -128,6 +131,8 @@ function App() {
                       setIsReview={setIsReview}
                       setIsTableLoad={setIsTableLoad}
                       isTableLoad={isTableLoad}
+                      isUpdate={isUpdate}
+                      setIsUpdate={setIsUpdate}
                     />
                   }
                 />
