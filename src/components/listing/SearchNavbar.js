@@ -403,6 +403,8 @@ export default function ListingPage(props) {
               setIsReview={props.setIsReview}
               step={step}
               setStep={setStep}
+              isUpdate={props.isUpdate}
+              setIsUpdate={props.setIsUpdate}
             />
           )}
         </div>

@@ -143,6 +143,7 @@ export default function CustomizedTables(props) {
     console.log("row", row);
     console.log("formData", props.formData);
     // props.formData.CreateDataConnection = row.CreateDataConnection;
+    props.setIsUpdate(true);
     props.setFormData(row);
     props.setIsReview(true);
 
