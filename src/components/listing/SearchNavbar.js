@@ -391,6 +391,8 @@ export default function ListingPage(props) {
               open={open}
               setOpen={setOpen}
               handleClose={handleClose}
+              isUpdate={props.isUpdate}
+              setIsUpdate={props.setIsUpdate}
             />
           ) : (
             <CustomizedTables

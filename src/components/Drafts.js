@@ -16,7 +16,7 @@ function Drafts(props) {
     "",
   ];
 
-  console.log(props.formData);
+  console.log(props.drafts);
 
   const rowClickHandler = (row) => {
     props.setFormData(row);
@@ -26,6 +26,7 @@ function Drafts(props) {
       "Batch Ingestion of Relational Sources for Single Entity"
     );
     console.log(props.formData);
+    props.setIsUpdate(true);
   };
 
   return (
