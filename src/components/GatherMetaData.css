@@ -21,3 +21,9 @@
     color: rgb(207, 6, 6);
     font-size: small;
 }
+
+.business_tags_style {
+    font-size: 13px !important;
+    color: #4f4f4f !important;
+    font-weight: 400 !important;
+}

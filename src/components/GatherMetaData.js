@@ -5,10 +5,29 @@ import "../styles/main.css";
 import { DataContext } from "./DataContext";
 import Scheduling from "./Scheduling";
 import "./GatherMetaData.css";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
 
 const GatherMetaData = ({ formData, updateFormData, errorEmail8 }) => {
   const [additionalFields, setAdditionalFields] = useState([]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
+
+  const handleAddition = (tags) => {
+    const updatedFormData = {
+      ...formData,
+      GatherMetaData: {
+        ...formData.GatherMetaData,
+        business_tags: tags,
+      },
+    };
+    updateFormData(updatedFormData);
+    const updatedData = { ...ingestionData[0] };
+    updatedData.additional_metadata = {
+      ...updatedData.additional_metadata,
+      business_tags: tags,
+    };
+    updateIngestionData(updatedData);
+  };
 
   const changeHandler = (e) => {
     const updatedFormData = {
@@ -46,14 +65,19 @@ const GatherMetaData = ({ formData, updateFormData, errorEmail8 }) => {
           <Row className="mb-4">
             <Col>
               <Form.Label>Business Tags</Form.Label>
-
               <Col xs={10}>
-                <Form.Control
+                <TagsInput
+                  placeholder=""
+                  value={formData.GatherMetaData.business_tags || []}
+                  onChange={handleAddition}
+                  // className="business_tags_style"
+                />
+                {/* <Form.Control
                   name="business_tags"
                   value={formData.GatherMetaData.business_tags}
                   onChange={changeHandler}
                   className="custom-select custom-style"
-                />
+                /> */}
               </Col>
             </Col>
             <Col>
