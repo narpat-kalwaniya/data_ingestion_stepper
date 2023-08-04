@@ -589,6 +589,8 @@ function AddPipeline(props) {
                 setIsSubmitted={setIsSubmitted}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                isView={props.isView}
+                setIsView={props.setIsView}
               />
             ) : (
               <Card className="custom-card" style={{ border: "none" }}>

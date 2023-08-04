@@ -230,6 +230,8 @@ const ReviewFrom = (props) => {
     }
   }, []);
 
+  console.log("view on review", props.isView);
+
   return (
     <div>
       {props.isLoading ? null : (
@@ -305,11 +307,13 @@ const ReviewFrom = (props) => {
                             }}
                           >
                             <p>Data Connection</p>
-
-                            <AiOutlineEdit
-                              onClick={editHandler1}
-                              className="edit"
-                            ></AiOutlineEdit>
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler1}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
                           {/* <div
                           style={{
@@ -348,10 +352,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Source Entity</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler2}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler2}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -380,10 +387,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Target Schema</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler3}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler3}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -458,10 +468,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Data Validation</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler4}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler4}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -525,10 +538,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Source Extract Criteria</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler5}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler5}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -558,10 +574,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Target Load Details</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler6}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler6}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -578,10 +597,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Masking</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler7}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler7}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>
@@ -638,10 +660,13 @@ const ReviewFrom = (props) => {
                           >
                             <p>Meta Data</p>
 
-                            <AiOutlineEdit
-                              onClick={editHandler8}
-                              className="edit"
-                            />
+                            {!props.isView && (
+                              <AiOutlineEdit
+                                onClick={editHandler8}
+                                className="edit"
+                                disabled={props.isView}
+                              ></AiOutlineEdit>
+                            )}
                           </div>
 
                           <div className="horizontal-line-1"></div>

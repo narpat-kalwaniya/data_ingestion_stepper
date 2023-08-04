@@ -157,6 +157,21 @@ export default function CustomizedTables(props) {
     props.setStep(10);
   };
 
+  const viewPipelineHandler = (row) => {
+    console.log("view before", props.isView);
+    props.setIsView(true);
+    props.setIsUpdate(true);
+    props.setFormData(row);
+    props.setIsReview(true);
+
+    props.setOpen(true);
+    // props.setStep(row.current_step);
+    props.handleClose(
+      "Batch Ingestion of Relational Sources for Single Entity"
+    );
+    props.setStep(10);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
 
@@ -278,9 +293,7 @@ export default function CustomizedTables(props) {
                   <VisibilityOutlinedIcon
                     className="viewBtnStyle"
                     style={{ width: "15px", height: "15px" }}
-                    onClick={() => {
-                      console.log("Icon clicked!", row.entity_id);
-                    }}
+                    onClick={() => viewPipelineHandler(row)}
                   />
                 </StyledTableCell>
                 <StyledTableCell align="center">
