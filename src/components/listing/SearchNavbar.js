@@ -405,6 +405,8 @@ export default function ListingPage(props) {
               setStep={setStep}
               isUpdate={props.isUpdate}
               setIsUpdate={props.setIsUpdate}
+              isView={props.isView}
+              setIsView={props.setIsView}
             />
           )}
         </div>
