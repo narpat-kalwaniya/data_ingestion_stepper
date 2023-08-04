@@ -476,7 +476,7 @@ function AddPipeline(props) {
   const saveDraftsHandler = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${Backend_url}/draftentity/`, {
+      const response = await fetch(`${Backend_url}/draftpipeline/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
