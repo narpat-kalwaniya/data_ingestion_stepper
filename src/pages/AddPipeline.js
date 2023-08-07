@@ -17,7 +17,6 @@ function AddPipeline(props) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { updateIngestionData } = useContext(DataContext);
   const [isDraftSaved, setIsDraftSaved] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [callRevalidationfunction, setcallRevalidationfunction] =
     useState(false);
   const [currentlySubmittedForm, setcurrentlySubmittedForm] = useState(0);
@@ -124,7 +123,7 @@ function AddPipeline(props) {
                 ],
               };
               updateIngestionData(updatedData);
-              setIsLoading(false);
+              props.setIsLoading(false);
               props.setIsTableLoad(false);
             }
           } else {
@@ -407,6 +406,7 @@ function AddPipeline(props) {
     props.setIsReview(false);
     setStep((step) => 1);
     setShowModal(false);
+    window.location.reload();
     // const clearedObject = Object.keys(formData).reduce(
     //   (acc, key) => ({ ...acc, [key]: "" }),
     //   {}
@@ -474,7 +474,7 @@ function AddPipeline(props) {
 
   // const showDraftsHandler = () => { };
   const saveDraftsHandler = async () => {
-    setIsLoading(true);
+    props.setIsLoading(true);
     try {
       const response = await fetch(`${Backend_url}/draftpipeline/`, {
         method: "POST",
@@ -486,9 +486,10 @@ function AddPipeline(props) {
 
       if (response.ok) {
         // Handle successful response
+        console.log("draft response", response);
 
         setIsDraftSaved(true);
-        setIsLoading(false);
+        props.setIsLoading(false);
 
         // handleCloseModalApp();
       } else {
@@ -544,7 +545,7 @@ function AddPipeline(props) {
 
   return (
     <Container style={{ marginTop: "30px", backgroundColor: "white" }}>
-      {isLoading && (
+      {props.isLoading && (
         <div className="loader-overlay">
           <div className="loader"></div>
         </div>
@@ -587,8 +588,8 @@ function AddPipeline(props) {
                 setFormData={setFormData}
                 isSubmitted={isSubmitted}
                 setIsSubmitted={setIsSubmitted}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
+                isLoading={props.isLoading}
+                setIsLoading={props.setIsLoading}
                 isView={props.isView}
                 setIsView={props.setIsView}
               />
@@ -622,8 +623,8 @@ function AddPipeline(props) {
                           errorEmail8={errorEmail8}
                           isReview={props.isReview}
                           setIsReview={props.setIsReview}
-                          isLoading={isLoading}
-                          setIsLoading={setIsLoading}
+                          isLoading={props.isLoading}
+                          setIsLoading={props.setIsLoading}
                           currentlySubmittedForm={currentlySubmittedForm}
                           setIsDraftSaved={setIsDraftSaved}
                           isTableLoad={props.isTableLoad}
