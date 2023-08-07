@@ -29,8 +29,44 @@ function Drafts(props) {
     props.setIsUpdate(true);
   };
 
+  const deleteHandler = async (id) => {
+    console.log("deleted id", id);
+    props.setIsLoading(true);
+    try {
+      const response = await fetch(
+        `http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/deletedraft/${id}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      if (response.ok) {
+        // Data deleted successfully from the backend, you may want to update the state or fetch the data again
+        console.log("Draft deleted successfully!");
+
+        // setPipelineData((prevData) =>
+        //   prevData.map((row) =>
+        //     row.entity_id === selectedEntityId ? { ...row, deleted: true } : row
+        //   )
+        // );
+      } else {
+        console.log("Failed to delete draft from the backend.");
+      }
+    } catch (error) {
+      console.log("Error deleting data:", error);
+    }
+
+    // Close the modal
+    props.setIsLoading(false);
+  };
+
   return (
     <Table hover responsive>
+      {props.isLoading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+      )}
       <thead
         style={{
           backgroundColor: "#F3F3F3",
@@ -54,14 +90,25 @@ function Drafts(props) {
               height: "20px",
               cursor: "default",
             }}
-            onClick={(event) => rowClickHandler(row)}
           >
-            <td>Data Ingestion</td>
-            <td>{row.tableData[0].source_entity_name}</td>
-            <td>{row.tableData[0].target_entity_name}</td>
-            <td style={{ color: "red" }}>Draft</td>
+            <td onClick={(event) => rowClickHandler(row)}>Data Ingestion</td>
+            <td onClick={(event) => rowClickHandler(row)}>
+              {row.tableData[0].source_entity_name}
+            </td>
+            <td onClick={(event) => rowClickHandler(row)}>
+              {row.tableData[0].target_entity_name}
+            </td>
+            <td
+              style={{ color: "red" }}
+              onClick={(event) => rowClickHandler(row)}
+            >
+              Draft
+            </td>
             <td>
-              <Trash className="trash" />
+              <Trash
+                className="trash"
+                onClick={(event) => deleteHandler(row.draft_id)}
+              />
             </td>
             {/* <td style={{ color: "blue" }}>View</td>
             <td style={{ color: "blue" }}>Edit</td>

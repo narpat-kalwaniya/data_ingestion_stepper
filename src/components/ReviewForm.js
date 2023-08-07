@@ -141,6 +141,32 @@ const ReviewFrom = (props) => {
       console.error("Error:", error.message);
     }
     setShowModal(false);
+
+    if (props.formData.hasOwnProperty("draft_id")) {
+      try {
+        const response = await fetch(
+          `http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/deletedraft/${props.formData.draft_id}`,
+          {
+            method: "PUT",
+          }
+        );
+
+        if (response.ok) {
+          // Data deleted successfully from the backend, you may want to update the state or fetch the data again
+          console.log("Draft deleted successfully!");
+
+          // setPipelineData((prevData) =>
+          //   prevData.map((row) =>
+          //     row.entity_id === selectedEntityId ? { ...row, deleted: true } : row
+          //   )
+          // );
+        } else {
+          console.log("Failed to delete draft from the backend.");
+        }
+      } catch (error) {
+        console.log("Error deleting data:", error);
+      }
+    }
   };
 
   // Function to handle the POST request
