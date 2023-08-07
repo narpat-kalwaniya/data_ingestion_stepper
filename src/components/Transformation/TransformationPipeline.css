@@ -1,0 +1,43 @@
+.heading {
+    font-weight: 500;
+
+}
+
+.horizontalLine {
+    /* margin: 10px 0px; */
+    background-color: hsl(0, 11%, 72%);
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 0px;
+     height: 1.75px;
+     font-weight: 400px;
+   }
+
+   .searchNavbarBtnStyleAdd {
+    background-color: #F7901D !important;
+    color: white !important; 
+    font-size: 14px !important;
+    text-transform: none !important;
+}
+.AddOutlinedIcon {
+    font-size: medium !important;
+    /* color: #F3F3F3 !important; */
+
+    opacity: 1 !important;
+}
+.listOfPipelineNavbar {
+    background-color: #E0E0E0 !important;
+}
+.viewBtnStyle:hover {
+color: #18749C !important;
+cursor: pointer !important;
+}
+
+.searchInputStyle {
+    width: 50% !important;
+    margin-left: 0 !important;
+}
+
+.navbarStyle {
+    padding: 0 !important;
+}
