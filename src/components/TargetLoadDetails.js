@@ -10,7 +10,7 @@ import {
   ToggleButton,
 } from "react-bootstrap";
 import { DataContext } from "./DataContext";
-
+import Backend_url from "../config";
 import "./TargetLoadDetails.css";
 
 const TargetLoadDetails = ({
@@ -31,9 +31,7 @@ const TargetLoadDetails = ({
   useEffect(() => {
     const fetchConnections = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/conndetails/"
-        );
+        const response = await fetch(`${Backend_url}/conndetails/`);
         const data = await response.json();
         setConnections(data);
       } catch (error) {
@@ -63,7 +61,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       [event.target.name]: event.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const targetSchemaHandler = (event, index) => {
@@ -99,7 +97,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["target_entity_name"]: updatedSchema,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
     console.log(formData);
   };
 
@@ -134,7 +132,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["target_entity_name"]: updatedtarget,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
     console.log(formData);
   };
 
@@ -154,7 +152,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["target_load_type"]: event.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const alertHandler1 = (event) => {
@@ -175,7 +173,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       ["data_quality_monitor_" + event.target.name]: event.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const alertHandler2 = (event) => {
@@ -209,7 +207,7 @@ const TargetLoadDetails = ({
       ...updatedData.target_load_details,
       [e.target.name]: e.target.checked,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   // console.log("data source type", formData.sourceEntity.data_source_type);

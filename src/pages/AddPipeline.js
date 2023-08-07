@@ -10,6 +10,7 @@ import "../styles/main.css";
 import { FaCheck } from "react-icons/fa";
 import { formContext } from "../components/formContext";
 import { stepContext } from "../components/stepContext";
+import Backend_url from "../config";
 
 function AddPipeline(props) {
   const [showModal, setShowModal] = useState(false);
@@ -53,90 +54,90 @@ function AddPipeline(props) {
     target_database: "",
   });
 
+  // useEffect(() => {
+  //   // Check if selected key is false
+  //   const updatedTableData = formData.tableData.filter(
+  //     (row) => row.selected !== false
+  //   );
+
+  //   // Update formData with the modified tableData
+  //   const updatedFormData = {
+  //     ...formData,
+  //     tableData: updatedTableData,
+  //   };
+
   const [errorEmail8, setErrorEmail8] = useState({
     email: "",
     success_email_list: "",
     failure_email_list: "",
   });
 
+  //   updateFormData(updatedFormData);
+  // }, [step > 3]);
+  console.log("isupdate", props.isUpdate);
   useEffect(() => {
-    // Check if selected key is false
-    const updatedTableData = formData.tableData.filter(
-      (row) => row.selected !== false
-    );
+    if (step === 3 && !props.isUpdate) {
+      console.log("isupdate in useeffect", props.isUpdate);
+      const requestData = {
+        data_source_type: formData.sourceEntity.data_source_type,
+        query: formData.sourceEntity.query,
+        db_name: formData.sourceEntity.db_name,
+        schema_name: formData.sourceEntity.schema_name,
+        table_name: formData.sourceEntity.table_name,
+        bucket_name: formData.sourceEntity.bucket_name,
+        full_file_name: formData.sourceEntity.full_file_name,
+        source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
+        connection_id: formData.sourceEntity.connection_id,
+      };
 
-    // Update formData with the modified tableData
-    const updatedFormData = {
-      ...formData,
-      tableData: updatedTableData,
-    };
-
-    updateFormData(updatedFormData);
-  }, [step === 3]);
-
-  useEffect(() => {
-    const requestData = {
-      data_source_type: formData.sourceEntity.data_source_type,
-      query: formData.sourceEntity.query,
-      db_name: formData.sourceEntity.db_name,
-      schema_name: formData.sourceEntity.schema_name,
-      table_name: formData.sourceEntity.table_name,
-      bucket_name: formData.sourceEntity.bucket_name,
-      full_file_name: formData.sourceEntity.full_file_name,
-      source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
-      connection_id: formData.sourceEntity.connection_id,
-    };
-
-    const fetchData = async () => {
-      // setIsLoading(true);
-      try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getcolumns/",
-          {
+      const fetchData = async () => {
+        // setIsLoading(true);
+        try {
+          const response = await fetch(`${Backend_url}/getcolumns/`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(requestData),
+          });
+
+          if (response.ok) {
+            const responseData = await response.json();
+            if (Array.isArray(responseData) && responseData[1] !== 400) {
+              responseData.forEach((object) => {});
+              // setTableData(responseData);
+
+              const updatedFormData = {
+                ...formData,
+                tableData: responseData,
+                targetLoadDetails: {
+                  ...formData.targetLoadDetails,
+                  target_entity_name: responseData[0].target_entity_name,
+                },
+              };
+              updateFormData(updatedFormData);
+              // setFormData(updatedFormData);
+
+              const updatedData = {
+                attributes: [
+                  responseData, // Add new attribute object
+                ],
+              };
+              updateIngestionData(updatedData);
+              setIsLoading(false);
+              props.setIsTableLoad(false);
+            }
+          } else {
+            console.error("Error:", response.status);
           }
-        );
-
-        if (response.ok) {
-          const responseData = await response.json();
-          if (Array.isArray(responseData) && responseData[1] !== 400) {
-            responseData.forEach((object) => {});
-            // setTableData(responseData);
-
-            const updatedFormData = {
-              ...formData,
-              tableData: responseData,
-              targetLoadDetails: {
-                ...formData.targetLoadDetails,
-                target_entity_name: responseData[0].target_entity_name,
-              },
-            };
-            updateFormData(updatedFormData);
-            // setFormData(updatedFormData);
-
-            const updatedData = {
-              attributes: [
-                responseData, // Add new attribute object
-              ],
-            };
-            updateIngestionData(updatedData);
-            setIsLoading(false);
-            props.setIsTableLoad(false);
-          }
-        } else {
-          console.error("Error:", response.status);
+        } catch (error) {
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+      };
 
-    fetchData();
-  }, [step === 2]);
+      fetchData();
+    }
+  }, [step === 3, !props.isUpdate]);
 
   const createNewPipelineHandler = () => {
     setStep(1);
@@ -394,6 +395,10 @@ function AddPipeline(props) {
       setStep((step) => step + 1);
     }
 
+    if (step === 4) {
+      props.setIsUpdate(true);
+    }
+
     setFormData({ ...formData, current_step: step + 1 });
   };
 
@@ -462,20 +467,22 @@ function AddPipeline(props) {
     return true;
   };
 
+  useEffect(() => {
+    console.log("updation", "succeeded");
+    updateIngestionData(formData);
+  }, [props.isReview]);
+
   // const showDraftsHandler = () => { };
   const saveDraftsHandler = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/draftentity/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${Backend_url}/draftpipeline/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         // Handle successful response
@@ -577,10 +584,13 @@ function AddPipeline(props) {
                 setIsReview={props.setIsReview}
                 cancel={closeHandler}
                 formData={formData}
+                setFormData={setFormData}
                 isSubmitted={isSubmitted}
                 setIsSubmitted={setIsSubmitted}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                isView={props.isView}
+                setIsView={props.setIsView}
               />
             ) : (
               <Card className="custom-card" style={{ border: "none" }}>
@@ -618,6 +628,8 @@ function AddPipeline(props) {
                           setIsDraftSaved={setIsDraftSaved}
                           isTableLoad={props.isTableLoad}
                           setIsTableLoad={props.setIsTableLoad}
+                          isUpdate={props.isUpdate}
+                          setIsUpdate={props.setIsUpdate}
                         />
                       </Card.Body>
                     </Container>

@@ -60,7 +60,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       [e.target.name]: e.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const changeHandler = (e) => {
@@ -79,7 +79,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       [e.target.name]: e.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const filterHandler = (code) => {
@@ -98,7 +98,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       filter: code,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleRadioChange = (e) => {
@@ -118,7 +118,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       [e.target.name]: e.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const incrementalByHandler = (e) => {
@@ -138,7 +138,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       [e.target.name]: e.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const orderByChangeHandler = (selectedOptions) => {
@@ -161,7 +161,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       order_by: selectedLabels,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const incrementalColumnsHandler = (selectedOptions) => {
@@ -182,7 +182,7 @@ const DefineSourceExtractCriteria = ({
       ...updatedData.source_extract_criteria,
       source_incremental_column: selectedLabels,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
     // const selectedOption = e.target.value;
     // if (!selectedValues.includes(selectedOption)) {
     //   setSelectedValues((prevSelectedValues) => [
@@ -242,7 +242,7 @@ const DefineSourceExtractCriteria = ({
   }
 
   const orderByOptions = copiesOrderBy(
-    formData.tableData,
+    formData.tableData.filter((row) => row.selected !== false),
     "column_name",
     " asc",
     " desc"
@@ -255,7 +255,10 @@ const DefineSourceExtractCriteria = ({
     return array.map((item) => ({ value: item[key], label: item[key] }));
   };
 
-  const column_names = extractColumnNames(formData.tableData, "column_name");
+  const column_names = extractColumnNames(
+    formData.tableData.filter((row) => row.selected !== false),
+    "column_name"
+  );
   console.log(column_names);
 
   return (
@@ -267,7 +270,7 @@ const DefineSourceExtractCriteria = ({
               <div className="radio-group">
                 <Col>
                   <Form.Label>
-                    Target Load Type <span className="text-danger">*</span>
+                    Source Extract Method <span className="text-danger">*</span>
                   </Form.Label>
                 </Col>
                 <Form.Check
@@ -277,9 +280,8 @@ const DefineSourceExtractCriteria = ({
                   name="source_entity_type"
                   value="incremental"
                   checked={
-                    selectedOption === "incremental" ||
                     formData.DefineSourceExtractCriteria.source_entity_type ===
-                      "incremental"
+                    "incremental"
                   }
                   onChange={handleRadioChange}
                   // checked={dataSourceType === "RDBMS-TABLE"}
@@ -293,9 +295,8 @@ const DefineSourceExtractCriteria = ({
                   name="source_entity_type"
                   value="fullextract"
                   checked={
-                    selectedOption === "fullextract" ||
                     formData.DefineSourceExtractCriteria.source_entity_type ===
-                      "fullextract"
+                    "fullextract"
                   }
                   onChange={handleRadioChange}
                   // checked={dataSourceType === "RDBMS-QUERY"}

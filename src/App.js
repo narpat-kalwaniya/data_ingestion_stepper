@@ -20,62 +20,69 @@ function App() {
   const [isTableLoad, setIsTableLoad] = useState(true);
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [isView, setIsView] = useState(false);
   const [formData, setFormData] = useState({
     CreateDataConnection: {
-      dataSource: "",
-      dataTarget: "",
-      application: "",
+      dataSource: null,
+      dataTarget: null,
+      application: null,
     },
     sourceEntity: {
-      data_source_type: "",
+      data_source_type: null,
       query: null,
-      db_name: "",
-      schema_name: "",
-      table_name: "",
+      db_name: null,
+      schema_name: null,
+      table_name: null,
       bucket_name: null,
       full_file_name: null,
-      source_entity_name: "",
+      source_entity_name: null,
       connection_id: null,
     },
     tableData: [],
     DefineSourceExtractCriteria: {
-      source_entity_type: "",
+      source_entity_type: null,
       is_select_distinct: false,
-      incremental_by: "",
+      incremental_by: null,
       source_incremental_column: [],
-      incremental_start_time: "",
-      incremental_end_time: "",
-      incremental_start_sequence: "",
-      incremental_end_sequence: "",
-      default_start_date: "",
-      default_start_seq: "",
-      filter: "",
+      incremental_start_time: null,
+      incremental_end_time: null,
+      incremental_start_sequence: null,
+      incremental_end_sequence: null,
+      default_start_date: null,
+      default_start_seq: null,
+      filter: null,
       order_by: [],
     },
     targetLoadDetails: {
-      target_entity_name: "",
-      target_load_type: "",
+      target_entity_name: null,
+      target_load_type: null,
       DataQualityMoniter: {
-        alert: "",
-        abort: "",
+        alert: null,
+        abort: null,
       },
       RecordCountChangesMoniter: {
-        alert: "",
-        abort: "",
+        alert: null,
+        abort: null,
       },
       is_mantain_a_copy_in_datalake: false,
-      datalake_connection: "",
-      datalake_file_format: "",
-      datalake_target_template: "",
+      datalake_connection: null,
+      datalake_file_format: null,
+      datalake_target_template: null,
     },
     GatherMetaData: {
-      business_tags: "",
-      description: "",
-      owner: "",
-      email: "",
-      success_email_list: "",
-      failure_email_list: "",
+      business_tags: null,
+      description: null,
+      owner: null,
+      email: null,
+      success_email_list: null,
+      failure_email_list: null,
     },
+    PipelineDetails: {
+      run_now: false,
+      pipeline_name: null,
+    },
+    process_flag: "insert",
   });
   const [schedulingFormData, setSchedulingFormData] = useState({});
 
@@ -112,6 +119,10 @@ function App() {
                     <ListingPage
                       isReview={isReview}
                       setIsReview={setIsReview}
+                      isUpdate={isUpdate}
+                      setIsUpdate={setIsUpdate}
+                      isView={isView}
+                      setIsView={setIsView}
                     />
                   }
                 />
@@ -123,6 +134,10 @@ function App() {
                       setIsReview={setIsReview}
                       setIsTableLoad={setIsTableLoad}
                       isTableLoad={isTableLoad}
+                      isUpdate={isUpdate}
+                      setIsUpdate={setIsUpdate}
+                      isView={isView}
+                      setIsView={setIsView}
                     />
                   }
                 />

@@ -8,6 +8,7 @@ import "../styles/main.css";
 import SectionMenuMig from "../components/SectionMenuMig";
 import StepperMig from "../components/StepperMig";
 import SuccessMig from "../components/SuccessMig";
+import Backend_url from "../config";
 
 function AddPipelineMig() {
   const [step, setStep] = useState(1);
@@ -130,16 +131,13 @@ function AddPipelineMig() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/gettableattrs/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-          }
-        );
+        const response = await fetch(`${Backend_url}/gettableattrs/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
 
         if (response.ok) {
           const responseData = await response.json();
@@ -208,16 +206,13 @@ function AddPipelineMig() {
       const sendData = async () => {
         setIsLoading(true);
         try {
-          const response = await fetch(
-            "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/migingeststore/",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(ingestionData[0]),
-            }
-          );
+          const response = await fetch(`${Backend_url}/migingeststore/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(ingestionData[0]),
+          });
 
           if (!response.ok) {
             throw new Error("Error sending data");

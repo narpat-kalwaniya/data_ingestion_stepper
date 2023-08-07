@@ -43,7 +43,7 @@ const GatherMetaData = ({ formData, updateFormData, errorEmail8 }) => {
       ...updatedData.additional_metadata,
       [e.target.name]: e.target.value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const addHandler = () => {

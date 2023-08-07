@@ -28,6 +28,8 @@ const Stepper = ({
   setIsLoading,
   isTableLoad,
   setIsTableLoad,
+  isUpdate,
+  setIsUpdate,
 }) => {
   const [isVisibleOption, setisVisibleOption] = useState(true);
 
@@ -64,6 +66,8 @@ const Stepper = ({
           setIsLoading={setIsLoading}
           isTableLoad={isTableLoad}
           setIsTableLoad={setIsTableLoad}
+          isUpdate={isUpdate}
+          setIsUpdate={setIsUpdate}
         />
       ) : step === 4 ? (
         <DefineDataValidation

@@ -6,7 +6,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-sql";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
-
+import Backend_url from "../config";
 const SourceEntitySelection = ({
   step,
   formData,
@@ -63,7 +63,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       data_source_type: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleDatabaseChange = (event) => {
@@ -84,7 +84,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       db_name: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleSchemaChange = (event) => {
@@ -103,7 +103,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       schema_name: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleTableChange = (event) => {
@@ -122,7 +122,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       table_name: value,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const queryChangeHandler = (newQuery) => {
@@ -140,7 +140,7 @@ const SourceEntitySelection = ({
     const updatedData = {
       query: newQuery,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   // const queryChangeHandler = (event) => {
@@ -203,7 +203,7 @@ const SourceEntitySelection = ({
       const updatedData = {
         bucket_name: value,
       };
-      updateIngestionData(updatedData);
+      // updateIngestionData(updatedData);
     } else if (name === "FullFileName") {
       setFullFileName(value);
       const updatedSourceEntity = {
@@ -218,7 +218,7 @@ const SourceEntitySelection = ({
       const updatedData = {
         full_file_name: value,
       };
-      updateIngestionData(updatedData);
+      // updateIngestionData(updatedData);
     }
   };
 
@@ -230,7 +230,7 @@ const SourceEntitySelection = ({
     try {
       // Perform API call or fetch data from the data source
       const response = await fetch(
-        `http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getschematable/${connectionId}`
+        `${Backend_url}/getschematable/${connectionId}`
       );
       const data = await response.json();
 

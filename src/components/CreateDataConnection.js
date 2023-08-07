@@ -15,6 +15,7 @@ import "./CreateDataConnection.css";
 import ApplicationModal from "./CreateModals/ApplicationModal";
 import DataSourceModal from "./CreateModals/DataSourceModal";
 import DataTargetModal from "./CreateModals/DataTargetModal";
+import Backend_url from "../config";
 // import DataSourceModalForm from "./CreateModalsForms/DataSourceModalForm";
 
 const CreateDataConnection = ({
@@ -32,9 +33,7 @@ const CreateDataConnection = ({
   useEffect(() => {
     const fetchConnections = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/conndetails/"
-        );
+        const response = await fetch(`${Backend_url}/conndetails/`);
         const data = await response.json();
         setConnections(data);
       } catch (error) {
@@ -44,9 +43,7 @@ const CreateDataConnection = ({
 
     const fetchApplications = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/appdetails/"
-        );
+        const response = await fetch(`${Backend_url}/appdetails/`);
         const data = await response.json();
         setApplications(data);
       } catch (error) {
@@ -88,7 +85,7 @@ const CreateDataConnection = ({
     updateFormData(updatedFormData, 1);
 
     const updatedData = { source_connection_id: selectedConnectionId };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleTargetSelection = (event) => {
@@ -113,7 +110,7 @@ const CreateDataConnection = ({
     const updatedData = {
       target_connection_id: selectedConnectionId,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const handleApplicationSelection = (event) => {
@@ -138,7 +135,7 @@ const CreateDataConnection = ({
     const updatedData = {
       app_id: selectedConnectionId,
     };
-    updateIngestionData(updatedData);
+    // updateIngestionData(updatedData);
   };
 
   const filteredSourceConnections = connections.filter(
