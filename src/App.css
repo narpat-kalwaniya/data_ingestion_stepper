@@ -334,18 +334,21 @@ thead {
   overflow: hidden;
   /* padding-left: 0px;
   padding-top: 0px; */
-  margin-top: 5px;
-  padding: 0.25rem 0.75rem;
+  /* margin-top: 5px; */
+  padding: 0.09rem 0.1rem;
 }
 
 .react-tagsinput--focused {
-  border-color: rgb(53, 143, 182);
+  /* border-color: rgb(53, 143, 182); */
+  /* border-color: #3a90a1; */
+  border-color: lightblue;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .react-tagsinput-tag {
-  background-color: #cde69c;
+  /* background-color: #cde69c; */
   border-radius: 2px;
-  border: 1px solid #a5d24a;
+  /* border: 1px solid #a5d24a; */
   /* color: #638421; */
   display: inline-block;
   font-family: sans-serif;
@@ -366,6 +369,7 @@ thead {
 
 .react-tagsinput-tag a::before {
   content: " ×";
+
 }
 
 .react-tagsinput-input {
@@ -380,6 +384,10 @@ thead {
   outline: none;
   padding: 5px;
   width: 80px;
+}
+
+.react-tagsinput input::placeholder {
+  color: transparent;
 }
 
 .trash :hover {
