@@ -13,6 +13,7 @@ import { formContext } from "./components/formContext";
 import { stepContext } from "./components/stepContext";
 import AddPipelineMig from "./pages/AddPipelineMig";
 import SchedulingPipeline from "./components/SchedulingPipeline";
+import AddPipelineTransformation from "./pages/AddPipelineTransformation";
 
 function App() {
   const [user, setUser] = useState();
@@ -144,6 +145,10 @@ function App() {
                 <Route
                   path="/pipelines/migration"
                   element={<AddPipelineMig />}
+                />
+                <Route
+                  path="/pipelines/transformations"
+                  element={<AddPipelineTransformation />}
                 />
                 <Route
                   path="/scheduling/configuration"

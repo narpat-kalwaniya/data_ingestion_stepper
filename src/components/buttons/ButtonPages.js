@@ -53,6 +53,7 @@ export default function ButtonPages(props) {
     {
       id: 5,
       name: "ELT-Transformations",
+      onClick: () => navigate("/pipelines/transformations"),
     },
     {
       id: 6,
