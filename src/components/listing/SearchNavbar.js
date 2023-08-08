@@ -393,6 +393,8 @@ export default function ListingPage(props) {
               handleClose={handleClose}
               isUpdate={props.isUpdate}
               setIsUpdate={props.setIsUpdate}
+              isLoading={props.isLoading}
+              setIsLoading={props.setIsLoading}
             />
           ) : (
             <CustomizedTables
@@ -409,6 +411,8 @@ export default function ListingPage(props) {
               setIsUpdate={props.setIsUpdate}
               isView={props.isView}
               setIsView={props.setIsView}
+              isLoading={props.isLoading}
+              setIsLoading={props.setIsLoading}
             />
           )}
         </div>

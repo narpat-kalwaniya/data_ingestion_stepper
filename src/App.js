@@ -19,10 +19,12 @@ function App() {
   const [user, setUser] = useState();
   const [loading, setloading] = useState(true);
   const [isTableLoad, setIsTableLoad] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [isReview, setIsReview] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isView, setIsView] = useState(false);
+
   const [formData, setFormData] = useState({
     CreateDataConnection: {
       dataSource: null,
@@ -124,6 +126,8 @@ function App() {
                       setIsUpdate={setIsUpdate}
                       isView={isView}
                       setIsView={setIsView}
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
                     />
                   }
                 />
@@ -139,6 +143,8 @@ function App() {
                       setIsUpdate={setIsUpdate}
                       isView={isView}
                       setIsView={setIsView}
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
                     />
                   }
                 />

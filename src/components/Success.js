@@ -19,11 +19,25 @@ const Success = (props) => {
           {props.response.message}!
         </p> */}
         {props.response.status === 201 ? (
-          <p className="messageStyle" style={{ color: "green" }}>
+          <p
+            className="messageStyle"
+            style={{
+              color: "green",
+              backgroundColor: "rgb(0,128,0,0.2)",
+              padding: "5px 10px",
+            }}
+          >
             Meta Data Saving Status : Succeeded!
           </p>
         ) : (
-          <p className="messageStyle" style={{ color: "red" }}>
+          <p
+            className="messageStyle"
+            style={{
+              color: "red",
+              backgroundColor: "rgba(255,0,0, 0.2)",
+              padding: "5px 10px",
+            }}
+          >
             {" "}
             Meta Data Saving Status : Failed!{" "}
           </p>

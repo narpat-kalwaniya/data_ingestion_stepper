@@ -255,7 +255,9 @@ const TargetLoadDetails = ({
                   currentlySubmittedForm == 6 && errors6.selectedTableSchema
                 }
                 className="custom-select custom-style"
-                value={formData.tableData[0]?.selectedTableSchema}
+                value={
+                  formData.targetLoadDetails.target_entity_name.split(".")[1]
+                }
                 name="selectedTableSchema"
                 onChange={(e) => targetSchemaHandler(e, 0)}
               >

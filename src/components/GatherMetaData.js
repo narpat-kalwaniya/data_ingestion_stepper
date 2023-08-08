@@ -70,6 +70,12 @@ const GatherMetaData = ({ formData, updateFormData, errorEmail8 }) => {
                   placeholder=""
                   value={formData.GatherMetaData.business_tags || []}
                   onChange={handleAddition}
+                  tagProps={{
+                    className: "react-tagsinput-tag info",
+                  }}
+                  inputProps={{
+                    placeholder: " ",
+                  }}
                   // className="business_tags_style"
                 />
                 {/* <Form.Control
