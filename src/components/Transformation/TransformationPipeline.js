@@ -184,7 +184,9 @@ function TransformationPipeline() {
             </TableHead>
             <TableBody>
               <StyledTableRow>
-                <StyledTableCell>first </StyledTableCell>
+                <StyledTableCell className="idColumnStyle">
+                  first{" "}
+                </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>
                 <StyledTableCell>
