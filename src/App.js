@@ -14,6 +14,7 @@ import { stepContext } from "./components/stepContext";
 import AddPipelineMig from "./pages/AddPipelineMig";
 import SchedulingPipeline from "./components/SchedulingPipeline";
 import AddPipelineTransformation from "./pages/AddPipelineTransformation";
+import TransformationStepper from "./components/Transformation/TransformationStepper";
 
 function App() {
   const [user, setUser] = useState();
@@ -155,6 +156,10 @@ function App() {
                 <Route
                   path="/pipelines/transformations"
                   element={<AddPipelineTransformation />}
+                />
+                <Route
+                  path="/pipelines/transformations/Stepper"
+                  element={<TransformationStepper />}
                 />
                 <Route
                   path="/scheduling/configuration"

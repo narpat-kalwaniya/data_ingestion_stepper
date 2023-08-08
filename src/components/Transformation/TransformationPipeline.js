@@ -92,6 +92,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function TransformationPipeline() {
+  const navigateRouter = useNavigate();
+
   return (
     <>
       <div className="col-lg-10 col-md-10 m-auto">
@@ -155,9 +157,10 @@ function TransformationPipeline() {
                     <button
                       className="btn-s"
                       style={{ paddingLeft: "8px", paddingRight: "8px" }}
-                      // onClick={() => {
-                      //   navigateRouter && navigateRouter("/scheduling/pipeline");
-                      // }}
+                      onClick={() => {
+                        navigateRouter &&
+                          navigateRouter("/pipelines/transformations/Stepper");
+                      }}
                     >
                       <AddIcon className="AddOutlinedIcon" />
                       Add New Query
