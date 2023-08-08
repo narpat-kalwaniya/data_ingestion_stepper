@@ -11,7 +11,7 @@ import { useState, useEffect, useMemo } from "react";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import "./SearchNavbarButton.css";
 import { AiOutlineEdit } from "react-icons/ai";
-import { Trash } from "react-bootstrap-icons";
+import { Trash, Filter } from "react-bootstrap-icons";
 import ConfirmationModal from "../CreateModals/ConfirmationModal";
 import "../../App.css";
 
@@ -235,8 +235,8 @@ export default function CustomizedTables(props) {
             <StyledTableCell>Module</StyledTableCell>
             <StyledTableCell align="center">Source Entity</StyledTableCell>
             <StyledTableCell align="center">Target Entity</StyledTableCell>
-            <StyledTableCell align="center" onClick={handleStatusSort}>
-              Status
+            <StyledTableCell align="center" style={{ width: "90px" }}>
+              Status <Filter onClick={handleStatusSort} />
             </StyledTableCell>
             <StyledTableCell align="center"></StyledTableCell>
             <StyledTableCell
