@@ -49,6 +49,18 @@ function Drafts(props) {
         //     row.entity_id === selectedEntityId ? { ...row, deleted: true } : row
         //   )
         // );
+
+        try {
+          const response = await fetch(
+            "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/getdrafts/"
+          );
+          const data = await response.json();
+          // console.log(data);
+          props.setDrafts(data);
+          // setSelectedTestcases(Array(formData.tableData.length).fill(""));
+        } catch (error) {
+          console.log("Error fetching test cases:", error);
+        }
       } else {
         console.log("Failed to delete draft from the backend.");
       }

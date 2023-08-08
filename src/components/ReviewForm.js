@@ -709,7 +709,11 @@ const ReviewFrom = (props) => {
                               >
                                 <span className="key">{key}</span>
                                 <span className="colon">:</span>
-                                <span className="value">{value}</span>
+                                <span className="value">
+                                  {Array.isArray(value)
+                                    ? value.join(", ")
+                                    : value}
+                                </span>
                               </div>
                             )
                           )}
