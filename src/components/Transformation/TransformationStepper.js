@@ -52,18 +52,18 @@ function TransformationStepper() {
         </Row>
         <Row className="m-2">
           <SectionMenuTrans step={step} />
-          <Col>
+          <Col className="p-0">
             <Card className="custom-card" style={{ border: "none" }}>
               <div>
                 <div>
-                  <Container>
+                  <Container className="p-0">
                     <Card.Body
                       style={{
                         minHeight: "60vh",
                         maxHeight: "60vh",
                         overflowY: "scroll",
                       }}
-                      className="overflow-auto"
+                      className="overflow-auto py-0"
                     >
                       <StepperTrans
                         step={step}
