@@ -36,75 +36,72 @@ function TransformationStepper() {
   };
 
   return (
-    <div>
-      <Container
-        className="h-100"
-        style={{ marginTop: "30px", backgroundColor: "white" }}
-      >
-        <Card className="Card-outer custom-card-body ">
-          <Row className="m-2">
-            <div className="back-button" onClick={createNewPipelineHandler}>
-              <div className="back-icon">
-                <FiArrowLeft />
-              </div>
-              <span className="back-text">New Query</span>
-              <div className="horizontal-line"></div>
+    <Container
+      className="h-100"
+      style={{ marginTop: "30px", backgroundColor: "white" }}
+    >
+      <Card className="Card-outer custom-card-body ">
+        <Row className="m-2">
+          <div className="back-button" onClick={createNewPipelineHandler}>
+            <div className="back-icon">
+              <FiArrowLeft />
             </div>
-          </Row>
-          <Row className="m-2">
-            <SectionMenuTrans step={step} />
-            <Col>
-              <Card className="custom-card p-0" style={{ border: "none" }}>
+            <span className="back-text">New Query</span>
+            <div className="horizontal-line"></div>
+          </div>
+        </Row>
+        <Row className="m-2">
+          <SectionMenuTrans step={step} />
+          <Col>
+            <Card className="custom-card" style={{ border: "none" }}>
+              <div>
                 <div>
-                  <div>
-                    <Container className="p-0">
-                      <Card.Body
-                        style={{
-                          minHeight: "60vh",
-                          maxHeight: "60vh",
-                          overflowY: "scroll",
-                        }}
-                        className="overflow-auto py-0"
-                      >
-                        <StepperTrans
-                          step={step}
-                          formData={formData}
-                          updateFormData={updateFormData}
-                        />
-                      </Card.Body>
-                    </Container>
-                  </div>
+                  <Container>
+                    <Card.Body
+                      style={{
+                        minHeight: "60vh",
+                        maxHeight: "60vh",
+                        overflowY: "scroll",
+                      }}
+                      className="overflow-auto"
+                    >
+                      <StepperTrans
+                        step={step}
+                        formData={formData}
+                        updateFormData={updateFormData}
+                      />
+                    </Card.Body>
+                  </Container>
                 </div>
-              </Card>
-            </Col>
-          </Row>
-          <Card.Footer className="d-flex justify-content-between float-right custom-footer">
-            <button
-              className="btn-c "
-              onClick={previousHandler}
-              disabled={step === 1}
-              style={{
-                borderTopRightRadius: "0px",
-                borderBottomRightRadius: "0px",
-              }}
-            >
-              Prev
-            </button>
-            <button
-              className="btn-s "
-              onClick={nextHandler}
-              style={{
-                borderTopLeftRadius: "0px",
-                borderBottomLeftRadius: "0px",
-              }}
-            >
-              Next
-            </button>
-          </Card.Footer>
-        </Card>
-      </Container>
-    </div>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+        <Card.Footer className="d-flex justify-content-between float-right custom-footer">
+          <button
+            className="btn-c "
+            onClick={previousHandler}
+            disabled={step === 1}
+            style={{
+              borderTopRightRadius: "0px",
+              borderBottomRightRadius: "0px",
+            }}
+          >
+            Prev
+          </button>
+          <button
+            className="btn-s "
+            onClick={nextHandler}
+            style={{
+              borderTopLeftRadius: "0px",
+              borderBottomLeftRadius: "0px",
+            }}
+          >
+            Next
+          </button>
+        </Card.Footer>
+      </Card>
+    </Container>
   );
 }
-
 export default TransformationStepper;
