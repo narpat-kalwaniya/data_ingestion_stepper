@@ -112,23 +112,47 @@ const ValidateQuery = () => {
               style={{ display: "none" }}
               onChange={handleFileInputChange}
             />
-            <button
-              className="file-input-btn"
-              onClick={handleUploadButtonClick}
-            >
-              Upload File
-            </button>
+            <a className="file-input-link" onClick={handleUploadButtonClick}>
+              Browse or Drag and Drop your file
+            </a>
           </div>
         </Col>
         <Col md={6}>
-          <h7>Enter Query</h7>
+          <div className="box-heading">
+            <div style={{ textAlign: "left" }}>Enter Query</div>
+            <div style={{ textAlign: "right" }}>
+              <a
+                href="#"
+                className="run-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Run&raquo;&raquo;
+              </a>
+            </div>
+          </div>
+          {/* <h7>Enter Query</h7> */}
           <div className={`horizontal-box ${isDragging ? "dragging" : ""}`}>
             <textarea
               value={selectedFileContent}
               onChange={(e) => setSelectedFileContent(e.target.value)}
             />
           </div>
-          <h7>Result</h7>
+          <div className="box-heading">
+            <div style={{ textAlign: "left" }}>Result</div>
+            <div style={{ textAlign: "right" }}>
+              <a
+                href="#"
+                className="run-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Save&raquo;&raquo;
+              </a>
+            </div>
+          </div>
           <div className={`horizontal-box ${isDragging ? "dragging" : ""}`}>
             {/* Result content */}
           </div>
