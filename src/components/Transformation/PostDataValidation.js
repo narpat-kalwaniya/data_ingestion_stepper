@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,6 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import "./TransformationPipeline.css";
+import AddDetailsModal from "./AddDetailsModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -48,6 +49,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const PostDataValidation = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
   return (
     <div>
       <div className="col-lg-12 col-md-12 m-0 p-0">
@@ -85,10 +95,7 @@ const PostDataValidation = () => {
                 <button
                   className="btn-s"
                   style={{ paddingLeft: "8px", paddingRight: "8px" }}
-                  // onClick={() => {
-                  //   navigateRouter &&
-                  //     navigateRouter("/pipelines/transformations/Stepper");
-                  // }}
+                  onClick={handleShowModal}
                 >
                   <AddIcon className="AddOutlinedIcon" />
                   Add Details
@@ -117,53 +124,11 @@ const PostDataValidation = () => {
                 <StyledTableCell>first </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>
               </StyledTableRow>
-              {/* {fileterData.map((row) => (
-              <StyledTableRow key={row.job_name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.job_name}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.start_timestamp}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.parent_dag_id}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.tasks?.[0]?.module_name}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.is_active != "false" ? "Active" : "Inactive"}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <BorderColorSharpIcon
-                    className="viewBtnStyle"
-                    style={{ width: "15px", height: "15px" }}
-                      onClick={() => {
-                        navigateRouter &&
-                          navigateRouter("/scheduling/edit/job-name");
-                        sessionStorage.setItem(
-                          "schedulingUserData",
-                          JSON.stringify(row)
-                        );
-                      }}
-                  />
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <DeleteIcon
-                    className="viewBtnStyle"
-                    style={{ width: "15px", height: "15px" }}
-                      onClick={() => {
-                        deleteHandleShow();
-                        setdeletetionDagNAme(row.job_name);
-                      }}
-                  />
-                </StyledTableCell>
-              </StyledTableRow>
-            ))} */}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
+      <AddDetailsModal show={showModal} onHide={handleCloseModal} />
     </div>
   );
 };
