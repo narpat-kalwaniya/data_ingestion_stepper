@@ -10,14 +10,17 @@
 }
 
 .vertical-box {
-  flex: 1;
+  width: 100%;
+  height: 300px; /* Set your desired fixed height */
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   border: 1px solid #ccc;
+  margin-right: 20px;
+  padding: 10px;
+  overflow-y: auto; /* Add vertical scrollbar */
 }
-
 .horizontal-box {
   flex: 1;
   display: flex;
@@ -28,4 +31,51 @@
   margin-bottom: 2px;
   height: 50%; /* Set height of horizontal boxes to 50% */
   width: 80vh;
+}
+
+.horizontal-box textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.file-uploader-container.dragging {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 2px dashed #ccc;
+}
+
+.file-input-btn {
+  margin-top: 10px;
+}
+
+.file-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.file-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Spread items to opposite corners */
+  border-bottom: 1px solid #ccc; /* Add line below header */
+  padding-bottom: 5px; /* Add spacing below header */
+  position: sticky;
+}
+
+.delete-btn {
+  margin-left: auto;
+  padding: 2px 5px;
+  background-color: white;
+  color: #f7901d;
+  border: none;
+  cursor: pointer;
+}
+
+.file-content {
+  border-top: 1px solid #ccc; /* Add a border or line above the content */
+  padding-top: 10px; /* Adjust padding as needed for separation */
 }
