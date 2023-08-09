@@ -37,7 +37,7 @@ function TransformationStepper() {
 
   return (
     <Container
-      className="h-100"
+      className="h-90"
       style={{ marginTop: "30px", backgroundColor: "white" }}
     >
       <Card className="Card-outer custom-card-body ">
