@@ -198,7 +198,7 @@ const ReviewFrom = (props) => {
 
   // console.log("final ingestion data", safeStringify(ingestionData[0]));
   // console.log("final ingestion data without stringy", ingestionData);
-  console.log("form data final", props.formData);
+  console.log("form data final", JSON.stringify(props.formData));
 
   const renderTable = (data) => {
     console.log("data", data);

@@ -25,35 +25,10 @@ const CreateDataConnection = ({
   errors,
   setisVisibleOption,
   currentlySubmittedForm,
+  connections,
+  applications,
 }) => {
-  const [connections, setConnections] = useState([]);
-  const [applications, setApplications] = useState([]);
   const { ingestionData, updateIngestionData } = useContext(DataContext);
-
-  useEffect(() => {
-    const fetchConnections = async () => {
-      try {
-        const response = await fetch(`${Backend_url}/conndetails/`);
-        const data = await response.json();
-        setConnections(data);
-      } catch (error) {
-        console.error("Error fetching connections:", error);
-      }
-    };
-
-    const fetchApplications = async () => {
-      try {
-        const response = await fetch(`${Backend_url}/appdetails/`);
-        const data = await response.json();
-        setApplications(data);
-      } catch (error) {
-        console.error("Error fetching applications:", error);
-      }
-    };
-
-    fetchConnections();
-    fetchApplications();
-  }, []);
 
   const handleSelection = (event) => {
     const selectedConnectionName = event.target.value;
@@ -145,6 +120,8 @@ const CreateDataConnection = ({
     (connection) => connection.connection_type === "SNOWFLAKE"
   );
 
+  console.log(filteredSourceConnections);
+
   //Modal
   const [showModalDSC, setShowModalDSC] = useState(false);
   const handleShowModalDSC = () => {
@@ -176,7 +153,7 @@ const CreateDataConnection = ({
 
   console.log("form data", formData);
 
-  console.log("connection ingestion data", ingestionData);
+  console.log("connections", connections);
 
   return (
     <Card.Body className="custom-card-body">

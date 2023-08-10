@@ -391,6 +391,31 @@ export const TargetSchema = ({
   };
   return (
     <div>
+      {isTableLoad && !isUpdate && (
+        <div
+          style={{
+            display: "flex",
+            position: "relative",
+            alignItems: "center",
+            width: "200px",
+            margin: "auto",
+          }}
+        >
+          <ProgressBar
+            animated
+            now={100}
+            label="Loading..."
+            style={{
+              top: "200px",
+              display: "flex",
+              position: "relative",
+              alignItems: "center",
+              width: "200px",
+              margin: "auto",
+            }}
+          />
+        </div>
+      )}
       <Table hover responsive>
         <thead
           style={{
@@ -421,30 +446,6 @@ export const TargetSchema = ({
           setIsDraftSaved={setIsDraftSaved}
         />
       </Table>
-      {isTableLoad && !isUpdate && (
-        <div
-          style={{
-            display: "flex",
-            position: "relative",
-            alignItems: "center",
-            width: "200px",
-            margin: "auto",
-          }}
-        >
-          <ProgressBar
-            animated
-            now={100}
-            label="Loading..."
-            style={{
-              display: "flex",
-              position: "relative",
-              alignItems: "center",
-              width: "200px",
-              margin: "auto",
-            }}
-          />
-        </div>
-      )}
     </div>
   );
 };

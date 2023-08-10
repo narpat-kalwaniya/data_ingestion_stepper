@@ -24,6 +24,10 @@ function AddPipeline(props) {
   const { formData, setFormData } = useContext(formContext);
   const { step, setStep } = useContext(stepContext);
 
+  const [connections, setConnections] = useState([]);
+  const [applications, setApplications] = useState([]);
+  const [s3Directories, setS3Directories] = useState({});
+
   // onData(formData);
 
   // Error state- Page 1 - by Rajesh
@@ -74,6 +78,61 @@ function AddPipeline(props) {
   //   updateFormData(updatedFormData);
   // }, [step > 3]);
   console.log("isupdate", props.isUpdate);
+
+  useEffect(() => {
+    const fetchConnections = async () => {
+      try {
+        const response = await fetch(`${Backend_url}/conndetails/`);
+        const data = await response.json();
+        setConnections(data);
+      } catch (error) {
+        console.error("Error fetching connections:", error);
+      }
+    };
+
+    const fetchApplications = async () => {
+      try {
+        const response = await fetch(`${Backend_url}/appdetails/`);
+        const data = await response.json();
+        setApplications(data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      }
+    };
+
+    fetchConnections();
+    fetchApplications();
+  }, []);
+
+  // fetch direcoties
+  useEffect(() => {
+    if (
+      formData.sourceEntity.bucket_name === "tiger-snowflake-datafabric-dev"
+    ) {
+      const fetchDirectories = async () => {
+        try {
+          const response = await fetch(`${Backend_url}/getfilesmeta/6`);
+          const data = await response.json();
+          setS3Directories(data);
+        } catch (error) {
+          console.error("Error fetching connections:", error);
+        }
+      };
+      fetchDirectories();
+    } else if (formData.sourceEntity.bucket_name === "ingestion-inbound") {
+      const fetchDirectories = async () => {
+        try {
+          const response = await fetch(`${Backend_url}/getfilesmeta/7`);
+          const data = await response.json();
+          setS3Directories(data);
+        } catch (error) {
+          console.error("Error fetching connections:", error);
+        }
+      };
+      fetchDirectories();
+    }
+  }, [formData.sourceEntity.bucket_name]);
+
   useEffect(() => {
     if (step === 3 && !props.isUpdate) {
       console.log("isupdate in useeffect", props.isUpdate);
@@ -84,6 +143,7 @@ function AddPipeline(props) {
         schema_name: formData.sourceEntity.schema_name,
         table_name: formData.sourceEntity.table_name,
         bucket_name: formData.sourceEntity.bucket_name,
+        directory_name: formData.sourceEntity.directory_name,
         full_file_name: formData.sourceEntity.full_file_name,
         source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
         connection_id: formData.sourceEntity.connection_id,
@@ -631,6 +691,9 @@ function AddPipeline(props) {
                           setIsTableLoad={props.setIsTableLoad}
                           isUpdate={props.isUpdate}
                           setIsUpdate={props.setIsUpdate}
+                          connections={connections}
+                          applications={applications}
+                          s3Directories={s3Directories}
                         />
                       </Card.Body>
                     </Container>

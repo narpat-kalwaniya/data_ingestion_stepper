@@ -30,6 +30,9 @@ const Stepper = ({
   setIsTableLoad,
   isUpdate,
   setIsUpdate,
+  connections,
+  applications,
+  s3Directories,
 }) => {
   const [isVisibleOption, setisVisibleOption] = useState(true);
 
@@ -44,6 +47,8 @@ const Stepper = ({
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
           errors={errors}
+          connections={connections}
+          applications={applications}
         />
       ) : step === 2 ? (
         <SourceEntitySelection
@@ -53,6 +58,8 @@ const Stepper = ({
           updateFormData={updateFormData}
           currentlySubmittedForm={currentlySubmittedForm}
           errors2={errors2}
+          connections={connections}
+          s3Directories={s3Directories}
         />
       ) : step === 3 ? (
         <TargetSchema
