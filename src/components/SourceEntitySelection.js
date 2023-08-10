@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
+import Select from "react-select";
 import { DataContext } from "./DataContext";
 import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-sql";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
+
 import Backend_url from "../config";
 const SourceEntitySelection = ({
   step,
@@ -14,6 +16,8 @@ const SourceEntitySelection = ({
   errors2,
   isVisibleOption,
   currentlySubmittedForm,
+  connections,
+  s3Directories,
 }) => {
   const [dataSourceType, setDataSourceType] = useState(
     formData.sourceEntity.data_source_type
@@ -32,6 +36,7 @@ const SourceEntitySelection = ({
   const [bucketName, setBucketName] = useState("");
   const [fullFileName, setFullFileName] = useState("");
   const [query, setQuery] = useState("");
+  const [isDirSelected, setIsDirSelected] = useState(false);
 
   const [disableElement, setDisableElement] = useState({
     query: true,
@@ -187,7 +192,7 @@ const SourceEntitySelection = ({
   // };
 
   // Event listener for Bucket Name and Full File Name Change Handler
-  const bucket_fileNameChangeHandler = (event) => {
+  const bucketNameChangeHandler = (event) => {
     const { name, value } = event.target;
     if (name === "BucketName") {
       setBucketName(value);
@@ -220,6 +225,34 @@ const SourceEntitySelection = ({
       };
       // updateIngestionData(updatedData);
     }
+  };
+
+  const directoryHandler = (option) => {
+    setIsDirSelected(true);
+
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      directory_name: option.value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData, 2);
+    console.log("files", s3Directories[formData.sourceEntity.directory_name]);
+  };
+
+  const fileNameHandler = (option) => {
+    const updatedSourceEntity = {
+      ...formData.sourceEntity,
+      full_file_name: option.value,
+    };
+    const updatedFormData = {
+      ...formData,
+      sourceEntity: updatedSourceEntity,
+    };
+    updateFormData(updatedFormData, 2);
+    console.log("dir", option);
   };
 
   // Fetch databases, schemas, and tables from API or data source
@@ -318,7 +351,11 @@ const SourceEntitySelection = ({
     }
   }, [dataSourceType]);
 
-  // console.log("source entity ingestion data", ingestionData);
+  console.log("connections", connections);
+  console.log("s3", s3Directories);
+  console.log("s3 directories", Object.keys(s3Directories));
+  console.log("formData", formData);
+  console.log("files", s3Directories[formData.sourceEntity.directory_name]);
 
   return (
     <Card.Body className="custom-card-body">
@@ -502,22 +539,42 @@ const SourceEntitySelection = ({
               </div>
             </Col>
           </Row>
-          <Row>
+          <Row className="mb-4">
             <Col>
               <div className="form-group">
                 <Form.Label>
                   Bucket Name <span className="text-danger">*</span>
                 </Form.Label>
-                <Form.Control
-                  type="text"
-                  name="BucketName"
+                <Form.Select
                   className="custom-select custom-style"
-                  onChange={bucket_fileNameChangeHandler}
+                  onChange={bucketNameChangeHandler}
                   value={formData.sourceEntity.bucket_name}
+                  name="BucketName"
                   // disabled={dataSourceType !== "Flat File"}
                   disabled={disableElement.bucket_name}
                   isInvalid={currentlySubmittedForm == 2 && errors2.bucket_name}
-                />
+                >
+                  <option value="">--Select--</option>
+                  {formData.CreateDataConnection.dataSource === "datalake_s3"
+                    ? connections
+                        .filter((item) => item.connection_type == "S3")
+                        .map((option) => (
+                          <option>{option.connect_string.bucket_name}</option>
+                        ))
+                    : formData.CreateDataConnection.dataSource ===
+                      "datalake_azure_blob"
+                    ? connections
+                        .filter(
+                          (item) =>
+                            item.connection_type == "AZURE_STORAGE_ACCOUNT"
+                        )
+                        .map((option) => (
+                          <option>
+                            {option.connect_string.container_name}
+                          </option>
+                        ))
+                    : null}
+                </Form.Select>
                 {currentlySubmittedForm == 2 && errors2.bucket_name && (
                   <div className="error">{errors2.bucket_name}</div>
                 )}
@@ -526,26 +583,55 @@ const SourceEntitySelection = ({
             <Col>
               <div className="form-group">
                 <Form.Label>
-                  Full File Name <span className="text-danger">*</span>
+                  Directory Name <span className="text-danger">*</span>
                 </Form.Label>
-                <Form.Control
+                <Select
+                  className="custom-select custom-style"
+                  placeholder="--Select--"
+                  options={Object.keys(s3Directories).map((item) => ({
+                    value: item,
+                    label: item,
+                  }))}
+                  onChange={(option) => directoryHandler(option)}
+                />
+              </div>
+            </Col>
+
+            <Col>
+              {formData.sourceEntity.directory_name != null ? (
+                <div className="form-group">
+                  <Form.Label>
+                    File Name <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Select
+                    className="custom-select custom-style"
+                    placeholder="--Select--"
+                    options={s3Directories[
+                      formData.sourceEntity.directory_name
+                    ].map((item) => ({
+                      value: item,
+                      label: item,
+                    }))}
+                    onChange={(option) => fileNameHandler(option)}
+                  />
+                  {/* <Form.Control
                   type="text"
                   name="FullFileName"
                   className="custom-select custom-style"
-                  onChange={bucket_fileNameChangeHandler}
+                  onChange={bucketNameChangeHandler}
                   value={formData.sourceEntity.full_file_name}
                   // disabled={dataSourceType !== "Flat File"}
                   disabled={disableElement.full_file_name}
                   isInvalid={
                     currentlySubmittedForm == 2 && errors2.full_file_name
                   }
-                />
-                {currentlySubmittedForm == 2 && errors2.full_file_name && (
-                  <div className="error">{errors2.full_file_name}</div>
-                )}
-              </div>
+                /> */}
+                  {currentlySubmittedForm == 2 && errors2.full_file_name && (
+                    <div className="error">{errors2.full_file_name}</div>
+                  )}
+                </div>
+              ) : null}{" "}
             </Col>
-            <Col></Col>
           </Row>
         </Form>
       </div>

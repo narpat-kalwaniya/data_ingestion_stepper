@@ -108,7 +108,7 @@ function Drafts(props) {
               {row.tableData[0].source_entity_name}
             </td>
             <td onClick={(event) => rowClickHandler(row)}>
-              {row.tableData[0].target_entity_name}
+              {row.targetLoadDetails.target_entity_name}
             </td>
             <td
               style={{ color: "red" }}
