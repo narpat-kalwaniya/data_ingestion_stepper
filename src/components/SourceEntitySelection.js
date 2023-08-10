@@ -351,11 +351,11 @@ const SourceEntitySelection = ({
     }
   }, [dataSourceType]);
 
-  console.log("connections", connections);
-  console.log("s3", s3Directories);
-  console.log("s3 directories", Object.keys(s3Directories));
+  console.log("disableElement", disableElement);
+  // console.log("s3", s3Directories);
+  // console.log("s3 directories", Object.keys(s3Directories));
   console.log("formData", formData);
-  console.log("files", s3Directories[formData.sourceEntity.directory_name]);
+  // console.log("files", s3Directories[formData.sourceEntity.directory_name]);
 
   return (
     <Card.Body className="custom-card-body">
@@ -455,166 +455,176 @@ const SourceEntitySelection = ({
               </div>
             </Row>
           )}
-
-          <Row className="mb-4">
-            <Col>
-              <div className="form-group">
-                <Form.Label>
-                  Database Name <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Select
-                  value={formData.sourceEntity.db_name}
-                  onChange={handleDatabaseChange}
-                  // disabled={dataSourceType !== "RDBMS-TABLE"}
-                  disabled={disableElement.db_name}
-                  isInvalid={currentlySubmittedForm == 2 && errors2.db_name}
-                  className="custom-select custom-style"
-                >
-                  <option value="">Select Database</option>
-                  {databases.map((database) => (
-                    <option key={database} value={database}>
-                      {database}
-                    </option>
-                  ))}
-                </Form.Select>
-                {currentlySubmittedForm == 2 && errors2.db_name && (
-                  <div className="error">{errors2.db_name}</div>
-                )}
-              </div>
-            </Col>
-            <Col>
-              <div className="form-group">
-                <Form.Label>
-                  Schema Name <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Select
-                  value={formData.sourceEntity.schema_name}
-                  onChange={handleSchemaChange}
-                  // disabled={
-                  //   dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
-                  // }
-                  disabled={disableElement.schema_name || !selectedDatabase}
-                  isInvalid={currentlySubmittedForm == 2 && errors2.schema_name}
-                  className="custom-select custom-style"
-                >
-                  <option value="">Select Schema</option>
-                  {schemas.map((schema) => (
-                    <option key={schema} value={schema}>
-                      {schema}
-                    </option>
-                  ))}
-                </Form.Select>
-                {currentlySubmittedForm == 2 && errors2.schema_name && (
-                  <div className="error">{errors2.schema_name}</div>
-                )}
-              </div>
-            </Col>
-            <Col>
-              <div className="form-group">
-                <Form.Label>
-                  Table Name <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Select
-                  value={formData.sourceEntity.table_name}
-                  onChange={handleTableChange}
-                  // disabled={
-                  //   dataSourceType !== "RDBMS-TABLE" ||
-                  //   !selectedDatabase ||
-                  //   !selectedSchema
-                  // }
-                  disabled={disableElement.table_name || !selectedSchema}
-                  isInvalid={currentlySubmittedForm == 2 && errors2.table_name}
-                  className="custom-select custom-style"
-                >
-                  <option value="">Select Table</option>
-                  {tables.map((table) => (
-                    <option key={table} value={table}>
-                      {table}
-                    </option>
-                  ))}
-                </Form.Select>
-                {currentlySubmittedForm == 2 && errors2.table_name && (
-                  <div className="error">{errors2.table_name}</div>
-                )}
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-4">
-            <Col>
-              <div className="form-group">
-                <Form.Label>
-                  Bucket Name <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Select
-                  className="custom-select custom-style"
-                  onChange={bucketNameChangeHandler}
-                  value={formData.sourceEntity.bucket_name}
-                  name="BucketName"
-                  // disabled={dataSourceType !== "Flat File"}
-                  disabled={disableElement.bucket_name}
-                  isInvalid={currentlySubmittedForm == 2 && errors2.bucket_name}
-                >
-                  <option value="">--Select--</option>
-                  {formData.CreateDataConnection.dataSource === "datalake_s3"
-                    ? connections
-                        .filter((item) => item.connection_type == "S3")
-                        .map((option) => (
-                          <option>{option.connect_string.bucket_name}</option>
-                        ))
-                    : formData.CreateDataConnection.dataSource ===
-                      "datalake_azure_blob"
-                    ? connections
-                        .filter(
-                          (item) =>
-                            item.connection_type == "AZURE_STORAGE_ACCOUNT"
-                        )
-                        .map((option) => (
-                          <option>
-                            {option.connect_string.container_name}
-                          </option>
-                        ))
-                    : null}
-                </Form.Select>
-                {currentlySubmittedForm == 2 && errors2.bucket_name && (
-                  <div className="error">{errors2.bucket_name}</div>
-                )}
-              </div>
-            </Col>
-            <Col>
-              <div className="form-group">
-                <Form.Label>
-                  Directory Name <span className="text-danger">*</span>
-                </Form.Label>
-                <Select
-                  className="custom-select custom-style"
-                  placeholder="--Select--"
-                  options={Object.keys(s3Directories).map((item) => ({
-                    value: item,
-                    label: item,
-                  }))}
-                  onChange={(option) => directoryHandler(option)}
-                />
-              </div>
-            </Col>
-
-            <Col>
-              {formData.sourceEntity.directory_name != null ? (
+          {["Flat File", "RDBMS-QUERY"].includes(
+            formData.sourceEntity.data_source_type
+          ) ? null : (
+            <Row className="mb-4">
+              <Col>
                 <div className="form-group">
                   <Form.Label>
-                    File Name <span className="text-danger">*</span>
+                    Database Name <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Select
+                    value={formData.sourceEntity.db_name}
+                    onChange={handleDatabaseChange}
+                    // disabled={dataSourceType !== "RDBMS-TABLE"}
+                    disabled={disableElement.db_name}
+                    isInvalid={currentlySubmittedForm == 2 && errors2.db_name}
+                    className="custom-select custom-style"
+                  >
+                    <option value="">Select Database</option>
+                    {databases.map((database) => (
+                      <option key={database} value={database}>
+                        {database}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {currentlySubmittedForm == 2 && errors2.db_name && (
+                    <div className="error">{errors2.db_name}</div>
+                  )}
+                </div>
+              </Col>
+              <Col>
+                <div className="form-group">
+                  <Form.Label>
+                    Schema Name <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Select
+                    value={formData.sourceEntity.schema_name}
+                    onChange={handleSchemaChange}
+                    // disabled={
+                    //   dataSourceType !== "RDBMS-TABLE" || !selectedDatabase
+                    // }
+                    disabled={disableElement.schema_name || !selectedDatabase}
+                    isInvalid={
+                      currentlySubmittedForm == 2 && errors2.schema_name
+                    }
+                    className="custom-select custom-style"
+                  >
+                    <option value="">Select Schema</option>
+                    {schemas.map((schema) => (
+                      <option key={schema} value={schema}>
+                        {schema}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {currentlySubmittedForm == 2 && errors2.schema_name && (
+                    <div className="error">{errors2.schema_name}</div>
+                  )}
+                </div>
+              </Col>
+              <Col>
+                <div className="form-group">
+                  <Form.Label>
+                    Table Name <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Select
+                    value={formData.sourceEntity.table_name}
+                    onChange={handleTableChange}
+                    // disabled={
+                    //   dataSourceType !== "RDBMS-TABLE" ||
+                    //   !selectedDatabase ||
+                    //   !selectedSchema
+                    // }
+                    disabled={disableElement.table_name || !selectedSchema}
+                    isInvalid={
+                      currentlySubmittedForm == 2 && errors2.table_name
+                    }
+                    className="custom-select custom-style"
+                  >
+                    <option value="">Select Table</option>
+                    {tables.map((table) => (
+                      <option key={table} value={table}>
+                        {table}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {currentlySubmittedForm == 2 && errors2.table_name && (
+                    <div className="error">{errors2.table_name}</div>
+                  )}
+                </div>
+              </Col>
+            </Row>
+          )}
+          {["Flat File"].includes(formData.sourceEntity.data_source_type) ? (
+            <Row className="mb-4">
+              <Col>
+                <div className="form-group">
+                  <Form.Label>
+                    Bucket Name <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Select
+                    className="custom-select custom-style"
+                    onChange={bucketNameChangeHandler}
+                    value={formData.sourceEntity.bucket_name}
+                    name="BucketName"
+                    // disabled={dataSourceType !== "Flat File"}
+                    disabled={disableElement.bucket_name}
+                    isInvalid={
+                      currentlySubmittedForm == 2 && errors2.bucket_name
+                    }
+                  >
+                    <option value="">--Select--</option>
+                    {formData.CreateDataConnection.dataSource === "datalake_s3"
+                      ? connections
+                          .filter((item) => item.connection_type == "S3")
+                          .map((option) => (
+                            <option>{option.connect_string.bucket_name}</option>
+                          ))
+                      : formData.CreateDataConnection.dataSource ===
+                        "datalake_azure_blob"
+                      ? connections
+                          .filter(
+                            (item) =>
+                              item.connection_type == "AZURE_STORAGE_ACCOUNT"
+                          )
+                          .map((option) => (
+                            <option>
+                              {option.connect_string.container_name}
+                            </option>
+                          ))
+                      : null}
+                  </Form.Select>
+                  {currentlySubmittedForm == 2 && errors2.bucket_name && (
+                    <div className="error">{errors2.bucket_name}</div>
+                  )}
+                </div>
+              </Col>
+              <Col>
+                <div className="form-group">
+                  <Form.Label>
+                    Directory Name <span className="text-danger">*</span>
                   </Form.Label>
                   <Select
                     className="custom-select custom-style"
                     placeholder="--Select--"
-                    options={s3Directories[
-                      formData.sourceEntity.directory_name
-                    ].map((item) => ({
+                    options={Object.keys(s3Directories).map((item) => ({
                       value: item,
                       label: item,
                     }))}
-                    onChange={(option) => fileNameHandler(option)}
+                    onChange={(option) => directoryHandler(option)}
                   />
-                  {/* <Form.Control
+                </div>
+              </Col>
+
+              <Col>
+                {formData.sourceEntity.directory_name != null ? (
+                  <div className="form-group">
+                    <Form.Label>
+                      File Name <span className="text-danger">*</span>
+                    </Form.Label>
+                    <Select
+                      className="custom-select custom-style"
+                      placeholder="--Select--"
+                      options={s3Directories[
+                        formData.sourceEntity.directory_name
+                      ].map((item) => ({
+                        value: item,
+                        label: item,
+                      }))}
+                      onChange={(option) => fileNameHandler(option)}
+                    />
+                    {/* <Form.Control
                   type="text"
                   name="FullFileName"
                   className="custom-select custom-style"
@@ -626,13 +636,14 @@ const SourceEntitySelection = ({
                     currentlySubmittedForm == 2 && errors2.full_file_name
                   }
                 /> */}
-                  {currentlySubmittedForm == 2 && errors2.full_file_name && (
-                    <div className="error">{errors2.full_file_name}</div>
-                  )}
-                </div>
-              ) : null}{" "}
-            </Col>
-          </Row>
+                    {currentlySubmittedForm == 2 && errors2.full_file_name && (
+                      <div className="error">{errors2.full_file_name}</div>
+                    )}
+                  </div>
+                ) : null}{" "}
+              </Col>
+            </Row>
+          ) : null}
         </Form>
       </div>
     </Card.Body>

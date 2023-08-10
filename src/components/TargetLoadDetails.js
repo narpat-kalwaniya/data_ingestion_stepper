@@ -284,9 +284,7 @@ const TargetLoadDetails = ({
                 type="text"
                 className="custom-select custom-style"
                 value={
-                  formData.tableData[
-                    formData.tableData.length - 1
-                  ]?.target_table.split(".")[0]
+                  formData.targetLoadDetails.target_entity_name.split(".")[2]
                 }
                 disabled={false}
                 name="target_table"
