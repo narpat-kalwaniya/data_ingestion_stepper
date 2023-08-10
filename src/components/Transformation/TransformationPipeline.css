@@ -38,6 +38,11 @@ cursor: pointer !important;
     margin-left: 0 !important;
 }
 
+.searchInputWidth {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
 .navbarStyle {
     padding: 0 !important;
     min-height: 48px !important;
@@ -45,4 +50,17 @@ cursor: pointer !important;
 
 .idColumnStyle {
     color: rgb(53, 143, 182) !important;
+}
+
+.queryDetailsClosebtn {
+    display: flex;
+    justify-content: space-between;
+    border-style: none;
+    
+}
+
+.closeQuerybtn {
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+
 }

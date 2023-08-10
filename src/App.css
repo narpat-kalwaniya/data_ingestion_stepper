@@ -24,6 +24,7 @@ p {
 .back-button {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
   padding: 8px;
   border-radius: 50px;
@@ -72,7 +73,15 @@ p {
 .back-text {
   font-size: 14px;
   font-weight: 500;
+ 
 }
+
+.back-text-style {
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 500;
+}
+
 
 .form-control {
   font-size: 24px; /* Replace '16px' with your desired font size */

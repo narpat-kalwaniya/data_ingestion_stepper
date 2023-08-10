@@ -6,13 +6,19 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../../styles/main.css";
 import SectionMenuTrans from "./SectionMenuTrans";
 import StepperTrans from "./StepperTrans";
+import QueryDetailsSlider from "./QueryDetailsSlider";
 
 function TransformationStepper() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const [sliderOpen, setsliderOpen] = useState(null);
 
   const createNewPipelineHandler = () => {
     setStep(1);
+  };
+
+  const sliderHandler = (event) => {
+    setsliderOpen("right");
   };
 
   const previousHandler = () => {
@@ -45,8 +51,25 @@ function TransformationStepper() {
           <div className="back-button" onClick={createNewPipelineHandler}>
             <div className="back-icon">
               <FiArrowLeft />
+              <span className="back-text">New Query</span>
             </div>
-            <span className="back-text">New Query</span>
+            {step === 1 ? (
+              <div>
+                <span className=" back-text-style" onClick={sliderHandler}>
+                  Query Details
+                </span>
+                {sliderOpen && (
+                  <QueryDetailsSlider
+                    anchor={sliderOpen}
+                    onClose={() => {
+                      setsliderOpen(null);
+                    }}
+                  />
+                )}
+              </div>
+            ) : (
+              <></>
+            )}
             <div className="horizontal-line"></div>
           </div>
         </Row>
