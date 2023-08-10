@@ -41,6 +41,7 @@ function App() {
       full_file_name: null,
       source_entity_name: null,
       connection_id: null,
+      directory_name: null,
     },
     tableData: [],
     DefineSourceExtractCriteria: {
