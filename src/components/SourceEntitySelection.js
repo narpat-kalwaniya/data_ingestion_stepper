@@ -232,7 +232,7 @@ const SourceEntitySelection = ({
 
     const updatedSourceEntity = {
       ...formData.sourceEntity,
-      directory_name: option.value,
+      directory_name: option,
     };
     const updatedFormData = {
       ...formData,
@@ -245,14 +245,13 @@ const SourceEntitySelection = ({
   const fileNameHandler = (option) => {
     const updatedSourceEntity = {
       ...formData.sourceEntity,
-      full_file_name: option.value,
+      full_file_name: option,
     };
     const updatedFormData = {
       ...formData,
       sourceEntity: updatedSourceEntity,
     };
     updateFormData(updatedFormData, 2);
-    console.log("dir", option);
   };
 
   // Fetch databases, schemas, and tables from API or data source
@@ -603,6 +602,7 @@ const SourceEntitySelection = ({
                       label: item,
                     }))}
                     onChange={(option) => directoryHandler(option)}
+                    value={formData.sourceEntity.directory_name}
                   />
                 </div>
               </Col>
@@ -617,12 +617,13 @@ const SourceEntitySelection = ({
                       className="custom-select custom-style"
                       placeholder="--Select--"
                       options={s3Directories[
-                        formData.sourceEntity.directory_name
+                        formData.sourceEntity.directory_name.value
                       ].map((item) => ({
                         value: item,
                         label: item,
                       }))}
                       onChange={(option) => fileNameHandler(option)}
+                      value={formData.sourceEntity.full_file_name}
                     />
                     {/* <Form.Control
                   type="text"
