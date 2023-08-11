@@ -96,7 +96,6 @@ function QueryDetailsSlider({ anchor, onClose }) {
         onClose={() => {
           onClose();
         }}
-        // width={1000}
         PaperProps={{
           sx: {
             width: 650,

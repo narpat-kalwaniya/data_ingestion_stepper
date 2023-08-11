@@ -22,7 +22,7 @@ const SectionMenuTrans = (props) => {
     // Handle hover event
   };
   return (
-    <div style={{ width: "250px" }}>
+    <div style={{ width: "214px", padding: "0px" }}>
       <Col>
         <ListGroup>
           {sections.map((item, index) => (

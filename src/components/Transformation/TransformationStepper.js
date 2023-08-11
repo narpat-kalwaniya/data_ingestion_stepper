@@ -44,7 +44,11 @@ function TransformationStepper() {
   return (
     <Container
       className="h-90"
-      style={{ marginTop: "30px", backgroundColor: "white" }}
+      style={{
+        marginTop: "15px",
+        backgroundColor: "white",
+        maxWidth: "1320px",
+      }}
     >
       <Card className="Card-outer custom-card-body ">
         <Row className="m-2">
@@ -82,8 +86,8 @@ function TransformationStepper() {
                   <Container className="p-0">
                     <Card.Body
                       style={{
-                        minHeight: "60vh",
-                        maxHeight: "60vh",
+                        minHeight: "67vh",
+                        maxHeight: "67vh",
                         overflowY: "scroll",
                       }}
                       className="overflow-auto py-0"

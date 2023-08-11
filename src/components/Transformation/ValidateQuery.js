@@ -75,16 +75,16 @@ const ValidateQuery = () => {
     <div
       className={`container file-uploader-container ${
         isDragging ? "dragging" : ""
-      }`}
+      } w-100`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <Row>
-        <Col md={3} className="full-height">
+      <Row className="w-100">
+        <Col md={2} className="full-height">
           <h7>Uploaded Query</h7>
-          <div className={`vertical-box ${isDragging ? "dragging" : ""}`}>
+          <div className={`vertical-box ${isDragging ? "dragging" : ""} w-100`}>
             {uploadedFiles.map((file, index) => (
               <div key={index} className="file-container">
                 <div className="file-header">
@@ -117,8 +117,8 @@ const ValidateQuery = () => {
             </a>
           </div>
         </Col>
-        <Col md={6}>
-          <div className="box-heading">
+        <Col md={10} className="EnterQueryBox">
+          <div className="box-heading w-100">
             <div style={{ textAlign: "left" }}>Enter Query</div>
             <div style={{ textAlign: "right" }}>
               <a
@@ -133,13 +133,16 @@ const ValidateQuery = () => {
             </div>
           </div>
           {/* <h7>Enter Query</h7> */}
-          <div className={`horizontal-box ${isDragging ? "dragging" : ""}`}>
+          <div
+            className={`horizontal-box ${isDragging ? "dragging" : ""} w-100`}
+          >
             <textarea
               value={selectedFileContent}
               onChange={(e) => setSelectedFileContent(e.target.value)}
             />
           </div>
-          <div className="box-heading">
+
+          <div className="box-heading w-100 ">
             <div style={{ textAlign: "left" }}>Result</div>
             <div style={{ textAlign: "right" }}>
               <a
@@ -153,7 +156,11 @@ const ValidateQuery = () => {
               </a>
             </div>
           </div>
-          <div className={`horizontal-box ${isDragging ? "dragging" : ""}`}>
+          <div
+            className={`horizontal-box ${
+              isDragging ? "dragging" : ""
+            } w-100 horizontalBoxSIze`}
+          >
             {/* Result content */}
           </div>
         </Col>
