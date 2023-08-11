@@ -392,16 +392,24 @@ const ReviewFrom = (props) => {
                         <Card.Body>
                           {Object.entries(props.formData.sourceEntity).map(
                             ([key, value]) => (
-                              <div
-                                key={key}
-                                style={{
-                                  display: "flex",
-                                  marginBottom: "10px",
-                                }}
-                              >
-                                <span className="key">{key}</span>
-                                <span className="colon">:</span>
-                                <span className="value">{value}</span>
+                              <div>
+                                {value === null ? null : (
+                                  <div
+                                    key={key}
+                                    style={{
+                                      display: "flex",
+                                      marginBottom: "10px",
+                                    }}
+                                  >
+                                    <span className="key">{key}</span>
+                                    <span className="colon">:</span>
+                                    <span className="value">
+                                      {typeof value === "object"
+                                        ? value["value"]
+                                        : value}
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             )
                           )}
@@ -613,7 +621,29 @@ const ReviewFrom = (props) => {
                         </div>
                         <Card.Body>
                           <div>
-                            {/* {renderObject(props.formData.targetLoadDetails)} */}
+                            {Object.entries(
+                              props.formData.targetLoadDetails
+                            ).map(([key, value]) => (
+                              <div>
+                                {value === null ? null : (
+                                  <div
+                                    key={key}
+                                    style={{
+                                      display: "flex",
+                                      marginBottom: "10px",
+                                    }}
+                                  >
+                                    <span className="key">{key}</span>
+                                    <span className="colon">:</span>
+                                    <span className="value">
+                                      {typeof value === "object"
+                                        ? value["value"]
+                                        : value}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
                           </div>
                         </Card.Body>
                         <div className="block">

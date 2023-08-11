@@ -143,8 +143,8 @@ function AddPipeline(props) {
         schema_name: formData.sourceEntity.schema_name,
         table_name: formData.sourceEntity.table_name,
         bucket_name: formData.sourceEntity.bucket_name,
-        directory_name: formData.sourceEntity.directory_name,
-        full_file_name: formData.sourceEntity.full_file_name,
+        directory_name: formData.sourceEntity.directory_name.value,
+        full_file_name: formData.sourceEntity.full_file_name.value,
         source_entity_name: `${formData.sourceEntity.db_name}.${formData.sourceEntity.schema_name}.${formData.sourceEntity.table_name}`,
         connection_id: formData.sourceEntity.connection_id,
       };
