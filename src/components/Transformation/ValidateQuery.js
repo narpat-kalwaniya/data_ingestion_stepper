@@ -112,7 +112,7 @@ const ValidateQuery = () => {
 
   return (
     <div
-      className={`container file-uploader-container ${
+      className={` file-uploader-container ${
         isDragging ? "dragging" : ""
       } w-100`}
       onDragEnter={handleDragEnter}

@@ -4,7 +4,7 @@
 }
 
 .horizontalLine {
-    /* margin: 10px 0px; */
+
     background-color: hsl(0, 11%, 72%);
     margin-left: 2px;
     margin-right: 2px;
@@ -12,6 +12,8 @@
      height: 1.75px;
      font-weight: 400px;
    }
+
+
 
    .searchNavbarBtnStyleAdd {
     background-color: #F7901D !important;
@@ -63,4 +65,18 @@ cursor: pointer !important;
     cursor: pointer;
     background-color: rgb(224, 224, 224);
 
+}
+
+.maxWidthStyle {
+    max-width: 1300px !important;
+}
+
+.horizontal-line-Upload {
+    position: absolute;
+    top: 45px;
+    height: 2px;
+    width: 98%;
+    left: 10px;
+    right: 0;
+    background-color: #ececec;
 }

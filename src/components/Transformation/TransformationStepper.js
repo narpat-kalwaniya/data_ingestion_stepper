@@ -7,6 +7,7 @@ import "../../styles/main.css";
 import SectionMenuTrans from "./SectionMenuTrans";
 import StepperTrans from "./StepperTrans";
 import QueryDetailsSlider from "./QueryDetailsSlider";
+import "./TransformationPipeline.css";
 
 function TransformationStepper() {
   const [step, setStep] = useState(1);
@@ -43,7 +44,7 @@ function TransformationStepper() {
 
   return (
     <Container
-      className="h-90"
+      className="h-90 "
       style={{
         marginTop: "15px",
         backgroundColor: "white",
@@ -74,21 +75,22 @@ function TransformationStepper() {
             ) : (
               <></>
             )}
-            <div className="horizontal-line"></div>
+            <div className="horizontal-line-Upload"></div>
           </div>
         </Row>
         <Row className="m-2">
           {/* <SectionMenuTrans step={step} /> */}
-          <Col className="p-0">
+          <Col className="p-0 ">
             <Card className="custom-card" style={{ border: "none" }}>
               <div>
                 <div>
-                  <Container className="p-0">
+                  <Container className="p-0 maxWidthStyle ">
                     <Card.Body
                       style={{
                         minHeight: "67vh",
                         maxHeight: "67vh",
                         overflowY: "scroll",
+                        padding: "0px",
                       }}
                       className="overflow-auto py-0"
                     >
