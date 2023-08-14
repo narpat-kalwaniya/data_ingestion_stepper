@@ -78,7 +78,7 @@ function TransformationStepper() {
           </div>
         </Row>
         <Row className="m-2">
-          <SectionMenuTrans step={step} />
+          {/* <SectionMenuTrans step={step} /> */}
           <Col className="p-0">
             <Card className="custom-card" style={{ border: "none" }}>
               <div>
