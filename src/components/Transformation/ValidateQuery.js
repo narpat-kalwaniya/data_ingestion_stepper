@@ -8,6 +8,45 @@ const ValidateQuery = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [queryResult, setQueryResult] = useState("");
+
+  const makeApiCall = async (url, data) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleRunButtonClick = async () => {
+    const apiUrl =
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/queryresult/";
+
+    const requestData = {
+      load_query: selectedFileContent,
+    };
+
+    try {
+      const response = await makeApiCall(apiUrl, requestData);
+
+      setQueryResult(response.data);
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+    console.log("Run button clicked");
+  };
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -124,8 +163,9 @@ const ValidateQuery = () => {
               <a
                 href="#"
                 className="run-link"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
+                  await handleRunButtonClick();
                 }}
               >
                 Run&raquo;&raquo;
@@ -161,7 +201,7 @@ const ValidateQuery = () => {
               isDragging ? "dragging" : ""
             } w-100 horizontalBoxSIze`}
           >
-            {/* Result content */}
+            <pre>{queryResult}</pre>
           </div>
         </Col>
       </Row>

@@ -39,10 +39,10 @@ function App() {
       schema_name: null,
       table_name: null,
       bucket_name: null,
-      full_file_name: null,
+      full_file_name: { value: null, label: null },
       source_entity_name: null,
       connection_id: null,
-      directory_name: null,
+      directory_name: { value: null, label: null },
     },
     tableData: [],
     DefineSourceExtractCriteria: {

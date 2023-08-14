@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Drawer } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -88,6 +88,30 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function QueryDetailsSlider({ anchor, onClose }) {
+  const [apiData, setApiData] = useState([]);
+
+  async function fetchDataFromApi() {
+    try {
+      const response = await fetch(
+        "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/querydetails/"
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return [];
+    }
+  }
+
+  useEffect(() => {
+    async function fetchApiData() {
+      const data = await fetchDataFromApi();
+      setApiData(data);
+    }
+
+    fetchApiData();
+  }, []);
+
   return (
     <>
       <Drawer
@@ -153,13 +177,16 @@ function QueryDetailsSlider({ anchor, onClose }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <StyledTableRow>
-                  <StyledTableCell className="idColumnStyle">
-                    first{" "}
-                  </StyledTableCell>
-                  <StyledTableCell>first </StyledTableCell>
-                  <StyledTableCell>first </StyledTableCell>
-                </StyledTableRow>
+                {apiData.map((row) => (
+                  <StyledTableRow key={row.query_id}>
+                    <StyledTableCell className="idColumnStyle">
+                      {row.query_id}
+                    </StyledTableCell>
+                    <StyledTableCell>{row.query_name}</StyledTableCell>
+                    <StyledTableCell>{row.object_name}</StyledTableCell>
+                    {/* Add more cells here if needed */}
+                  </StyledTableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
