@@ -73,10 +73,19 @@ cursor: pointer !important;
 
 .horizontal-line-Upload {
     position: absolute;
-    top: 45px;
+    top: 77px;
     height: 2px;
     width: 98%;
     left: 10px;
     right: 0;
     background-color: #ececec;
+}
+
+.footer-style{
+    padding: 0px 9px 0px 9px;
+    border: none;
+}
+
+.back-button-style {
+    padding: 4px;
 }

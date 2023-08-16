@@ -13,7 +13,7 @@
 
 .vertical-box {
   width: 65%;
-  height: 410px; /* Set your desired fixed height */
+  height: 440px; /* Set your desired fixed height */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -36,7 +36,7 @@
 }
 
 .horizontalBoxSIze {
-height: 29.5% ;
+height: 30.2% ;
 }
 
 .horizontal-box textarea {

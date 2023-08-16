@@ -46,14 +46,93 @@ function TransformationStepper() {
     <Container
       className="h-90 "
       style={{
-        marginTop: "15px",
+        marginTop: "12px",
         backgroundColor: "white",
         maxWidth: "1320px",
       }}
     >
       <Card className="Card-outer custom-card-body ">
+        <Card.Footer className="d-flex justify-content-between float-right custom-footer footer-style">
+          {step === 1 ? (
+            <span> </span>
+          ) : step === 2 ? (
+            <button
+              className="btn-c "
+              onClick={previousHandler}
+              disabled={step === 1}
+              style={{
+                borderTopRightRadius: "0px",
+                borderBottomRightRadius: "0px",
+              }}
+            >
+              Prev
+            </button>
+          ) : step === 3 ? (
+            <button
+              className="btn-c "
+              onClick={previousHandler}
+              disabled={step === 1}
+              style={{
+                borderTopRightRadius: "0px",
+                borderBottomRightRadius: "0px",
+              }}
+            >
+              Prev
+            </button>
+          ) : null}
+
+          {step === 1 ? (
+            <button
+              className="btn-s "
+              onClick={nextHandler}
+              style={{
+                borderTopLeftRadius: "0px",
+                borderBottomLeftRadius: "0px",
+              }}
+            >
+              Pre Data Validation
+            </button>
+          ) : step === 2 ? (
+            <button
+              className="btn-s "
+              onClick={nextHandler}
+              style={{
+                borderTopLeftRadius: "0px",
+                borderBottomLeftRadius: "0px",
+              }}
+            >
+              Post Data Validation
+            </button>
+          ) : step === 3 ? (
+            <button
+              className="btn-s "
+              onClick={nextHandler}
+              style={{
+                borderTopLeftRadius: "0px",
+                borderBottomLeftRadius: "0px",
+              }}
+            >
+              Submit
+            </button>
+          ) : null}
+
+          {/* <button
+            className="btn-s "
+            onClick={nextHandler}
+            style={{
+              borderTopLeftRadius: "0px",
+              borderBottomLeftRadius: "0px",
+            }}
+          >
+            Next
+          </button> */}
+        </Card.Footer>
+
         <Row className="m-2">
-          <div className="back-button" onClick={createNewPipelineHandler}>
+          <div
+            className="back-button back-button-style"
+            onClick={createNewPipelineHandler}
+          >
             <div className="back-icon">
               <FiArrowLeft />
               <span className="back-text">New Query</span>
@@ -87,7 +166,7 @@ function TransformationStepper() {
                   <Container className="p-0 maxWidthStyle ">
                     <Card.Body
                       style={{
-                        minHeight: "67vh",
+                        minHeight: "72vh",
                         maxHeight: "67vh",
                         overflowY: "scroll",
                         padding: "0px",
@@ -106,29 +185,6 @@ function TransformationStepper() {
             </Card>
           </Col>
         </Row>
-        <Card.Footer className="d-flex justify-content-between float-right custom-footer">
-          <button
-            className="btn-c "
-            onClick={previousHandler}
-            disabled={step === 1}
-            style={{
-              borderTopRightRadius: "0px",
-              borderBottomRightRadius: "0px",
-            }}
-          >
-            Prev
-          </button>
-          <button
-            className="btn-s "
-            onClick={nextHandler}
-            style={{
-              borderTopLeftRadius: "0px",
-              borderBottomLeftRadius: "0px",
-            }}
-          >
-            Next
-          </button>
-        </Card.Footer>
       </Card>
     </Container>
   );
