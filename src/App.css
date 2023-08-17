@@ -21,17 +21,17 @@ p {
   font-weight: 500;
 }
 
-.back-button {
+.create-new-pipe {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   cursor: pointer;
   padding: 8px;
   border-radius: 50px;
   transition: font-size 0.3s ease;
 }
 
-.back-button:hover {
+.create-new-pipe:hover {
   font-size: 18px; /* Increase the font size on hover */
 }
 

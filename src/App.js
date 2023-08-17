@@ -77,7 +77,7 @@ function App() {
       datalake_target_template: null,
     },
     GatherMetaData: {
-      business_tags: null,
+      business_tags: [],
       description: null,
       owner: null,
       email: null,

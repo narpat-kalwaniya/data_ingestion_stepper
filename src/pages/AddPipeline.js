@@ -393,19 +393,19 @@ function AddPipeline(props) {
       newErrors6.selectedTableSchema = "This field is required";
     }
 
-    // if (
-    //   !formData.tableData[0]?.target_table ||
-    //   formData.tableData[0]?.target_table === ""
-    // ) {
-    //   newErrors6.target_table = "This field is required";
-    // }
+    if (
+      !formData.tableData[0]?.target_table ||
+      formData.tableData[0]?.target_table === ""
+    ) {
+      newErrors6.target_table = "This field is required";
+    }
 
-    // if (
-    //   !formData.tableData[0]?.target_database ||
-    //   formData.tableData[0]?.target_database === ""
-    // ) {
-    //   newErrors6.target_database = "This field is required";
-    // }
+    if (
+      !formData.tableData[0]?.target_database ||
+      formData.tableData[0]?.target_database === ""
+    ) {
+      newErrors6.target_database = "This field is required";
+    }
 
     setErrors6(newErrors6);
 
@@ -444,12 +444,12 @@ function AddPipeline(props) {
       } else {
         setStep((step) => step);
       }
-    } else if (step === 6) {
-      if (validateInputs6()) {
-        setStep((step) => step + 1);
-      } else {
-        setStep((step) => step);
-      }
+      // } else if (step === 6) {
+      //   if (validateInputs6()) {
+      //     setStep((step) => step + 1);
+      //   } else {
+      //     setStep((step) => step);
+      //   }
     } else {
       setStep((step) => step + 1);
     }
@@ -544,9 +544,13 @@ function AddPipeline(props) {
         body: JSON.stringify(formData),
       });
 
+      const responseData = await response.json();
+      console.log("Response:", responseData);
+
+      setFormData({ ...formData, draft_id: responseData.draft_id });
+
       if (response.ok) {
         // Handle successful response
-        console.log("draft response", response);
 
         setIsDraftSaved(true);
         props.setIsLoading(false);
@@ -613,7 +617,7 @@ function AddPipeline(props) {
       <Card className="Card-outer custom-card-body ">
         {!isSubmitted ? (
           <Row className="m-2">
-            <div className="back-button" onClick={createNewPipelineHandler}>
+            <div className="create-new-pipe" onClick={createNewPipelineHandler}>
               <div className="back-icon">
                 <FiArrowLeft />
                 <span className="back-text">Create New Pipeline</span>

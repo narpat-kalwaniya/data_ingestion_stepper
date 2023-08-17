@@ -40,8 +40,8 @@ const ValidateQuery = () => {
 
     try {
       const response = await makeApiCall(apiUrl, requestData);
-
-      setQueryResult(response.data);
+      console.log("resonse", JSON.stringify(response));
+      setQueryResult(response);
     } catch (error) {
       console.error("API Error:", error);
     }
@@ -201,7 +201,7 @@ const ValidateQuery = () => {
               isDragging ? "dragging" : ""
             } w-100 horizontalBoxSIze`}
           >
-            <pre>{queryResult}</pre>
+            <pre>{queryResult.message}</pre>
           </div>
         </Col>
       </Row>
