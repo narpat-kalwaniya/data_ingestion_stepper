@@ -3,6 +3,11 @@
 
 }
 
+.heading_customer {
+    font-weight: 500;
+    cursor: pointer;
+}
+
 .horizontalLine {
 
     background-color: hsl(0, 11%, 72%);

@@ -20,6 +20,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import "../Transformation/TransformationPipeline.css";
 
 const Search = styled("div")(({ theme }) => ({
@@ -91,14 +92,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function DataQualityPipeline() {
+function DataQualityCustomerDetailPage() {
   return (
     <>
       <div className="col-lg-10 col-md-10 m-auto">
         <div className="row justify-content-center mt-5 w-100 m-0 p-0">
           <div className="col-lg-12 col-md-12 m-0 p-0">
             <Box sx={{ flexGrow: 1 }}>
-              <p className="heading"> All Customers</p>
+              <p className="heading_customer">
+                <ChevronLeftIcon />
+                Customers 1
+              </p>
 
               <hr className="horizontalLine" />
 
@@ -152,17 +156,17 @@ function DataQualityPipeline() {
                         marginRight: "15px",
                       }}
                     ></div>
-                    {/* <button
+                    <button
                       className="btn-s"
                       style={{ paddingLeft: "8px", paddingRight: "8px" }}
                       onClick={() => {
-                        navigateRouter &&
-                          navigateRouter("/pipelines/transformations/Stepper");
+                        // navigateRouter &&
+                        //   navigateRouter("/pipelines/transformations/Stepper");
                       }}
                     >
                       <AddIcon className="AddOutlinedIcon" />
                       Add New Query
-                    </button> */}
+                    </button>
                   </Box>
                 </Toolbar>
               </AppBar>
@@ -176,13 +180,14 @@ function DataQualityPipeline() {
           <Table aria-label="customized table">
             <TableHead style={{ color: "#E0E0E0" }}>
               <TableRow className="listOfPipelineNavbar">
-                <StyledTableCell>ID</StyledTableCell>
+                <StyledTableCell>Dimension</StyledTableCell>
                 <StyledTableCell align="center">
-                  Overall Quality
+                  Business Test Name
                 </StyledTableCell>
-                <StyledTableCell align="center">Checks</StyledTableCell>
-                <StyledTableCell align="center">Records</StyledTableCell>
-                <StyledTableCell align="center">Columns</StyledTableCell>
+                <StyledTableCell align="center">Rule Name</StyledTableCell>
+                <StyledTableCell align="center">Column Name</StyledTableCell>
+                <StyledTableCell align="center">Status</StyledTableCell>
+                <StyledTableCell align="center">Score</StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
               </TableRow>
@@ -192,6 +197,7 @@ function DataQualityPipeline() {
                 <StyledTableCell className="idColumnStyle">
                   first{" "}
                 </StyledTableCell>
+                <StyledTableCell>first </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>
@@ -260,4 +266,4 @@ function DataQualityPipeline() {
   );
 }
 
-export default DataQualityPipeline;
+export default DataQualityCustomerDetailPage;
