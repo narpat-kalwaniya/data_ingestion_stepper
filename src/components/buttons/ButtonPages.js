@@ -58,7 +58,8 @@ export default function ButtonPages(props) {
     {
       id: 6,
       name: "Data Quality Pipelines",
-      href: "http://ec2-54-197-121-247.compute-1.amazonaws.com:3000/",
+      // href: "http://ec2-54-197-121-247.compute-1.amazonaws.com:3000/",
+      onClick: () => navigate("/pipelines/dataQuality"),
     },
     {
       id: 7,
@@ -75,7 +76,6 @@ export default function ButtonPages(props) {
     {
       id: 10,
       name: "Snowflake Data Consumption Pipelines",
-      onClick: () => navigate("/pipelines/dataQuality"),
     },
   ];
 
