@@ -544,9 +544,13 @@ function AddPipeline(props) {
         body: JSON.stringify(formData),
       });
 
+      const responseData = await response.json();
+      console.log("Response:", responseData);
+
+      setFormData({ ...formData, draft_id: responseData.draft_id });
+
       if (response.ok) {
         // Handle successful response
-        console.log("draft response", response);
 
         setIsDraftSaved(true);
         props.setIsLoading(false);
@@ -613,7 +617,7 @@ function AddPipeline(props) {
       <Card className="Card-outer custom-card-body ">
         {!isSubmitted ? (
           <Row className="m-2">
-            <div className="back-button" onClick={createNewPipelineHandler}>
+            <div className="create-new-pipe" onClick={createNewPipelineHandler}>
               <div className="back-icon">
                 <FiArrowLeft />
               </div>

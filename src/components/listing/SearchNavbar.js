@@ -277,7 +277,7 @@ export default function ListingPage(props) {
                 >
                   All Pipelines
                 </Typography>
-                <Search className="searchInputStyle">
+                <Search className="searchBar">
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
