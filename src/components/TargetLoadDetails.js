@@ -18,6 +18,7 @@ const TargetLoadDetails = ({
   updateFormData,
   errors6,
   currentlySubmittedForm,
+  connections,
 }) => {
   // console.log("formData==>", formData);
   // console.log("error", errors6);
@@ -26,24 +27,24 @@ const TargetLoadDetails = ({
   );
   const [selectedOption, setSelectedOption] = useState("");
   const { ingestionData, updateIngestionData } = useContext(DataContext);
-  const [connections, setConnections] = useState([]);
+  // const [connections, setConnections] = useState([]);
 
-  useEffect(() => {
-    const fetchConnections = async () => {
-      try {
-        const response = await fetch(`${Backend_url}/conndetails/`);
-        const data = await response.json();
-        setConnections(data);
-      } catch (error) {
-        console.error("Error fetching connections:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchConnections = async () => {
+  //     try {
+  //       const response = await fetch(`${Backend_url}/conndetails/`);
+  //       const data = await response.json();
+  //       setConnections(data);
+  //     } catch (error) {
+  //       console.error("Error fetching connections:", error);
+  //     }
+  //   };
 
-    fetchConnections();
-  }, []);
+  //   fetchConnections();
+  // }, []);
 
   const filteredFlatConnections = connections.filter(
-    (connection) => connection.datasource_type === "flatfile"
+    (connection) => connection.connection_category === "file"
   );
 
   const changeHandler = (event) => {
@@ -461,20 +462,14 @@ const TargetLoadDetails = ({
                     <option>datacopy-s3</option> */}
                     <option value="">-- Select --</option>
                     {""}
-                    {formData.sourceEntity.data_source_type === "Flat File" ? (
-                      filteredFlatConnections.map((connection) => (
-                        <option
-                          key={connection.connection_id}
-                          value={connection.connection_name}
-                        >
-                          {connection.connection_name}
-                        </option>
-                      ))
-                    ) : (
-                      <option value="" disabled>
-                        No options available
+                    {filteredFlatConnections.map((connection) => (
+                      <option
+                        key={connection.connection_id}
+                        value={connection.connection_name}
+                      >
+                        {connection.connection_name}
                       </option>
-                    )}
+                    ))}
                   </Form.Select>
                 </Col>
                 <Col>
