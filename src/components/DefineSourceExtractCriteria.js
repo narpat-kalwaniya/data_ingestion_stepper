@@ -151,7 +151,7 @@ const DefineSourceExtractCriteria = ({
       ...formData,
       DefineSourceExtractCriteria: {
         ...formData.DefineSourceExtractCriteria,
-        order_by: selectedLabels,
+        order_by: selectedOptions,
       },
     };
     updateFormData(updatedFormData, 5);
@@ -164,15 +164,15 @@ const DefineSourceExtractCriteria = ({
     // updateIngestionData(updatedData);
   };
 
-  const incrementalColumnsHandler = (selectedOptions) => {
-    const selectedLabels = selectedOptions.map((option) => option.label);
+  const incrementalColumnsHandler = (option) => {
+    const selectedLabels = option.map((option) => option.label);
     setIncrementalColumns(selectedLabels);
     setPageData({ ...pageData, incrementalColumns: selectedLabels });
     const updatedFormData = {
       ...formData,
       DefineSourceExtractCriteria: {
         ...formData.DefineSourceExtractCriteria,
-        source_incremental_column: selectedLabels,
+        source_incremental_column: option,
       },
     };
     updateFormData(updatedFormData, 5);
@@ -259,7 +259,7 @@ const DefineSourceExtractCriteria = ({
     formData.tableData.filter((row) => row.selected !== false),
     "column_name"
   );
-  console.log(column_names);
+  console.log(formData);
 
   return (
     <Card.Body className="custom-card-body">
@@ -383,15 +383,14 @@ const DefineSourceExtractCriteria = ({
                     errors5.source_incremental_column
                   }
                   disabled={!isIncrementalSelected}
-                  value={column_names.filter((option) =>
-                    formData.DefineSourceExtractCriteria.source_incremental_column.includes(
-                      option.label
-                    )
-                  )}
+                  value={
+                    formData.DefineSourceExtractCriteria
+                      .source_incremental_column
+                  }
                   // value={
                   //   formData.DefineSourceExtractCriteria.incrementalColumns
                   // }
-                  onChange={incrementalColumnsHandler}
+                  onChange={(option) => incrementalColumnsHandler(option)}
                 />
                 {currentlySubmittedForm == 5 &&
                   errors5.source_incremental_column && (
@@ -652,12 +651,8 @@ const DefineSourceExtractCriteria = ({
               <Select
                 isMulti
                 options={orderByOptions}
-                value={orderByOptions.filter((option) =>
-                  formData.DefineSourceExtractCriteria.order_by.includes(
-                    option.label
-                  )
-                )}
-                onChange={orderByChangeHandler}
+                value={formData.DefineSourceExtractCriteria.order_by}
+                onChange={(options) => orderByChangeHandler(options)}
                 className="custom-select custom-style"
               />
             </Col>

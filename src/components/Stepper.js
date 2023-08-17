@@ -101,6 +101,7 @@ const Stepper = ({
           currentlySubmittedForm={currentlySubmittedForm}
           errors6={errors6}
           setIsDraftSaved={setIsDraftSaved}
+          connections={connections}
         />
       ) : step === 7 ? (
         <ApplyMasking
