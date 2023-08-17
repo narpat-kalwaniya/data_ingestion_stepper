@@ -251,10 +251,10 @@ const TargetLoadDetails = ({
                 Target Schema <span className="text-danger">*</span>
               </Form.Label>
               <Form.Select
-                required
-                isInvalid={
-                  currentlySubmittedForm == 6 && errors6.selectedTableSchema
-                }
+                // required
+                // isInvalid={
+                //   currentlySubmittedForm == 6 && errors6.selectedTableSchema
+                // }
                 className="custom-select custom-style"
                 value={
                   formData.targetLoadDetails.target_entity_name.split(".")[1]
@@ -271,9 +271,9 @@ const TargetLoadDetails = ({
                   </option>
                 ))}
               </Form.Select>
-              {currentlySubmittedForm == 6 && errors6.selectedTableSchema && (
+              {/* {currentlySubmittedForm == 6 && errors6.selectedTableSchema && (
                 <div className="error">{errors6.selectedTableSchema}</div>
-              )}
+              )} */}
             </Col>
 
             <Col md={4}>
