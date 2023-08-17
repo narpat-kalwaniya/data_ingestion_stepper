@@ -93,4 +93,5 @@ cursor: pointer !important;
 
 .back-button-style {
     padding: 4px;
+    justify-content: space-between;
 }
