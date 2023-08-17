@@ -616,8 +616,8 @@ function AddPipeline(props) {
             <div className="back-button" onClick={createNewPipelineHandler}>
               <div className="back-icon">
                 <FiArrowLeft />
+                <span className="back-text">Create New Pipeline</span>
               </div>
-              <span className="back-text">Create New Pipeline</span>
 
               <div className="horizontal-line"></div>
             </div>

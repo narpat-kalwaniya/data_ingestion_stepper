@@ -15,6 +15,7 @@ import AddPipelineMig from "./pages/AddPipelineMig";
 import SchedulingPipeline from "./components/SchedulingPipeline";
 import AddPipelineTransformation from "./pages/AddPipelineTransformation";
 import TransformationStepper from "./components/Transformation/TransformationStepper";
+import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
 
 function App() {
   const [user, setUser] = useState();
@@ -173,6 +174,10 @@ function App() {
                 <Route
                   path="/scheduling/edit/job-name"
                   element={<SchedulingPipeline />}
+                />
+                <Route
+                  path="/pipelines/dataQuality"
+                  element={<AddPipelineDataQuality />}
                 />
               </Route>
               <Route path="*" element={<NotFound />} />
