@@ -65,7 +65,12 @@ function SchedulingNavbar(props) {
                   noWrap
                   component="div"
                   sx={{
-                    display: { xs: "none", sm: "block", color: "#F7901D" },
+                    display: {
+                      xs: "none",
+                      sm: "block",
+                      color: "#F7901D",
+                      marginRight: "15px",
+                    },
                   }}
                 >
                   Scheduling Pipelines
