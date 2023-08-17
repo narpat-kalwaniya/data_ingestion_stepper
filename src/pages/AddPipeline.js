@@ -393,19 +393,19 @@ function AddPipeline(props) {
       newErrors6.selectedTableSchema = "This field is required";
     }
 
-    // if (
-    //   !formData.tableData[0]?.target_table ||
-    //   formData.tableData[0]?.target_table === ""
-    // ) {
-    //   newErrors6.target_table = "This field is required";
-    // }
+    if (
+      !formData.tableData[0]?.target_table ||
+      formData.tableData[0]?.target_table === ""
+    ) {
+      newErrors6.target_table = "This field is required";
+    }
 
-    // if (
-    //   !formData.tableData[0]?.target_database ||
-    //   formData.tableData[0]?.target_database === ""
-    // ) {
-    //   newErrors6.target_database = "This field is required";
-    // }
+    if (
+      !formData.tableData[0]?.target_database ||
+      formData.tableData[0]?.target_database === ""
+    ) {
+      newErrors6.target_database = "This field is required";
+    }
 
     setErrors6(newErrors6);
 
@@ -444,12 +444,12 @@ function AddPipeline(props) {
       } else {
         setStep((step) => step);
       }
-    } else if (step === 6) {
-      if (validateInputs6()) {
-        setStep((step) => step + 1);
-      } else {
-        setStep((step) => step);
-      }
+      // } else if (step === 6) {
+      //   if (validateInputs6()) {
+      //     setStep((step) => step + 1);
+      //   } else {
+      //     setStep((step) => step);
+      //   }
     } else {
       setStep((step) => step + 1);
     }
