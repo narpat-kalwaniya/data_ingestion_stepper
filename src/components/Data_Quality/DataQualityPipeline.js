@@ -92,6 +92,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function DataQualityPipeline() {
+  const navigateRouter = useNavigate();
   return (
     <>
       <div className="col-lg-10 col-md-10 m-auto">
@@ -189,7 +190,13 @@ function DataQualityPipeline() {
             </TableHead>
             <TableBody>
               <StyledTableRow>
-                <StyledTableCell className="idColumnStyle">
+                <StyledTableCell
+                  onClick={() => {
+                    navigateRouter &&
+                      navigateRouter("/pipelines/dataQuality/customer/Id");
+                  }}
+                  className="idColumnStyle"
+                >
                   first{" "}
                 </StyledTableCell>
                 <StyledTableCell>first </StyledTableCell>

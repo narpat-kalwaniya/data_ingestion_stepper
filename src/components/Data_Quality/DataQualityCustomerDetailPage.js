@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import Form from "react-bootstrap/Form";
 import "../Transformation/TransformationPipeline.css";
 
 const Search = styled("div")(({ theme }) => ({
@@ -93,13 +94,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function DataQualityCustomerDetailPage() {
+  const navigateRouter = useNavigate();
+
   return (
     <>
       <div className="col-lg-10 col-md-10 m-auto">
         <div className="row justify-content-center mt-5 w-100 m-0 p-0">
           <div className="col-lg-12 col-md-12 m-0 p-0">
             <Box sx={{ flexGrow: 1 }}>
-              <p className="heading_customer">
+              <p
+                onClick={() => {
+                  navigateRouter && navigateRouter("/pipelines/dataQuality");
+                }}
+                className="heading_customer"
+              >
                 <ChevronLeftIcon />
                 Customers 1
               </p>
@@ -124,6 +132,13 @@ function DataQualityCustomerDetailPage() {
                   >
                     TransFormation Pipelines
                   </Typography> */}
+
+                  <Box className="calenderStyle">
+                    <Form.Control
+                      type="datetime-local"
+                      className="calenderInputStyle"
+                    />
+                  </Box>
                   <Search className="searchInputStyle">
                     <SearchIconWrapper>
                       <SearchIcon />
@@ -149,13 +164,6 @@ function DataQualityCustomerDetailPage() {
                       },
                     }}
                   >
-                    <div
-                      style={{
-                        display: "inline-block",
-                        position: "relative",
-                        marginRight: "15px",
-                      }}
-                    ></div>
                     <button
                       className="btn-s"
                       style={{ paddingLeft: "8px", paddingRight: "8px" }}

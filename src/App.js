@@ -16,6 +16,7 @@ import SchedulingPipeline from "./components/SchedulingPipeline";
 import AddPipelineTransformation from "./pages/AddPipelineTransformation";
 import TransformationStepper from "./components/Transformation/TransformationStepper";
 import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
+import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQualityCustomerDetailPage";
 
 function App() {
   const [user, setUser] = useState();
@@ -178,6 +179,10 @@ function App() {
                 <Route
                   path="/pipelines/dataQuality"
                   element={<AddPipelineDataQuality />}
+                />
+                <Route
+                  path="/pipelines/dataQuality/customer/Id"
+                  element={<DataQualityCustomerDetailPage />}
                 />
               </Route>
               <Route path="*" element={<NotFound />} />
