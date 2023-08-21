@@ -50,6 +50,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const PreDataValidation = () => {
   const [showModal, setShowModal] = useState(false);
+  const [leftDivCollapsed, setLeftDivCollapsed] = useState(false);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -58,9 +59,104 @@ const PreDataValidation = () => {
   const handleShowModal = () => {
     setShowModal(true);
   };
+
+  const handleToggleLeftDiv = () => {
+    setLeftDivCollapsed(!leftDivCollapsed);
+  };
   return (
-    <div>
-      <div className="col-lg-12 col-md-12 m-0 p-0">
+    <div style={{ display: "flex", border: "1px solid #ccc", height: "72vh" }}>
+      <div
+        style={{
+          flex: leftDivCollapsed ? "0 0 25px" : "0 0 20%",
+          transition: "flex 0.3s ease-in-out",
+          borderRight: "1px solid #ccc",
+          position: "relative",
+        }}
+      >
+        {!leftDivCollapsed && (
+          <div>
+            {/* Search bar */}
+            <div style={{ padding: "16px", borderBottom: "1px solid #ccc" }}>
+              <SearchIcon />
+              <InputBase
+                placeholder="Search..."
+                style={{ marginLeft: "8px", width: "80%" }}
+              />
+            </div>
+            {/* List 1 */}
+            <div style={{ height: "50%", overflowY: "auto", padding: "16px" }}>
+              <Typography variant="h6" style={{ marginBottom: "8px" }}>
+                Table
+              </Typography>
+              {/* Replace the following lines with your list items */}
+              <ul>
+                <li>table 1</li>
+                <li>table 2</li>
+                {/* ... */}
+              </ul>
+            </div>
+            {/* List 2 */}
+            <div style={{ height: "50%", overflowY: "auto", padding: "16px" }}>
+              <Typography variant="h6" style={{ marginBottom: "8px" }}>
+                Quries
+              </Typography>
+              {/* Replace the following lines with your list items */}
+              <ul>
+                <li>query 1</li>
+                <li>query 2</li>
+                {/* ... */}
+              </ul>
+            </div>
+          </div>
+        )}
+        {/* Collapse button */}
+        <div
+          style={{
+            position: "absolute",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: "#f0f0f0",
+          }}
+        >
+          <button onClick={handleToggleLeftDiv}>
+            {leftDivCollapsed ? ">" : "<"}
+          </button>
+        </div>
+      </div>
+      <div
+        style={{ flex: 2, borderLeft: "1px solid #ccc", paddingLeft: "5px" }}
+      >
+        {/* Content of the right div */}
+        <div>
+          <TableContainer component={Paper}>
+            <Table aria-label="customized table">
+              <TableHead style={{ color: "#E0E0E0" }}>
+                <TableRow className="listOfPipelineNavbar">
+                  <StyledTableCell>City</StyledTableCell>
+                  <StyledTableCell align="center">Country ID</StyledTableCell>
+                  <StyledTableCell align="center">Last Update</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <StyledTableRow>
+                  <StyledTableCell className="idColumnStyle">
+                    first{" "}
+                  </StyledTableCell>
+                  <StyledTableCell>first </StyledTableCell>
+                  <StyledTableCell>first </StyledTableCell>
+                </StyledTableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <AddDetailsModal show={showModal} onHide={handleCloseModal} />
+        </div>
+      </div>
+
+      {/* <div className="col-lg-12 col-md-12 m-0 p-0">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar
             position="static"
@@ -104,9 +200,8 @@ const PreDataValidation = () => {
             </Toolbar>
           </AppBar>
         </Box>
-      </div>
-
-      <div>
+      </div> */}
+      {/* <div>
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
             <TableHead style={{ color: "#E0E0E0" }}>
@@ -128,7 +223,7 @@ const PreDataValidation = () => {
           </Table>
         </TableContainer>
         <AddDetailsModal show={showModal} onHide={handleCloseModal} />
-      </div>
+      </div> */}
     </div>
   );
 };
