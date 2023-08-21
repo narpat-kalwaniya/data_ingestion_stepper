@@ -3,12 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "react-bootstrap";
 import "./ValidateQuery.css";
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/mode-sql";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-xcode";
 
 const ValidateQuery = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [queryResult, setQueryResult] = useState("");
+  const [displayContent, setDisplayContent] = useState("result");
+
+  const handleButtonClick = (content) => {
+    setDisplayContent(content);
+  };
 
   const makeApiCall = async (url, data) => {
     try {
@@ -176,14 +186,43 @@ const ValidateQuery = () => {
           <div
             className={`horizontal-box ${isDragging ? "dragging" : ""} w-100`}
           >
-            <textarea
+            {/* <textarea
               value={selectedFileContent}
               onChange={(e) => setSelectedFileContent(e.target.value)}
+            /> */}
+            <AceEditor
+              mode="sql"
+              theme="xcode"
+              value={selectedFileContent}
+              onChange={(newValue) => setSelectedFileContent(newValue)}
+              name="sql-editor"
+              editorProps={{ $blockScrolling: true }}
+              fontSize={14}
+              width="100%"
+              height="100%"
             />
           </div>
 
           <div className="box-heading w-100 ">
-            <div style={{ textAlign: "left" }}>Result</div>
+            <div style={{ textAlign: "left" }}>
+              {" "}
+              <button
+                className={`btn custom-btn-small ${
+                  displayContent === "result" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("result")}
+              >
+                Result
+              </button>
+              <button
+                className={`btn custom-btn-small ${
+                  displayContent === "message" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("message")}
+              >
+                Message
+              </button>
+            </div>
             <div style={{ textAlign: "right" }}>
               <a
                 href="#"
@@ -201,7 +240,22 @@ const ValidateQuery = () => {
               isDragging ? "dragging" : ""
             } w-100 horizontalBoxSIze`}
           >
-            <pre>{queryResult.message}</pre>
+            {displayContent === "message" ? (
+              queryResult[0]?.message ? (
+                <pre>{queryResult[0].message}</pre>
+              ) : (
+                <p>No message available</p>
+              )
+            ) : queryResult[0]?.result ? (
+              queryResult[0].result.map((item, index) => (
+                <div key={index}>
+                  <p>Actor ID: {item.actor_id}</p>
+                  <p>Count: {item["COUNT(FILM_ID)"]}</p>
+                </div>
+              ))
+            ) : (
+              <p>No result available</p>
+            )}
           </div>
         </Col>
       </Row>
