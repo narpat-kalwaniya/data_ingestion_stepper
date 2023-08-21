@@ -115,17 +115,6 @@ function TransformationStepper() {
               Submit
             </button>
           ) : null}
-
-          {/* <button
-            className="btn-s "
-            onClick={nextHandler}
-            style={{
-              borderTopLeftRadius: "0px",
-              borderBottomLeftRadius: "0px",
-            }}
-          >
-            Next
-          </button> */}
         </Card.Footer>
 
         <Row className="m-2">
@@ -137,6 +126,17 @@ function TransformationStepper() {
               <FiArrowLeft />
               <span className="back-text">New Query</span>
             </div>
+
+            {step === 2 ? (
+              <>
+                <span className=" back-text-style">Table Rules </span>
+                <span className=" back-text-style">Profiling</span>
+                <span className=" back-text-style">Column Rules</span>
+              </>
+            ) : (
+              <></>
+            )}
+
             {step === 1 ? (
               <div>
                 <span className=" back-text-style" onClick={sliderHandler}>
