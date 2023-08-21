@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+}
+
+.left-div {
+  position: relative;
+  width: 25%;
+  border-right: 1px solid #ccc;
+  overflow: auto;
+  transition: width 0.3s ease-in-out;
+}
+
+.left-div.collapsed {
+  width: 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
+.right-div {
+  flex: 1;
+  border-left: 1px solid #ccc;
+  overflow: auto;
+}
