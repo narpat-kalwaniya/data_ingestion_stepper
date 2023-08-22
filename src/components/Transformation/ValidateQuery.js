@@ -3,12 +3,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "react-bootstrap";
 import "./ValidateQuery.css";
+import SaveDetailsModal from "./SaveDetailsModal";
 
 const ValidateQuery = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [queryResult, setQueryResult] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
 
   const makeApiCall = async (url, data) => {
     try {
@@ -190,6 +201,7 @@ const ValidateQuery = () => {
                 className="run-link"
                 onClick={(e) => {
                   e.preventDefault();
+                  handleShowModal();
                 }}
               >
                 Save&raquo;&raquo;
@@ -205,6 +217,7 @@ const ValidateQuery = () => {
           </div>
         </Col>
       </Row>
+      <SaveDetailsModal show={showModal} onHide={handleCloseModal} />
     </div>
   );
 };
