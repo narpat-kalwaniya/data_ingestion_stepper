@@ -4,9 +4,18 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "react-bootstrap";
 import "./ValidateQuery.css";
 import AceEditor from "react-ace";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import "./TransformationPipeline.css";
 
-import "ace-builds/src-noconflict/mode-sql";
-import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
 
 const ValidateQuery = () => {
@@ -15,6 +24,36 @@ const ValidateQuery = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [queryResult, setQueryResult] = useState("");
   const [displayContent, setDisplayContent] = useState("result");
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: "rgb(243, 243, 243)",
+      fontSize: "12px",
+      letterSpacing: "0px",
+      color: "#4F4F4F",
+      opacity: 1,
+      paddingTop: "9px !important",
+      paddingBottom: "9px !important",
+      fontWeight: "700",
+      textAlign: "left",
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: "12px",
+      paddingTop: "9px !important",
+      paddingBottom: "9px !important",
+      textAlign: "left",
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      // backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
 
   const handleButtonClick = (content) => {
     setDisplayContent(content);
@@ -247,12 +286,24 @@ const ValidateQuery = () => {
                 <p>No message available</p>
               )
             ) : queryResult[0]?.result ? (
-              queryResult[0].result.map((item, index) => (
-                <div key={index}>
-                  <p>Actor ID: {item.actor_id}</p>
-                  <p>Count: {item["COUNT(FILM_ID)"]}</p>
-                </div>
-              ))
+              <TableContainer component={Paper}>
+                <Table aria-label="customized table">
+                  <TableHead style={{ color: "#E0E0E0" }}>
+                    <TableRow className="listOfPipelineNavbar">
+                      <StyledTableCell align="center">Actor ID</StyledTableCell>
+                      <StyledTableCell align="center">Count</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {queryResult[0].result.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{item.actor_id}</TableCell>
+                        <TableCell>{item["COUNT(FILM_ID)"]}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             ) : (
               <p>No result available</p>
             )}
