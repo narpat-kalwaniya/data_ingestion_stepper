@@ -4,12 +4,61 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "react-bootstrap";
 import "./ValidateQuery.css";
 import SaveDetailsModal from "./SaveDetailsModal";
+import AceEditor from "react-ace";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import "./TransformationPipeline.css";
+
+import "ace-builds/src-noconflict/theme-xcode";
 
 const ValidateQuery = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [queryResult, setQueryResult] = useState("");
+  const [displayContent, setDisplayContent] = useState("result");
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: "rgb(243, 243, 243)",
+      fontSize: "12px",
+      letterSpacing: "0px",
+      color: "#4F4F4F",
+      opacity: 1,
+      paddingTop: "9px !important",
+      paddingBottom: "9px !important",
+      fontWeight: "700",
+      textAlign: "left",
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: "12px",
+      paddingTop: "9px !important",
+      paddingBottom: "9px !important",
+      textAlign: "left",
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      // backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
+
+  const handleButtonClick = (content) => {
+    setDisplayContent(content);
+  };
 
   const [showModal, setShowModal] = useState(false);
 
@@ -187,14 +236,43 @@ const ValidateQuery = () => {
           <div
             className={`horizontal-box ${isDragging ? "dragging" : ""} w-100`}
           >
-            <textarea
+            {/* <textarea
               value={selectedFileContent}
               onChange={(e) => setSelectedFileContent(e.target.value)}
+            /> */}
+            <AceEditor
+              mode="sql"
+              theme="xcode"
+              value={selectedFileContent}
+              onChange={(newValue) => setSelectedFileContent(newValue)}
+              name="sql-editor"
+              editorProps={{ $blockScrolling: true }}
+              fontSize={14}
+              width="100%"
+              height="100%"
             />
           </div>
 
           <div className="box-heading w-100 ">
-            <div style={{ textAlign: "left" }}>Result</div>
+            <div style={{ textAlign: "left" }}>
+              {" "}
+              <button
+                className={`btn custom-btn-small ${
+                  displayContent === "result" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("result")}
+              >
+                Result
+              </button>
+              <button
+                className={`btn custom-btn-small ${
+                  displayContent === "message" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("message")}
+              >
+                Message
+              </button>
+            </div>
             <div style={{ textAlign: "right" }}>
               <a
                 href="#"
@@ -213,7 +291,34 @@ const ValidateQuery = () => {
               isDragging ? "dragging" : ""
             } w-100 horizontalBoxSIze`}
           >
-            <pre>{queryResult.message}</pre>
+            {displayContent === "message" ? (
+              queryResult[0]?.message ? (
+                <pre>{queryResult[0].message}</pre>
+              ) : (
+                <p>No message available</p>
+              )
+            ) : queryResult[0]?.result ? (
+              <TableContainer component={Paper}>
+                <Table aria-label="customized table">
+                  <TableHead style={{ color: "#E0E0E0" }}>
+                    <TableRow className="listOfPipelineNavbar">
+                      <StyledTableCell align="center">Actor ID</StyledTableCell>
+                      <StyledTableCell align="center">Count</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {queryResult[0].result.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{item.actor_id}</TableCell>
+                        <TableCell>{item["COUNT(FILM_ID)"]}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <p>No result available</p>
+            )}
           </div>
         </Col>
       </Row>
