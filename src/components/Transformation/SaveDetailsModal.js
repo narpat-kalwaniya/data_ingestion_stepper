@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Row, Col, Modal } from "react-bootstrap";
+import Select from "react-select";
 
 const SaveDetailsModal = ({ show, onHide }) => {
   return (
@@ -22,11 +23,15 @@ const SaveDetailsModal = ({ show, onHide }) => {
           <Row className="mb-4">
             <Form.Label> Enter Dependent Query Name</Form.Label>
 
-            <Form.Control
-              type="text"
-              disabled={false}
-              className="custom-select custom-style"
-            />
+            <Col style={{ padding: "0px" }}>
+              <Select
+                isMulti
+                // options={orderByOptions}
+                // value={formData.DefineSourceExtractCriteria.order_by}
+                // onChange={(options) => orderByChangeHandler(options)}
+                className="custom-select custom-style"
+              />
+            </Col>
           </Row>
         </Form>
       </Modal.Body>

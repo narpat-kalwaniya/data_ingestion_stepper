@@ -187,13 +187,13 @@ const ValidateQuery = () => {
             {uploadedFiles.map((file, index) => (
               <div key={index} className="file-container">
                 <div className="file-header">
-                  <h7>{file.name}</h7>
                   <button
                     className="delete-btn"
                     onClick={() => handleDeleteFile(file.name)}
                   >
                     <FontAwesomeIcon icon={faTrashAlt} />
                   </button>
+                  <h7 className="file_heading_filename">{file.name}</h7>
                 </div>
                 <div
                   className="file-content"

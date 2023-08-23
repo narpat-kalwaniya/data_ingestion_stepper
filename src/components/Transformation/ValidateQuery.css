@@ -61,6 +61,9 @@
   margin-top: auto; /* Push the link to the center vertically */
   margin-bottom: auto; /* Push the link to the center vertically */
   display: inline-block;
+ position: fixed;
+ bottom: 35px;
+ width: 175px;
 }
 .file-input-link:hover {
   color: #ccc; /* Change color on hover */
@@ -77,8 +80,14 @@
   align-items: center;
   justify-content: space-between; /* Spread items to opposite corners */
   border-bottom: 1px solid #ccc; /* Add line below header */
-  padding-bottom: 5px; /* Add spacing below header */
+  padding-bottom: 2px; /* Add spacing below header */
   position: sticky;
+  /* padding-top: 3px; */
+}
+
+.file_heading_filename {
+/* position:fixed; */
+margin-left: 30px;
 }
 
 .delete-btn {
@@ -88,6 +97,8 @@
   color: #f7901d;
   border: none;
   cursor: pointer;
+  position: fixed;
+ 
 }
 
 .file-content {
