@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -51,6 +51,44 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const PreDataValidation = () => {
   const [showModal, setShowModal] = useState(false);
   const [leftDivCollapsed, setLeftDivCollapsed] = useState(false);
+  const [queries, setQueries] = useState([]);
+  const [table, setTable] = useState([]);
+
+  useEffect(() => {
+    // Define an async function to fetch data
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/querydetails"
+        );
+        const data = await response.json();
+        setQueries(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Call the async function to fetch data
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Define an async function to fetch data
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/sfwmetadata/"
+        );
+        const data = await response.json();
+        setTable(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Call the async function to fetch data
+    fetchData();
+  }, []);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -96,15 +134,15 @@ const PreDataValidation = () => {
               </ul>
             </div>
             {/* List 2 */}
-            <div style={{ height: "50%", overflowY: "auto", padding: "16px" }}>
+            <div style={{ height: "50%", overflow: "auto", padding: "16px" }}>
               <Typography variant="h6" style={{ marginBottom: "8px" }}>
                 Quries
               </Typography>
               {/* Replace the following lines with your list items */}
               <ul>
-                <li>query 1</li>
-                <li>query 2</li>
-                {/* ... */}
+                {queries.map((query, index) => (
+                  <li key={index}>{query.query_name}</li>
+                ))}
               </ul>
             </div>
           </div>

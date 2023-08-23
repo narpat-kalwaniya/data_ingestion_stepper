@@ -168,8 +168,8 @@ function DataQualityCustomerDetailPage() {
                       className="btn-s"
                       style={{ paddingLeft: "8px", paddingRight: "8px" }}
                       onClick={() => {
-                        // navigateRouter &&
-                        //   navigateRouter("/pipelines/transformations/Stepper");
+                        navigateRouter &&
+                          navigateRouter("/pipelines/dataQuality/Stepper");
                       }}
                     >
                       <AddIcon className="AddOutlinedIcon" />
