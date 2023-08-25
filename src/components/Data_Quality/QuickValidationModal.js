@@ -31,15 +31,18 @@ function QuickValidationModal({ show, onHide }) {
               <Form.Label> Validation Rule</Form.Label>
 
               <Form.Control
-                type="text"
+                type="type"
+                as="textarea"
                 disabled={false}
                 className="custom-select custom-style validation-rule-height"
               />
             </Col>
             <Col>
               <Form.Label> Attribute</Form.Label>
+
               <Form.Control
                 type="text"
+                as="textarea"
                 disabled={false}
                 className="custom-select custom-style validation-rule-height"
               />
