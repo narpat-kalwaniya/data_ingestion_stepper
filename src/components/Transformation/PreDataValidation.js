@@ -53,6 +53,24 @@ const PreDataValidation = () => {
   const [leftDivCollapsed, setLeftDivCollapsed] = useState(false);
   const [queries, setQueries] = useState([]);
   const [table, setTable] = useState([]);
+  const [expandedDatabases, setExpandedDatabases] = useState([]);
+  const [expandedSchemas, setExpandedSchemas] = useState({});
+
+  const toggleDatabase = (database) => {
+    if (expandedDatabases.includes(database)) {
+      setExpandedDatabases(expandedDatabases.filter((db) => db !== database));
+    } else {
+      setExpandedDatabases([...expandedDatabases, database]);
+    }
+  };
+
+  const toggleSchema = (database, schema) => {
+    const databaseKey = `${database}-${schema}`;
+    setExpandedSchemas((prevState) => ({
+      ...prevState,
+      [databaseKey]: !prevState[databaseKey],
+    }));
+  };
 
   useEffect(() => {
     // Define an async function to fetch data
@@ -122,15 +140,54 @@ const PreDataValidation = () => {
               />
             </div>
             {/* List 1 */}
-            <div style={{ height: "50%", overflowY: "auto", padding: "16px" }}>
+            <div
+              style={{
+                height: "250px",
+                overflow: "auto",
+                padding: "16px",
+              }}
+            >
               <Typography variant="h6" style={{ marginBottom: "8px" }}>
                 Table
               </Typography>
-              {/* Replace the following lines with your list items */}
               <ul>
-                <li>table 1</li>
-                <li>table 2</li>
-                {/* ... */}
+                {table.map((db) => (
+                  <li key={db.database}>
+                    <button onClick={() => toggleDatabase(db.database)}>
+                      {expandedDatabases.includes(db.database) ? "-" : "+"}
+                    </button>
+                    {db.database}
+                    {expandedDatabases.includes(db.database) && (
+                      <ul>
+                        {db.schemata.map((schema) => (
+                          <li key={schema.schema}>
+                            <button
+                              onClick={() =>
+                                toggleSchema(db.database, schema.schema)
+                              }
+                            >
+                              {expandedSchemas[
+                                `${db.database}-${schema.schema}`
+                              ]
+                                ? "-"
+                                : "+"}
+                            </button>
+                            {schema.schema}
+                            {expandedSchemas[
+                              `${db.database}-${schema.schema}`
+                            ] && (
+                              <ul>
+                                {schema.tables.map((table) => (
+                                  <li key={table}>{table}</li>
+                                ))}
+                              </ul>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
             {/* List 2 */}
