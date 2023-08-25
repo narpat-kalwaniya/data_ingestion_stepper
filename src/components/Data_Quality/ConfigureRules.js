@@ -21,6 +21,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "./Data_Quality.css";
+import QuickValidationModal from "./QuickValidationModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,6 +54,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const ConfigureRules = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <>
       <div className="col-lg-10 col-md-10 m-auto configureruletable">
@@ -93,10 +104,7 @@ const ConfigureRules = () => {
                     paddingLeft: "8px",
                     paddingRight: "8px",
                   }}
-                  // onClick={() => {
-                  //   navigateRouter &&
-                  //     navigateRouter("/pipelines/dataQuality/Stepper");
-                  // }}
+                  onClick={handleShowModal}
                 >
                   Quick Validation
                 </button>
@@ -167,6 +175,7 @@ const ConfigureRules = () => {
           </Table>
         </TableContainer>
       </div>
+      <QuickValidationModal show={showModal} onHide={handleCloseModal} />
     </>
   );
 };
