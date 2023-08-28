@@ -3,6 +3,10 @@ import { Form, Row, Col, Modal } from "react-bootstrap";
 import Select from "react-select";
 
 const SaveDetailsModal = ({ show, onHide }) => {
+  const orderByOptions = [
+    { value: "table", label: "Table" },
+    { value: "view", label: "View" },
+  ];
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
@@ -27,6 +31,19 @@ const SaveDetailsModal = ({ show, onHide }) => {
               <Select
                 isMulti
                 // options={orderByOptions}
+                // value={formData.DefineSourceExtractCriteria.order_by}
+                // onChange={(options) => orderByChangeHandler(options)}
+                className="custom-select custom-style"
+              />
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Form.Label> Materilize item</Form.Label>
+
+            <Col style={{ padding: "0px" }}>
+              <Select
+                // isMulti
+                options={orderByOptions}
                 // value={formData.DefineSourceExtractCriteria.order_by}
                 // onChange={(options) => orderByChangeHandler(options)}
                 className="custom-select custom-style"
