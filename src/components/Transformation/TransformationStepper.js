@@ -8,11 +8,26 @@ import SectionMenuTrans from "./SectionMenuTrans";
 import StepperTrans from "./StepperTrans";
 import QueryDetailsSlider from "./QueryDetailsSlider";
 import "./TransformationPipeline.css";
+import Backend_url from "../../config";
 
 function TransformationStepper() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [sliderOpen, setsliderOpen] = useState(null);
+  const [selectedValue, setSelectedValue] = useState(null);
+  const [connections, setConnections] = useState([]);
+  const [applications, setApplications] = useState([]);
+
+  const options = [
+    { id: 1, label: "Option 1" },
+    { id: 2, label: "Option 2" },
+    { id: 3, label: "Option 3" },
+    { id: 4, label: "Option 4" },
+  ];
+
+  const handleSelect = (option) => {
+    setSelectedValue(option);
+  };
 
   const createNewPipelineHandler = () => {
     setStep(1);
@@ -41,6 +56,68 @@ function TransformationStepper() {
       ...data,
     }));
   };
+
+  const handleSelection = (event) => {
+    const selectedConnectionName = event.target.value;
+
+    const selectedConnection = connections.find(
+      (connection) => connection.connection_name === selectedConnectionName
+    );
+    const selectedConnectionId = selectedConnection
+      ? selectedConnection.connection_id
+      : null;
+  };
+
+  const handleTargetSelection = (event) => {
+    const selectedConnectionName = event.target.value;
+
+    const selectedConnection = connections.find(
+      (connection) => connection.connection_name === selectedConnectionName
+    );
+    const selectedConnectionId = selectedConnection
+      ? selectedConnection.connection_id
+      : null;
+  };
+
+  const handleApplicationSelection = (event) => {
+    const selectedApplicationName = event.target.value;
+
+    const selectedConnection = applications.find(
+      (applications) => applications.app_name === selectedApplicationName
+    );
+    const selectedConnectionId = selectedConnection
+      ? selectedConnection.app_id
+      : null;
+  };
+
+  const filteredTargetConnections = connections.filter(
+    (connection) => connection.connection_type === "SNOWFLAKE"
+  );
+
+  useEffect(() => {
+    const fetchConnections = async () => {
+      try {
+        const response = await fetch(`${Backend_url}/conndetails/`);
+        const data = await response.json();
+        setConnections(data);
+      } catch (error) {
+        console.error("Error fetching connections:", error);
+      }
+    };
+
+    const fetchApplications = async () => {
+      try {
+        const response = await fetch(`${Backend_url}/appdetails/`);
+        const data = await response.json();
+        setApplications(data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      }
+    };
+
+    fetchConnections();
+    fetchApplications();
+  }, []);
 
   return (
     <Container
@@ -138,7 +215,43 @@ function TransformationStepper() {
             )}
 
             {step === 1 ? (
-              <div>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <span style={{ flex: 1 }}>
+                  <select onChange={handleTargetSelection}>
+                    <option value="">-- Select --</option>{" "}
+                    {filteredTargetConnections.map((connection) => (
+                      <option
+                        key={connection.connection_id}
+                        value={connection.connection_name}
+                      >
+                        {connection.connection_name}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+                <span style={{ flex: 1 }}>
+                  <select onChange={handleApplicationSelection}>
+                    <option value="">-- Select --</option>{" "}
+                    {applications.map((application) => (
+                      <option
+                        key={application.app_id}
+                        value={application.app_name}
+                      >
+                        {application.app_name}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+                <span style={{ flex: 1 }}>
+                  <select onChange={(e) => handleSelect(e.target.value)}>
+                    <option value="">Select variable</option>
+                    {options.map((option) => (
+                      <option key={option.id} value={option.label}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </span>
                 <span className=" back-text-style" onClick={sliderHandler}>
                   Query Details
                 </span>
