@@ -22,6 +22,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "./Data_Quality.css";
 import QuickValidationModal from "./QuickValidationModal";
+import ConfigureAddDetailsPage from "./ConfigureAddDetailsPage";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -55,6 +56,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const ConfigureRules = () => {
   const [showModal, setShowModal] = useState(false);
+  const [addDetailsShowModal, setaddDetailsShowModal] = useState(false);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -62,6 +64,14 @@ const ConfigureRules = () => {
 
   const handleShowModal = () => {
     setShowModal(true);
+  };
+
+  const addDetailsHandleShowModal = () => {
+    setaddDetailsShowModal(true);
+  };
+
+  const addDetailshandleCloseModal = () => {
+    setaddDetailsShowModal(false);
   };
 
   return (
@@ -112,10 +122,7 @@ const ConfigureRules = () => {
                 <button
                   className="btn-s"
                   style={{ paddingLeft: "8px", paddingRight: "8px" }}
-                  // onClick={() => {
-                  //   navigateRouter &&
-                  //     navigateRouter("/pipelines/dataQuality/Stepper");
-                  // }}
+                  onClick={addDetailsHandleShowModal}
                 >
                   <AddIcon className="AddOutlinedIcon" />
                   Add Details
@@ -175,7 +182,16 @@ const ConfigureRules = () => {
           </Table>
         </TableContainer>
       </div>
-      <QuickValidationModal show={showModal} onHide={handleCloseModal} />
+      {showModal && (
+        <QuickValidationModal show={showModal} onHide={handleCloseModal} />
+      )}
+
+      {addDetailsShowModal && (
+        <ConfigureAddDetailsPage
+          show={addDetailsShowModal}
+          onHide={addDetailshandleCloseModal}
+        />
+      )}
     </>
   );
 };

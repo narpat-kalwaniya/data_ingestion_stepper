@@ -2,8 +2,15 @@ import React from "react";
 import { Form, Row, Col, Modal } from "react-bootstrap";
 import Select from "react-select";
 import "./Data_Quality.css";
+import { useState } from "react";
 
 function QuickValidationModal({ show, onHide }) {
+  const [isvalidated, setIsvalidated] = useState(false);
+
+  const validteHandler = () => {
+    setIsvalidated(true);
+  };
+
   return (
     <Modal show={show} onHide={onHide} centered size="lg">
       <Modal.Header closeButton>
@@ -48,6 +55,17 @@ function QuickValidationModal({ show, onHide }) {
               />
             </Col>
           </Row>
+          {isvalidated && (
+            <Row>
+              <Form.Label> Output</Form.Label>
+              <Form.Control
+                type="text"
+                as="textarea"
+                disabled={false}
+                className="custom-select custom-style outpot-Box-modal"
+              />
+            </Row>
+          )}
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -55,7 +73,9 @@ function QuickValidationModal({ show, onHide }) {
           Close
         </button>
         <button className="quickValidationResetBtn">Reset</button>
-        <button className="btn-s ">Validate</button>
+        <button onClick={validteHandler} className="btn-s ">
+          Validate
+        </button>
       </Modal.Footer>
     </Modal>
   );
