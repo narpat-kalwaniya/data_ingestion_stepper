@@ -218,7 +218,7 @@ function TransformationStepper() {
               <div style={{ display: "flex", gap: "10px" }}>
                 <span style={{ flex: 1 }}>
                   <select onChange={handleTargetSelection}>
-                    <option value="">-- Select --</option>{" "}
+                    <option value="">Connection</option>{" "}
                     {filteredTargetConnections.map((connection) => (
                       <option
                         key={connection.connection_id}
@@ -231,7 +231,7 @@ function TransformationStepper() {
                 </span>
                 <span style={{ flex: 1 }}>
                   <select onChange={handleApplicationSelection}>
-                    <option value="">-- Select --</option>{" "}
+                    <option value="">Application</option>{" "}
                     {applications.map((application) => (
                       <option
                         key={application.app_id}
