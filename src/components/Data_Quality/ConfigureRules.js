@@ -23,6 +23,7 @@ import Form from "react-bootstrap/Form";
 import "./Data_Quality.css";
 import QuickValidationModal from "./QuickValidationModal";
 import ConfigureAddDetailsPage from "./ConfigureAddDetailsPage";
+import ColumnRulesButtonList from "./ColumnRulesButtonList";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -57,6 +58,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const ConfigureRules = () => {
   const [showModal, setShowModal] = useState(false);
   const [addDetailsShowModal, setaddDetailsShowModal] = useState(false);
+  const [columnDetailsShowModal, setColumnDetailsShowModal] = useState(false);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -72,6 +74,14 @@ const ConfigureRules = () => {
 
   const addDetailshandleCloseModal = () => {
     setaddDetailsShowModal(false);
+  };
+
+  const columnDetailsHandleShowModal = () => {
+    setColumnDetailsShowModal(true);
+  };
+
+  const columnDetailshandleCloseModal = () => {
+    setColumnDetailsShowModal(false);
   };
 
   return (
@@ -94,7 +104,7 @@ const ConfigureRules = () => {
                   display: { xs: "none", sm: "block" },
                 }}
               >
-                Schema Details
+                Table Rules
               </Typography>
 
               <Box sx={{ flexGrow: 1 }} />
@@ -182,6 +192,13 @@ const ConfigureRules = () => {
           </Table>
         </TableContainer>
       </div>
+
+      <div className="col-lg-10 col-md-10 m-auto configureruletable column-rule-header">
+        <h6>Column 1</h6>
+        <h6 onClick={columnDetailsHandleShowModal}>+</h6>
+        <h6>Column Rules</h6>
+      </div>
+
       {showModal && (
         <QuickValidationModal show={showModal} onHide={handleCloseModal} />
       )}
@@ -190,6 +207,13 @@ const ConfigureRules = () => {
         <ConfigureAddDetailsPage
           show={addDetailsShowModal}
           onHide={addDetailshandleCloseModal}
+        />
+      )}
+
+      {columnDetailsShowModal && (
+        <ColumnRulesButtonList
+          show={columnDetailsShowModal}
+          onHide={columnDetailshandleCloseModal}
         />
       )}
     </>
