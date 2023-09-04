@@ -73,7 +73,6 @@
 
 .columnModalBody {
     background-color: rgb(243, 243, 243);
-    margin: 5px;
 }
 
 .columnModalHeading {
@@ -83,6 +82,8 @@
 
 .columnModalHeadingBtn {
     background-color: #fff;
+    border-radius: 5px;
+    padding-top: 8px;
     margin: 5px 6px;
  
 }
@@ -94,4 +95,23 @@
 
 .columnModalHeadingBtn1 {
     font-size: 16px;
+}
+
+.column_rule_table_style {
+    display: flex;
+    justify-content: space-between;
+}
+
+.configurenavbarStyle {
+    padding: 0 !important;
+    min-height: 48px !important;
+   
+}
+
+.separatorLine {
+    background-color: hsl(0, 11%, 72%);
+  
+    margin: 24px 26px;
+     height: 1.75px;
+     font-weight: 400px;
 }

@@ -4,10 +4,13 @@ import "./Data_Quality.css";
 import CompletenessRule from "./CompletenessRule";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import RegexConstraintRule from "./RegexConstraintRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
   const [completenessShowModal, setcompletenessShowModal] = useState(false);
+  const [regexConstraintShowModal, setRegexConstraintShowModal] =
+    useState(false);
 
   const completenessRuleHandleShowModal = () => {
     setcompletenessShowModal(true);
@@ -17,10 +20,18 @@ function ColumnRulesButtonList({ show, onHide }) {
     setcompletenessShowModal(false);
   };
 
+  const regexConstraintHandleShowModal = () => {
+    setRegexConstraintShowModal(true);
+  };
+
+  const regexConstraintHandleCloseModal = () => {
+    setRegexConstraintShowModal(false);
+  };
+
   return (
     <>
       <Modal
-        show={show && !completenessShowModal}
+        show={show && !completenessShowModal && !regexConstraintShowModal}
         onHide={onHide}
         centered
         size="lg"
@@ -34,14 +45,18 @@ function ColumnRulesButtonList({ show, onHide }) {
               <h4
                 className="columnModalHeadingBtn1"
                 onClick={() => completenessRuleHandleShowModal()}
-                // onClick={completenessRuleHandleShowModal}
               >
                 Completeness
               </h4>
               <p className="columnModalHeadingSubBtn"> Completeness</p>
             </Col>
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Regex Constraint</h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => regexConstraintHandleShowModal()}
+              >
+                Regex Constraint
+              </h4>
               <p className="columnModalHeadingSubBtn"> Validity</p>
             </Col>
             <Col className="columnModalHeadingBtn">
@@ -107,6 +122,13 @@ function ColumnRulesButtonList({ show, onHide }) {
         <CompletenessRule
           show={completenessRuleHandleShowModal}
           onHide={completenessRuleHandleCloseModal}
+        />
+      )}
+
+      {regexConstraintShowModal && (
+        <RegexConstraintRule
+          show={regexConstraintHandleShowModal}
+          onHide={regexConstraintHandleCloseModal}
         />
       )}
     </>

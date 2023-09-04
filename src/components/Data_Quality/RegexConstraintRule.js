@@ -1,21 +1,14 @@
 import React from "react";
 import { Form, Row, Col, Modal } from "react-bootstrap";
 import "./Data_Quality.css";
-import Select from "react-select";
 
-function CompletenessRule({ show, onHide }) {
+function RegexConstraintRule({ show, onHide }) {
   return (
     <Modal show={show} onHide={onHide} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title> Completeness Rule</Modal.Title>
+        <Modal.Title> Regex Constraint Rule</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>
-          {" "}
-          Completeness DQ rule scans a columns to count the cells with missing
-          (e.g. database NULL type or blank text) or default (e.g. 'Not
-          Applicable' or 'Default') values.
-        </p>
         <Form>
           <Row className="mb-4">
             <div className="column_rule_table_style">
@@ -31,21 +24,30 @@ function CompletenessRule({ show, onHide }) {
           </Row>
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "33%" }}>
-                Missing/default Values
-              </Form.Label>
+              <Form.Label style={{ width: "50%" }}>Predefined Regex</Form.Label>
 
-              <Col>
-                <Select
-                  isMulti
-                  // options={orderByOptions}
-                  // value={formData.DefineSourceExtractCriteria.order_by}
-                  // onChange={(options) => orderByChangeHandler(options)}
-                  className="custom-select custom-style"
-                />
-              </Col>
+              <Form.Control
+                placeholder="Enter Expection"
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
             </div>
           </Row>
+
+          <Row className="mb-4">
+            <div className="column_rule_table_style">
+              <Form.Label style={{ width: "50%" }}>Custom Regex</Form.Label>
+
+              <Form.Control
+                placeholder="Enter Expection"
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
+            </div>
+          </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
@@ -107,4 +109,4 @@ function CompletenessRule({ show, onHide }) {
   );
 }
 
-export default CompletenessRule;
+export default RegexConstraintRule;

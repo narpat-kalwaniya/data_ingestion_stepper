@@ -95,17 +95,40 @@ const ConfigureRules = () => {
               boxShadow: "none",
             }}
           >
-            <Toolbar className="navbarStyle">
-              <Typography
-                variant="h7"
-                noWrap
-                component="div"
+            <Toolbar className="configurenavbarStyle">
+              <Box
                 sx={{
-                  display: { xs: "none", sm: "block" },
+                  display: {
+                    md: "flex",
+                    gap: "275px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  },
                 }}
               >
-                Table Rules
-              </Typography>
+                <Typography
+                  variant="h7"
+                  noWrap
+                  component="div"
+                  sx={{
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  Table Names:
+                </Typography>
+
+                <Typography
+                  variant="h7"
+                  noWrap
+                  component="div"
+                  sx={{
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  <AddIcon className="AddOutlinedIcon" />
+                  Table Rules
+                </Typography>
+              </Box>
 
               <Box sx={{ flexGrow: 1 }} />
               <Box
@@ -193,10 +216,17 @@ const ConfigureRules = () => {
         </TableContainer>
       </div>
 
+      <hr className="separatorLine" />
+
       <div className="col-lg-10 col-md-10 m-auto configureruletable column-rule-header">
         <h6>Column 1</h6>
-        <h6 onClick={columnDetailsHandleShowModal}>+</h6>
-        <h6>Column Rules</h6>
+        <h6>Data Type</h6>
+
+        <h6 onClick={columnDetailsHandleShowModal}>
+          {" "}
+          <AddIcon className="AddOutlinedIcon" />
+          Column Rules
+        </h6>
       </div>
 
       {showModal && (
