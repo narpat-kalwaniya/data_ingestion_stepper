@@ -104,6 +104,14 @@ const Sidebar = () => {
               <i class="fas fa-project-diagram"></i>
               <span className="side">Pipelines</span>
             </li>
+            <li
+              onClick={() => {
+                navigateRouter && navigateRouter("/dataObservability");
+              }}
+            >
+              <i class="fas fa-chart-line"></i>
+              <span className="side">Observability</span>
+            </li>
 
             <li
               onClick={() => {

@@ -439,3 +439,27 @@ h5 {
   transform: scale(1.1);
 }
 
+.tab-content {
+  padding-top: 10px; /* Add some padding to separate tabs from content */
+}
+
+.nav-tabs {
+  border-bottom: none; /* Remove the default bottom border of the tab bar */
+}
+
+.nav-tabs .nav-link {
+  padding: 0.25rem 1rem; /* Adjust the padding to decrease the tab height */
+  font-size: 12px; /* You can adjust the font size as well */
+  color: $clrA
+}
+.navigation-buttons {
+  position: absolute;
+  // top: 10px;
+  left: 25px;
+  width:100px;
+}
+.navigation-buttons .btn {
+  padding: 0.25rem 0.5rem; /* Adjust the padding to decrease the button height */
+  font-size: 12px; /* You can adjust the font size as well */
+}
+
