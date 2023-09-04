@@ -38,7 +38,7 @@ const SaveDetailsModal = ({ show, onHide }) => {
             </Col>
           </Row>
           <Row className="mb-4">
-            <Form.Label> Materilize type</Form.Label>
+            <Form.Label> Materialize type</Form.Label>
 
             <Col style={{ padding: "0px" }}>
               <Select

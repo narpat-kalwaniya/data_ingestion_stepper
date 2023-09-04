@@ -17,6 +17,8 @@ function TransformationStepper() {
   const [selectedValue, setSelectedValue] = useState(null);
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
+  const [connectionName, setConnectionsName] = useState([]);
+  const [applicationName, setApplicationName] = useState([]);
 
   const options = [
     { id: 1, label: "Option 1" },
@@ -70,6 +72,7 @@ function TransformationStepper() {
 
   const handleTargetSelection = (event) => {
     const selectedConnectionName = event.target.value;
+    setConnectionsName(selectedConnectionName);
 
     const selectedConnection = connections.find(
       (connection) => connection.connection_name === selectedConnectionName
@@ -81,6 +84,7 @@ function TransformationStepper() {
 
   const handleApplicationSelection = (event) => {
     const selectedApplicationName = event.target.value;
+    setApplicationName(selectedApplicationName);
 
     const selectedConnection = applications.find(
       (applications) => applications.app_name === selectedApplicationName
@@ -290,6 +294,8 @@ function TransformationStepper() {
                         step={step}
                         formData={formData}
                         updateFormData={updateFormData}
+                        connectionName={connectionName}
+                        applicationName={applicationName}
                       />
                     </Card.Body>
                   </Container>

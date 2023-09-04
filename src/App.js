@@ -18,6 +18,7 @@ import TransformationStepper from "./components/Transformation/TransformationSte
 import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
 import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQualityCustomerDetailPage";
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
+import DataObservability from "./components/DataObservability/DataObservability";
 
 function App() {
   const [user, setUser] = useState();
@@ -188,6 +189,10 @@ function App() {
                 <Route
                   path="/pipelines/dataQuality/Stepper"
                   element={<DataQualityStepper />}
+                />
+                <Route
+                  path="/dataObservability"
+                  element={<DataObservability />}
                 />
               </Route>
               <Route path="*" element={<NotFound />} />
