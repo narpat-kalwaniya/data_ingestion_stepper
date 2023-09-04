@@ -4,7 +4,13 @@ import PreDataValidation from "./PreDataValidation";
 import PostDataValidation from "./PostDataValidation";
 import "../Migration/AppMig.css";
 
-const StepperTrans = ({ step, formData, updateFormData }) => {
+const StepperTrans = ({
+  step,
+  formData,
+  updateFormData,
+  applicationName,
+  connectionName,
+}) => {
   return (
     <div>
       {step === 1 ? (
@@ -12,6 +18,8 @@ const StepperTrans = ({ step, formData, updateFormData }) => {
           step={step}
           formData={formData}
           updateFormData={updateFormData}
+          applicationName={applicationName}
+          connectionName={connectionName}
         />
       ) : step === 2 ? (
         <PreDataValidation
