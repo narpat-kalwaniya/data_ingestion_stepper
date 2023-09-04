@@ -19,7 +19,7 @@ import "./TransformationPipeline.css";
 
 import "ace-builds/src-noconflict/theme-xcode";
 
-const ValidateQuery = () => {
+const ValidateQuery = ({ connectionName, applicationName }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -89,13 +89,18 @@ const ValidateQuery = () => {
       throw error;
     }
   };
-
   const handleRunButtonClick = async () => {
     const apiUrl =
       "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/queryresult/";
 
     const requestData = {
       load_query: selectedFileContent,
+      connection: connectionName,
+      application: applicationName,
+      query_name: "GroupedQueries",
+      material_type: "View",
+      dependent_query_name: null,
+      variable_group_name: null,
     };
 
     try {
@@ -291,33 +296,26 @@ const ValidateQuery = () => {
               isDragging ? "dragging" : ""
             } w-100 horizontalBoxSIze`}
           >
-            {displayContent === "message" ? (
-              queryResult[0]?.message ? (
-                <pre>{queryResult[0].message}</pre>
-              ) : (
-                <p>No message available</p>
-              )
-            ) : queryResult[0]?.result ? (
-              <TableContainer component={Paper}>
-                <Table aria-label="customized table">
-                  <TableHead style={{ color: "#E0E0E0" }}>
-                    <TableRow className="listOfPipelineNavbar">
-                      <StyledTableCell align="center">Actor ID</StyledTableCell>
-                      <StyledTableCell align="center">Count</StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {queryResult[0].result.map((item, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{item.actor_id}</TableCell>
-                        <TableCell>{item["COUNT(FILM_ID)"]}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+            {displayContent === "message" && queryResult.length > 0 ? (
+              queryResult.map((obj, index) => (
+                <div key={index}>
+                  <p>
+                    Message:{" "}
+                    {typeof obj.message === "string"
+                      ? obj.message
+                      : obj.message.code}
+                  </p>
+                  <p>
+                    Records Message:{" "}
+                    {typeof obj.records_message === "string"
+                      ? obj.records_message
+                      : "null"}
+                  </p>
+                  <hr />
+                </div>
+              ))
             ) : (
-              <p>No result available</p>
+              <p>No message available</p>
             )}
           </div>
         </Col>
