@@ -148,6 +148,12 @@ td,
 th {
   vertical-align: middle;
 }
+
+td
+{
+  vertical-align: middle;
+  font-size: 10px;
+}
 thead {
   vertical-align: middle;
 }

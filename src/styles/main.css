@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"); /* TYPOGRAPHY */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+/* TYPOGRAPHY */
 /* Google fns */
 @import url("https://fns.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic");
 @import url("https://fns.googleapis.com/css?family=Raleway:400,300,500,600,700,800,900");
@@ -234,7 +235,7 @@ h5 {
 }
 
 .card-body.custom-card-body {
-  color: #4f4f4f !important; 
+  color: #4f4f4f; /* Set your desired font color */
   font-size: "14px" !important;
 }
 
@@ -265,4 +266,29 @@ h5 {
 /* Optional: Add hover effect to the icon */
 .delete-btn:hover .bi-x-lg {
   transform: scale(1.1);
+}
+
+.tab-content {
+  padding-top: 10px; /* Add some padding to separate tabs from content */
+}
+
+.nav-tabs {
+  border-bottom: none; /* Remove the default bottom border of the tab bar */
+}
+
+.nav-tabs .nav-link {
+  padding: 0.25rem 1rem; /* Adjust the padding to decrease the tab height */
+  font-size: 12px; /* You can adjust the font size as well */
+  color: #F7901D;
+}
+
+.navigation-buttons {
+  position: absolute;
+  left: 25px;
+  width: 100px;
+}
+
+.navigation-buttons .btn {
+  padding: 0.25rem 0.5rem; /* Adjust the padding to decrease the button height */
+  font-size: 12px; /* You can adjust the font size as well */
 }/*# sourceMappingURL=main.css.map */
