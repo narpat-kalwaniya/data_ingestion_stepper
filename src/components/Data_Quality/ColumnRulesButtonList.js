@@ -5,11 +5,14 @@ import CompletenessRule from "./CompletenessRule";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RegexConstraintRule from "./RegexConstraintRule";
+import RangeConstraintRule from "./RangeConstraintRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
   const [completenessShowModal, setcompletenessShowModal] = useState(false);
   const [regexConstraintShowModal, setRegexConstraintShowModal] =
+    useState(false);
+  const [rangeConstraintShowModal, setRangeConstraintShowModal] =
     useState(false);
 
   const completenessRuleHandleShowModal = () => {
@@ -28,10 +31,23 @@ function ColumnRulesButtonList({ show, onHide }) {
     setRegexConstraintShowModal(false);
   };
 
+  const rangeConstraintHandleShowModal = () => {
+    setRangeConstraintShowModal(true);
+  };
+
+  const rangeConstraintHandleCloseModal = () => {
+    setRangeConstraintShowModal(false);
+  };
+
   return (
     <>
       <Modal
-        show={show && !completenessShowModal && !regexConstraintShowModal}
+        show={
+          show &&
+          !completenessShowModal &&
+          !regexConstraintShowModal &&
+          !rangeConstraintShowModal
+        }
         onHide={onHide}
         centered
         size="lg"
@@ -60,7 +76,12 @@ function ColumnRulesButtonList({ show, onHide }) {
               <p className="columnModalHeadingSubBtn"> Validity</p>
             </Col>
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Range Constraint</h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => rangeConstraintHandleShowModal()}
+              >
+                Range Constraint
+              </h4>
               <p className="columnModalHeadingSubBtn"> Validity</p>
             </Col>
           </Row>
@@ -129,6 +150,13 @@ function ColumnRulesButtonList({ show, onHide }) {
         <RegexConstraintRule
           show={regexConstraintHandleShowModal}
           onHide={regexConstraintHandleCloseModal}
+        />
+      )}
+
+      {rangeConstraintShowModal && (
+        <RangeConstraintRule
+          show={rangeConstraintHandleShowModal}
+          onHide={rangeConstraintHandleCloseModal}
         />
       )}
     </>

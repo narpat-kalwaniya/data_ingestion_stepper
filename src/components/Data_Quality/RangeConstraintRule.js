@@ -4,13 +4,18 @@ import "./Data_Quality.css";
 import Select from "react-select";
 import MultiRangesSlider from "./MultiRangesSlider";
 
-function RegexConstraintRule({ show, onHide }) {
+function RangeConstraintRule({ show, onHide }) {
   return (
     <Modal show={show} onHide={onHide} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title> "Regex Constraint" Rule</Modal.Title>
+        <Modal.Title> "Range Constraint" Rule</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <p>
+          {" "}
+          "Range Constraint" DQ rule scans a column to detect the values falling
+          outside of specified range.
+        </p>
         <Form>
           <Row className="mb-4">
             <div className="column_rule_table_style">
@@ -26,29 +31,26 @@ function RegexConstraintRule({ show, onHide }) {
           </Row>
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "33%" }}>Predefined Regex</Form.Label>
+              <Form.Label style={{ width: "50%" }}>Min</Form.Label>
 
-              <Col>
-                <Select
-                  isMulti
-                  // options={orderByOptions}
-                  // value={formData.DefineSourceExtractCriteria.order_by}
-                  // onChange={(options) => orderByChangeHandler(options)}
-                  className="custom-select custom-style"
-                />
-              </Col>
+              <Form.Control
+                className="custom-select custom-style"
+                size="sm"
+                type="datetime-local"
+                step="any"
+              />
             </div>
           </Row>
 
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "50%" }}>Custom Regex</Form.Label>
+              <Form.Label style={{ width: "50%" }}>Max</Form.Label>
 
               <Form.Control
-                placeholder="Enter Expection"
-                type="text"
-                disabled={false}
                 className="custom-select custom-style"
+                size="sm"
+                type="datetime-local"
+                step="any"
               />
             </div>
           </Row>
@@ -56,7 +58,6 @@ function RegexConstraintRule({ show, onHide }) {
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
-
               <MultiRangesSlider />
             </div>
           </Row>
@@ -73,6 +74,7 @@ function RegexConstraintRule({ show, onHide }) {
               </Form.Select>
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Severity Level</Form.Label>
@@ -85,6 +87,7 @@ function RegexConstraintRule({ show, onHide }) {
               </Form.Select>
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Priority Level</Form.Label>
@@ -109,4 +112,4 @@ function RegexConstraintRule({ show, onHide }) {
   );
 }
 
-export default RegexConstraintRule;
+export default RangeConstraintRule;

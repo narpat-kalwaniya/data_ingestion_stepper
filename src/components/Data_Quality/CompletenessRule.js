@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Row, Col, Modal } from "react-bootstrap";
 import "./Data_Quality.css";
 import Select from "react-select";
+import MultiRangesSlider from "./MultiRangesSlider";
 
 function CompletenessRule({ show, onHide }) {
   return (
@@ -50,12 +51,7 @@ function CompletenessRule({ show, onHide }) {
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
 
-              <Form.Control
-                placeholder="Enter Data Quality"
-                type="text"
-                disabled={false}
-                className="custom-select custom-style"
-              />
+              <MultiRangesSlider />
             </div>
           </Row>
 
