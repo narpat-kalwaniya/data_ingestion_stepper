@@ -4,18 +4,17 @@ import "./Data_Quality.css";
 import Select from "react-select";
 import MultiRangesSlider from "./MultiRangesSlider";
 
-function CompletenessRule({ show, onHide }) {
+function LengthConstraintRule({ show, onHide }) {
   return (
     <Modal show={show} onHide={onHide} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title> "Completeness" Rule</Modal.Title>
+        <Modal.Title> "Length Constraint" Rule</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
           {" "}
-          Completeness DQ rule scans a columns to count the cells with missing
-          (e.g. database NULL type or blank text) or default (e.g. 'Not
-          Applicable' or 'Default') values.
+          "Length Constraint" DQ rule scans a text column to exam the lenth of
+          the string is in a valid range.
         </p>
         <Form>
           <Row className="mb-4">
@@ -32,25 +31,31 @@ function CompletenessRule({ show, onHide }) {
           </Row>
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "33%" }}>
-                Missing/default Values
-              </Form.Label>
+              <Form.Label style={{ width: "50%" }}>Min</Form.Label>
 
-              <Col>
-                <Select
-                  isMulti
-                  // options={orderByOptions}
-                  // value={formData.DefineSourceExtractCriteria.order_by}
-                  // onChange={(options) => orderByChangeHandler(options)}
-                  className="custom-select custom-style"
-                />
-              </Col>
+              <Form.Control
+                className="custom-select custom-style"
+                size="sm"
+                type="number"
+              />
             </div>
           </Row>
+
+          <Row className="mb-4">
+            <div className="column_rule_table_style">
+              <Form.Label style={{ width: "50%" }}>Max</Form.Label>
+
+              <Form.Control
+                className="custom-select custom-style"
+                size="sm"
+                type="number"
+              />
+            </div>
+          </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
-
               <MultiRangesSlider />
             </div>
           </Row>
@@ -67,6 +72,7 @@ function CompletenessRule({ show, onHide }) {
               </Form.Select>
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Severity Level</Form.Label>
@@ -79,6 +85,7 @@ function CompletenessRule({ show, onHide }) {
               </Form.Select>
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> Priority Level</Form.Label>
@@ -103,4 +110,4 @@ function CompletenessRule({ show, onHide }) {
   );
 }
 
-export default CompletenessRule;
+export default LengthConstraintRule;

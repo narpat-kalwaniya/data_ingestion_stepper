@@ -6,13 +6,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RegexConstraintRule from "./RegexConstraintRule";
 import RangeConstraintRule from "./RangeConstraintRule";
+import LengthConstraintRule from "./LengthConstraintRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
+
   const [completenessShowModal, setcompletenessShowModal] = useState(false);
   const [regexConstraintShowModal, setRegexConstraintShowModal] =
     useState(false);
   const [rangeConstraintShowModal, setRangeConstraintShowModal] =
+    useState(false);
+  const [lengthConstraintShowModal, setLengthConstraintShowModal] =
     useState(false);
 
   const completenessRuleHandleShowModal = () => {
@@ -39,6 +43,14 @@ function ColumnRulesButtonList({ show, onHide }) {
     setRangeConstraintShowModal(false);
   };
 
+  const lengthConstraintHandleShowModal = () => {
+    setLengthConstraintShowModal(true);
+  };
+
+  const lengthConstraintHandleCloseModal = () => {
+    setLengthConstraintShowModal(false);
+  };
+
   return (
     <>
       <Modal
@@ -46,7 +58,8 @@ function ColumnRulesButtonList({ show, onHide }) {
           show &&
           !completenessShowModal &&
           !regexConstraintShowModal &&
-          !rangeConstraintShowModal
+          !rangeConstraintShowModal &&
+          !lengthConstraintShowModal
         }
         onHide={onHide}
         centered
@@ -88,7 +101,12 @@ function ColumnRulesButtonList({ show, onHide }) {
 
           <Row className="columnModalHeading">
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Length Constraint</h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => lengthConstraintHandleShowModal()}
+              >
+                Length Constraint
+              </h4>
               <p className="columnModalHeadingSubBtn"> Validity</p>
             </Col>
             <Col className="columnModalHeadingBtn">
@@ -157,6 +175,13 @@ function ColumnRulesButtonList({ show, onHide }) {
         <RangeConstraintRule
           show={rangeConstraintHandleShowModal}
           onHide={rangeConstraintHandleCloseModal}
+        />
+      )}
+
+      {lengthConstraintShowModal && (
+        <LengthConstraintRule
+          show={lengthConstraintHandleShowModal}
+          onHide={lengthConstraintHandleCloseModal}
         />
       )}
     </>
