@@ -272,23 +272,12 @@ h5 {
   padding-top: 10px; /* Add some padding to separate tabs from content */
 }
 
-.nav-tabs {
-  border-bottom: none; /* Remove the default bottom border of the tab bar */
+.directory-path {
+  padding: 0px 0px 10px 0px;
+  font-size: 14px;
+  color: #18749C;
 }
 
-.nav-tabs .nav-link {
-  padding: 0.25rem 1rem; /* Adjust the padding to decrease the tab height */
-  font-size: 12px; /* You can adjust the font size as well */
-  color: #F7901D;
-}
-
-.navigation-buttons {
-  position: absolute;
-  left: 25px;
-  width: 100px;
-}
-
-.navigation-buttons .btn {
-  padding: 0.25rem 0.5rem; /* Adjust the padding to decrease the button height */
-  font-size: 12px; /* You can adjust the font size as well */
+.directory-path span {
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

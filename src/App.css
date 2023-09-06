@@ -152,7 +152,7 @@ th {
 td
 {
   vertical-align: middle;
-  font-size: 10px;
+  /* font-size: 10px; */
 }
 thead {
   vertical-align: middle;

@@ -248,7 +248,7 @@ function TransformationStepper() {
                 </span>
                 <span style={{ flex: 1 }}>
                   <select onChange={(e) => handleSelect(e.target.value)}>
-                    <option value="">Select variable</option>
+                    <option value="">Variable Group</option>
                     {options.map((option) => (
                       <option key={option.id} value={option.label}>
                         {option.label}
