@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Tabs, Tab, Container, Card, Row } from "react-bootstrap";
 import "../../styles/main.css";
 import Overview from "./Overview";
+import { mycontext } from "./DataObservability";
 
-const RunDetails = () => {
-  const [activeTab, setActiveTab] = useState("tab1"); // Set the default active tab
+const RunDetails = (props) => {
+  // Set the default active tab
+  const {
+    steps,
+    setSteps,
+    isRowClicked,
+    setIsRowClicked,
+    activeTab,
+    setActiveTab,
+  } = useContext(mycontext);
 
   const handleTabChange = (tab) => {
+    console.log(steps);
     setActiveTab(tab);
+    const updatedSteps = [...steps];
+    updatedSteps[2] = tab;
+    setSteps(updatedSteps);
   };
   return (
     <Row style={{ marginLeft: "0px", marginRight: "10px" }}>
