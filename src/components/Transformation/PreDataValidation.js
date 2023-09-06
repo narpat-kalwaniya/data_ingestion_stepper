@@ -17,6 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import "./TransformationPipeline.css";
 import AddDetailsModal from "./AddDetailsModal";
+import { FaPlus } from "react-icons/fa";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,25 +54,40 @@ const PreDataValidation = () => {
   const [leftDivCollapsed, setLeftDivCollapsed] = useState(false);
   const [queries, setQueries] = useState([]);
   const [table, setTable] = useState([]);
-  const [expandedDatabases, setExpandedDatabases] = useState([]);
-  const [expandedSchemas, setExpandedSchemas] = useState({});
+  const [databases, setDatabases] = useState([]);
+  const [schemas, setSchemas] = useState([]);
+  const [schemaName, setSchemaName] = useState([]);
+  const [tables, setTables] = useState([]);
+  const [queryColumns, setQueryColumns] = useState([]);
 
   const toggleDatabase = (database) => {
-    if (expandedDatabases.includes(database)) {
-      setExpandedDatabases(expandedDatabases.filter((db) => db !== database));
+    if (databases.includes(database)) {
+      setDatabases(databases.filter((db) => db !== database));
     } else {
-      setExpandedDatabases([...expandedDatabases, database]);
+      setDatabases([...databases, database]);
     }
   };
 
   const toggleSchema = (database, schema) => {
+    setSchemaName([schema]);
     const databaseKey = `${database}-${schema}`;
-    setExpandedSchemas((prevState) => ({
-      ...prevState,
-      [databaseKey]: !prevState[databaseKey],
-    }));
+    if (schemas.includes(databaseKey)) {
+      setSchemas(schemas.filter((sch) => sch !== databaseKey));
+    } else {
+      setSchemas([...schemas, databaseKey]);
+    }
   };
 
+  const toggleTable = (table) => {
+    if (tables.includes(table)) {
+      setTables(tables.filter((tbl) => tbl !== table));
+    } else {
+      setTables([table]);
+    }
+  };
+  console.log("database name", databases);
+  console.log("schema name", schemaName);
+  console.log("table name", tables);
   useEffect(() => {
     // Define an async function to fetch data
     const fetchData = async () => {
@@ -107,6 +123,47 @@ const PreDataValidation = () => {
     // Call the async function to fetch data
     fetchData();
   }, []);
+
+  const makeApiCall = async (url, data) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.json();
+    } catch (error) {
+      throw error;
+    }
+  };
+  const handleTableClick = async () => {
+    const apiUrl =
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/querycolumns/";
+
+    const requestData = {
+      database: databases[0],
+      schema: schemaName[0],
+      table: tables[0],
+      query: null,
+    };
+
+    try {
+      const response = await makeApiCall(apiUrl, requestData);
+      console.log("resonse", JSON.stringify(response));
+      setQueryColumns(response);
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+    console.log("Table selected ");
+  };
+  console.log("api output", queryColumns);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -154,10 +211,10 @@ const PreDataValidation = () => {
                 {table.map((db) => (
                   <li key={db.database}>
                     <button onClick={() => toggleDatabase(db.database)}>
-                      {expandedDatabases.includes(db.database) ? "-" : "+"}
+                      {databases.includes(db.database) ? "-" : "+"}
                     </button>
                     {db.database}
-                    {expandedDatabases.includes(db.database) && (
+                    {databases.includes(db.database) && (
                       <ul>
                         {db.schemata.map((schema) => (
                           <li key={schema.schema}>
@@ -166,19 +223,29 @@ const PreDataValidation = () => {
                                 toggleSchema(db.database, schema.schema)
                               }
                             >
-                              {expandedSchemas[
+                              {schemas.includes(
                                 `${db.database}-${schema.schema}`
-                              ]
+                              )
                                 ? "-"
                                 : "+"}
                             </button>
                             {schema.schema}
-                            {expandedSchemas[
+                            {schemas.includes(
                               `${db.database}-${schema.schema}`
-                            ] && (
+                            ) && (
                               <ul>
                                 {schema.tables.map((table) => (
-                                  <li key={table}>{table}</li>
+                                  <li key={table}>
+                                    <button
+                                      onClick={async () => {
+                                        toggleTable(table); // Toggle the table selection
+                                        await handleTableClick(); // Call the handleTableClick function
+                                      }}
+                                    >
+                                      {tables.includes(table) ? "-" : "+"}
+                                    </button>
+                                    {table}
+                                  </li>
                                 ))}
                               </ul>
                             )}
@@ -227,98 +294,45 @@ const PreDataValidation = () => {
       >
         {/* Content of the right div */}
         <div>
-          <TableContainer component={Paper}>
-            <Table aria-label="customized table">
-              <TableHead style={{ color: "#E0E0E0" }}>
-                <TableRow className="listOfPipelineNavbar">
-                  <StyledTableCell>City</StyledTableCell>
-                  <StyledTableCell align="center">Country ID</StyledTableCell>
-                  <StyledTableCell align="center">Last Update</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <StyledTableRow>
-                  <StyledTableCell className="idColumnStyle">
-                    first{" "}
-                  </StyledTableCell>
-                  <StyledTableCell>first </StyledTableCell>
-                  <StyledTableCell>first </StyledTableCell>
-                </StyledTableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
+          {queryColumns &&
+            queryColumns[0] &&
+            queryColumns[0].columns &&
+            queryColumns[0].columns.length > 0 && (
+              <TableContainer component={Paper}>
+                <Table aria-label="customized table">
+                  <TableHead style={{ color: "#E0E0E0" }}>
+                    <TableRow className="listOfPipelineNavbar">
+                      <StyledTableCell>Column Name</StyledTableCell>
+                      <StyledTableCell align="center">
+                        Data Type
+                      </StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {queryColumns[0].columns.map((row, index) => (
+                      <StyledTableRow key={index}>
+                        <StyledTableCell className="idColumnStyle">
+                          {row.column_name}
+                        </StyledTableCell>
+                        <StyledTableCell>{row.data_type} </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {" "}
+                          <FaPlus
+                            className="add"
+                            // onClick={}
+                          />
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+
           <AddDetailsModal show={showModal} onHide={handleCloseModal} />
         </div>
       </div>
-
-      {/* <div className="col-lg-12 col-md-12 m-0 p-0">
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar
-            position="static"
-            color="transparent"
-            sx={{
-              boxShadow: "none",
-            }}
-          >
-            <Toolbar className="navbarStyle d-flex align-items-start mt-2">
-              <Typography
-                variant="h7"
-                noWrap
-                component="div"
-                // sx={{
-                //   display: { xs: "none", sm: "block", color: "#F7901D" },
-                // }}
-              >
-                Data List
-              </Typography>
-
-              <Box sx={{ flexGrow: 1 }} />
-              <Box
-                sx={{
-                  display: {
-                    md: "flex",
-                    gap: "10px",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  },
-                }}
-              >
-                <button
-                  className="btn-s"
-                  style={{ paddingLeft: "8px", paddingRight: "8px" }}
-                  onClick={handleShowModal}
-                >
-                  <AddIcon className="AddOutlinedIcon" />
-                  Add Details
-                </button>
-              </Box>
-            </Toolbar>
-          </AppBar>
-        </Box>
-      </div> */}
-      {/* <div>
-        <TableContainer component={Paper}>
-          <Table aria-label="customized table">
-            <TableHead style={{ color: "#E0E0E0" }}>
-              <TableRow className="listOfPipelineNavbar">
-                <StyledTableCell>City</StyledTableCell>
-                <StyledTableCell align="center">Country ID</StyledTableCell>
-                <StyledTableCell align="center">Last Update</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <StyledTableRow>
-                <StyledTableCell className="idColumnStyle">
-                  first{" "}
-                </StyledTableCell>
-                <StyledTableCell>first </StyledTableCell>
-                <StyledTableCell>first </StyledTableCell>
-              </StyledTableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <AddDetailsModal show={showModal} onHide={handleCloseModal} />
-      </div> */}
     </div>
   );
 };
