@@ -608,7 +608,7 @@ const SourceEntitySelection = ({
               </Col>
 
               <Col>
-                {formData.sourceEntity.directory_name != null ? (
+                {formData.sourceEntity.directory_name.value != null ? (
                   <div className="form-group">
                     <Form.Label>
                       File Name <span className="text-danger">*</span>
@@ -641,7 +641,7 @@ const SourceEntitySelection = ({
                       <div className="error">{errors2.full_file_name}</div>
                     )}
                   </div>
-                ) : null}{" "}
+                ) : null}
               </Col>
             </Row>
           ) : null}

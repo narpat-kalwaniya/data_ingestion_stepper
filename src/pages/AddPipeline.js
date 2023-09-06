@@ -104,14 +104,17 @@ function AddPipeline(props) {
     fetchApplications();
   }, []);
 
+  console.log(s3Directories);
+
   // fetch direcoties
   useEffect(() => {
     if (
       formData.sourceEntity.bucket_name === "tiger-snowflake-datafabric-dev"
     ) {
+      console.log("getmeta calling");
       const fetchDirectories = async () => {
         try {
-          const response = await fetch(`${Backend_url}/getfilesmeta/6`);
+          const response = await fetch(`${Backend_url}/getfilesmeta/3`);
           const data = await response.json();
           setS3Directories(data);
         } catch (error) {
@@ -122,7 +125,7 @@ function AddPipeline(props) {
     } else if (formData.sourceEntity.bucket_name === "ingestion-inbound") {
       const fetchDirectories = async () => {
         try {
-          const response = await fetch(`${Backend_url}/getfilesmeta/7`);
+          const response = await fetch(`${Backend_url}/getfilesmeta/4`);
           const data = await response.json();
           setS3Directories(data);
         } catch (error) {
@@ -606,6 +609,8 @@ function AddPipeline(props) {
       cardBodyNode.classList.toggle("overflow-auto", shouldOverflow);
     }
   }, []);
+
+  console.log(s3Directories);
 
   return (
     <Container style={{ marginTop: "30px", backgroundColor: "white" }}>

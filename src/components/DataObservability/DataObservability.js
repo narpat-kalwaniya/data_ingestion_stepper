@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 
 import { Card, Col, Row, Table } from "react-bootstrap";
 import Runs from "./Runs";
@@ -6,9 +6,16 @@ import SearchBarsRow from "./SearchBars";
 import { Button, ButtonGroup, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Path from "./Path";
+
+const mycontext = createContext();
 
 const DataObservability = () => {
   const [isDetails, setIsDetails] = useState(false);
+  const [steps, setSteps] = useState([]);
+  const [isRowClicked, setIsRowClicked] = useState(false);
+  const [activeTab, setActiveTab] = useState("tab1");
+
   const headers = [
     "Pipeline ID",
     "Pipeline Type",
@@ -48,8 +55,11 @@ const DataObservability = () => {
     },
   ];
 
-  const rowclickHandler = () => {
+  const rowclickHandler = (row) => {
     setIsDetails(true);
+    console.log(row.header1);
+    const updatedSteps = [...steps, row.header1];
+    setSteps(updatedSteps);
   };
 
   const backHandler = () => {
@@ -57,13 +67,13 @@ const DataObservability = () => {
   };
 
   return (
-    <Col>
+    <Col style={{ marginLeft: "20px" }}>
       <Row>
         <Col>
           <SearchBarsRow />
         </Col>
       </Row>
-      <div style={{ position: "relative", width: "100px" }}>
+      {/* <div style={{ position: "relative", width: "100px" }}>
         <Row>
           <ButtonGroup className="navigation-buttons">
             <Button
@@ -83,13 +93,26 @@ const DataObservability = () => {
             </Button>
           </ButtonGroup>
         </Row>
-      </div>
+      </div> */}
+      <mycontext.Provider
+        value={{
+          steps,
+          setSteps,
+          isRowClicked,
+          setIsRowClicked,
+          activeTab,
+          setActiveTab,
+          setIsDetails,
+          isDetails,
+        }}
+      >
+        <Path />
+      </mycontext.Provider>
       <Card
         className="Card-outer custom-card-body "
         style={{
           minHeight: "300px",
           marginRight: "20px",
-          marginLeft: "25px",
           marginTop: "100px",
         }}
       >
@@ -113,7 +136,7 @@ const DataObservability = () => {
                 </thead>
                 <tbody>
                   {dummyData.map((row) => (
-                    <tr key={row.id} onClick={rowclickHandler}>
+                    <tr key={row.id} onClick={() => rowclickHandler(row)}>
                       <td>{row.header1}</td>
                       <td>{row.header2}</td>
                       <td>{row.header3}</td>
@@ -125,7 +148,18 @@ const DataObservability = () => {
                 </tbody>
               </Table>
             ) : (
-              <Runs isDetails={isDetails} setIsDetails={setIsDetails} />
+              <mycontext.Provider
+                value={{
+                  steps,
+                  setSteps,
+                  isRowClicked,
+                  setIsRowClicked,
+                  activeTab,
+                  setActiveTab,
+                }}
+              >
+                <Runs />
+              </mycontext.Provider>
             )}
           </Col>
         </Row>
@@ -133,5 +167,6 @@ const DataObservability = () => {
     </Col>
   );
 };
+export { mycontext };
 
 export default DataObservability;

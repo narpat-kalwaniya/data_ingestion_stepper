@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Table } from "react-bootstrap";
 import RunDetails from "./RunDetails";
+import { mycontext } from "./DataObservability";
 
-const Runs = () => {
-  const [isRowClicked, setIsRowClicked] = useState(false);
+const Runs = (props) => {
+  const { steps, setSteps, isRowClicked, setIsRowClicked } =
+    useContext(mycontext);
   const headers = ["header-1", "header-2", "header-3", "header-4"];
   const dummyData = [
     {
@@ -22,9 +24,15 @@ const Runs = () => {
     },
   ];
 
-  const rowclickHandler = () => {
+  const rowclickHandler = (row) => {
     setIsRowClicked(true);
+    const updatedSteps = [...steps];
+    updatedSteps[1] = row.header1;
+    setSteps(updatedSteps);
   };
+  // const steps = useContext(mycontext).steps;
+  // const setSteps = useContext(mycontext).setSteps;
+  console.log(steps);
   return (
     <div>
       {isRowClicked ? (
@@ -47,7 +55,7 @@ const Runs = () => {
           </thead>
           <tbody>
             {dummyData.map((row) => (
-              <tr key={row.id} onClick={rowclickHandler}>
+              <tr key={row.id} onClick={() => rowclickHandler(row)}>
                 <td>{row.header1}</td>
                 <td>{row.header2}</td>
                 <td>{row.header3}</td>
