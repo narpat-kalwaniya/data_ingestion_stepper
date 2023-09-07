@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import RegexConstraintRule from "./RegexConstraintRule";
 import RangeConstraintRule from "./RangeConstraintRule";
 import LengthConstraintRule from "./LengthConstraintRule";
+import TimelinessRule from "./TimelinessRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
@@ -18,6 +19,7 @@ function ColumnRulesButtonList({ show, onHide }) {
     useState(false);
   const [lengthConstraintShowModal, setLengthConstraintShowModal] =
     useState(false);
+  const [timelinessRuleShowModal, setTimelinessRuleShowModal] = useState(false);
 
   const completenessRuleHandleShowModal = () => {
     setcompletenessShowModal(true);
@@ -51,6 +53,14 @@ function ColumnRulesButtonList({ show, onHide }) {
     setLengthConstraintShowModal(false);
   };
 
+  const timelinessRuleHandleShowModal = () => {
+    setTimelinessRuleShowModal(true);
+  };
+
+  const timelinessRuleHandleCloseModal = () => {
+    setTimelinessRuleShowModal(false);
+  };
+
   return (
     <>
       <Modal
@@ -59,7 +69,8 @@ function ColumnRulesButtonList({ show, onHide }) {
           !completenessShowModal &&
           !regexConstraintShowModal &&
           !rangeConstraintShowModal &&
-          !lengthConstraintShowModal
+          !lengthConstraintShowModal &&
+          !timelinessRuleShowModal
         }
         onHide={onHide}
         centered
@@ -114,7 +125,12 @@ function ColumnRulesButtonList({ show, onHide }) {
               <p className="columnModalHeadingSubBtn"> Uniqueness</p>
             </Col>
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Timeliness </h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => timelinessRuleHandleShowModal()}
+              >
+                Timeliness{" "}
+              </h4>
               <p className="columnModalHeadingSubBtn"> Timeliness</p>
             </Col>
           </Row>
@@ -182,6 +198,13 @@ function ColumnRulesButtonList({ show, onHide }) {
         <LengthConstraintRule
           show={lengthConstraintHandleShowModal}
           onHide={lengthConstraintHandleCloseModal}
+        />
+      )}
+
+      {timelinessRuleShowModal && (
+        <TimelinessRule
+          show={timelinessRuleHandleShowModal}
+          onHide={timelinessRuleHandleCloseModal}
         />
       )}
     </>

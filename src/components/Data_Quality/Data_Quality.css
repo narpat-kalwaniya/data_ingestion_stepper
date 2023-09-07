@@ -140,3 +140,7 @@
   .divOutput span {
     margin: 5px;
   }
+
+  .groupBySelect-style {
+    height: 35px;
+  }
