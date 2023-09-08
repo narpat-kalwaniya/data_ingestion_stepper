@@ -8,6 +8,8 @@ import RegexConstraintRule from "./RegexConstraintRule";
 import RangeConstraintRule from "./RangeConstraintRule";
 import LengthConstraintRule from "./LengthConstraintRule";
 import TimelinessRule from "./TimelinessRule";
+import ReferentialIntigrityRule from "./ReferentialIntigrityRule";
+// import SourceVsTargetRule from "./SourceVsTargetRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
@@ -20,6 +22,8 @@ function ColumnRulesButtonList({ show, onHide }) {
   const [lengthConstraintShowModal, setLengthConstraintShowModal] =
     useState(false);
   const [timelinessRuleShowModal, setTimelinessRuleShowModal] = useState(false);
+  const [referIntegrityShowModal, setReferIntegrityShowModal] = useState(false);
+  const [sourceVsTargetShowModal, setSourceVsTargetShowModal] = useState(false);
 
   const completenessRuleHandleShowModal = () => {
     setcompletenessShowModal(true);
@@ -61,6 +65,21 @@ function ColumnRulesButtonList({ show, onHide }) {
     setTimelinessRuleShowModal(false);
   };
 
+  const referIntegrityHandleShowModal = () => {
+    setReferIntegrityShowModal(true);
+  };
+
+  const referIntegrityHandleCloseModal = () => {
+    setReferIntegrityShowModal(false);
+  };
+
+  const sourcevstargetHandleShowModal = () => {
+    setSourceVsTargetShowModal(true);
+  };
+
+  const sourcevstargetHandleCloseModal = () => {
+    setSourceVsTargetShowModal(false);
+  };
   return (
     <>
       <Modal
@@ -70,7 +89,9 @@ function ColumnRulesButtonList({ show, onHide }) {
           !regexConstraintShowModal &&
           !rangeConstraintShowModal &&
           !lengthConstraintShowModal &&
-          !timelinessRuleShowModal
+          !timelinessRuleShowModal &&
+          !referIntegrityShowModal
+          //  && !sourceVsTargetShowModal
         }
         onHide={onHide}
         centered
@@ -137,7 +158,12 @@ function ColumnRulesButtonList({ show, onHide }) {
 
           <Row className="columnModalHeading">
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Referential Integrity</h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => referIntegrityHandleShowModal()}
+              >
+                Referential Integrity
+              </h4>
               <p className="columnModalHeadingSubBtn"> Consistency</p>
             </Col>
             <Col className="columnModalHeadingBtn">
@@ -152,7 +178,12 @@ function ColumnRulesButtonList({ show, onHide }) {
 
           <Row className="columnModalHeading">
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Source vs Target</h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => sourcevstargetHandleShowModal()}
+              >
+                Source vs Target
+              </h4>
               <p className="columnModalHeadingSubBtn"> Accuracy</p>
             </Col>
             <Col className="columnModalHeadingBtn">
@@ -207,6 +238,20 @@ function ColumnRulesButtonList({ show, onHide }) {
           onHide={timelinessRuleHandleCloseModal}
         />
       )}
+
+      {referIntegrityShowModal && (
+        <ReferentialIntigrityRule
+          show={referIntegrityHandleShowModal}
+          onHide={referIntegrityHandleCloseModal}
+        />
+      )}
+
+      {/* {sourceVsTargetShowModal && (
+        <SourceVsTargetRule
+          show={sourceVsTargetShowModal}
+          onHide={sourcevstargetHandleCloseModal}
+        />
+      )} */}
     </>
   );
 }

@@ -36,11 +36,11 @@ function MultiRangesSlider() {
             padding: "5px 3px",
             borderStyle: "none",
           }}
-          barLeftColor="red"
+          barLeftColor="green"
           barInnerColor="	#FFFF00"
-          barRightColor="green"
-          thumbLeftColor="#fff"
-          thumbRightColor="#fff"
+          barRightColor="red"
+          thumbLeftColor="orange"
+          thumbRightColor="red"
         />
         {/* <div className="divOutput">
           <div>onInput :</div>
