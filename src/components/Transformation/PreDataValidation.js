@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import "./TransformationPipeline.css";
 import AddDetailsModal from "./AddDetailsModal";
 import { FaPlus } from "react-icons/fa";
+import ColumnRulesButtonList from "../Data_Quality/ColumnRulesButtonList";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,6 +60,7 @@ const PreDataValidation = () => {
   const [schemaName, setSchemaName] = useState([]);
   const [tables, setTables] = useState([]);
   const [queryColumns, setQueryColumns] = useState([]);
+  const [columnDetailsShowModal, setColumnDetailsShowModal] = useState(false);
 
   const toggleDatabase = (database) => {
     if (databases.includes(database)) {
@@ -123,6 +125,7 @@ const PreDataValidation = () => {
     // Call the async function to fetch data
     fetchData();
   }, []);
+  console.log("table data", table);
 
   const makeApiCall = async (url, data) => {
     try {
@@ -171,6 +174,14 @@ const PreDataValidation = () => {
 
   const handleShowModal = () => {
     setShowModal(true);
+  };
+
+  const columnDetailsHandleShowModal = () => {
+    setColumnDetailsShowModal(true);
+  };
+
+  const columnDetailshandleCloseModal = () => {
+    setColumnDetailsShowModal(false);
   };
 
   const handleToggleLeftDiv = () => {
@@ -320,7 +331,7 @@ const PreDataValidation = () => {
                           {" "}
                           <FaPlus
                             className="add"
-                            // onClick={}
+                            onClick={columnDetailsHandleShowModal}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -329,7 +340,12 @@ const PreDataValidation = () => {
                 </Table>
               </TableContainer>
             )}
-
+          {columnDetailsShowModal && (
+            <ColumnRulesButtonList
+              show={columnDetailsShowModal}
+              onHide={columnDetailshandleCloseModal}
+            />
+          )}
           <AddDetailsModal show={showModal} onHide={handleCloseModal} />
         </div>
       </div>
