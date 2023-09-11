@@ -259,7 +259,9 @@ const PreDataValidation = () => {
                                       await handleTableClick(table)
                                     }
                                   >
-                                    <span>{table}</span>
+                                    <span style={{ cursor: "pointer" }}>
+                                      {table}
+                                    </span>
                                   </li>
                                   // <li key={table}>
                                   //   <button
