@@ -119,7 +119,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="3">
                 <Form.Select className="custom-select custom-style">
                   <option value="">Select</option>
                   <option value="">1</option>
@@ -128,7 +128,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col>
+              <Col sm="1">
                 <DeleteIcon
                   className="viewBtnStyle"
                   style={{ width: "20px", height: "20px" }}
@@ -174,7 +174,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="3">
                 <Form.Select className="custom-select custom-style">
                   <option value="">Select</option>
                   <option value="">1</option>
@@ -183,7 +183,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col>
+              <Col sm="1">
                 <DeleteIcon
                   className="viewBtnStyle"
                   style={{ width: "20px", height: "20px" }}
@@ -229,7 +229,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="3">
                 <Form.Select className="custom-select custom-style  ">
                   <option value="">Select</option>
                   <option value="">1</option>
@@ -238,7 +238,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="1">
                 <DeleteIcon
                   className="viewBtnStyle"
                   style={{ width: "20px", height: "20px" }}

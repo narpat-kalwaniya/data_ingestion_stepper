@@ -9,7 +9,7 @@ import RangeConstraintRule from "./RangeConstraintRule";
 import LengthConstraintRule from "./LengthConstraintRule";
 import TimelinessRule from "./TimelinessRule";
 import ReferentialIntigrityRule from "./ReferentialIntigrityRule";
-// import SourceVsTargetRule from "./SourceVsTargetRule";
+import SourceVsTargetRule from "./SourceVsTargetRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
@@ -90,8 +90,8 @@ function ColumnRulesButtonList({ show, onHide }) {
           !rangeConstraintShowModal &&
           !lengthConstraintShowModal &&
           !timelinessRuleShowModal &&
-          !referIntegrityShowModal
-          //  && !sourceVsTargetShowModal
+          !referIntegrityShowModal &&
+          !sourceVsTargetShowModal
         }
         onHide={onHide}
         centered
@@ -246,12 +246,12 @@ function ColumnRulesButtonList({ show, onHide }) {
         />
       )}
 
-      {/* {sourceVsTargetShowModal && (
+      {sourceVsTargetShowModal && (
         <SourceVsTargetRule
           show={sourceVsTargetShowModal}
           onHide={sourcevstargetHandleCloseModal}
         />
-      )} */}
+      )}
     </>
   );
 }
