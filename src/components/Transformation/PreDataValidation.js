@@ -146,7 +146,12 @@ const PreDataValidation = () => {
       throw error;
     }
   };
-  const handleTableClick = async () => {
+
+  const handleTableClick = async (tableName) => {
+    setTables([tableName]); // Set the selected table
+    await fetchTableData(); // Fetch data for the selected table
+  };
+  const fetchTableData = async () => {
     const apiUrl =
       "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/querycolumns/";
 
@@ -213,20 +218,21 @@ const PreDataValidation = () => {
                 height: "250px",
                 overflow: "auto",
                 padding: "16px",
+                // maxWidth: "100%",
               }}
             >
               <Typography variant="h6" style={{ marginBottom: "8px" }}>
                 Table
               </Typography>
-              <ul>
+              <ul style={{ listStyle: "none", paddingInlineStart: "0" }}>
                 {table.map((db) => (
                   <li key={db.database}>
                     <button onClick={() => toggleDatabase(db.database)}>
                       {databases.includes(db.database) ? "-" : "+"}
                     </button>
-                    {db.database}
+                    <span>{db.database}</span>
                     {databases.includes(db.database) && (
-                      <ul>
+                      <ul style={{ listStyle: "none" }}>
                         {db.schemata.map((schema) => (
                           <li key={schema.schema}>
                             <button
@@ -240,23 +246,32 @@ const PreDataValidation = () => {
                                 ? "-"
                                 : "+"}
                             </button>
-                            {schema.schema}
+
+                            <span>{schema.schema}</span>
                             {schemas.includes(
                               `${db.database}-${schema.schema}`
                             ) && (
                               <ul>
                                 {schema.tables.map((table) => (
-                                  <li key={table}>
-                                    <button
-                                      onClick={async () => {
-                                        toggleTable(table); // Toggle the table selection
-                                        await handleTableClick(); // Call the handleTableClick function
-                                      }}
-                                    >
-                                      {tables.includes(table) ? "-" : "+"}
-                                    </button>
-                                    {table}
+                                  <li
+                                    key={table}
+                                    onClick={async () =>
+                                      await handleTableClick(table)
+                                    }
+                                  >
+                                    <span>{table}</span>
                                   </li>
+                                  // <li key={table}>
+                                  //   <button
+                                  //     onClick={async () => {
+                                  //       // toggleTable(table);
+                                  //       await handleTableClick(table); // Call the handleTableClick function
+                                  //     }}
+                                  //   >
+                                  //     {tables.includes(table) ? "-" : "+"}
+                                  //   </button>
+                                  //   <span>{table}</span>
+                                  // </li>
                                 ))}
                               </ul>
                             )}
