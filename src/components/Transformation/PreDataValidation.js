@@ -149,8 +149,16 @@ const PreDataValidation = () => {
 
   const handleTableClick = async (tableName) => {
     setTables([tableName]); // Set the selected table
-    await fetchTableData(); // Fetch data for the selected table
+    // await fetchTableData(); // Fetch data for the selected table
   };
+
+  useEffect(() => {
+    if (tables.length > 0) {
+      // Fetch data only if there are selected tables
+      fetchTableData();
+    }
+  }, [tables]);
+
   const fetchTableData = async () => {
     const apiUrl =
       "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/querycolumns/";
