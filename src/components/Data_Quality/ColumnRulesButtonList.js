@@ -9,8 +9,13 @@ import RangeConstraintRule from "./RangeConstraintRule";
 import LengthConstraintRule from "./LengthConstraintRule";
 import TimelinessRule from "./TimelinessRule";
 import ReferentialIntigrityRule from "./ReferentialIntigrityRule";
+
+import SqlCustom from "./SqlCustom";
+// import SourceVsTargetRule from "./SourceVsTargetRule";
+
 import SourceVsTargetRule from "./SourceVsTargetRule";
 import UniquenessRule from "./UniquenessRule";
+
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
@@ -25,7 +30,11 @@ function ColumnRulesButtonList({ show, onHide }) {
   const [timelinessRuleShowModal, setTimelinessRuleShowModal] = useState(false);
   const [referIntegrityShowModal, setReferIntegrityShowModal] = useState(false);
   const [sourceVsTargetShowModal, setSourceVsTargetShowModal] = useState(false);
+
+  const [sqlCustomShowModal, setsqlCustomShowModal] = useState(false);
+
   const [uniquenessShowModal, setUniquenessShowModal] = useState(false);
+
 
   const completenessRuleHandleShowModal = () => {
     setcompletenessShowModal(true);
@@ -75,6 +84,14 @@ function ColumnRulesButtonList({ show, onHide }) {
     setReferIntegrityShowModal(false);
   };
 
+  const sqlCustomHandleShowModal = () => {
+    setsqlCustomShowModal(true);
+  };
+
+  const sqlCustomHandleCloseModal = () => {
+    setsqlCustomShowModal(false);
+  };
+
   const sourcevstargetHandleShowModal = () => {
     setSourceVsTargetShowModal(true);
   };
@@ -100,6 +117,7 @@ function ColumnRulesButtonList({ show, onHide }) {
           !regexConstraintShowModal &&
           !rangeConstraintShowModal &&
           !lengthConstraintShowModal &&
+          !sqlCustomShowModal &&
           !timelinessRuleShowModal &&
           !referIntegrityShowModal &&
           !sourceVsTargetShowModal &&
@@ -184,7 +202,12 @@ function ColumnRulesButtonList({ show, onHide }) {
               <p className="columnModalHeadingSubBtn"> Consistency</p>
             </Col>
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">SQL Custom </h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => sqlCustomHandleShowModal()}
+              >
+                SQL Custom{" "}
+              </h4>
               <p className="columnModalHeadingSubBtn"> Consistency</p>
             </Col>
             <Col className="columnModalHeadingBtn">
@@ -263,7 +286,18 @@ function ColumnRulesButtonList({ show, onHide }) {
         />
       )}
 
+
+      {sqlCustomShowModal && (
+        <SqlCustom
+          show={sqlCustomHandleShowModal}
+          onHide={sqlCustomHandleCloseModal}
+        />
+      )}
+
+      {/* {sourceVsTargetShowModal && (
+
       {sourceVsTargetShowModal && (
+
         <SourceVsTargetRule
           show={sourceVsTargetShowModal}
           onHide={sourcevstargetHandleCloseModal}
