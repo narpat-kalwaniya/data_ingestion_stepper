@@ -10,6 +10,7 @@ import LengthConstraintRule from "./LengthConstraintRule";
 import TimelinessRule from "./TimelinessRule";
 import ReferentialIntigrityRule from "./ReferentialIntigrityRule";
 import SourceVsTargetRule from "./SourceVsTargetRule";
+import UniquenessRule from "./UniquenessRule";
 
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
@@ -24,6 +25,7 @@ function ColumnRulesButtonList({ show, onHide }) {
   const [timelinessRuleShowModal, setTimelinessRuleShowModal] = useState(false);
   const [referIntegrityShowModal, setReferIntegrityShowModal] = useState(false);
   const [sourceVsTargetShowModal, setSourceVsTargetShowModal] = useState(false);
+  const [uniquenessShowModal, setUniquenessShowModal] = useState(false);
 
   const completenessRuleHandleShowModal = () => {
     setcompletenessShowModal(true);
@@ -80,6 +82,15 @@ function ColumnRulesButtonList({ show, onHide }) {
   const sourcevstargetHandleCloseModal = () => {
     setSourceVsTargetShowModal(false);
   };
+
+  const uniquenessHandlerShowModal = () => {
+    setUniquenessShowModal(true);
+  };
+
+  const uniquenessHandlerCloseModal = () => {
+    setUniquenessShowModal(false);
+  };
+
   return (
     <>
       <Modal
@@ -91,7 +102,8 @@ function ColumnRulesButtonList({ show, onHide }) {
           !lengthConstraintShowModal &&
           !timelinessRuleShowModal &&
           !referIntegrityShowModal &&
-          !sourceVsTargetShowModal
+          !sourceVsTargetShowModal &&
+          !uniquenessShowModal
         }
         onHide={onHide}
         centered
@@ -142,7 +154,12 @@ function ColumnRulesButtonList({ show, onHide }) {
               <p className="columnModalHeadingSubBtn"> Validity</p>
             </Col>
             <Col className="columnModalHeadingBtn">
-              <h4 className="columnModalHeadingBtn1">Uniqueness</h4>
+              <h4
+                className="columnModalHeadingBtn1"
+                onClick={() => uniquenessHandlerShowModal()}
+              >
+                Uniqueness
+              </h4>
               <p className="columnModalHeadingSubBtn"> Uniqueness</p>
             </Col>
             <Col className="columnModalHeadingBtn">
@@ -250,6 +267,13 @@ function ColumnRulesButtonList({ show, onHide }) {
         <SourceVsTargetRule
           show={sourceVsTargetShowModal}
           onHide={sourcevstargetHandleCloseModal}
+        />
+      )}
+
+      {uniquenessShowModal && (
+        <UniquenessRule
+          show={uniquenessHandlerShowModal}
+          onHide={uniquenessHandlerCloseModal}
         />
       )}
     </>

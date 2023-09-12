@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Row, Col, Modal, Button } from "react-bootstrap";
 import "./Data_Quality.css";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MultiRangesSlider from "./MultiRangesSlider";
 
 function SourceVsTargetRule({ show, onHide }) {
   return (
@@ -247,7 +248,15 @@ function SourceVsTargetRule({ show, onHide }) {
             </Row>
           </div>
 
-          <Row className="mb-2" style={{ marginTop: "8px" }}>
+          <Row className="mb-2" style={{ marginTop: "26px" }}>
+            <div className="column_rule_table_style">
+              <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
+
+              <MultiRangesSlider />
+            </div>
+          </Row>
+
+          <Row className="mb-2">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> DQ Dimension</Form.Label>
 
