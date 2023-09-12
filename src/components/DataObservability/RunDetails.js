@@ -3,6 +3,8 @@ import { Tabs, Tab, Container, Card, Row } from "react-bootstrap";
 import "../../styles/main.css";
 import Overview from "./Overview";
 import { mycontext } from "./DataObservability";
+import { BiListCheck, BiBarChart, BiBell, BiGrid } from "react-icons/bi";
+import { AiOutlineFileText } from "react-icons/ai";
 
 const RunDetails = (props) => {
   // Set the default active tab
@@ -22,19 +24,48 @@ const RunDetails = (props) => {
     updatedSteps[2] = tab;
     setSteps(updatedSteps);
   };
+  console.log(activeTab);
   return (
     <Row style={{ marginLeft: "0px", marginRight: "10px" }}>
       <Tabs activeKey={activeTab} onSelect={handleTabChange} className="mb-3">
-        <Tab eventKey="Overview" title="Overview">
+        <Tab
+          eventKey="Overview"
+          title={
+            <>
+              <BiGrid /> Overview
+            </>
+          }
+        >
           {/* Content for Tab 1 */}
         </Tab>
-        <Tab eventKey="Logs" title="Logs">
+        <Tab
+          eventKey="Logs"
+          title={
+            <>
+              <AiOutlineFileText /> Logs
+            </>
+          }
+        >
           {/* Content for Tab 2 */}
         </Tab>
-        <Tab eventKey="Metrics" title="Metrics">
+        <Tab
+          eventKey="Metrics"
+          title={
+            <>
+              <BiBarChart /> Metrics
+            </>
+          }
+        >
           {/* Content for Tab 3 */}
         </Tab>
-        <Tab eventKey="Alerts" title="Alerts">
+        <Tab
+          eventKey="Alerts"
+          title={
+            <>
+              <BiBell /> Alerts
+            </>
+          }
+        >
           {/* Content for Tab 4 */}
         </Tab>
       </Tabs>
