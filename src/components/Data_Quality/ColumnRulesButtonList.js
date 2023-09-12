@@ -16,7 +16,6 @@ import SqlCustom from "./SqlCustom";
 import SourceVsTargetRule from "./SourceVsTargetRule";
 import UniquenessRule from "./UniquenessRule";
 
-
 function ColumnRulesButtonList({ show, onHide }) {
   const navigateRouter = useNavigate();
 
@@ -34,7 +33,6 @@ function ColumnRulesButtonList({ show, onHide }) {
   const [sqlCustomShowModal, setsqlCustomShowModal] = useState(false);
 
   const [uniquenessShowModal, setUniquenessShowModal] = useState(false);
-
 
   const completenessRuleHandleShowModal = () => {
     setcompletenessShowModal(true);
@@ -286,7 +284,6 @@ function ColumnRulesButtonList({ show, onHide }) {
         />
       )}
 
-
       {sqlCustomShowModal && (
         <SqlCustom
           show={sqlCustomHandleShowModal}
@@ -294,10 +291,7 @@ function ColumnRulesButtonList({ show, onHide }) {
         />
       )}
 
-      {/* {sourceVsTargetShowModal && (
-
       {sourceVsTargetShowModal && (
-
         <SourceVsTargetRule
           show={sourceVsTargetShowModal}
           onHide={sourcevstargetHandleCloseModal}
