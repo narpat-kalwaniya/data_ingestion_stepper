@@ -14,7 +14,7 @@ const DataObservability = () => {
   const [isDetails, setIsDetails] = useState(false);
   const [steps, setSteps] = useState([]);
   const [isRowClicked, setIsRowClicked] = useState(false);
-  const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState("Overview");
 
   const headers = [
     "Pipeline ID",
@@ -68,11 +68,14 @@ const DataObservability = () => {
 
   return (
     <Col style={{ marginLeft: "20px" }}>
-      <Row>
-        <Col>
-          <SearchBarsRow />
-        </Col>
-      </Row>
+      {!isDetails ? (
+        <Row>
+          <Col>
+            <SearchBarsRow />
+          </Col>
+        </Row>
+      ) : null}
+
       {/* <div style={{ position: "relative", width: "100px" }}>
         <Row>
           <ButtonGroup className="navigation-buttons">
