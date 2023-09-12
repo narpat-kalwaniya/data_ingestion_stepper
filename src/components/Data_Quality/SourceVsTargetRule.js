@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Row, Col, Modal, Button } from "react-bootstrap";
 import "./Data_Quality.css";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MultiRangesSlider from "./MultiRangesSlider";
 
 function SourceVsTargetRule({ show, onHide }) {
   return (
@@ -119,7 +120,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="3">
                 <Form.Select className="custom-select custom-style">
                   <option value="">Select</option>
                   <option value="">1</option>
@@ -128,7 +129,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col>
+              <Col sm="1">
                 <DeleteIcon
                   className="viewBtnStyle"
                   style={{ width: "20px", height: "20px" }}
@@ -174,7 +175,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="3">
                 <Form.Select className="custom-select custom-style">
                   <option value="">Select</option>
                   <option value="">1</option>
@@ -183,7 +184,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col>
+              <Col sm="1">
                 <DeleteIcon
                   className="viewBtnStyle"
                   style={{ width: "20px", height: "20px" }}
@@ -229,7 +230,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="3">
                 <Form.Select className="custom-select custom-style  ">
                   <option value="">Select</option>
                   <option value="">1</option>
@@ -238,7 +239,7 @@ function SourceVsTargetRule({ show, onHide }) {
                 </Form.Select>{" "}
               </Col>
 
-              <Col sm="2">
+              <Col sm="1">
                 <DeleteIcon
                   className="viewBtnStyle"
                   style={{ width: "20px", height: "20px" }}
@@ -247,7 +248,15 @@ function SourceVsTargetRule({ show, onHide }) {
             </Row>
           </div>
 
-          <Row className="mb-2" style={{ marginTop: "8px" }}>
+          <Row className="mb-2" style={{ marginTop: "26px" }}>
+            <div className="column_rule_table_style">
+              <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
+
+              <MultiRangesSlider />
+            </div>
+          </Row>
+
+          <Row className="mb-2">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}> DQ Dimension</Form.Label>
 

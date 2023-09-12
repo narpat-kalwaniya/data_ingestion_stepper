@@ -1,12 +1,24 @@
 import React, { useState, useContext } from "react";
-import { Table } from "react-bootstrap";
+import { Row, Tab, Table, Tabs } from "react-bootstrap";
 import RunDetails from "./RunDetails";
 import { mycontext } from "./DataObservability";
+import { BiListCheck, BiBarChart, BiBell } from "react-icons/bi";
+import { AiOutlineFileText } from "react-icons/ai";
 
 const Runs = (props) => {
   const { steps, setSteps, isRowClicked, setIsRowClicked } =
     useContext(mycontext);
-  const headers = ["header-1", "header-2", "header-3", "header-4"];
+  const [activeTab, setActiveTab] = useState("Run List");
+  const headers = [
+    "Run ID",
+    "Pipeline ID",
+    "Pipeline Type",
+    "Name",
+    "Input",
+    "Scheduling Status",
+    "Execution Status",
+    "Execution DateTime",
+  ];
   const dummyData = [
     {
       id: 1,
@@ -30,6 +42,13 @@ const Runs = (props) => {
     updatedSteps[1] = row.header1;
     setSteps(updatedSteps);
   };
+  const handleTabChange = (tab) => {
+    // console.log(steps);
+    setActiveTab(tab);
+    // const updatedSteps = [...steps];
+    // updatedSteps[2] = tab;
+    // setSteps(updatedSteps);
+  };
   // const steps = useContext(mycontext).steps;
   // const setSteps = useContext(mycontext).setSteps;
   console.log(steps);
@@ -38,32 +57,89 @@ const Runs = (props) => {
       {isRowClicked ? (
         <RunDetails />
       ) : (
-        <Table hover responsive>
-          <thead
-            style={{
-              backgroundColor: "#F3F3F3",
-              fontSize: "12px",
-              height: "30px",
-              alignItems: "center",
-            }}
+        <Row style={{ marginLeft: "0px", marginRight: "10px" }}>
+          <Tabs
+            activeKey={activeTab}
+            onSelect={handleTabChange}
+            className="mb-3"
           >
-            <tr>
-              {headers.map((name, index) => (
-                <th key={index}>{name}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {dummyData.map((row) => (
-              <tr key={row.id} onClick={() => rowclickHandler(row)}>
-                <td>{row.header1}</td>
-                <td>{row.header2}</td>
-                <td>{row.header3}</td>
-                <td>{row.header4}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+            <Tab
+              eventKey="Run List"
+              title={
+                <>
+                  <BiListCheck /> Run List
+                </>
+              }
+            >
+              {/* Content for Tab 1 */}
+            </Tab>
+            <Tab
+              eventKey="Logs"
+              title={
+                <>
+                  <AiOutlineFileText /> Logs
+                </>
+              }
+            >
+              {/* Content for Tab 2 */}
+            </Tab>
+            <Tab
+              eventKey="Metrics"
+              title={
+                <>
+                  <BiBarChart /> Metrics
+                </>
+              }
+            >
+              {/* Content for Tab 3 */}
+            </Tab>
+            <Tab
+              eventKey="Alerts"
+              title={
+                <>
+                  <BiBell /> Alerts
+                </>
+              }
+            >
+              {/* Content for Tab 4 */}
+            </Tab>
+          </Tabs>
+
+          <div className="content-container">
+            {/* Content based on activeTab */}
+            {activeTab === "Run List" && (
+              <Table hover responsive>
+                <thead
+                  style={{
+                    backgroundColor: "#F3F3F3",
+                    fontSize: "12px",
+                    height: "30px",
+                    alignItems: "center",
+                  }}
+                >
+                  <tr>
+                    {headers.map((name, index) => (
+                      <th key={index}>{name}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {dummyData.map((row) => (
+                    <tr key={row.id} onClick={() => rowclickHandler(row)}>
+                      <td>{row.header1}</td>
+                      <td>{row.header2}</td>
+                      <td>{row.header3}</td>
+                      <td>{row.header4}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            )}
+            {activeTab === "Logs" && <div>Content for Tab 2</div>}
+            {activeTab === "Metrics" && <div>Content for Tab 3</div>}
+            {activeTab === "Alerts" && <div>Content for Tab 4</div>}
+          </div>
+        </Row>
       )}
     </div>
   );
