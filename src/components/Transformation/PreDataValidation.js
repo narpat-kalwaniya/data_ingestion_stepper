@@ -342,6 +342,9 @@ const PreDataValidation = () => {
                       <StyledTableCell align="center">
                         Data Type
                       </StyledTableCell>
+                      <StyledTableCell align="center">
+                        Rule Name
+                      </StyledTableCell>
                       <StyledTableCell align="center"></StyledTableCell>
                     </TableRow>
                   </TableHead>
@@ -352,12 +355,13 @@ const PreDataValidation = () => {
                           {row.column_name}
                         </StyledTableCell>
                         <StyledTableCell>{row.data_type} </StyledTableCell>
+                        <StyledTableCell>{row.rule_names} </StyledTableCell>
                         <StyledTableCell align="center">
-                          {" "}
                           <FaPlus
                             className="add"
                             onClick={columnDetailsHandleShowModal}
                           />
+                          {"Add Rules "}
                         </StyledTableCell>
                       </StyledTableRow>
                     ))}

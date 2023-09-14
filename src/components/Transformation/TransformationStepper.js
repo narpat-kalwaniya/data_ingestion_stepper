@@ -212,7 +212,9 @@ function TransformationStepper() {
               <>
                 <span className=" back-text-style">Table Rules </span>
                 <span className=" back-text-style">Profiling</span>
-                <span className=" back-text-style">Column Rules</span>
+                <span className=" back-text-style" onClick={sliderHandler}>
+                  Column Rules
+                </span>
               </>
             ) : (
               <></>
