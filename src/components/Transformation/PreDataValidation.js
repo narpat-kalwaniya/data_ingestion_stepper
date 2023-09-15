@@ -208,6 +208,8 @@ const PreDataValidation = () => {
           transition: "flex 0.3s ease-in-out",
           borderRight: "1px solid #ccc",
           position: "relative",
+          whiteSpace: "nowrap",
+          width: "250px",
         }}
       >
         {!leftDivCollapsed && (
