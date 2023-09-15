@@ -64,8 +64,10 @@ function ReferentialIntigrityRule({ show, onHide }) {
 
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "50%" }}> Alert Threshold</Form.Label>
-              <MultiRangesSlider />
+              <Form.Label style={{ width: "33%" }}> Alert Threshold</Form.Label>
+              <Col>
+                <MultiRangesSlider />{" "}
+              </Col>
             </div>
           </Row>
 

@@ -11,12 +11,7 @@ function MultiRangesSlider() {
 
   return (
     <div>
-      {/* {minValue > 70 && minValue < 90 ? "critical" : ""}
-      {maxValue > 90 && minValue < 70 ? "warning" : ""} */}
-      <div
-        className="multi-range-slider-container"
-        style={{ border: "none", width: "520px" }}
-      >
+      <div className="multi-range-slider-container" style={{ border: "none" }}>
         <MultiRangeSlider
           min={0}
           max={100}
