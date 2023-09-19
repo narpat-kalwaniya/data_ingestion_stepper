@@ -201,11 +201,13 @@ function TransformationStepper() {
         <Row className="m-2">
           <div
             className="back-button back-button-style"
-            onClick={createNewPipelineHandler}
+            // onClick={createNewPipelineHandler}
           >
             <div className="back-icon">
               <FiArrowLeft />
-              <span className="back-text">New Query</span>
+              <span onClick={createNewPipelineHandler} className="back-text">
+                New Query
+              </span>
             </div>
 
             {step === 2 ? (
@@ -213,8 +215,16 @@ function TransformationStepper() {
                 <span className=" back-text-style">Table Rules </span>
                 <span className=" back-text-style">Profiling</span>
                 <span className=" back-text-style" onClick={sliderHandler}>
-                  Column Rules
+                  Configured Rules
                 </span>
+                {sliderOpen && (
+                  <QueryDetailsSlider
+                    anchor={sliderOpen}
+                    onClose={() => {
+                      setsliderOpen(null);
+                    }}
+                  />
+                )}
               </>
             ) : (
               <></>
