@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "react-bootstrap";
@@ -16,6 +16,7 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import "./TransformationPipeline.css";
+import Typography from "@mui/material/Typography";
 
 import "ace-builds/src-noconflict/theme-xcode";
 
@@ -25,6 +26,13 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [queryResult, setQueryResult] = useState("");
   const [displayContent, setDisplayContent] = useState("result");
+
+  const [table, setTable] = useState([]);
+  const [databases, setDatabases] = useState([]);
+  const [schemas, setSchemas] = useState([]);
+  const [schemaName, setSchemaName] = useState([]);
+  const [tables, setTables] = useState([]);
+  const [queryColumns, setQueryColumns] = useState([]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -175,6 +183,76 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
     );
   };
 
+  const toggleDatabase = (database) => {
+    if (databases.includes(database)) {
+      setDatabases(databases.filter((db) => db !== database));
+    } else {
+      setDatabases([...databases, database]);
+    }
+  };
+
+  const toggleSchema = (database, schema) => {
+    setSchemaName([schema]);
+    const databaseKey = `${database}-${schema}`;
+    if (schemas.includes(databaseKey)) {
+      setSchemas(schemas.filter((sch) => sch !== databaseKey));
+    } else {
+      setSchemas([...schemas, databaseKey]);
+    }
+  };
+
+  const handleTableClick = async (tableName) => {
+    setTables([tableName]); // Set the selected table
+    // await fetchTableData(); // Fetch data for the selected table
+  };
+
+  useEffect(() => {
+    if (tables.length > 0) {
+      // Fetch data only if there are selected tables
+      fetchTableData();
+    }
+  }, [tables]);
+
+  const fetchTableData = async () => {
+    const apiUrl =
+      "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/querycolumns/";
+
+    const requestData = {
+      database: databases[0],
+      schema: schemaName[0],
+      table: tables[0],
+      query: null,
+    };
+
+    try {
+      const response = await makeApiCall(apiUrl, requestData);
+      console.log("resonse", JSON.stringify(response));
+      setQueryColumns(response);
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+    console.log("Table selected ");
+  };
+
+  useEffect(() => {
+    // Define an async function to fetch data
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-197-121-247.compute-1.amazonaws.com:8000/sfwmetadata/"
+        );
+        const data = await response.json();
+        setTable(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Call the async function to fetch data
+    fetchData();
+  }, []);
+  console.log("table data", table);
+
   return (
     <div
       className={` file-uploader-container ${
@@ -219,6 +297,68 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
             <a className="file-input-link" onClick={handleUploadButtonClick}>
               Browse or Drag and Drop your file
             </a>
+            <div style={{ height: "250px", width: "100%", overflowX: "auto" }}>
+              <div style={{ padding: "16px", minWidth: "100%" }}>
+                <Typography variant="h6" style={{ marginBottom: "8px" }}>
+                  Table
+                </Typography>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    paddingInlineStart: "0",
+                    whiteSpace: "nowrap",
+                    overflowX: "auto",
+                  }}
+                >
+                  {table.map((db) => (
+                    <li key={db.database}>
+                      <button onClick={() => toggleDatabase(db.database)}>
+                        {databases.includes(db.database) ? "-" : "+"}
+                      </button>
+                      <span>{db.database}</span>
+                      {databases.includes(db.database) && (
+                        <ul style={{ listStyle: "none" }}>
+                          {db.schemata.map((schema) => (
+                            <li key={schema.schema}>
+                              <button
+                                onClick={() =>
+                                  toggleSchema(db.database, schema.schema)
+                                }
+                              >
+                                {schemas.includes(
+                                  `${db.database}-${schema.schema}`
+                                )
+                                  ? "-"
+                                  : "+"}
+                              </button>
+                              <span>{schema.schema}</span>
+                              {schemas.includes(
+                                `${db.database}-${schema.schema}`
+                              ) && (
+                                <ul>
+                                  {schema.tables.map((table) => (
+                                    <li
+                                      key={table}
+                                      onClick={async () =>
+                                        await handleTableClick(table)
+                                      }
+                                    >
+                                      <span style={{ cursor: "pointer" }}>
+                                        {table}
+                                      </span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </Col>
         <Col md={10} className="EnterQueryBox">
