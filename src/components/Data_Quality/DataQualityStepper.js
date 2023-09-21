@@ -71,7 +71,6 @@ function DataQualityStepper() {
                         minHeight: "72vh",
                         maxHeight: "67vh",
                         overflowY: "scroll",
-                        padding: "0px",
                       }}
                       className="overflow-auto py-0"
                     >
