@@ -5,6 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import "./ValidateQuery.css";
 import SaveDetailsModal from "./SaveDetailsModal";
 import AceEditor from "react-ace";
+import CustomTable from "./CustomTable";
 import {
   Table,
   TableBody,
@@ -20,7 +21,7 @@ import Typography from "@mui/material/Typography";
 
 import "ace-builds/src-noconflict/theme-xcode";
 
-const ValidateQuery = ({ connectionName, applicationName }) => {
+const ValidateQuery = ({ connectionName, applicationName, variableGroup }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileContent, setSelectedFileContent] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -33,6 +34,7 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
   const [schemaName, setSchemaName] = useState([]);
   const [tables, setTables] = useState([]);
   const [queryColumns, setQueryColumns] = useState([]);
+  const [showCustomTableModal, setShowCustomTableModal] = useState(false);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -108,7 +110,7 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
       query_name: "GroupedQueries",
       material_type: "View",
       dependent_query_name: null,
-      variable_group_name: null,
+      variable_group_name: variableGroup,
     };
 
     try {
@@ -201,9 +203,14 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
     }
   };
 
+  const handleCloseCustomTableModal = () => {
+    setShowCustomTableModal(false);
+  };
+
   const handleTableClick = async (tableName) => {
     setTables([tableName]); // Set the selected table
     // await fetchTableData(); // Fetch data for the selected table
+    setShowCustomTableModal(true);
   };
 
   useEffect(() => {
@@ -297,67 +304,67 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
             <a className="file-input-link" onClick={handleUploadButtonClick}>
               Browse or Drag and Drop your file
             </a>
-            <div style={{ height: "250px", width: "100%", overflowX: "auto" }}>
-              <div style={{ padding: "16px", minWidth: "100%" }}>
-                <Typography variant="h6" style={{ marginBottom: "8px" }}>
-                  Table
-                </Typography>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    paddingInlineStart: "0",
-                    whiteSpace: "nowrap",
-                    overflowX: "auto",
-                  }}
-                >
-                  {table.map((db) => (
-                    <li key={db.database}>
-                      <button onClick={() => toggleDatabase(db.database)}>
-                        {databases.includes(db.database) ? "-" : "+"}
-                      </button>
-                      <span>{db.database}</span>
-                      {databases.includes(db.database) && (
-                        <ul style={{ listStyle: "none" }}>
-                          {db.schemata.map((schema) => (
-                            <li key={schema.schema}>
-                              <button
-                                onClick={() =>
-                                  toggleSchema(db.database, schema.schema)
-                                }
-                              >
-                                {schemas.includes(
-                                  `${db.database}-${schema.schema}`
-                                )
-                                  ? "-"
-                                  : "+"}
-                              </button>
-                              <span>{schema.schema}</span>
+          </div>
+          <div style={{ height: "250px", width: "100%", overflowX: "auto" }}>
+            <div style={{ padding: "16px", minWidth: "100%" }}>
+              <Typography variant="h6" style={{ marginBottom: "8px" }}>
+                Table
+              </Typography>
+              <ul
+                style={{
+                  listStyle: "none",
+                  paddingInlineStart: "0",
+                  whiteSpace: "nowrap",
+                  overflowX: "auto",
+                }}
+              >
+                {table.map((db) => (
+                  <li key={db.database}>
+                    <button onClick={() => toggleDatabase(db.database)}>
+                      {databases.includes(db.database) ? "-" : "+"}
+                    </button>
+                    <span>{db.database}</span>
+                    {databases.includes(db.database) && (
+                      <ul style={{ listStyle: "none" }}>
+                        {db.schemata.map((schema) => (
+                          <li key={schema.schema}>
+                            <button
+                              onClick={() =>
+                                toggleSchema(db.database, schema.schema)
+                              }
+                            >
                               {schemas.includes(
                                 `${db.database}-${schema.schema}`
-                              ) && (
-                                <ul>
-                                  {schema.tables.map((table) => (
-                                    <li
-                                      key={table}
-                                      onClick={async () =>
-                                        await handleTableClick(table)
-                                      }
-                                    >
-                                      <span style={{ cursor: "pointer" }}>
-                                        {table}
-                                      </span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                              )
+                                ? "-"
+                                : "+"}
+                            </button>
+                            <span>{schema.schema}</span>
+                            {schemas.includes(
+                              `${db.database}-${schema.schema}`
+                            ) && (
+                              <ul>
+                                {schema.tables.map((table) => (
+                                  <li
+                                    key={table}
+                                    onClick={async () =>
+                                      await handleTableClick(table)
+                                    }
+                                  >
+                                    <span style={{ cursor: "pointer" }}>
+                                      {table}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </Col>
@@ -458,8 +465,17 @@ const ValidateQuery = ({ connectionName, applicationName }) => {
               <p>No message available</p>
             )}
           </div>
+          {showCustomTableModal && (
+            <CustomTable
+              queryColumns={queryColumns} // Pass your data to the CustomTable component
+              // columnDetailsHandleShowModal={handleShowModal}
+              showModal={showCustomTableModal}
+              handleCloseModal={handleCloseCustomTableModal}
+            />
+          )}
         </Col>
       </Row>
+
       <SaveDetailsModal show={showModal} onHide={handleCloseModal} />
     </div>
   );
