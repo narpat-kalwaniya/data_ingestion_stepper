@@ -12,7 +12,7 @@
 
 .vertical-box {
   width: 65%;
-  height: 440px; /* Set your desired fixed height */
+  height: 192px; /* Set your desired fixed height */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -62,7 +62,7 @@
   margin-bottom: auto; /* Push the link to the center vertically */
   display: inline-block;
   position: fixed;
-  bottom: 35px;
+  bottom: 285px;
   width: 175px;
 }
 .file-input-link:hover {
