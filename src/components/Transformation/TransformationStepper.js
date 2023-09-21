@@ -14,21 +14,22 @@ function TransformationStepper() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [sliderOpen, setsliderOpen] = useState(null);
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [variableGroup, setVariableGroup] = useState(null);
   const [connections, setConnections] = useState([]);
   const [applications, setApplications] = useState([]);
   const [connectionName, setConnectionsName] = useState([]);
   const [applicationName, setApplicationName] = useState([]);
+  const [options, setOptions] = useState([]);
 
-  const options = [
-    { id: 1, label: "Option 1" },
-    { id: 2, label: "Option 2" },
-    { id: 3, label: "Option 3" },
-    { id: 4, label: "Option 4" },
-  ];
+  // const options = [
+  //   { id: 1, label: "Option 1" },
+  //   { id: 2, label: "Option 2" },
+  //   { id: 3, label: "Option 3" },
+  //   { id: 4, label: "Option 4" },
+  // ];
 
   const handleSelect = (option) => {
-    setSelectedValue(option);
+    setVariableGroup(option);
   };
 
   const createNewPipelineHandler = () => {
@@ -58,18 +59,6 @@ function TransformationStepper() {
       ...data,
     }));
   };
-
-  const handleSelection = (event) => {
-    const selectedConnectionName = event.target.value;
-
-    const selectedConnection = connections.find(
-      (connection) => connection.connection_name === selectedConnectionName
-    );
-    const selectedConnectionId = selectedConnection
-      ? selectedConnection.connection_id
-      : null;
-  };
-
   const handleTargetSelection = (event) => {
     const selectedConnectionName = event.target.value;
     setConnectionsName(selectedConnectionName);
@@ -119,8 +108,23 @@ function TransformationStepper() {
       }
     };
 
+    const fetchVariableGroup = async () => {
+      try {
+        const response = await fetch(`${Backend_url}/vargroupdetails/`);
+        const data = await response.json();
+        const optionData = data.map((item) => ({
+          id: item.variable_group_id,
+          label: item.variable_group_name,
+        }));
+        setOptions(optionData);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      }
+    };
+
     fetchConnections();
     fetchApplications();
+    fetchVariableGroup();
   }, []);
 
   return (
@@ -308,6 +312,7 @@ function TransformationStepper() {
                         updateFormData={updateFormData}
                         connectionName={connectionName}
                         applicationName={applicationName}
+                        variableGroup={variableGroup}
                       />
                     </Card.Body>
                   </Container>

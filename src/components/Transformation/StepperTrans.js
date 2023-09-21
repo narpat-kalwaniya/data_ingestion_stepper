@@ -10,6 +10,7 @@ const StepperTrans = ({
   updateFormData,
   applicationName,
   connectionName,
+  variableGroup,
 }) => {
   return (
     <div>
@@ -20,6 +21,7 @@ const StepperTrans = ({
           updateFormData={updateFormData}
           applicationName={applicationName}
           connectionName={connectionName}
+          variableGroup={variableGroup}
         />
       ) : step === 2 ? (
         <PreDataValidation
