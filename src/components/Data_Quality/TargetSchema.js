@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Table, Form, ProgressBar } from "react-bootstrap";
-
 import AceEditor from "react-ace";
 import { Add } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,7 +15,43 @@ import "ace-builds/src-noconflict/theme-github";
 
 const headers = ["Column Name", "Source Data Type", "Transformation Logic"];
 
+const tableItemDetails = [
+  {
+    id: 1,
+    Column_Name: "",
+    Source_Data_Type: "",
+    Transformation_Logic: "",
+  },
+];
+
 const TargetSchema = () => {
+  const [parentChecked, setParentChecked] = useState(false);
+  const [childCheckboxes, setChildCheckboxes] = useState(tableItemDetails);
+
+  useEffect(() => {
+    const allChecked = childCheckboxes.every((checkbox) => checkbox.checked);
+    setParentChecked(allChecked);
+  }, [childCheckboxes]);
+
+  const handleParentCheckboxChange = () => {
+    const newParentChecked = !parentChecked;
+    setParentChecked(newParentChecked);
+    const updatedChildCheckboxes = childCheckboxes.map((checkbox) => ({
+      ...checkbox,
+      checked: newParentChecked,
+    }));
+    setChildCheckboxes(updatedChildCheckboxes);
+  };
+
+  const handleChildCheckboxChange = (childId) => {
+    const updatedChildCheckboxes = childCheckboxes.map((checkbox) =>
+      checkbox.id === childId
+        ? { ...checkbox, checked: !checkbox.checked }
+        : checkbox
+    );
+    setChildCheckboxes(updatedChildCheckboxes);
+  };
+
   return (
     <>
       {/* <div
@@ -53,7 +88,11 @@ const TargetSchema = () => {
           }}
         >
           <tr>
-            <Form.Check type="checkbox" checked="" />
+            <Form.Check
+              type="checkbox"
+              checked={parentChecked}
+              onChange={handleParentCheckboxChange}
+            />
             {headers.map((name, index) => (
               <th key={index}>{name}</th>
             ))}
@@ -74,44 +113,52 @@ const TargetSchema = () => {
               + Add Column
             </span>
           </td>
-          <tr
-            style={{
-              height: "20px",
-            }}
-          >
-            <td>
-              <Form.Check type="checkbox" checked="" />
-            </td>
-            <td> </td>
-            <td>
-              <Form.Control
-                type="text"
-                className="custom-select custom-style"
-              />
-            </td>
+          {childCheckboxes.map((checkbox) => (
+            <tr
+              key={checkbox.id}
+              style={{
+                height: "20px",
+              }}
+            >
+              <td>
+                <Form.Check
+                  type="checkbox"
+                  checked={checkbox.checked}
+                  onChange={() => handleChildCheckboxChange(checkbox.id)}
+                />
+              </td>
+              <td> {checkbox.Column_Name} </td>
+              <td>
+                <Form.Control
+                  value={checkbox.Source_Data_Type}
+                  type="text"
+                  className="custom-select custom-style"
+                />
+              </td>
 
-            <td style={{ width: "150px" }}>
-              <AceEditor
-                mode="sql" // Set the syntax highlighting mode to SQL
-                theme="xcode" // Set the editor theme (e.g., 'github', 'monokai', 'dracula', etc.)
-                // name={`query-${row.id}`}
-                value=""
-                width="100%"
-                height="50px"
-                showPrintMargin={false}
-                showGutter={false}
-                cursorStart={5}
-                // highlightActiveLine={true}
-                editorProps={{ $blockScrolling: true }}
-              />
-            </td>
-            <td>
-              <button className="delete-btn">
-                <i className="bi bi-x-lg text-danger"></i>{" "}
-                {/* bi-x-lg is the class for the larger "x" icon */}
-              </button>
-            </td>
-          </tr>
+              <td style={{ width: "150px" }}>
+                <AceEditor
+                  mode="sql" // Set the syntax highlighting mode to SQL
+                  theme="xcode" // Set the editor theme (e.g., 'github', 'monokai', 'dracula', etc.)
+                  // name={`query-${row.id}`}
+                  value={checkbox.Transformation_Logic}
+                  width="100%"
+                  height="50px"
+                  showPrintMargin={false}
+                  showGutter={false}
+                  cursorStart={5}
+                  // highlightActiveLine={true}
+                  editorProps={{ $blockScrolling: true }}
+                />
+              </td>
+              <td>
+                <button className="delete-btn">
+                  <i className="bi bi-x-lg text-danger"></i>{" "}
+                  {/* bi-x-lg is the class for the larger "x" icon */}
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>

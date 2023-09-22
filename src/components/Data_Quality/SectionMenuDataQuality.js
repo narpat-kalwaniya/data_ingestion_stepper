@@ -13,7 +13,7 @@ import "../Migration/AppMig.css";
 
 const sections = [
   "Data Connection",
-  "Source Entity",
+  // "Source Entity",
   "Target Schema",
   "Configure Rules",
 ];
@@ -45,7 +45,7 @@ const SectionMenuDataQuality = (props) => {
                   className="d-flex align-items-center"
                   // style={{ position: "relative" }}
                 >
-                  {index > 0 && index < 3 && (
+                  {index > 0 && index < 2 && (
                     <div
                       className="mig-vertical-line"
                       style={{

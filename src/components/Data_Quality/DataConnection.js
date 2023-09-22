@@ -16,9 +16,30 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-xcode";
 import "../CreateDataConnection.css";
 import "../../styles/main.css";
+import DataSourceConnectionModal from "./DataSourceConnectionModal";
+import ApplicationModal from "./ApplicationModal";
 
 const DataConnection = () => {
   const [dataSourceType, setDataSourceType] = useState("");
+  const [dataSourceConnectionModal, setdataSourceConnectionModal] =
+    useState(false);
+  const [applicationModal, setApplicationModal] = useState(false);
+
+  const dataSourceConnectionShowModal = () => {
+    setdataSourceConnectionModal(true);
+  };
+
+  const dataSourceConnectionCloseModal = () => {
+    setdataSourceConnectionModal(false);
+  };
+
+  const applicationShowModal = () => {
+    setApplicationModal(true);
+  };
+
+  const applicationCloseModal = () => {
+    setApplicationModal(false);
+  };
 
   const onSelection = (e) => {
     setDataSourceType(e.target.value);
@@ -65,7 +86,7 @@ const DataConnection = () => {
                     <Icon.CloudPlusFill
                       size={25}
                       className="icon"
-                      // onClick={handleShowModalDSC}
+                      onClick={dataSourceConnectionShowModal}
                     />
                   </Col>
                 </Row>
@@ -111,7 +132,7 @@ const DataConnection = () => {
                     <Icon.WindowPlus
                       className="icon"
                       size={25}
-                      // onClick={handleShowModalApp}
+                      onClick={applicationShowModal}
                     />
                   </Col>
                 </Row>
@@ -376,6 +397,20 @@ const DataConnection = () => {
           </Form>
         </div>
       </Card.Body>
+
+      {dataSourceConnectionModal && (
+        <DataSourceConnectionModal
+          show={dataSourceConnectionShowModal}
+          onHide={dataSourceConnectionCloseModal}
+        />
+      )}
+
+      {applicationModal && (
+        <ApplicationModal
+          show={applicationShowModal}
+          onHide={applicationCloseModal}
+        />
+      )}
     </div>
   );
 };

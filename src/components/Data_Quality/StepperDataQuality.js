@@ -14,19 +14,20 @@ const StepperDataQuality = ({ step, formData, updateFormData }) => {
           formData={formData}
           updateFormData={updateFormData}
         />
-      ) : step === 2 ? (
-        <SourceEntity
-          step={step}
-          formData={formData}
-          updateFormData={updateFormData}
-        />
-      ) : step === 3 ? (
+      ) : // : step === 2 ? (
+      //   <SourceEntity
+      //     step={step}
+      //     formData={formData}
+      //     updateFormData={updateFormData}
+      //   />
+      // )
+      step === 2 ? (
         <TargetSchema
           step={step}
           formData={formData}
           updateFormData={updateFormData}
         />
-      ) : step === 4 ? (
+      ) : step === 3 ? (
         <ConfigureRules
           step={step}
           formData={formData}
