@@ -20,6 +20,20 @@ function TimelinessRule({ show, onHide }) {
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "50%" }}>
+                Business Test Name
+              </Form.Label>
+
+              <Form.Control
+                placeholder="Enter Business Test Name"
+                type="text"
+                disabled={false}
+                className="custom-select custom-style"
+              />
+            </div>
+          </Row>
+          <Row className="mb-4">
+            <div className="column_rule_table_style">
+              <Form.Label style={{ width: "50%" }}>
                 {" "}
                 Group By (column with identity)
               </Form.Label>
