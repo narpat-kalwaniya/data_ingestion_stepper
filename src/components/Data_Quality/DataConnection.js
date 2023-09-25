@@ -187,6 +187,7 @@ const DataConnection = () => {
                 )} */}
               </Col>
             </Row>
+
             {/* {!disableElement.query && ( */}
             {dataSourceType === "RDBMS-QUERY" && (
               <Row className="mb-4">

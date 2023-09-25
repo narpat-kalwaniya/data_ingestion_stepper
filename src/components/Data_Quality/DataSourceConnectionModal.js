@@ -14,7 +14,7 @@ function DataSourceConnectionModal({ show, onHide }) {
       style={{ fontSize: "14px" }}
     >
       <Modal.Header closeButton>
-        {/* <Modal.Title></Modal.Title> */}
+        <Modal.Title></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>

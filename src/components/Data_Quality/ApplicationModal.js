@@ -6,7 +6,7 @@ function ApplicationModal({ show, onHide }) {
   return (
     <Modal show={show} onHide={onHide} size="lg" style={{ fontSize: "14px" }}>
       <Modal.Header closeButton>
-        {/* <Modal.Title> "Completeness" Rule</Modal.Title> */}
+        <Modal.Title> </Modal.Title>
       </Modal.Header>
       <Modal.Body className="overflow-auto">
         <Card.Body className="custom-card-body" style={{ marginTop: "5px" }}>
