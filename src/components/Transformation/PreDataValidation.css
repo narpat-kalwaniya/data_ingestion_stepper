@@ -27,3 +27,7 @@
   border-left: 1px solid #ccc;
   overflow: auto;
 }
+
+.selected-table-row {
+  background-color: lightblue; /* Change to your desired color */
+}
