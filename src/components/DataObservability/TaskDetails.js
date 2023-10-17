@@ -6,7 +6,7 @@ import { mycontext } from "./DataObservability";
 import { BiListCheck, BiBarChart, BiBell, BiGrid } from "react-icons/bi";
 import { AiOutlineFileText } from "react-icons/ai";
 
-const RunDetails = (props) => {
+const TaskDetails = (props) => {
   // Set the default active tab
   const {
     steps,
@@ -21,7 +21,7 @@ const RunDetails = (props) => {
     console.log(steps);
     setActiveTab(tab);
     const updatedSteps = [...steps];
-    updatedSteps[2] = tab;
+    updatedSteps[3] = tab;
     setSteps(updatedSteps);
   };
   console.log(activeTab);
@@ -81,4 +81,4 @@ const RunDetails = (props) => {
   );
 };
 
-export default RunDetails;
+export default TaskDetails;

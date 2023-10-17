@@ -111,7 +111,7 @@ function AddPipeline(props) {
     if (
       formData.sourceEntity.bucket_name === "tiger-snowflake-datafabric-dev"
     ) {
-      console.log("getmeta calling");
+      // console.log("getmeta calling");
       const fetchDirectories = async () => {
         try {
           const response = await fetch(`${Backend_url}/getfilesmeta/3`);
