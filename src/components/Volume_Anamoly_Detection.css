@@ -1,0 +1,140 @@
+.volume_anomaly_container {
+  background-color: rgb(240, 236, 236);
+}
+
+.volume-anomaly-header {
+  margin: 10px;
+}
+
+.total_anomaly {
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  z-index: 1000;
+  margin: 10px;
+  gap: 5px;
+ 
+}
+
+.total_anomaly_details {
+  background-color: white;
+  width: 80%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.total_anomaly_Link {
+  background-color: white;
+  width: 20%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
+}
+.Aomaly_change {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  z-index: 1000;
+  margin: 10px;
+  gap: 5px;
+}
+
+.Aomaly_change_common_style {
+  background-color: white;
+  width: 20%;
+ 
+  border-radius: 5px;
+}
+
+.Anomaly_change_font_style_first {
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 4px;
+}
+
+.Anomaly_change_font_style_second {
+  font-size: 14px;
+  font-weight: 600;
+} 
+
+.Anomaly_Source {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  /* text-align: center; */
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  z-index: 1000;
+  gap: 5px;
+}
+
+.Anomaly_Source_Common_style {
+  background-color: white;
+  width: 25%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.Anomaly_graph_table {
+  display: flex;
+  justify-content: space-between;
+  height: 300px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  z-index: 1000;
+  margin: 10px;
+  gap: 5px;
+  
+}
+
+.Anomaly_graph {
+  background-color: white;
+  width: 40%;
+  border-radius: 5px;
+}
+
+.Anomaly_table {
+  background-color: white;
+  width: 60%;
+  overflow: scroll;
+  border-radius: 5px;
+}
+
+.Anomaly_zig-zag {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  z-index: 1000;
+  background-color: white;
+  margin: 10px;
+}
+
+.Anomaly_zig-zag_graph {
+}
+
+.font_styling_heading {
+font-size: 16px;
+font-weight: 600;
+padding-top: 5px;
+}
+
+.font_styling_content {
+font-size: 12px;
+}
+
+.list_of_anomalies {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.MuiTableCell-root.MuiTableCell-head{
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.Anpmaly_change_color {
+  color: rgb(73, 185, 73);
+}
+

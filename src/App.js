@@ -19,6 +19,7 @@ import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
 import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQualityCustomerDetailPage";
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
 import DataObservability from "./components/DataObservability/DataObservability";
+import VolumeAnomalyDetection from "./components/VolumeAnomalyDetection";
 
 function App() {
   const [user, setUser] = useState();
@@ -193,6 +194,10 @@ function App() {
                 <Route
                   path="/dataObservability"
                   element={<DataObservability />}
+                />
+                <Route
+                  path="/pipelines/snowflake Data Consumption pipelines"
+                  element={<VolumeAnomalyDetection />}
                 />
               </Route>
               <Route path="*" element={<NotFound />} />
