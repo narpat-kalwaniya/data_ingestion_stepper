@@ -19,6 +19,7 @@ import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
 import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQualityCustomerDetailPage";
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
 import DataObservability from "./components/DataObservability/DataObservability";
+import PipelineTypes from "./components/PipelineTypes";
 
 function App() {
   const [user, setUser] = useState();
@@ -122,6 +123,7 @@ function App() {
               >
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/pipelinetypes" element={<PipelineTypes />} />
                 <Route
                   path="/pipelines"
                   element={

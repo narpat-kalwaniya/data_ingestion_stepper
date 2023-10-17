@@ -464,7 +464,7 @@ h5 {
 // }
 
 .directory-path {
-  padding : 10px 0px 10px 0px;
+  margin-left: 10px;
   font-size: 14px;
   color: $clrD;
 }
@@ -472,4 +472,84 @@ h5 {
 .directory-path span {
   cursor: pointer;
 }
+
+.full-screen-page {
+  height: 100vh;
+  background-color: #f0f0f0; /* Set your desired background color */
+  padding: 20px;
+}
+
+.pipeline-card {
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin: 15px;
+  padding: 10px;
+  background-color: #ffffff; /* Set your desired card background color */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pipeline-card h2 {
+  margin-top: 10px;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.pipeline-card svg {
+  // margin-bottom: 10px;
+}
+
+.icon-container {
+align-items: center;
+}
+
+.close-x {
+  margin-right: 0.25rem;
+  color: #a8a9aa !important; /* Default text color */
+  border-color: #a8a9aa  !important; /* Default outline color */
+
+  /* Change color on hover */
+  &:hover {
+    color: white !important; /* New text color on hover */
+    border-color: #a8a9aa  !important; /* New outline color on hover */
+    background-color: #a8a9aa  !important;
+  }
+}
+
+.searchOb {
+
+  &:focus{
+    border-width: 1px !important;
+  }
+}
+
+.status-cell {
+  display: flex;
+  align-items: center;
+   width: 15px; /* Set a fixed width for the cell */
+  // white-space: nowrap; /* Prevent text from wrapping */
+  // overflow: hidden; /* Hide overflow text if it doesn't fit */
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 5px; /* Add spacing between dot and status text */
+}
+
+.success-dot {
+  background-color: green;
+}
+
+.failure-dot {
+  background-color: red;
+}
+
+
+
+
 
