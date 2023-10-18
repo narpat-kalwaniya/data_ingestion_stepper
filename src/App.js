@@ -20,6 +20,7 @@ import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQuality
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
 import DataObservability from "./components/DataObservability/DataObservability";
 import DataFreshness from "./components/DataFreshness/DataFreshness";
+import Monitoring from "./components/DataFreshness/Monitoring/Monitoring";
 
 function App() {
   const [user, setUser] = useState();
@@ -195,7 +196,11 @@ function App() {
                   path="/dataObservability"
                   element={<DataObservability />}
                 />
-                <Route path="/dataFreshness" element={<DataFreshness />} />
+                <Route
+                  path="/monitoring/dataFreshness"
+                  element={<DataFreshness />}
+                />
+                <Route path="/monitoring" element={<Monitoring />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Route>
