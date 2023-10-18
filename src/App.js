@@ -201,18 +201,28 @@ function App() {
                   path="/dataObservability"
                   element={<DataObservability />}
                 />
-                <Route
+                {/* <Route
                   path="/pipelines/snowflake Data Consumption pipelines"
                   element={<VolumeAnomalyDetection />}
+                /> */}
+                <Route
+                  path="/monitoring/schemaAnomaly"
+                  element={<SchemaAnomaly />}
                 />
-                <Route path="/schemaAnomaly" element={<SchemaAnomaly />} />
                 <Route path="/metricVisual" element={<metricVisual />} />
-                <Route path="/tableHealth" element={<TableHealth />} />
+                <Route
+                  path="/monitoring/tableHealth"
+                  element={<TableHealth />}
+                />
                 <Route
                   path="/monitoring/dataFreshness"
                   element={<DataFreshness />}
                 />
                 <Route path="/monitoring" element={<Monitoring />} />
+                <Route
+                  path="/monitoring/volumeAnomaly"
+                  element={<VolumeAnomalyDetection />}
+                />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Route>

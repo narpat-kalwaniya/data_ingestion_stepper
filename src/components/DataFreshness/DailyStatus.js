@@ -51,7 +51,7 @@ const DailyStatus = () => {
             .fill(null)
             .map((_, rowIndex) => (
               <tr key={rowIndex}>
-                <td>Row {rowIndex + 1}</td>
+                <td>uat.public.spotify</td>
                 {Array(numColumns)
                   .fill(null)
                   .map((_, colIndex) => (
