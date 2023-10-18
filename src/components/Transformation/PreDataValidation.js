@@ -61,6 +61,7 @@ const PreDataValidation = () => {
   const [tables, setTables] = useState([]);
   const [queryColumns, setQueryColumns] = useState([]);
   const [columnDetailsShowModal, setColumnDetailsShowModal] = useState(false);
+  const [selectedTable, setSelectedTable] = useState(null);
 
   const toggleDatabase = (database) => {
     if (databases.includes(database)) {
@@ -150,6 +151,7 @@ const PreDataValidation = () => {
   const handleTableClick = async (tableName) => {
     setTables([tableName]); // Set the selected table
     // await fetchTableData(); // Fetch data for the selected table
+    setSelectedTable(tableName);
   };
 
   useEffect(() => {
@@ -269,7 +271,15 @@ const PreDataValidation = () => {
                                       await handleTableClick(table)
                                     }
                                   >
-                                    <span style={{ cursor: "pointer" }}>
+                                    <span
+                                      style={{
+                                        cursor: "pointer",
+                                        color:
+                                          selectedTable === table
+                                            ? "blue"
+                                            : "black", // Change color as needed
+                                      }}
+                                    >
                                       {table}
                                     </span>
                                   </li>

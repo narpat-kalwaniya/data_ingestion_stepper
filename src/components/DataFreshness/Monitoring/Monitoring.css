@@ -1,0 +1,27 @@
+/* Monitoring.css */
+.Card-outer-monitor {
+  cursor: pointer;
+  background-color: #f7a84f !important; /* Default background color */
+  transition: background-color 0.3s;
+}
+
+.Card-outer-monitor:hover {
+  background-color: #4f4f4f !important; /* Change the background color on hover */
+}
+
+.selected {
+  background-color: #787c78 !important; /* Change the background color for the selected card */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #0c0c0c !important; /* Set text color to white */
+}
+
+/* .card-content:hover {
+  background-color: #4f4f4f; 
+} */

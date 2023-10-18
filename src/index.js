@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { DataProvider } from "./components/DataContext";
+import { DataProviderColRules } from "./components/Data_Quality/ColumnRulContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DataProvider>
-      <App />
-    </DataProvider>
+    <DataProviderColRules>
+      <DataProvider>
+        <App />
+      </DataProvider>
+    </DataProviderColRules>
   </React.StrictMode>
 );
 
