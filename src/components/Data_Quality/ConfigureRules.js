@@ -24,6 +24,7 @@ import "./Data_Quality.css";
 import QuickValidationModal from "./QuickValidationModal";
 import ConfigureAddDetailsPage from "./ConfigureAddDetailsPage";
 import ColumnRulesButtonList from "./ColumnRulesButtonList";
+import TableRulesModal from "./TableRulesModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,6 +60,15 @@ const ConfigureRules = () => {
   const [showModal, setShowModal] = useState(false);
   const [addDetailsShowModal, setaddDetailsShowModal] = useState(false);
   const [columnDetailsShowModal, setColumnDetailsShowModal] = useState(false);
+  const [tableRuleModal, setTableRuleModal] = useState(false);
+
+  const tableRuleShowModal = () => {
+    setTableRuleModal(true);
+  };
+
+  const tableRuleCloseModal = () => {
+    setTableRuleModal(false);
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -121,8 +131,10 @@ const ConfigureRules = () => {
                   variant="h7"
                   noWrap
                   component="div"
+                  onClick={tableRuleShowModal}
                   sx={{
                     display: { xs: "none", sm: "block" },
+                    cursor: "pointer",
                   }}
                 >
                   <AddIcon className="AddOutlinedIcon" />
@@ -244,6 +256,13 @@ const ConfigureRules = () => {
         <ColumnRulesButtonList
           show={columnDetailsShowModal}
           onHide={columnDetailshandleCloseModal}
+        />
+      )}
+
+      {tableRuleModal && (
+        <TableRulesModal
+          show={tableRuleShowModal}
+          onHide={tableRuleCloseModal}
         />
       )}
     </>

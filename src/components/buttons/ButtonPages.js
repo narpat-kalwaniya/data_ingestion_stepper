@@ -75,22 +75,21 @@ export default function ButtonPages(props) {
     {
       id: 10,
       name: "Snowflake Data Consumption Pipelines",
-      // name: "Data Observability",
-      // onClick: () => navigate("/dataObservability"),
+      onClick: () =>
+        navigate("/pipelines/snowflake Data Consumption pipelines"),
     },
   ];
 
   return (
     <Dialog
       // className="closeIconBox"
-
+      onClick={handleClose}
       onClose={handleClose}
       open={open}
       maxWidth="md"
       fullWidth={true}
     >
       <DialogTitle className="dialogTitle">Select Data Pipeline</DialogTitle>
-      {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}
 
       <Box className="dialogBox" sx={{}}>
         <hr className="horizontalLine" />
@@ -136,7 +135,6 @@ export default function ButtonPages(props) {
           Close
         </button>
       </Box>
-      {/* <CloseIcon className="closeIcon" onClick={handleClose} /> */}
     </Dialog>
   );
 }

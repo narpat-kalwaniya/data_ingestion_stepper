@@ -3,21 +3,19 @@ import { Form, Row, Col, Modal } from "react-bootstrap";
 import "./Data_Quality.css";
 import Select from "react-select";
 import MultiRangesSlider from "./MultiRangesSlider";
-import AceEditor from "react-ace";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
+import { useState } from "react";
 
-import "ace-builds/src-noconflict/mode-sql";
-import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/theme-xcode";
+function TableRulesModal({ show, onHide }) {
+  const [tags, setTags] = useState([]);
 
-function SqlCustom({ show, onHide }) {
-  const queryChangeHandler = (newQuery) => {};
   return (
     <Modal show={show} onHide={onHide} centered size="lg">
       <Modal.Header closeButton>
-        <Modal.Title> SQL Custom</Modal.Title>
+        <Modal.Title> </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p> </p>
         <Form>
           <Row className="mb-4">
             <div className="column_rule_table_style">
@@ -33,43 +31,55 @@ function SqlCustom({ show, onHide }) {
               />
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "50%" }}>Column Name</Form.Label>
+              <Form.Label style={{ width: "50%" }}> Expectation</Form.Label>
 
-              <Form.Control
-                placeholder="Enter Column Name"
-                type="text"
-                disabled={false}
-                className="custom-select custom-style"
-              />
+              <Form.Select className="custom-select custom-style">
+                <option value="">Select</option>
+                <option value="">1</option>
+                <option value="">2</option>
+                <option value="">3</option>{" "}
+              </Form.Select>
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
-              <Form.Label style={{ width: "33%" }}>SQL Query</Form.Label>
+              <Form.Label style={{ width: "33%" }}>Columns</Form.Label>
 
               <Col>
-                {/* <Select
+                <TagsInput
+                  value={tags}
+                  onChange={setTags}
+                  // options={orderByOptions}
+                  // value={formData.DefineSourceExtractCriteria.order_by}
+                  // onChange={(options) => orderByChangeHandler(options)}
+                  className="custom-select custom-style"
+                />
+              </Col>
+            </div>
+          </Row>
+
+          <Row className="mb-4">
+            <div className="column_rule_table_style">
+              <Form.Label style={{ width: "33%" }}>
+                Expectation Input
+              </Form.Label>
+
+              <Col>
+                <Select
                   isMulti
                   // options={orderByOptions}
                   // value={formData.DefineSourceExtractCriteria.order_by}
                   // onChange={(options) => orderByChangeHandler(options)}
                   className="custom-select custom-style"
-                /> */}
-                <AceEditor
-                  mode="sql"
-                  theme="xcode"
-                  name="sql-editor"
-                  fontSize="12px"
-                  editorProps={{ $blockScrolling: true }}
-                  style={{ width: "100%", height: "100px" }}
-                  //   value={formData.sourceEntity.query || ""}
-                  onChange={queryChangeHandler}
                 />
               </Col>
             </div>
           </Row>
+
           <Row className="mb-4">
             <div className="column_rule_table_style">
               <Form.Label style={{ width: "33%" }}> Alert Threshold</Form.Label>
@@ -127,4 +137,4 @@ function SqlCustom({ show, onHide }) {
   );
 }
 
-export default SqlCustom;
+export default TableRulesModal;

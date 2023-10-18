@@ -7,6 +7,9 @@ import { Button, ButtonGroup, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Path from "./Path";
+import PipelineChart from "./PipelineChart";
+import Counter from "./Counter";
+import TaskDetails from "./TaskDetails";
 
 const mycontext = createContext();
 
@@ -15,6 +18,13 @@ const DataObservability = () => {
   const [steps, setSteps] = useState([]);
   const [isRowClicked, setIsRowClicked] = useState(false);
   const [activeTab, setActiveTab] = useState("Overview");
+  const [isTaskClicked, setIsTaskClicked] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [pipelineLogs, setPipelineLogs] = useState([]);
+  const [filteredPipeLogs, setFilteredPipeLogs] = useState([]);
+  const [showTaskDetails, setShowTaskDetails] = useState(false);
+  const [chartView, setChartView] = useState(null);
+  const [selectedRun, setSelectedRun] = useState(null);
 
   const headers = [
     "Pipeline ID",
@@ -24,6 +34,8 @@ const DataObservability = () => {
     "Scheduled Status",
     "Last Execution Status",
     "Last Executed DateTime",
+    // "No. of Tasks",
+    "",
   ];
   const dummyData = [
     {
@@ -34,6 +46,7 @@ const DataObservability = () => {
       header4: "Value 4",
       header5: "Value 5",
       header6: "Value 6",
+      Tasks: ["Task1", "Task2", "Task3"],
     },
     {
       id: 2,
@@ -43,6 +56,7 @@ const DataObservability = () => {
       header4: "Value 10",
       header5: "Value 11",
       header6: "Value 12",
+      Tasks: ["Task1", "Task2"],
     },
     {
       id: 3,
@@ -52,77 +66,118 @@ const DataObservability = () => {
       header4: "Value 16",
       header5: "Value 17",
       header6: "Value 18",
+      Tasks: ["Task1", "Task2", "Task3"],
     },
   ];
 
-  const rowclickHandler = (row) => {
+  const rowclickHandler = (row, index) => {
     setIsDetails(true);
-    console.log(row.header1);
-    const updatedSteps = [...steps, row.header1];
+    const updatedSteps = [...steps, row.pipeline_name];
     setSteps(updatedSteps);
+    setIsTaskClicked(false);
+    setSelectedRow(index);
+    setChartView(null);
   };
+
+  const openTasksHandler = (row, index) => {
+    setIsTaskClicked(!isTaskClicked);
+    setSelectedRow(index);
+  };
+
+  useEffect(() => {
+    const fetchPipelineLogs = async () => {
+      try {
+        const response = await fetch(
+          `http://ec2-54-197-121-247.compute-1.amazonaws.com:8001/pipelogs/`
+        );
+        const data = await response.json();
+        setPipelineLogs(data);
+        setFilteredPipeLogs(data);
+      } catch (error) {
+        console.error("Error fetching pipelineLogs:", error);
+      }
+    };
+    fetchPipelineLogs();
+  }, []);
+
+  console.log(pipelineLogs);
+  console.log(filteredPipeLogs);
 
   const backHandler = () => {
     setIsDetails(false);
   };
 
+  const lineageHandler = (index) => {
+    setChartView(index);
+    setSelectedRow(index);
+  };
+
+  const chartCloseHandler = () => {
+    setChartView(null);
+  };
+
+  const filterData = (searchTerm) => {
+    const filteredItems = pipelineLogs.filter((item) =>
+      item.pipeline_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredPipeLogs(filteredItems);
+  };
+
+  console.log(chartView);
+  // console.log(
+  //   pipelineLogs[0].executions[pipelineLogs[0].executions.length - 1].tasks[
+  //     pipelineLogs[0].executions[pipelineLogs[0].executions.length - 1].tasks
+  //       .length - 1
+  //   ].validation_result
+  // );
+
   return (
-    <Col style={{ marginLeft: "20px" }}>
+    <Col>
       {!isDetails ? (
         <Row>
           <Col>
-            <SearchBarsRow />
+            <SearchBarsRow
+              filterData={filterData}
+              filteredPipeLogs={filteredPipeLogs}
+            />
+            {/* <Counter pipelineLogs={pipelineLogs} /> */}
           </Col>
         </Row>
       ) : null}
 
-      {/* <div style={{ position: "relative", width: "100px" }}>
-        <Row>
-          <ButtonGroup className="navigation-buttons">
-            <Button
-              variant="light"
-              onClick={() => backHandler()}
-              // disabled={currentPage === 1}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </Button>
-            <Button
-              variant="light"
-              // onClick={() => handlePageChange(1)}
-              // disabled={currentPage === 5}
-              // Assuming you have a maximum of 5 pages, adjust as needed
-            >
-              <FontAwesomeIcon icon={faArrowRight} />
-            </Button>
-          </ButtonGroup>
-        </Row>
-      </div> */}
-      <mycontext.Provider
-        value={{
-          steps,
-          setSteps,
-          isRowClicked,
-          setIsRowClicked,
-          activeTab,
-          setActiveTab,
-          setIsDetails,
-          isDetails,
-        }}
-      >
-        <Path />
-      </mycontext.Provider>
+      {isDetails ? (
+        <mycontext.Provider
+          value={{
+            steps,
+            setSteps,
+            isRowClicked,
+            setIsRowClicked,
+            activeTab,
+            setActiveTab,
+            setIsDetails,
+            isDetails,
+            showTaskDetails,
+            setShowTaskDetails,
+            selectedRun,
+            setSelectedRun,
+          }}
+        >
+          <Path />
+        </mycontext.Provider>
+      ) : null}
+
       <Card
         className="Card-outer custom-card-body "
         style={{
           minHeight: "300px",
-          marginRight: "20px",
-          marginTop: "100px",
+          // marginRight: "20px",
+          // marginTop: "100px",
         }}
       >
         <Row>
           <Col>
             {!isDetails ? (
-              <Table hover responsive>
+              <Table hover responsive bordered={false}>
                 <thead
                   style={{
                     backgroundColor: "#F3F3F3",
@@ -138,18 +193,86 @@ const DataObservability = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {dummyData.map((row) => (
-                    <tr key={row.id} onClick={() => rowclickHandler(row)}>
-                      <td>{row.header1}</td>
-                      <td>{row.header2}</td>
-                      <td>{row.header3}</td>
-                      <td>{row.header4}</td>
-                      <td>{row.header5}</td>
-                      <td>{row.header6}</td>
+                  {filteredPipeLogs.map((row, index) => (
+                    <tr
+                      key={index}
+                      style={{
+                        cursor: "pointer",
+                        backgroundColor:
+                          selectedRow === index ? "#f7a84f" : null,
+                        fontSize: "12px",
+                      }}
+                    >
+                      <td onClick={() => rowclickHandler(row, index)}>
+                        {row.executions[0].tasks[0].pipeline_id}
+                      </td>
+                      <td onClick={() => rowclickHandler(row, index)}></td>
+                      <td onClick={() => rowclickHandler(row, index)}>
+                        {" "}
+                        {row.pipeline_name}
+                      </td>
+                      <td onClick={() => rowclickHandler(row, index)}></td>
+                      <td onClick={() => rowclickHandler(row, index)}></td>
+                      <td
+                        onClick={() => rowclickHandler(row, index)}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div className="status-cell">
+                          <span
+                            className={`status-dot ${
+                              ["failed", "error"].some((s) =>
+                                row.executions[row.executions.length - 1].tasks[
+                                  row.executions[row.executions.length - 1]
+                                    .tasks.length - 1
+                                ].validation_result
+                                  .toLowerCase()
+                                  .includes(s)
+                              )
+                                ? "failure-dot"
+                                : "success-dot"
+                            }`}
+                          ></span>
+                        </div>
+                        {
+                          row.executions[row.executions.length - 1].tasks[
+                            row.executions[row.executions.length - 1].tasks
+                              .length - 1
+                          ].validation_result
+                        }
+                      </td>
+                      <td onClick={() => rowclickHandler(row, index)}>
+                        {
+                          row.executions[row.executions.length - 1]
+                            .dag_execution_start_time
+                        }
+                      </td>
+                      {/* <td onClick={() => openTasksHandler(row, index)}>
+                        
+                      </td> */}
+                      <td onClick={() => lineageHandler(index)}>
+                        <span
+                          style={{
+                            cursor: "pointer",
+                            paddingTop: "10px",
+                            color: "#18749C",
+                          }}
+                        >
+                          Chart View
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
+            ) : showTaskDetails ? (
+              <mycontext.Provider
+                value={{ steps, setSteps, activeTab, setActiveTab }}
+              >
+                <TaskDetails />
+              </mycontext.Provider>
             ) : (
               <mycontext.Provider
                 value={{
@@ -159,12 +282,33 @@ const DataObservability = () => {
                   setIsRowClicked,
                   activeTab,
                   setActiveTab,
+                  showTaskDetails,
+                  setShowTaskDetails,
+                  selectedRow,
+                  selectedRun,
+                  setSelectedRun,
+                  pipelineLogs,
                 }}
               >
-                <Runs />
+                <Runs selectedRow={selectedRow} pipelineLogs={pipelineLogs} />
               </mycontext.Provider>
             )}
           </Col>
+          {chartView | (chartView === 0) ? (
+            <Col xs={4}>
+              <div className="d-flex justify-content-end">
+                <Button
+                  variant="outline-danger"
+                  className="close-x"
+                  style={{ padding: "0.1rem 0.3rem" }}
+                  onClick={() => chartCloseHandler()}
+                >
+                  <span aria-hidden="true">&times;</span> {/* Close icon (X) */}
+                </Button>
+              </div>
+              <PipelineChart></PipelineChart>
+            </Col>
+          ) : null}
         </Row>
       </Card>
     </Col>

@@ -273,11 +273,125 @@ h5 {
 }
 
 .directory-path {
-  padding: 10px 0px 10px 0px;
+  margin-left: 10px;
   font-size: 14px;
   color: #18749C;
 }
 
 .directory-path span {
   cursor: pointer;
+}
+
+.full-screen-page {
+  height: 100vh;
+  background-color: #f0f0f0; /* Set your desired background color */
+  padding: 20px;
+}
+
+.pipeline-card {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 15px;
+  padding: 10px;
+  background-color: #ffffff; /* Set your desired card background color */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pipeline-card h2 {
+  margin-top: 10px;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.icon-container {
+  align-items: center;
+}
+
+.close-x {
+  margin-right: 0.25rem;
+  color: #a8a9aa !important; /* Default text color */
+  border-color: #a8a9aa !important; /* Default outline color */
+  /* Change color on hover */
+}
+.close-x:hover {
+  color: white !important; /* New text color on hover */
+  border-color: #a8a9aa !important; /* New outline color on hover */
+  background-color: #a8a9aa !important;
+}
+
+.searchOb:focus {
+  border-width: 1px !important;
+}
+
+.status-cell {
+  display: flex;
+  align-items: center;
+  width: 15px; /* Set a fixed width for the cell */
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 5px; /* Add spacing between dot and status text */
+}
+
+.success-dot {
+  background-color: green;
+}
+
+.failure-dot {
+  background-color: red;
+}
+
+.icon-green,
+.icon-red,
+.icon-blue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 5px;
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+}
+
+.icon-green {
+  background-color: green;
+  color: white;
+}
+
+.icon-red {
+  background-color: #fa8c0f;
+  color: white;
+}
+
+.icon-blue {
+  background-color: #18749C;
+  color: white;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #719bc9;
+  color: white;
+  padding: 3px 8px;
+  margin: 2px;
+  border-radius: 15px;
+}
+
+.custom-borderless-table {
+  border: none !important;
+}
+
+.custom-borderless-rows td {
+  border: none;
+  border-top: 1px solid #dee2e6; /* Set the desired border color and style */
 }/*# sourceMappingURL=main.css.map */

@@ -1,45 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import Counter from "./Counter";
+import { BsInfoCircle } from "react-icons/bs";
 
-const SearchBarsRow = (props) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    props.filterData(searchTerm);
-  }, [searchTerm]);
-
-  const searchPipeHandler = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  console.log(props.filteredPipeLogs);
+const TableHealthFilters = (props) => {
+  const options = props.data.map((item) => (
+    <option key={item.id} value={item.id}>
+      {item.name}
+    </option>
+  ));
 
   return (
-    <div
-    // style={{
-    //   display: "flex",
-    //   alignItems: "center",
-    //   justifyContent: "space-between",
-    //   marginRight: "20px",
-    //   marginBottom: "10px",
-    //   borderBottom: "1px solid rgb(230,230,230)",
-    // }}
-    >
+    <div>
       <Row
         style={{
           marginTop: "10px",
           // marginBottom: "15px",
-          marginLeft: "20px",
           alignItems: "center",
           paddingBottom: "15px",
           // borderBottom: "1px solid rgb(230,230,230)",
         }}
       >
-        <Col xs={2}>
-          <Counter filteredPipeLogs={props.filteredPipeLogs} />
-        </Col>
-        <Col xs={6}>
+        <Col>
           <Row style={{ height: "23px" }}>
             <Col>
               <Form.Label
@@ -50,7 +31,7 @@ const SearchBarsRow = (props) => {
                   marginLeft: "5px",
                 }}
               >
-                Search
+                Tags
               </Form.Label>
             </Col>
             <Col>
@@ -62,11 +43,11 @@ const SearchBarsRow = (props) => {
                   marginLeft: "5px",
                 }}
               >
-                Projects
+                Table
               </Form.Label>
             </Col>
             <Col>
-              <Form.Label
+              {/* <Form.Label
                 style={{
                   color: "#4f4f4f",
                   fontSize: "12px",
@@ -74,23 +55,33 @@ const SearchBarsRow = (props) => {
                   marginLeft: "5px",
                 }}
               >
-                Show
-              </Form.Label>
+                Incident Status
+              </Form.Label> */}
+            </Col>
+            <Col>
+              {/* <Form.Label
+                style={{
+                  color: "#4f4f4f",
+                  fontSize: "12px",
+                  opacity: "0.8",
+                  marginLeft: "5px",
+                }}
+              >
+                Incident Severity
+              </Form.Label> */}
             </Col>
           </Row>
-          <Row>
+          <Row className="mb-1">
             <Col>
               <Form.Control
                 className="custom-select custom-style"
                 type="text"
-                placeholder="Search Pipelines . . ."
+                placeholder="Search Tags . . ."
                 style={{
                   width: "90%",
                   padding: "5px",
                   "::placeholder": { color: "#4f4f4f", opacity: "0.3" },
                 }}
-                value={searchTerm}
-                onChange={searchPipeHandler}
               />
             </Col>
             <Col>
@@ -102,24 +93,55 @@ const SearchBarsRow = (props) => {
                   style={{ width: "90%", padding: "5px" }}
                 >
                   <option>--Select--</option>
-                  <option>Project1</option>
+                  {options}
                 </Form.Select>
               </Form.Group>
             </Col>
             <Col>
-              <Form.Control
+              {/* <Form.Select
                 className="custom-select custom-style"
                 type="text"
                 placeholder=""
                 style={{ width: "90%", padding: "5px" }}
+              >
+                <option>--Select--</option>
+                <option>Project1</option>
+              </Form.Select> */}
+            </Col>
+            <Col>
+              {/* <Form.Select
+                className="custom-select custom-style"
+                type="text"
+                placeholder=""
+                style={{ width: "90%", padding: "5px" }}
+              >
+                <option>--Select--</option>
+                <option>Project1</option>
+              </Form.Select> */}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Check
+                label="Key assets only"
+                style={{ color: "#4f4f4f", fontSize: "12px" }}
               />
             </Col>
-            {/* <Form.Control
-        className="custom-select custom-style"
-        type="text"
-        placeholder=""
-        style={{ width: "25%", padding: "5px", margin: "10px" }}
-      /> */}
+            <Col>
+              <div style={{ display: "flex" }}>
+                <Form.Check
+                  label="Include normalized"
+                  style={{
+                    color: "#4f4f4f",
+                    fontSize: "12px",
+                    marginRight: "5px",
+                  }}
+                />
+                <BsInfoCircle />
+              </div>
+            </Col>
+            <Col></Col>
+            <Col></Col>
           </Row>
         </Col>
       </Row>
@@ -127,4 +149,4 @@ const SearchBarsRow = (props) => {
   );
 };
 
-export default SearchBarsRow;
+export default TableHealthFilters;

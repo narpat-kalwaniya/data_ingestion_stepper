@@ -19,6 +19,10 @@ import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
 import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQualityCustomerDetailPage";
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
 import DataObservability from "./components/DataObservability/DataObservability";
+import VolumeAnomalyDetection from "./components/VolumeAnomalyDetection";
+import PipelineTypes from "./components/PipelineTypes";
+import SchemaAnomaly from "./components/DataObservability/SchemaAnomalies/SchemaAnomaly";
+import TableHealth from "./components/DataObservability/TableHealth/TableHealthMain";
 import DataFreshness from "./components/DataFreshness/DataFreshness";
 import Monitoring from "./components/DataFreshness/Monitoring/Monitoring";
 
@@ -124,6 +128,7 @@ function App() {
               >
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/pipelinetypes" element={<PipelineTypes />} />
                 <Route
                   path="/pipelines"
                   element={
@@ -135,7 +140,7 @@ function App() {
                       isView={isView}
                       setIsView={setIsView}
                       isLoading={isLoading}
-                      setIsLoading={setIsLoading}
+                      setIsLoading={setIsLoading} //set is loading state
                     />
                   }
                 />
@@ -196,6 +201,13 @@ function App() {
                   path="/dataObservability"
                   element={<DataObservability />}
                 />
+                <Route
+                  path="/pipelines/snowflake Data Consumption pipelines"
+                  element={<VolumeAnomalyDetection />}
+                />
+                <Route path="/schemaAnomaly" element={<SchemaAnomaly />} />
+                <Route path="/metricVisual" element={<metricVisual />} />
+                <Route path="/tableHealth" element={<TableHealth />} />
                 <Route
                   path="/monitoring/dataFreshness"
                   element={<DataFreshness />}

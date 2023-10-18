@@ -9,6 +9,7 @@ import StepperTrans from "./StepperTrans";
 import QueryDetailsSlider from "./QueryDetailsSlider";
 import "./TransformationPipeline.css";
 import Backend_url from "../../config";
+import TableRulesModal from "../Data_Quality/TableRulesModal";
 
 function TransformationStepper() {
   const [step, setStep] = useState(1);
@@ -20,6 +21,7 @@ function TransformationStepper() {
   const [connectionName, setConnectionsName] = useState([]);
   const [applicationName, setApplicationName] = useState([]);
   const [options, setOptions] = useState([]);
+  const [tableRuleModal, setTableRuleModal] = useState(false);
 
   // const options = [
   //   { id: 1, label: "Option 1" },
@@ -27,6 +29,14 @@ function TransformationStepper() {
   //   { id: 3, label: "Option 3" },
   //   { id: 4, label: "Option 4" },
   // ];
+
+  const tableRuleShowModal = () => {
+    setTableRuleModal(true);
+  };
+
+  const tableRuleCloseModal = () => {
+    setTableRuleModal(false);
+  };
 
   const handleSelect = (option) => {
     setVariableGroup(option);
@@ -128,201 +138,215 @@ function TransformationStepper() {
   }, []);
 
   return (
-    <Container
-      className="h-90 "
-      style={{
-        marginTop: "12px",
-        backgroundColor: "white",
-        maxWidth: "1320px",
-      }}
-    >
-      <Card className="Card-outer custom-card-body ">
-        <Card.Footer className="d-flex justify-content-between float-right custom-footer footer-style">
-          {step === 1 ? (
-            <span> </span>
-          ) : step === 2 ? (
-            <button
-              className="btn-c "
-              onClick={previousHandler}
-              disabled={step === 1}
-              style={{
-                borderTopRightRadius: "0px",
-                borderBottomRightRadius: "0px",
-              }}
-            >
-              Prev
-            </button>
-          ) : step === 3 ? (
-            <button
-              className="btn-c "
-              onClick={previousHandler}
-              disabled={step === 1}
-              style={{
-                borderTopRightRadius: "0px",
-                borderBottomRightRadius: "0px",
-              }}
-            >
-              Prev
-            </button>
-          ) : null}
-
-          {step === 1 ? (
-            <button
-              className="btn-s "
-              onClick={nextHandler}
-              style={{
-                borderTopLeftRadius: "0px",
-                borderBottomLeftRadius: "0px",
-              }}
-            >
-              Pre Data Validation
-            </button>
-          ) : step === 2 ? (
-            <button
-              className="btn-s "
-              onClick={nextHandler}
-              style={{
-                borderTopLeftRadius: "0px",
-                borderBottomLeftRadius: "0px",
-              }}
-            >
-              Post Data Validation
-            </button>
-          ) : step === 3 ? (
-            <button
-              className="btn-s "
-              onClick={nextHandler}
-              style={{
-                borderTopLeftRadius: "0px",
-                borderBottomLeftRadius: "0px",
-              }}
-            >
-              Submit
-            </button>
-          ) : null}
-        </Card.Footer>
-
-        <Row className="m-2">
-          <div
-            className="back-button back-button-style"
-            // onClick={createNewPipelineHandler}
-          >
-            <div className="back-icon">
-              <FiArrowLeft />
-              <span onClick={createNewPipelineHandler} className="back-text">
-                New Query
-              </span>
-            </div>
-
-            {step === 2 ? (
-              <>
-                <span className=" back-text-style">Table Rules </span>
-                <span className=" back-text-style">Profiling</span>
-                <span className=" back-text-style" onClick={sliderHandler}>
-                  Configured Rules
-                </span>
-                {sliderOpen && (
-                  <QueryDetailsSlider
-                    anchor={sliderOpen}
-                    onClose={() => {
-                      setsliderOpen(null);
-                    }}
-                  />
-                )}
-              </>
-            ) : (
-              <></>
-            )}
+    <>
+      <Container
+        className="h-90 "
+        style={{
+          marginTop: "12px",
+          backgroundColor: "white",
+          maxWidth: "1320px",
+        }}
+      >
+        <Card className="Card-outer custom-card-body ">
+          <Card.Footer className="d-flex justify-content-between float-right custom-footer footer-style">
+            {step === 1 ? (
+              <span> </span>
+            ) : step === 2 ? (
+              <button
+                className="btn-c "
+                onClick={previousHandler}
+                disabled={step === 1}
+                style={{
+                  borderTopRightRadius: "0px",
+                  borderBottomRightRadius: "0px",
+                }}
+              >
+                Prev
+              </button>
+            ) : step === 3 ? (
+              <button
+                className="btn-c "
+                onClick={previousHandler}
+                disabled={step === 1}
+                style={{
+                  borderTopRightRadius: "0px",
+                  borderBottomRightRadius: "0px",
+                }}
+              >
+                Prev
+              </button>
+            ) : null}
 
             {step === 1 ? (
-              <div style={{ display: "flex", gap: "10px" }}>
-                <span style={{ flex: 1 }}>
-                  <select onChange={handleTargetSelection}>
-                    <option value="">Connection</option>{" "}
-                    {filteredTargetConnections.map((connection) => (
-                      <option
-                        key={connection.connection_id}
-                        value={connection.connection_name}
-                      >
-                        {connection.connection_name}
-                      </option>
-                    ))}
-                  </select>
+              <button
+                className="btn-s "
+                onClick={nextHandler}
+                style={{
+                  borderTopLeftRadius: "0px",
+                  borderBottomLeftRadius: "0px",
+                }}
+              >
+                Pre Data Validation
+              </button>
+            ) : step === 2 ? (
+              <button
+                className="btn-s "
+                onClick={nextHandler}
+                style={{
+                  borderTopLeftRadius: "0px",
+                  borderBottomLeftRadius: "0px",
+                }}
+              >
+                Post Data Validation
+              </button>
+            ) : step === 3 ? (
+              <button
+                className="btn-s "
+                onClick={nextHandler}
+                style={{
+                  borderTopLeftRadius: "0px",
+                  borderBottomLeftRadius: "0px",
+                }}
+              >
+                Submit
+              </button>
+            ) : null}
+          </Card.Footer>
+
+          <Row className="m-2">
+            <div
+              className="back-button back-button-style"
+              // onClick={createNewPipelineHandler}
+            >
+              <div className="back-icon">
+                <FiArrowLeft />
+                <span onClick={createNewPipelineHandler} className="back-text">
+                  New Query
                 </span>
-                <span style={{ flex: 1 }}>
-                  <select onChange={handleApplicationSelection}>
-                    <option value="">Application</option>{" "}
-                    {applications.map((application) => (
-                      <option
-                        key={application.app_id}
-                        value={application.app_name}
-                      >
-                        {application.app_name}
-                      </option>
-                    ))}
-                  </select>
-                </span>
-                <span style={{ flex: 1 }}>
-                  <select onChange={(e) => handleSelect(e.target.value)}>
-                    <option value="">Variable Group</option>
-                    {options.map((option) => (
-                      <option key={option.id} value={option.label}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </span>
-                <span className=" back-text-style" onClick={sliderHandler}>
-                  Query Details
-                </span>
-                {sliderOpen && (
-                  <QueryDetailsSlider
-                    anchor={sliderOpen}
-                    onClose={() => {
-                      setsliderOpen(null);
-                    }}
-                  />
-                )}
               </div>
-            ) : (
-              <></>
-            )}
-            <div className="horizontal-line-Upload"></div>
-          </div>
-        </Row>
-        <Row className="m-2">
-          {/* <SectionMenuTrans step={step} /> */}
-          <Col className="p-0 ">
-            <Card className="custom-card" style={{ border: "none" }}>
-              <div>
-                <div>
-                  <Container className="p-0 maxWidthStyle ">
-                    <Card.Body
-                      style={{
-                        minHeight: "72vh",
-                        maxHeight: "67vh",
-                        overflowY: "scroll",
-                        padding: "0px",
+
+              {step === 2 ? (
+                <>
+                  <span
+                    className=" back-text-style"
+                    onClick={tableRuleShowModal}
+                  >
+                    Table Rules{" "}
+                  </span>
+                  <span className=" back-text-style">Profiling</span>
+                  <span className=" back-text-style" onClick={sliderHandler}>
+                    Configured Rules
+                  </span>
+                  {sliderOpen && (
+                    <QueryDetailsSlider
+                      anchor={sliderOpen}
+                      onClose={() => {
+                        setsliderOpen(null);
                       }}
-                      className="overflow-auto py-0"
-                    >
-                      <StepperTrans
-                        step={step}
-                        formData={formData}
-                        updateFormData={updateFormData}
-                        connectionName={connectionName}
-                        applicationName={applicationName}
-                        variableGroup={variableGroup}
-                      />
-                    </Card.Body>
-                  </Container>
+                    />
+                  )}
+                </>
+              ) : (
+                <></>
+              )}
+
+              {step === 1 ? (
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <span style={{ flex: 1 }}>
+                    <select onChange={handleTargetSelection}>
+                      <option value="">Connection</option>{" "}
+                      {filteredTargetConnections.map((connection) => (
+                        <option
+                          key={connection.connection_id}
+                          value={connection.connection_name}
+                        >
+                          {connection.connection_name}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
+                  <span style={{ flex: 1 }}>
+                    <select onChange={handleApplicationSelection}>
+                      <option value="">Application</option>{" "}
+                      {applications.map((application) => (
+                        <option
+                          key={application.app_id}
+                          value={application.app_name}
+                        >
+                          {application.app_name}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
+                  <span style={{ flex: 1 }}>
+                    <select onChange={(e) => handleSelect(e.target.value)}>
+                      <option value="">Variable Group</option>
+                      {options.map((option) => (
+                        <option key={option.id} value={option.label}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
+                  <span className=" back-text-style" onClick={sliderHandler}>
+                    Query Details
+                  </span>
+                  {sliderOpen && (
+                    <QueryDetailsSlider
+                      anchor={sliderOpen}
+                      onClose={() => {
+                        setsliderOpen(null);
+                      }}
+                    />
+                  )}
                 </div>
-              </div>
-            </Card>
-          </Col>
-        </Row>
-      </Card>
-    </Container>
+              ) : (
+                <></>
+              )}
+              <div className="horizontal-line-Upload"></div>
+            </div>
+          </Row>
+          <Row className="m-2">
+            {/* <SectionMenuTrans step={step} /> */}
+            <Col className="p-0 ">
+              <Card className="custom-card" style={{ border: "none" }}>
+                <div>
+                  <div>
+                    <Container className="p-0 maxWidthStyle ">
+                      <Card.Body
+                        style={{
+                          minHeight: "72vh",
+                          maxHeight: "67vh",
+                          overflowY: "scroll",
+                          padding: "0px",
+                        }}
+                        className="overflow-auto py-0"
+                      >
+                        <StepperTrans
+                          step={step}
+                          formData={formData}
+                          updateFormData={updateFormData}
+                          connectionName={connectionName}
+                          applicationName={applicationName}
+                          variableGroup={variableGroup}
+                        />
+                      </Card.Body>
+                    </Container>
+                  </div>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        </Card>
+      </Container>
+
+      {tableRuleModal && (
+        <TableRulesModal
+          show={tableRuleShowModal}
+          onHide={tableRuleCloseModal}
+        />
+      )}
+    </>
   );
 }
 export default TransformationStepper;
