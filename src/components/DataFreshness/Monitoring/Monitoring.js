@@ -15,18 +15,20 @@ const Monitoring = () => {
         navigate("/monitoring/dataFreshness");
         break;
       case 2:
-        navigate("/card2");
+        navigate("/monitoring/schemaAnomaly");
         break;
       case 3:
-        navigate("/card3");
+        navigate("/monitoring/volumeAnomaly");
         break;
+      case 4:
+        navigate("/monitoring/tableHealth");
       default:
         break;
     }
   };
 
   return (
-    <div>
+    <div style={{ margin: "10px" }}>
       <Row>
         <Col
           style={{
@@ -40,8 +42,8 @@ const Monitoring = () => {
             }`}
             style={{
               cursor: "pointer",
-              minHeight: "300px",
-              marginBottom: "10px",
+              // minHeight: "100px",
+              margin: "10px",
             }}
             onClick={() => handleCardClick(1)}
           >
@@ -73,8 +75,8 @@ const Monitoring = () => {
               selectedCard === 2 ? "selected" : ""
             }`}
             style={{
-              minHeight: "300px",
-              marginBottom: "10px",
+              // minHeight: "100px",
+              margin: "10px",
               cursor: "pointer",
             }}
             onClick={() => handleCardClick(2)}
@@ -85,7 +87,9 @@ const Monitoring = () => {
                   selectedCard === 2 ? "selected" : ""
                 }`}
               >
-                <Card.Title style={{ color: "#fff" }}>Card 2</Card.Title>
+                <Card.Title style={{ color: "#fff" }}>
+                  Schema Anomaly
+                </Card.Title>
               </div>
             </Card.Body>
           </Card>
@@ -102,8 +106,8 @@ const Monitoring = () => {
             }`}
             style={{
               cursor: "pointer",
-              minHeight: "300px",
-              marginBottom: "10px",
+              // minHeight: "100px",
+              margin: "10px",
             }}
             onClick={() => handleCardClick(3)}
           >
@@ -113,11 +117,46 @@ const Monitoring = () => {
                   selectedCard === 3 ? "selected" : ""
                 }`}
               >
-                <Card.Title style={{ color: "#fff" }}>Card 3</Card.Title>
+                <Card.Title style={{ color: "#fff" }}>
+                  Volume Anomaly
+                </Card.Title>
               </div>
             </Card.Body>
           </Card>
         </Col>
+      </Row>
+      <Row>
+        <Col></Col>
+        <Col>
+          <Card
+            className={`Card-outer-monitor custom-card-body ${
+              selectedCard === 4 ? "selected" : ""
+            }`}
+            style={{
+              cursor: "pointer",
+              // minHeight: "100px",
+              margin: "10px",
+            }}
+            onClick={() => handleCardClick(4)}
+          >
+            <Card.Body>
+              <div
+                className={`card-content ${
+                  selectedCard === 4 ? "selected" : ""
+                }`}
+              >
+                <Card.Title
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Table Health
+                </Card.Title>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col></Col>
       </Row>
     </div>
   );

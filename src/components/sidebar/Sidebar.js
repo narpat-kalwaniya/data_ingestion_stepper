@@ -132,6 +132,25 @@ const Sidebar = () => {
                 </span>
               </a>
             </li>
+            <li
+              onClick={() => {
+                navigateRouter && navigateRouter("/monitoring");
+              }}
+            >
+              {/* <i class="fa-solid fa-book-open"></i> */}
+              <i className="fa-solid fa-watchman-monitoring"></i>
+              <a
+                // href="http://3.15.237.154:9002/ingestion"
+                className="side"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="side" style={{ marginLeft: "-5px" }}>
+                  {" "}
+                  Monitoring
+                </span>
+              </a>
+            </li>
             <div className="itemD" id="val">
               <p onClick={(e) => navigate && navigate("/execution")}>
                 {" "}
