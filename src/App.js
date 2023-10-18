@@ -20,6 +20,8 @@ import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQuality
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
 import DataObservability from "./components/DataObservability/DataObservability";
 import PipelineTypes from "./components/PipelineTypes";
+import SchemaAnomaly from "./components/DataObservability/SchemaAnomalies/SchemaAnomaly";
+import TableHealth from "./components/DataObservability/TableHealth/TableHealthMain";
 
 function App() {
   const [user, setUser] = useState();
@@ -196,6 +198,9 @@ function App() {
                   path="/dataObservability"
                   element={<DataObservability />}
                 />
+                <Route path="/schemaAnomaly" element={<SchemaAnomaly />} />
+                <Route path="/metricVisual" element={<metricVisual />} />
+                <Route path="/tableHealth" element={<TableHealth />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Route>
