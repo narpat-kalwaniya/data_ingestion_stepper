@@ -75,8 +75,8 @@ export default function ButtonPages(props) {
     {
       id: 10,
       name: "Snowflake Data Consumption Pipelines",
-      // name: "Data Observability",
-      // onClick: () => navigate("/dataObservability"),
+      onClick: () =>
+        navigate("/pipelines/snowflake Data Consumption pipelines"),
     },
   ];
 

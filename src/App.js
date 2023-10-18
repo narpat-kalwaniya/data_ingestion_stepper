@@ -19,6 +19,7 @@ import AddPipelineDataQuality from "./pages/AddPipelineDataQuality";
 import DataQualityCustomerDetailPage from "./components/Data_Quality/DataQualityCustomerDetailPage";
 import DataQualityStepper from "./components/Data_Quality/DataQualityStepper";
 import DataObservability from "./components/DataObservability/DataObservability";
+import VolumeAnomalyDetection from "./components/VolumeAnomalyDetection";
 import PipelineTypes from "./components/PipelineTypes";
 import SchemaAnomaly from "./components/DataObservability/SchemaAnomalies/SchemaAnomaly";
 import TableHealth from "./components/DataObservability/TableHealth/TableHealthMain";
@@ -197,6 +198,10 @@ function App() {
                 <Route
                   path="/dataObservability"
                   element={<DataObservability />}
+                />
+                <Route
+                  path="/pipelines/snowflake Data Consumption pipelines"
+                  element={<VolumeAnomalyDetection />}
                 />
                 <Route path="/schemaAnomaly" element={<SchemaAnomaly />} />
                 <Route path="/metricVisual" element={<metricVisual />} />

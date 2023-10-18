@@ -215,7 +215,7 @@ const SchemaAnomaly = () => {
             className="Card-outer custom-card-body "
             style={{
               minHeight: "135px",
-              marginBottom: "10px",
+              marginBottom: "10px", //height
             }}
           >
             <NewAttributesTrend />
