@@ -24,46 +24,94 @@ import {
 
 const data = [
   {
-    name: "Page A",
+    name: "Flights",
     uv: 4000,
-    pv: 2400,
+    pv: 55,
     amt: 2400,
   },
   {
-    name: "Page B",
+    name: "Tickets",
     uv: 3000,
-    pv: 1398,
+    pv: 2,
     amt: 2210,
   },
   {
-    name: "Page C",
+    name: "Boarding Passes",
     uv: 2000,
-    pv: 9800,
+    pv: 2,
     amt: 2290,
   },
   {
-    name: "Page D",
+    name: "Luggage",
     uv: 2780,
-    pv: 3908,
+    pv: 3,
     amt: 2000,
   },
   {
-    name: "Page E",
+    name: "Seat Availability",
     uv: 1890,
-    pv: 4800,
+    pv: 0,
     amt: 2181,
   },
   {
-    name: "Page F",
+    name: "Fuel",
     uv: 2390,
-    pv: 3800,
+    pv: 6,
     amt: 2500,
   },
   {
-    name: "Page G",
+    name: "Crew",
     uv: 3490,
-    pv: 4300,
+    pv: 1,
     amt: 2100,
+  },
+];
+
+const data_plot = [
+  {
+    name: "Oct 12, 2023",
+    actual: 2500,
+    upper_limit: 3000,
+    lower_limit: 2400,
+    predicted: 2555,
+  },
+  {
+    name: "Oct 11, 2023",
+    actual: 2500,
+    upper_limit: 3000,
+    lower_limit: 2400,
+    predicted: 2555,
+  },
+  {
+    name: "Oct 10, 2023",
+    actual: 2700,
+    upper_limit: 2900,
+    lower_limit: 2400,
+    predicted: 2555,
+  },
+  {
+    name: "Oct 9, 2023",
+    actual: 2500,
+    upper_limit: 3000,
+    lower_limit: 2400,
+  },
+  {
+    name: "Oct 8, 2023",
+    actual: 100,
+    upper_limit: 500,
+    lower_limit: 0,
+  },
+  {
+    name: "Oct 7, 2023",
+    actual: 1700,
+    upper_limit: 1800,
+    lower_limit: 1500,
+  },
+  {
+    name: "Oct 6, 2023",
+    actual: 2200,
+    upper_limit: 2400,
+    lower_limit: 2000,
   },
 ];
 
@@ -92,11 +140,11 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData("Oct 10, 2023", "Flights", "Passenger ID", "departure_date", 4),
+  createData("Oct 4, 2023", "Tickets", "Price", "class", 4),
+  createData("Oct 2, 2023", "Crew", "Crew ID", "type", 6),
+  createData("Oct 1, 2023", "Luggage", "Weight", "type", 4),
+  createData("Oct 1, 2023", "Seat Availability", "Flight No.", "class", 3),
 ];
 
 const VolumeAnomalyDetection = () => {
@@ -105,7 +153,7 @@ const VolumeAnomalyDetection = () => {
       <div className="volume-anomaly-header">
         <p className="font_styling_heading">Volume - Anomaly Detection </p>
         <p className="font_styling_content">
-          This Dashboards helps in identifying varaitions (Spikes and Drops) in
+          This Dashboards helps in identifying variations (Spikes and Drops) in
           Data Volume over a period of time.
         </p>
       </div>
@@ -113,7 +161,7 @@ const VolumeAnomalyDetection = () => {
       <div className="total_anomaly">
         <div className="total_anomaly_details">
           <p className="Anomaly_change_font_style_first">Total Anamalies</p>
-          <p className="Anomaly_change_font_style_second"> 60</p>
+          <p className="Anomaly_change_font_style_second"> 69</p>
         </div>
         <div className="total_anomaly_Link">
           <p className="font_styling_content">
@@ -153,7 +201,7 @@ const VolumeAnomalyDetection = () => {
               />
               <YAxis />
               <Tooltip />
-              <Legend />
+              {/* <Legend /> */}
               <CartesianGrid strokeDasharray="3 3" />
               <Bar dataKey="pv" fill="#8884d8" background={{ fill: "#eee" }} />
             </BarChart>
@@ -166,15 +214,12 @@ const VolumeAnomalyDetection = () => {
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                  <StyledTableCell align="right">Calories</StyledTableCell>
-                  <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                  <StyledTableCell align="right">
-                    Carbs&nbsp;(g)
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    Protein&nbsp;(g)
-                  </StyledTableCell>
+                  <StyledTableCell>Report Date</StyledTableCell>
+                  <StyledTableCell align="right">Source</StyledTableCell>
+                  <StyledTableCell align="right">Attributes</StyledTableCell>
+                  <StyledTableCell align="right">GroupBy</StyledTableCell>
+                  <StyledTableCell align="right">Actual</StyledTableCell>
+                  {/* <StyledTableCell align="right">Actual</StyledTableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -255,7 +300,7 @@ const VolumeAnomalyDetection = () => {
           <LineChart
             width={1000}
             height={200}
-            data={data}
+            data={data_plot.reverse()}
             margin={{
               top: 5,
               right: 30,
@@ -270,11 +315,13 @@ const VolumeAnomalyDetection = () => {
             <Legend />
             <Line
               type="monotone"
-              dataKey="pv"
+              dataKey="actual"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
             />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="lower_limit" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="upper_limit" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="predicted" stroke="green" />
           </LineChart>
         </div>
       </div>
