@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import { Card, Col, Row, Table } from "react-bootstrap";
 import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
-import TableHealthModal from "./TableHealthModal";
+import FreshnessModal from "./FreshnessModal";
+import SchemaModal from "./SchemaModel";
 
 const headers = [
   "Name",
@@ -17,15 +18,24 @@ const headers = [
   "Schema",
 ];
 const TableView = (props) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [freshnessModalVisible, setFreshnessModalVisible] = useState(false);
+  const [schemaModalVisible, setSchemaModalVisible] = useState(false);
 
-  const openModal = () => {
+  const openFreshnessModal = () => {
     console.log("Opening modal");
-    setModalVisible(true);
+    setFreshnessModalVisible(true);
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
+  const closeFreshnessModal = () => {
+    setFreshnessModalVisible(false);
+  };
+  const openSchemaModal = () => {
+    console.log("Opening modal");
+    setSchemaModalVisible(true);
+  };
+
+  const closeSchemaModal = () => {
+    setSchemaModalVisible(false);
   };
   return (
     <div>
@@ -72,7 +82,7 @@ const TableView = (props) => {
               </td>
               <td>
                 {row.SQL_rule == 0 ? (
-                  <span className="icon-green" onClick={openModal}>
+                  <span className="icon-green" onClick={openFreshnessModal}>
                     <FaCheck />
                   </span>
                 ) : row.SQL_rule == "p" ? (
@@ -93,7 +103,9 @@ const TableView = (props) => {
                     <FaPlus />
                   </span>
                 ) : (
-                  <span className="icon-red">{row.freshness}</span>
+                  <span className="icon-red" onClick={openFreshnessModal}>
+                    {row.freshness}
+                  </span>
                 )}
               </td>
               <td>
@@ -132,14 +144,20 @@ const TableView = (props) => {
                     <FaPlus />
                   </span>
                 ) : (
-                  <span className="icon-red">{row.schema}</span>
+                  <span className="icon-red" onClick={openSchemaModal}>
+                    {row.schema}
+                  </span>
                 )}
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <TableHealthModal show={modalVisible} onClose={closeModal} />
+      <FreshnessModal
+        show={freshnessModalVisible}
+        onClose={closeFreshnessModal}
+      />
+      <SchemaModal show={schemaModalVisible} onClose={closeSchemaModal} />
     </div>
   );
 };
