@@ -11,6 +11,7 @@ const SearchBarsRow = (props) => {
 
   const searchPipeHandler = (e) => {
     setSearchTerm(e.target.value);
+    console.log(props.pipelineLogs);
   };
 
   console.log(props.filteredPipeLogs);
