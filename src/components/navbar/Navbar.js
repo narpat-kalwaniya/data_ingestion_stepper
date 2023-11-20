@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebase";
 import "./navbar.scss";
+import tigerLogo from "./tigerLogo.png";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
@@ -91,8 +92,9 @@ const Navbar = (props) => {
         style={{ background: "white", position: "absolute", margin: "5px 5px" }}
       >
         <img
-          src="https://www.tigeranalytics.com/wp-content/uploads/logo.png"
-          width={100}
+          // src="https://www.tigeranalytics.com/wp-content/uploads/logo.png"
+          src={tigerLogo}
+          width={121}
           height={50}
           alt=""
         />
@@ -110,7 +112,7 @@ const Navbar = (props) => {
               style={{
                 top: "16px",
                 left: "220px",
-                margin: "0 auto 0 90px",
+                margin: "0 auto 0 110px",
                 height: "19px",
                 textAlign: "left",
                 paddingRight: "60px",
