@@ -117,9 +117,11 @@ const DataObservability = () => {
   };
 
   const filterData = (searchTerm) => {
-    const filteredItems = pipelineLogs.filter((item) =>
-      item.pipeline_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredItems = pipelineLogs
+      .slice(0, 5)
+      .filter((item) =>
+        item.pipeline_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     setFilteredPipeLogs(filteredItems);
   };
 
@@ -139,6 +141,7 @@ const DataObservability = () => {
             <SearchBarsRow
               filterData={filterData}
               filteredPipeLogs={filteredPipeLogs}
+              pipelineLogs={pipelineLogs}
             />
             {/* <Counter pipelineLogs={pipelineLogs} /> */}
           </Col>

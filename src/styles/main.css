@@ -394,4 +394,26 @@ h5 {
 .custom-borderless-rows td {
   border: none;
   border-top: 1px solid #dee2e6; /* Set the desired border color and style */
+}
+
+.metric-card {
+  width: 200px;
+  min-height: 300px;
+  border: none !important;
+  border-radius: 0px !important;
+  margin-left: 30px;
+}
+
+.metric-list {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background-color: #eef5f9;
+  padding: 10px;
+  color: #4f4f4f;
+  cursor: pointer;
+}
+
+.metric-list:hover {
+  background-color: white;
 }/*# sourceMappingURL=main.css.map */

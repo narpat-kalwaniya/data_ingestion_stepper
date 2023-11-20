@@ -25,6 +25,7 @@ import SchemaAnomaly from "./components/DataObservability/SchemaAnomalies/Schema
 import TableHealth from "./components/DataObservability/TableHealth/TableHealthMain";
 import DataFreshness from "./components/DataFreshness/DataFreshness";
 import Monitoring from "./components/DataFreshness/Monitoring/Monitoring";
+import MetricPlotRoot from "./components/DataObservability/MetricPlot/MetricPlotRoot";
 
 function App() {
   const [user, setUser] = useState();
@@ -223,6 +224,7 @@ function App() {
                   path="/monitoring/volumeAnomaly"
                   element={<VolumeAnomalyDetection />}
                 />
+                <Route path="/MetricPlot" element={<MetricPlotRoot />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Route>
